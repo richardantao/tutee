@@ -1,0 +1,20 @@
+[
+	{
+		"id": 1,
+		moduleId: 1,
+		"title": "Capstone Preliminary Report",
+		type: "Report"
+	},
+	{
+		"id": 2,
+		moduleId: 3,
+		"title": "Chapter 2 Quiz Review",
+		type: "Study"
+	},
+	{
+		"id": 3,
+		moduleId: 3,
+		"title": "Chapter 1 Notes",
+		type: "Notes"
+	}
+]

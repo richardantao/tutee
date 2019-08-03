@@ -1,0 +1,17 @@
+import React, {Component} from "react";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import styles from "./LoadingColumn.css";
+
+export default class LoadingColumn extends Component {
+    render() {
+        return (
+            <Loader
+                type="TailSpin"
+                color="#00BBFF"
+                height={125}
+                width={125}
+            />
+        )   
+    }
+}

@@ -1,0 +1,20 @@
+[
+	{
+		"id": 1,
+		"fName": "Richard",
+		"lName": "Antao",
+		"email": "rantao@uwo.ca"
+	},
+	{
+		"id": 2,
+		"fName": "Victoria",
+		"lName": "Hume",
+		"email": "vhume@uwo.ca"	
+	},
+	{
+		"id": 3,
+		"fName": "Rayna",
+		"lName": "Moore",
+		"email": "rmoore56@uwo.ca"
+	}
+]

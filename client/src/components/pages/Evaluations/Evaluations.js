@@ -1,0 +1,115 @@
+import React, { Component } from "react";
+import axios from "axios";
+import { Container, Row, Col} from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import Nav from "../../organisms/Nav";
+import Header from "../../organisms/Header";
+import Form from "../../molecules/Form";
+import SelectReact from "../../atoms/Select";
+import { Button } from "react-bootstrap";
+import styles from "./Evaluations.css";
+
+export default class Evaluations extends Component{
+	constructor(props) {
+		super(props);
+		
+		this.state= {
+			addingEval: false,
+			evals: []
+		}
+	}
+	
+	componentDidMount() {
+
+		this.setState({
+			
+		});
+
+		axios.get("").then(res => {
+			const evals = res.evals;
+			this.setState({
+				
+			});
+		});
+
+	}
+
+	render() {
+		let { evals } = this.state;
+
+		if (evals === false) {
+			return (
+				<React.Fragment>
+					<Nav />
+					<Container id="evaluations">
+						<Row className="header">
+							<Col>
+								<Header 
+									header="Evaluations"
+								/> 
+							</Col>
+							<Col>
+								<Button href="/evaluations/create"><FontAwesomeIcon icon={faPlus} /> New Evaluation</Button>
+							</Col>
+						</Row> <hr/>
+						<Row>
+							<Col>
+								<SelectReact placeholder="Filter by Course.."/>
+							</Col>
+							<Col>
+								<Button href="/evaluations" className="current">Current</Button>
+								<Button href="/evaluations/past" className="past">Past</Button>
+							</Col>	
+							<hr/>
+						</Row>
+					</Container>
+				</React.Fragment>
+			)
+		} else {
+			return (
+				<React.Fragment>
+					<Nav />
+					<Container id="evaluations">
+						<Row className="header">
+							<Col>
+								<Header 
+									header="Evaluations"
+								/> 
+							</Col>
+							<Col>
+								<Button href="/evaluations/newEvaluation"><FontAwesomeIcon icon={faPlus} /> New Evaluation</Button>
+							</Col>
+						</Row> <hr/>
+						<Row>
+							<Col>
+								<Row>
+									<Col>
+										<SelectReact placeholder="Filter by Course.."/>
+									</Col>
+									<Col>
+										<Button href="/evaluations" className="current">Current</Button>
+										<Button href="/evaluations/past" className="past">Past</Button>
+									</Col>
+								</Row>
+								<hr/>
+							</Col>
+							<Col>
+								<Form 
+									header="Evaluation" 
+									action="/NewEvaluation" 
+									page="/evaluations"
+									course="evaluationsCourse"
+									module="evaluationsModule"
+									deadline="evaluationsDeadline"
+									type="evaluationsType"
+									notes="evaluationsNotes"
+								/>
+							</Col>
+						</Row>
+					</Container>
+				</React.Fragment>
+			)
+		}
+	}
+}

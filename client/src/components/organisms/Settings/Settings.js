@@ -1,0 +1,12 @@
+import React/*, { Component }*/ from "react";
+import { render } from 'react-dom';
+
+const Settings = () => {
+	return(
+		
+	)
+}
+
+render(<Settings />, document.querySelectorAll(""));
+
+export default Settings;

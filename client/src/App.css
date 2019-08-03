@@ -1,0 +1,31 @@
+/* #0083B3 #FFC400*/
+
+html {
+    box-sizing: border-box;
+    background: #FFFFFF;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    overflow: hidden;
+} 
+
+*, *:before, *:after {
+	box-sizing: inherit;
+} /* border box fix*/
+
+body {
+	margin: 0;
+}
+
+.btn {
+	background-color: #00BBFF;
+	border-color: #00BBFF;
+}
+
+nav .btn {
+	background-color: transparent;
+	border-color: transparent;
+}
+
+nav .btn:hover {
+	background-color: #00BBFF;
+	border-color: transparent;
+}

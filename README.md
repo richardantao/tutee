@@ -42,11 +42,17 @@ The application has the following directory structure:
 |
 |      +--`package.json`  
 +--`/server`
-|
-|   +--`/controllers`
-|
-|   +--`/models`
-|
+|  
+
+|  
+   +--`/controllers`  
+   
+|  
+
+|  
+   +--`/models`
+|  
+
 |   +--`/routes` 
 |
 |   +--`app.js`

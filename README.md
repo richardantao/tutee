@@ -59,6 +59,14 @@ All releases on github mark the completion of a dev cycle, and signify a pass-ov
 
 ## Changelog
 
+## v0.2.0 -
+
+### Added
+* 
+
+### Changed
+* 
+
 ## v0.1.0 - 04-08-2019
 
 ### Added

@@ -7,7 +7,6 @@
 .pnp.js
 
 # configurations
-/server/bin
 /server/config/config.json
 /client/.env
 /server/.env

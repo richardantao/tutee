@@ -58,8 +58,6 @@ The application has the following directory structure:
 
 ## v0.1.0
 
-Initial Features
-
 ### Dashboard 
 * User can view all classes for the day
 * All tasks within the upcoming week are displayed

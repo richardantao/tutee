@@ -10,9 +10,12 @@ const createError = require("http-errors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 
+const dotenv = require('dotenv').config();
+
 /* create app instance and define port */
-const app = express(),
-port = process.env.port || 3001;
+const app = express();
+const port = process.env.PORT || 3001;
+const env = process.env.NODE_ENV;
 
 const moment = require('moment');
 moment().format(); // move these two statements to respective files where date validation is required
@@ -89,7 +92,7 @@ app.use(function(err, req, res, next) {
 
 /* Bootup */
 app.listen(port, function() {
-	console.log("The server is up and running on port " + port);
+	console.log(`Your ${env} server is up and running on port ${port}`);
 });
 
 module.exports = app;

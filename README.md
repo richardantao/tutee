@@ -12,44 +12,69 @@ The Node back-end is stuctured using MVC architecture, and the front-end organiz
 
 The application has the following directory structure:
 
-|-```/client```  
+|-`/client`  
 
-|--```/public```  
-  
-|---```/assets```  
+|--`/public`  
 
-|----```/icons```  
+|---`/assets`  
 
-|---```index.html```  
+|----`/icons`  
 
-|--```/src```  
+|---`index.html`  
 
-|---```/components```  
+|--`/src` 
 
-|----```/atoms```  
+|---`/components` 
 
-|----```/molecules```  
+|----`/atoms`  
 
-|----```/organisms```  
+|----`/molecules`  
 
-|----```/pages```  
+|----`/organisms`  
 
-|---```App.js```  
+|----`/pages`  
 
-|---```App.css```  
+|---`App.js`  
 
-|---```index.js```  
+|---`App.css`  
 
-|--```package.json```  
+|---`index.js` 
 
-|-```/server```  
+|--`package.json`  
 
-|--```/controllers```  
+|-`/server`
 
-|--```/models```  
+|--`/controllers`
 
-|--```/routes```  
+|--`/models`
 
-|--```app.js```  
+|--`/routes` 
 
-|--```package.json```  
+|--`app.js`
+
+|--`package.json`  
+
+## Changelog
+
+## v0.1.0
+
+Initial Features
+
+### Dashboard 
+* User can view all classes for the day
+* All tasks within the upcoming week are displayed
+* All evaluations within the upcoming 10 days are displayed
+
+### Tasks
+*
+*
+*
+
+### Evaluations
+*
+
+### Courses
+*
+
+### Settings
+*

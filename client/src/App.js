@@ -20,18 +20,18 @@ import Help from "./components/pages/Help";
 const App = () => {
 	return (
 			<Switch>
-				<Route path="/Dashboard" component={Dashboard}/>
-				<Route path="/Calendar" component={Calendar}/>
-				<Route path="/Tasks" component={Tasks}/>
-				<Route path="/Evaluations" component={Evaluations}/>
-				<Route path="/Courses" component={Courses}/>
-				<Route path="/Search" component={Search}/>
-				<Route path="/Settings" component={Settings}/>
-					<Route path="Settings/Profile" component={Profile}/>
-					<Route path="Settings/Password" component={Password}/>
-					<Route path="Settings/Preferences" component={Preference}/>
-					<Route path="Settings/Integrations" component={Integration}/>
-				<Route path="/Help" component={Help}/>
+				<Route name="dashboard" path="/Dashboard" component={Dashboard}/>
+				<Route name="calendar" path="/Calendar" component={Calendar}/>
+				<Route name="tasks" path="/Tasks" component={Tasks}/>
+				<Route name="evaluations" path="/Evaluations" component={Evaluations}/>
+				<Route name="courses" path="/Courses" component={Courses}/>
+				<Route name="search" path="/Search" component={Search}/>
+				<Route name="settings" path="/Settings" component={Settings}/>
+					<Route name="profile" path="Settings/Profile" component={Profile}/>
+					<Route name="password" path="Settings/Password" component={Password}/>
+					<Route name="preferences" path="Settings/Preferences" component={Preference}/>
+					<Route name="integrations" path="Settings/Integrations" component={Integration}/>
+				<Route name="help" path="/Help" component={Help}/>
 			</Switch>
 	)
 }

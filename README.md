@@ -12,47 +12,46 @@ The Node back-end is stuctured using MVC architecture, and the front-end organiz
 
 The application has the following directory structure:
 
-|-`/client`  
++--`/client`  
+|
+|   +--`/public`  
+|
+|      +--`/assets`  
+|
+|         +--`/icons`  
+|
+|      +--`index.html`  
+|
+|   +--`/src` 
+|
+|      +--`/components` 
+|
+|         +--`/atoms`  
+|
+|         +--`/molecules`  
+|
+|         +--`/organisms`  
+|
+|         +--`/pages`  
+|
+|      +--`App.js`  
+|
+|      +--`App.css`  
+|
+|      +--`index.js` 
+|
+|      +--`package.json`  
++--`/server`
+|
+|   +--`/controllers`
 
-|--`/public`  
+|   +--`/models`
 
-|---`/assets`  
+|   +--`/routes` 
 
-|----`/icons`  
+|   +--`app.js`
 
-|---`index.html`  
-
-|--`/src` 
-
-|---`/components` 
-
-|----`/atoms`  
-
-|----`/molecules`  
-
-|----`/organisms`  
-
-|----`/pages`  
-
-|---`App.js`  
-
-|---`App.css`  
-
-|---`index.js` 
-
-|--`package.json`  
-
-|-`/server`
-
-|--`/controllers`
-
-|--`/models`
-
-|--`/routes` 
-
-|--`app.js`
-
-|--`package.json`  
+|   +--`package.json`  
 
 ## Changelog
 

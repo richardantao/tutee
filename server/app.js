@@ -58,7 +58,7 @@ const settingsRouter= require("./routes/settings");
 
 /* Middleware - preprocess requests */
 app.use(cors());
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

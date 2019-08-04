@@ -9,6 +9,8 @@
 # configurations
 /server/bin
 /server/config
+/client/.env
+/server/.env
 
 # packages
 /client/src/json

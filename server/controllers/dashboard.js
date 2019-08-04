@@ -2,7 +2,7 @@
 const Classes = require("../models/Classes");
 const Tasks = require("../models/Tasks");
 const Evals = require("../models/Evaluations");
-const { body, validationResult, filter } = require("express-validator");
+const { check, validationResult, filter } = require("express-validator");
 
 exports.index = function(req, res) {
 	const error = validationResult(req);
@@ -10,7 +10,7 @@ exports.index = function(req, res) {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		return res.sendFile("../../client/public/index.html");
+		return res.send("this route is working");
 	}
 };
 

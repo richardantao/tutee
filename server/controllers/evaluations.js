@@ -3,16 +3,24 @@ const { check, validationResult, filter } = require("express-validator");
 
 // GET request on the /Evaluations path
 exports.index = function(req, res) {
-	
-	// Sequelize SELECT using Find(), 
-	
-	// return selected objects as JSON to the client to render by respective jQuery function
-	return res.status(200).json({});
+	const errors = validationResult(req);
+
+	if (!errors.isEmpty()) {
+		return res.status(404).json({ errors: errors.array() });
+	} else {
+		return res.status(200).send("this route is working");
+	}
 }
 
 // filter evals to get evals with a past date
 exports.evalsPast = function(req, res) {
+	const errors = validationResult(req);
 
+	if (!errors.isEmpty()) {
+		return res.status(404).json({ errors: errors.array() });
+	} else {
+		return res.status(200).send("so is this one");
+	}
 }
 
 // GET request when user attempts to retrieve a specific evaluation

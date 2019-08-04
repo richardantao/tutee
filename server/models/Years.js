@@ -1,5 +1,5 @@
 // import Sequelize dependencies
-const config = require("../config");
+const config = require("../config/config");
 const sequelize = config.sequelize;
 const Sequelize = config.Sequelize;
 const Model = Sequelize.Model;

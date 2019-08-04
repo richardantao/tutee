@@ -25,13 +25,17 @@ exports.dashboardClassEdit = function(req, res) {
 	}
 };
 
-exports.dashboardClassDelete = [
-	
-	
-	function(req, res) {
-		
+exports.dashboardClassDelete = function(req, res) {
+
+		const error = validationResult(req);
+
+		if (!errors.isEmpty()) {
+			return res.status(422).json({ errors: errors.array() });
+		} else {
+			
+		}
 	}
-]
+
 
 exports.dashboardTaskEdit = function(req, res) {
 	const error = validationResult(req);
@@ -53,25 +57,18 @@ exports.dashboardTaskCreateGet = function(req, res) {
 	}
 }
 
-exports.dashboardTaskCreatePost = [
-	
-	function(req, res) {
+exports.dashboardTaskCreatePost = function(req, res) {
 		
-	}
-]
+}
 
-exports.dashboardTaskUpdate = [
-	
-	function(req, res) {
+exports.dashboardTaskUpdate = function(req, res) {
 		
-	}
-]
-exports.dashboardTaskDelete = [
-	
-	function(req, res) {
+}
+
+exports.dashboardTaskDelete = function(req, res) {
 		
-	}
-]
+}
+
 
 exports.dashboardEvalEdit = function(req, res) {
 	const error = validationResult(req);
@@ -81,20 +78,16 @@ exports.dashboardEvalEdit = function(req, res) {
 	} else {
 		
 	}
-};
+}
 
-exports.dashboardEvalUpdate = [
-	
-	function(req, res) {
+exports.dashboardEvalUpdate = function(req, res) {
 		
 	}
-]
-exports.dashboardEvalDelete = [
-	
-	function(req, res) {
+
+exports.dashboardEvalDelete = function(req, res) {
 		
-	}
-]
+}
+
 
 
 

@@ -11,3 +11,5 @@ router.get("/week", controller.calendarWeek);
 router.get("/day", controller.calendarDay);
 
 router.get("/agenda", controller.calendarAgenda);
+
+module.exports = router;

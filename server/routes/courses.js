@@ -57,7 +57,7 @@ router.get("/:moduleId/edit", controller.modulesEdit);
 router.get("/:userId/create", controller.modulesCreateGet);
 
 // POST request to create new Module
-router.post("/create", controller.modulesCreate);
+router.post("/create", controller.modulesCreatePost);
 
 // PUT request to update current Module
 router.put("/:moduleId/update", controller.modulesUpdate);

@@ -57,28 +57,25 @@ exports.tasksCreateGet = function(req, res) {
 }
 
 // POST request after the user SUBMITS the "New Term" form
-exports.tasksCreatePost = [
+exports.tasksCreatePost = function(req, res) {
+		// validate fields
+		check("course").isLength({ min:1 }).trim().withMessage("You must choose a course for this task");
+		check("module").isLength({ min:1 }).trim().withMessage("You must choose a module");
+		check("title").isLength({ min:1 }).trim().withMessage("Title of task must be specified");
+		check("type").isLength({ min:1 }).trim().withMessage("Type of task must be specified");
+		check("deadline").isLength({ min:1 }).trim().withMessage("Deadline must be specified").toDate();
+		check("completion").isNumeric().trim().withMessage("Your input is invalid. Please enter a number between 0 and 100");
+		check("note")
 	
-	// validate fields
-	check.("course").isLength({ min:1 }).trim().withMessage("You must choose a course for this task"),
-	check.("module").isLength({ min:1 }).trim().withMessage("You must choose a module"),
-	check("title").isLength({ min:1 }).trim().withMessage("Title of task must be specified"),
-	check("type").isLength({ min:1 }).trim().withMessage("Type of task must be specified"),
-	check("deadline").isLength({ min:1 }).trim().withMessage("Deadline must be specified").toDate(),
-	check("completion").isNumeric().trim().withMessage("Your input is invalid. Please enter a number between 0 and 100"),
-	check("note"),
-	
-	// sanitize fields
-	filter("course").escape(),
-	filter("module").escape(),
-	filter("title").escape(),
-	filter("type").escape(),
-	filter("deadline").escape(),
-	filter("completion").escape(),
-	filter("note").escape(),
-	
-	// run function after validation and sanitization
-	function(req, res) {
+		// sanitize fields
+		filter("course").escape();
+		filter("module").escape();
+		filter("title").escape();
+		filter("type").escape();
+		filter("deadline").escape();
+		filter("completion").escape();
+		filter("note").escape();
+
 		const errors = validationResult(req);
 		
 		// check for errors and render JSON error if true
@@ -98,72 +95,64 @@ exports.tasksCreatePost = [
 			});
 		}
 	}
-];
 
 // PUT request after the user SAVES the Tasks editer form 
-exports.tasksUpdatePost = [
-	
+exports.tasksUpdate = function(req, res, next) {
 	// validate fields
-	check.("course").isLength({ min:1 }).trim().withMessage("You must choose a course for this task"),
-	check.("module").isLength({ min:1 }).trim().withMessage("You must choose a module"),
-	check("title").isLength({ min:1 }).trim().withMessage("Title of task must be specified"),
-	check("type").isLength({ min:1 }).trim().withMessage("Type of task must be specified"),
-	check("deadline").isLength({ min:1 }).trim().withMessage("Deadline must be specified").toDate(),
-	check("completion").isNumeric().trim().withMessage("Your input is invalid. Please enter a number between 0 and 100"),
-	check("note"),
-	
+	check("course").isLength({ min:1 }).trim().withMessage("You must choose a course for this task");
+	check("module").isLength({ min:1 }).trim().withMessage("You must choose a module");
+	check("title").isLength({ min:1 }).trim().withMessage("Title of task must be specified");
+	check("type").isLength({ min:1 }).trim().withMessage("Type of task must be specified");
+	check("deadline").isLength({ min:1 }).trim().withMessage("Deadline must be specified").toDate();
+	check("completion").isNumeric().trim().withMessage("Your input is invalid. Please enter a number between 0 and 100");
+	check("note");
+
 	// sanitize fields
-	filter("course").escape(),
-	filter("module").escape(),
-	filter("title").escape(),
-	filter("type").escape(),
-	filter("deadline").escape(),
-	filter("completion").escape(),
-	filter("note").escape(),
-	
-	function(req, res, next) {
-		const errors = validationResult(req);
+	filter("course").escape();
+	filter("module").escape();
+	filter("title").escape();
+	filter("type").escape();
+	filter("deadline").escape();
+	filter("completion").escape();
+	filter("note").escape();
+
+	const errors = validationResult(req);
 		
-		if(!errors.isEmpty()) {
-			res.status(422).json({ errors: errors.array() });
-		} else {
-			tasks.find({
-      			where: { id: req.params.id }
-    		}).then(function(tasks) {
-        		return tasks.updateAttributes({
-					course: req.body.course,
-					module: req.body.module,
-					title: req.body.title,
-					type: req.body.type,
-					deadline: req.body.deadline,
-					completion: req.body.completion,
-					note: req.body.note
-				})
-      		}).then(function(updatedTask) {
-        		res.status(204).json(updatedTask).redirect(301, "/"); // verify redirect status code during unit testing;
-      		});
-		}
-	}	
-];
+	if(!errors.isEmpty()) {
+		res.status(422).json({ errors: errors.array() });
+	} else {
+		tasks.find({
+     		where: { id: req.params.id }
+    	}).then(function(tasks) {
+        	return tasks.updateAttributes({
+				course: req.body.course,
+				module: req.body.module,
+				title: req.body.title,
+				type: req.body.type,
+				deadline: req.body.deadline,
+				completion: req.body.completion,
+				note: req.body.note
+			})
+      	}).then(function(updatedTask) {
+        	res.status(204).json(updatedTask).redirect(301, "/"); // verify redirect status code during unit testing;
+      	});
+	}
+}	
 
 // DELETE request after the user DELETES the Tasks editer form
-exports.tasksDelete = [
-	
-	
-	function(req, res) {
-		const errors = validationResult(req);
+exports.tasksDelete = function(req, res) {
+	const errors = validationResult(req);
 		
-		if(!errors.isEmpty()) {
-			return res.status(422).json({ errors: errors.array() });
-		} else {
-			tasks.destroy({
-				where: { id: req.params.id }
-			}).then(function(deletedTask) {
-				return res.status(204).json(deletedTask).redirect(301, "/"); // verify redirect status code during unit testing;
-			});
-		}
+	if(!errors.isEmpty()) {
+		return res.status(422).json({ errors: errors.array() });
+	} else {
+		tasks.destroy({
+			where: { id: req.params.id }
+		}).then(function(deletedTask) {
+			return res.status(204).json(deletedTask).redirect(301, "/"); // verify redirect status code during unit testing;
+		});
 	}
-];
+}
 
 
 

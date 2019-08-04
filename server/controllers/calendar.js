@@ -24,6 +24,7 @@ exports.calendarMonth = function(req, res) {
 		
 		// return status code and selected object as JSON to the client to render
 		return res.status(200).json();
+	}
 }
 
 exports.calendarWeek = function(req, res) {
@@ -36,6 +37,7 @@ exports.calendarWeek = function(req, res) {
 		
 		// return status code and selected object as JSON to the client to render
 		return res.status(200).json();
+	}
 }
 
 exports.calendarDay = function(req, res) {
@@ -48,6 +50,7 @@ exports.calendarDay = function(req, res) {
 		
 		// return status code and selected object as JSON to the client to render
 		return res.status(200).json();
+	}
 }
 	
 exports.calendarAgenda = function(req, res) {
@@ -62,5 +65,3 @@ exports.calendarAgenda = function(req, res) {
 		return res.status(200).json();
 	}
 }
-
-

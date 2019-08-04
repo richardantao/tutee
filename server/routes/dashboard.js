@@ -14,8 +14,11 @@ router.delete("/classes/:classId/delete", controller.dashboardClassDelete);
 // GET specific task selected by user
 router.get("/tasks/:taskId/edit", controller.dashboardTaskEdit);
 
+// GET data for user to POST new task
+router.get("/tasks/create", controller.dashboardTaskCreateGet);
+
 // POST new task created by user
-router.post("/tasks/create", controller.dashboardTaskCreate);
+router.post("/tasks/create", controller.dashboardTaskCreatePost);
 
 // PUT task selected by user
 router.put("/tasks/:taskId/update", controller.dashboardTaskUpdate);

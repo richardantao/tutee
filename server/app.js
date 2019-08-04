@@ -10,6 +10,7 @@ const createError = require("http-errors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 
+/* create app instance and define port */
 const app = express(),
 port = process.env.port || 3001;
 
@@ -17,15 +18,15 @@ const moment = require('moment');
 moment().format(); // move these two statements to respective files where date validation is required
 
 //// import routes
-// const indexRouter = require("./routes/index");
-// const usersRouter= require("./routes/users");
-// const dashboardRouter= require("./routes/dashboard");
-// const calendarRouter= require("./routes/calendar");
-// const tasksRouter= require("./routes/tasks");
-// const evaluationsRouter= require("./routes/evaluations");
+const indexRouter = require("./routes/index");
+const usersRouter= require("./routes/users");
+const dashboardRouter= require("./routes/dashboard");
+const calendarRouter= require("./routes/calendar");
+const tasksRouter= require("./routes/tasks");
+const evaluationsRouter= require("./routes/evaluations");
 // const coursesRouter= require("./routes/courses");
-// const searchRouter= require("./routes/search");
-// const settingsRouter= require("./routes/settings");
+const searchRouter= require("./routes/search");
+const settingsRouter= require("./routes/settings");
 
 /* Configuration - configure system and custom settings */ 
 
@@ -56,15 +57,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "./public")));
 
 // routes middleware
-// app.use("", indexRouter);
-// app.use("/users", usersRouter);
-// app.use("/dashboard", dashboardRouter);
-// app.use("/calendar", calendarRouter);
-// app.use("/tasks", tasksRouter);
-// app.use("/evaluations", evaluationsRouter);
+app.use("", indexRouter);
+app.use("/users", usersRouter);
+app.use("/dashboard", dashboardRouter);
+app.use("/calendar", calendarRouter);
+app.use("/tasks", tasksRouter);
+app.use("/evaluations", evaluationsRouter);
 // app.use("/courses", coursesRouter);
-// app.use("/search", searchRouter);
-// app.use("/settings", settingsRouter);
+app.use("/search", searchRouter);
+app.use("/settings", settingsRouter);
 
 app.set('views', '../client/src/components');
 app.set('view engine', 'jsx');

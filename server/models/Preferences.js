@@ -1,7 +1,11 @@
+// import configurations
 const config = require("../config/config");
 const sequelize = config.sequelize;
 const Sequelize = config.Sequelize;
 const Model = Sequelize.Model;
+
+// import related models
+const Users = require("./Users");
 
 class Preferences extends Model{}
 Preferences.init({

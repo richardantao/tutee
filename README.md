@@ -54,6 +54,9 @@ The application has the following directory structure:
 |
 |   +--`package.json`  
 
+## Version Control
+All releases on github mark the completion of a dev cycle, and signify a pass-over to the CI environment. All code in the CI, testing, staging, and production environments stored on authorized local machines.
+
 ## Changelog
 
 ## v0.1.0
@@ -76,3 +79,4 @@ The application has the following directory structure:
 
 ### Settings
 *
+

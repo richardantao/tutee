@@ -16,6 +16,9 @@
 /client/package-lock.json
 /server/package-lock.json
 
+# migrations
+/server/seeds
+
 # old files
 /client-template
 

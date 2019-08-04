@@ -44,13 +44,13 @@ The application has the following directory structure:
 +--`/server`
 |
 |   +--`/controllers`
-
+|
 |   +--`/models`
-
+|
 |   +--`/routes` 
-
+|
 |   +--`app.js`
-
+|
 |   +--`package.json`  
 
 ## Changelog

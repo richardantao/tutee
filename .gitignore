@@ -8,7 +8,7 @@
 
 # configurations
 /server/bin
-/server/config
+/server/config/config.json
 /client/.env
 /server/.env
 

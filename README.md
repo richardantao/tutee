@@ -1,6 +1,6 @@
 # Tutee
 
-This repository holds all of Tutee's application files.
+This repository holds all of Tutee's application dev files.
 
 ## Application Structure
 
@@ -55,28 +55,18 @@ The application has the following directory structure:
 |   +--`package.json`  
 
 ## Version Control
-All releases on github mark the completion of a dev cycle, and signify a pass-over to the CI environment. All code in the CI, testing, staging, and production environments stored on authorized local machines.
+All releases on github mark the completion of a dev cycle, and signify a pass-over to the CI environment. Version controls at the
 
 ## Changelog
 
-## v0.1.0
+## v0.1.0 - 04-08-2019
 
-### Dashboard 
-* User can view all classes for the day
-* All tasks within the upcoming week are displayed
-* All evaluations within the upcoming 10 days are displayed
+### Added
+* Project to Github
+* .env files
+* Version control
+* Changelog to README.md
+* Proxy for Node backend and React frontend
 
-### Tasks
-*
-*
-*
-
-### Evaluations
-*
-
-### Courses
-*
-
-### Settings
-*
-
+### Changed
+* Moved configurations to .env files

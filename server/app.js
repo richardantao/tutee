@@ -25,7 +25,7 @@ const db = {
   	host: process.env.DB_HOST
 }
 
-const config = require("./config");
+const config = require("./config/config");
 
 const connection = mysql.createConnection({
 		host: db.host,

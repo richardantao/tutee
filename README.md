@@ -62,9 +62,19 @@ All releases on github mark the completion of a dev cycle, and signify a pass-ov
 ## v0.2.0 -
 
 ### Added
-* 
+* `server/config`
+* `server/migrations`
+* `server/seeds`
+* conditional configurations in `server/config/config.js`
+
+* models
+* controllers
+* routers
+* views
 
 ### Changed
+* Moved `server/config.js` to `server/config/config.js`
+
 * 
 
 ## v0.1.0 - 04-08-2019

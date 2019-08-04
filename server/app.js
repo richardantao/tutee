@@ -9,16 +9,39 @@ const cors = require("cors");
 const createError = require("http-errors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
-
 const dotenv = require('dotenv').config();
-
-/* create app instance and define port */
-const app = express();
-const port = process.env.PORT || 3001;
-const env = process.env.NODE_ENV;
 
 const moment = require('moment');
 moment().format(); // move these two statements to respective files where date validation is required
+
+/* create app instance and define env variables */
+const app = express();
+const port = process.env.PORT || 3001;
+const env = process.env.NODE_ENV;
+const db = {
+	name: process.env.DB_NAME,
+  	user: process.env.DB_USER,
+  	password: process.env.DB_PASSWORD,
+  	host: process.env.DB_HOST
+}
+
+const config = require("./config/config");
+
+const connection = mysql.createConnection({
+		host: db.host,
+		user: db.user,
+		password: db.password,
+		database: db.name
+	});
+
+connection.connect(function(err) {
+	if (err) {
+		console.log("Your connection to the database failed");
+		throw err;
+	} else {
+		console.log(`Your connection to the ${env} database was successful`)
+	}
+});
 
 //// import routes
 const indexRouter = require("./routes/index");
@@ -32,24 +55,6 @@ const searchRouter= require("./routes/search");
 const settingsRouter= require("./routes/settings");
 
 /* Configuration - configure system and custom settings */ 
-
-const config = require("./config/config");
-
-const connection = mysql.createConnection({
-		host: "localhost",
-		user: "root",
-		password: "realpimp69!",
-		database: "tutee"
-	});
-
-connection.connect(function(err) {
-	if (err) {
-		console.log("Your connection to the database failed");
-		throw err;
-	} else {
-		console.log("Your connection to the database was successful")
-	}
-});
 
 /* Middleware - preprocess requests */
 app.use(cors());

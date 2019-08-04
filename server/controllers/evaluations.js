@@ -7,7 +7,7 @@ exports.index = function(req, res) {
 	// Sequelize SELECT using Find(), 
 	
 	// return selected objects as JSON to the client to render by respective jQuery function
-	return res.status(200).json();
+	return res.status(200).json({});
 }
 
 // filter evals to get evals with a past date

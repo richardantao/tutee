@@ -25,7 +25,7 @@ const db = {
   	host: process.env.DB_HOST
 }
 
-const config = require("./config/config");
+const config = require("./config");
 
 const connection = mysql.createConnection({
 		host: db.host,
@@ -62,7 +62,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "./public")));
+app.use(express.static("public"));
 
 // routes middleware
 app.use("", indexRouter);
@@ -74,10 +74,6 @@ app.use("/evaluations", evaluationsRouter);
 // app.use("/courses", coursesRouter);
 app.use("/search", searchRouter);
 app.use("/settings", settingsRouter);
-
-app.set('views', '../client/src/components');
-app.set('view engine', 'jsx');
-app.engine('jsx', require('express-react-views').createEngine());
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

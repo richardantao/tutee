@@ -10,7 +10,7 @@ exports.index = function(req, res) {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		
+		return res.sendFile("../../client/public/index.html");
 	}
 };
 

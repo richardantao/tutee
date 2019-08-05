@@ -28,7 +28,7 @@ All releases on github mark the completion of a dev cycle, and signify a pass-ov
 
 ### Changed
 * Moved `server/config.js` to `server/config/config.js`
-* Moved index routes and view renders from `server/controllers` to `client/components/pages` 
+* Moved index routes and view renders from `server/controllers` to `client/components/organisms/{data}Column` 
 
 ### Removed
 * Folder stucture in `README.md` 

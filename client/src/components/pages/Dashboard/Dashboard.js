@@ -10,19 +10,28 @@ import Counter from "../../molecules/Counter";
 import DateDisplay from "../../atoms/Date";
 import { Container, Row, Col} from "reactstrap";
 import styles from "./Dashboard.css";
+import axios from "axios";
 
 export default class Dashboard extends Component {
 	constructor(props) {
 		super(props);
 		
-		this.state ={
-
+		this.state = {
+			isLoading: true,
+			classes: [],
+			tasks: [],
+			evals: []
 		}
 	}
 	
 	componentDidMount() {
 		this.setState({
+			isLoading: false
+		});
 
+		axios({
+			method: "GET",
+			url: "/dashboard"
 		});
 	}
 

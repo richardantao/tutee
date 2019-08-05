@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { Container, Row, Col} from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,32 +15,35 @@ export default class Evaluations extends Component{
 		super(props);
 		
 		this.state= {
-			addingEval: false,
+			isLoading: true,
+			displayForm: false,
 			evals: []
 		}
 	}
 	
 	componentDidMount() {
-
-		this.setState({
-			
-		});
-
-		axios.get("").then(res => {
+		axios({
+			method: "GET",
+			url: "/evaluations"
+		})
+		.then(res => {
 			const evals = res.evals;
 			this.setState({
-				
+				isLoading: false
 			});
+		})
+		.catch(err => {
+			throw err;
 		});
 
 	}
 
 	render() {
-		let { evals } = this.state;
+		let { displayForm } = this.state;
 
-		if (evals === false) {
+		if (displayForm === false) {
 			return (
-				<React.Fragment>
+				<Fragment>
 					<Nav />
 					<Container id="evaluations">
 						<Row className="header">
@@ -64,11 +67,11 @@ export default class Evaluations extends Component{
 							<hr/>
 						</Row>
 					</Container>
-				</React.Fragment>
+				</Fragment>
 			)
 		} else {
 			return (
-				<React.Fragment>
+				<Fragment>
 					<Nav />
 					<Container id="evaluations">
 						<Row className="header">
@@ -108,7 +111,7 @@ export default class Evaluations extends Component{
 							</Col>
 						</Row>
 					</Container>
-				</React.Fragment>
+				</Fragment>
 			)
 		}
 	}

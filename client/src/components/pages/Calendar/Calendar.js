@@ -1,22 +1,44 @@
-import React from "react";
+import React, { Component, Fragment } from "react";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
 import { Container, Row, Col} from "reactstrap";
 import { Button } from "react-bootstrap"
 import styles from "./Calendar.css";
+import axios from "axios";
 
-export default function Calendar() {
-	return (
-		<React.Fragment>
-			<Nav />
-			<Container id="calendar">
-				<Row className="header">
-					<Header header="Calendar"/> 
-				</Row> <hr/>
-				<Row>
-					
-				</Row>
-			</Container>
-		</React.Fragment>
-	)
+export default class Calendar extends Component {
+	constructor(props) {
+		super(props);
+		
+		this.state = {
+			isLoading: true
+		}
+	}
+
+	componentDidMount() {
+		this.setState({
+			isLoading: false
+		});
+
+		axios({
+			method: "GET",
+			url: ""
+		});
+	}
+
+	render() {
+		return (
+			<Fragment>
+				<Nav />
+				<Container id="calendar">
+					<Row className="header">
+						<Header header="Calendar"/> 
+					</Row> <hr/>
+					<Row>
+						
+					</Row>
+				</Container>
+			</Fragment>
+		)
+	}
 }

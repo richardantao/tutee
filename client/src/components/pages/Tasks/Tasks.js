@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { Container, Row, Col} from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,23 +15,27 @@ export default class Tasks extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			addingTask: false,
+			isLoading: true,
+			displayForm: false,
 			tasks: []
 		}
 	}
 
 	componentDidMount() {
-		this.setState({
-			
-		});
 
-		axios.get("https://jsonplaceholder.typicode.com/users")
-			.then(res => {
-				const tasks = res.tasks;
-				this.setState({
-
-				});
+		axios({
+			method: "GET",
+			url: "/tasks"
+		})
+		.then(res => {
+			this.setState({
+				isLoading: false,
+				tasks: [] // change to res.BLANK
 			});
+		})
+		.catch(err => {
+			throw err;
+		});
 	}
 
 	componentDidUpdate() {
@@ -39,11 +43,11 @@ export default class Tasks extends Component {
 	}
 
 	render() {
-		let { addingTask } = this.state;
+		let { displayForm } = this.state;
 
-		if (addingTask === false) {
+		if (displayForm === false) {
 			return (
-				<React.Fragment>
+				<Fragment>
 					<Nav />
 					<Container id="tasks">
 						<Row className="header">
@@ -65,11 +69,11 @@ export default class Tasks extends Component {
 							<hr/>
 						</Row>
 					</Container>
-				</React.Fragment>
+				</Fragment>
 			)
 		} else {
 			return (
-				<React.Fragment>
+				<Fragment>
 					<Nav />
 					<Container id="tasks">
 						<Row className="header">
@@ -107,7 +111,7 @@ export default class Tasks extends Component {
 							</Col>
 						</Row>
 					</Container>
-				</React.Fragment>
+				</Fragment>
 			)
 		}
 	}

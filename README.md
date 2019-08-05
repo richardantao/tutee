@@ -8,54 +8,8 @@ This repository holds all of Tutee's application dev files.
 
 The Node back-end is stuctured using MVC architecture, and the front-end organizes the React components using atomic design theory.
 
-## Folder Structure
-
-The application has the following directory structure:
-
-+--`/client`  
-|
-|   +--`/public`  
-|
-|      +--`/assets`  
-|
-|         +--`/icons`  
-|
-|      +--`index.html`  
-|
-|   +--`/src` 
-|
-|      +--`/components` 
-|
-|         +--`/atoms`  
-|
-|         +--`/molecules`  
-|
-|         +--`/organisms`  
-|
-|         +--`/pages`  
-|
-|      +--`App.js`  
-|
-|      +--`App.css`  
-|
-|      +--`index.js` 
-|
-|      +--`package.json`  
-+--`/server`
-|  
-|  +--`/controllers`  
-|  
-|  
-   +--`/models`
-|  
-|   +--`/routes` 
-|
-|   +--`app.js`
-|
-|   +--`package.json`  
-
 ## Version Control
-All releases on github mark the completion of a dev cycle, and signify a pass-over to the CI environment. Version controls at the
+All releases on github mark the completion of a dev cycle, and signify a pass-over to the CI environment. 
 
 ## Changelog
 
@@ -76,7 +30,8 @@ All releases on github mark the completion of a dev cycle, and signify a pass-ov
 * Moved `server/config.js` to `server/config/config.js`
 * Moved index routes and view renders from `server/controllers` to `client/components/pages` 
 
-* 
+### Removed
+* Folder stucture in `README.md` 
 
 ## v0.1.0 - 04-08-2019
 

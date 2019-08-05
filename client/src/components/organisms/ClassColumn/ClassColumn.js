@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
+import Empty from "../../molecules/Empty";
 import ClassRecord from "../../molecules/ClassRecord";
 import styles from "./ClassColumn";
 
@@ -11,34 +12,41 @@ export default class ClassColumn extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isLoading: false,
+			isLoading: true,
 			classes: []
 		}
 	}
 	
 	componentDidMount() {
 		this.setState({
-			isLoading: true
+			isLoading: false
 		});
 
-		axios.get("https://jsonplaceholder.typicode.com/users")
-			.then(res => {
-				const classes = res.classes
-				this.setState({ classes: res.classes });
-			});
+		axios({
+			method: "GET",
+			url: "/dashboard"
+		})
+		.then(res => {
+				this.setState({ 
+					isLoading: false,
+					classes: res.data.classes
+				});
+			})
+			.catch(err => {
+				this.setState({
+					err,
+					isLoading: false
+				})
+			})
 	}
 
 	componentDidUpdate() {
 
 	}
 
-	componentWillUnmount() {
-
-	}
-
 	render() {
 		const { classes } = this.props;
-		let isLoading = this.state.isLoading;
+		let { isLoading } = this.state;
 	
 		if (isLoading) {
 			return (
@@ -62,7 +70,9 @@ export default class ClassColumn extends Component {
 				</Col>
 			)
 		} else {
-			return null;
+			return (
+				<Empty/>
+			)
 		}
 	}
 }

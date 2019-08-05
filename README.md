@@ -59,7 +59,7 @@ All releases on github mark the completion of a dev cycle, and signify a pass-ov
 
 ## Changelog
 
-## v0.2.0 -
+## v0.2.0 - Unreleased
 
 ### Added
 * `server/config`
@@ -74,6 +74,7 @@ All releases on github mark the completion of a dev cycle, and signify a pass-ov
 
 ### Changed
 * Moved `server/config.js` to `server/config/config.js`
+* Moved index routes and view renders from `server/controllers` to `client/components/pages` 
 
 * 
 

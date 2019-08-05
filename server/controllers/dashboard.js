@@ -4,16 +4,6 @@ const Tasks = require("../models/Tasks");
 const Evals = require("../models/Evaluations");
 const { check, validationResult, filter } = require("express-validator");
 
-exports.index = function(req, res) {
-	const error = validationResult(req);
-	
-	if (!errors.isEmpty()) {
-		return res.status(404).json({ errors: errors.array() });
-	} else {
-		return res.send("this route is working");
-	}
-};
-
 // GET display class editor for specific class
 exports.dashboardClassEdit = function(req, res) {
 	const error = validationResult(req);

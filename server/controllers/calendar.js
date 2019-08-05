@@ -1,19 +1,5 @@
 const { check, validationResult, filter } = require("express-validator");
 
-exports.index = function (req, res) {
-	const errors = validationResult(req);
-	
-	if (!errors.isEmpty()) {
-		return res.status(404).json({ errors: errors.array() });
-	} else {
-		
-		// Sequelize SELECT using Find(), the default calendar view
-		
-		// return status code and selected object as JSON to the client to render
-		return res.status(200).json();
-	}
-}
-
 exports.calendarMonth = function(req, res) {
 	const errors = validationResult(req);
 	

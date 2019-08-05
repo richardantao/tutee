@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/evaluations");
 
-// GET request for the Evaluations page
-router.get("/", controller.index);
-
 // handle route on frontend? maybe
 router.get("/past", controller.evalsPast);
 

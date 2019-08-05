@@ -1,23 +1,6 @@
-/* Tasks Controller */
-
 // import dependencies
 const tasks = require("../models/Tasks");
 const { check, validationResult, filter } = require("express-validator");
-
-// GET request on /Tasks path
-exports.index = function(req, res, next) {
-	const errors = validationResult(req);
-	
-	if (!errors.isEmpty()) {
-		// errors array is NOT empty, send status code 404 and error message as JSON
-		return res.status(404).json({ errors: errors.array() });	
-	} else {
-		// find all tasks, and then return status code with all tasks as JSON to client to render
-		tasks.findAll().then(function(tasks){
-			return res.status(200).json(tasks);
-		});
-	}
-};
 
 exports.tasksPast = function(req, res) {
 	const errors = validationResult(req);

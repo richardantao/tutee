@@ -43,33 +43,6 @@ const Courses = require("../models/Courses");
 const Modules = require("../models/Modules");
 const { check, validationResult, filter } = require("express-validator");
 
-// GET request on /Courses path
-exports.index = function(req, res) {
-	// check if all responses can be called in this controller
-	const errors = validationResult(req);
-	
-	if(!errors.isEmpty()) {
-		res.status(404).json({ errors: errors.array() });
-	} else {
-		
-		Years.findAll().then(function(years){
-			return res.status(200).json(years);
-		});
-		
-		Terms.findAll().then(function(terms){
-			return res.status(200).json(terms);
-		});
-		
-		Courses.findAll().then(function(courses){
-			return res.status(200).json(courses);
-		});
-		
-		Modules.findAll().then(function(modules){
-			return res.status(200).json(modules);
-		});
-	}
-};
-
 // GET request when user tries to edit a specific year
 exports.yearsEdit = function(req, res) {
 	const errors = validationResult(req);

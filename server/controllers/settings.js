@@ -1,17 +1,6 @@
 const Preferences = require("../models/Preferences")
 const { check, validationResult, filter } = require("express-validator");
 
-// GET request to render settings page, with Profile as the default tab
-exports.index = function(req, res) {
-	const errors = validationResult(req);
-	
-	if(errors.isEmpty()) {
-		return res.status(404).json({ errors: errors.array() });
-	} else {
-		return res.status(200).json;
-	}
-}
-
 exports.profileCreateGet = function(req, res) {
 	const errors = validationResult(req);
 

@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/courses");
 
-// GET request for the Courses page with all existing records
-router.get("/", controller.index);
-
 // GET request to retrieve specific year
 router.get("/:yearId/edit", controller.yearsEdit);
 

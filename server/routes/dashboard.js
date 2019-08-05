@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/dashboard");
 
-// GET (Read) request for Dashboard page
-router.get("/", controller.index);
-
 // GET specific class selected by user
 router.get("/classes/:classId/edit", controller.dashboardClassEdit);
 

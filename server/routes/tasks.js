@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/tasks");
 
-// GET request for Tasks page
-router.get("/", controller.index);
-
 router.get("/past", controller.tasksPast); // handle logic on frontend?
 
 // GET request for Tasks editer form

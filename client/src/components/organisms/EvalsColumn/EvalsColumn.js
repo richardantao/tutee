@@ -2,33 +2,43 @@ import React, { Component } from "react";
 import axios from "axios";
 import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
+import Empty from "../../molecules/Empty";
 import EvalRecord from "../../molecules/EvalRecord";
 import styles from "./EvalsColumn.css";
+
 
 export default class EvalColumn extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isLoading: false,
-			data: []
+			isLoading: true,
+			evals: []
 		}
 	}
 	
 	componentDidMount() {
 		this.setState({
-			isLoading: true,
+			isLoading: false,
 		});
 
-		axios.get("").then(res => {
-			this.setState({ data: res.data });
+		axios({
+			method: "GET",
+			url: "/dashboard"
+		})
+		.then(res => {
+			this.setState({ 
+				evals: res.data.evals 
+			});
+		})
+		.catch(err => {
+			this.setState({
+				err,
+				isLoading: false
+			});
 		});
 	}
 
 	componentDidUpdate() {
-
-	}
-
-	componentWillUnmount() {
 
 	}
 
@@ -38,7 +48,7 @@ export default class EvalColumn extends Component {
 
 		if (isLoading) {
 			return (
-				<Col>
+				<Col id="evals-column">
 					<LoadingColumn/>
 				</Col>
 			)
@@ -59,7 +69,12 @@ export default class EvalColumn extends Component {
 					</Col>
 			)
 		} else {
-			return null;
+			return (
+				<Col id="evals-column">
+					<Empty/>
+				</Col>
+				
+			)
 		}
 	}
 }

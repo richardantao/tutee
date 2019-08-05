@@ -1,30 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Col, Row } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
+import Empty from "../../molecules/Empty";
 import TaskRecord from "../../molecules/TaskRecord";
 import styles from "./TasksColumn.css";
-
-const taskData = [
-	{
-		title: "Preliminary Report",
-		course: "Capstone Design",
-		type: "Report",
-		deadline: "2019-10-04"
-	},
-	{
-		title: "",
-		course: "",
-		type: "",
-		deadline: ""
-	},
-	{
-		title: "",
-		course: "",
-		type: "",
-		deadline: ""
-	}
-]
 
 export default class TasksColumn extends Component {
 	constructor(props) {
@@ -37,7 +17,11 @@ export default class TasksColumn extends Component {
 		};
 	}
 	componentDidMount() {
-		axios.get("localhost:3000/dashboard").then(res => {
+		axios({
+			method: "GET",
+			url: "/dashboard"		
+		})
+		.then(res => {
 			res.tasks.results.map(task => ({
 				title: `${task.title}`,
 				type : `${task.type}`,
@@ -60,10 +44,6 @@ export default class TasksColumn extends Component {
 
 	componentDidUpdate() {
 		
-	}
-
-	componentWillUnmount() {
-
 	}
 
 	render() {
@@ -93,7 +73,11 @@ export default class TasksColumn extends Component {
 				);	
 			})}
 		} else {
-			return null;
+			return (
+				<Col id="tasks-column">
+					<Empty/>
+				</Col>>
+			)
 		}
 	}
 }

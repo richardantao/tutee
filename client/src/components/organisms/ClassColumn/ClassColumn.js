@@ -50,7 +50,7 @@ export default class ClassColumn extends Component {
 	
 		if (isLoading) {
 			return (
-				<Col>
+				<Col id="classes-column">
 					<LoadingColumn/>
 				</Col>
 			)
@@ -71,7 +71,9 @@ export default class ClassColumn extends Component {
 			)
 		} else {
 			return (
-				<Empty/>
+				<Col id="classes-column">
+					<Empty/>
+				</Col>
 			)
 		}
 	}

@@ -19,7 +19,7 @@ export default class TasksColumn extends Component {
 	componentDidMount() {
 		axios({
 			method: "GET",
-			url: "/dashboard"		
+			url: "/dashboard/:userId"		
 		})
 		.then(res => {
 			res.tasks.results.map(task => ({
@@ -49,13 +49,13 @@ export default class TasksColumn extends Component {
 	render() {
 		const { isLoading, tasks } = this.state;
 
-		if (!isLoading) {
+		if (isLoading) {
 			return (
 				<Col id="tasks-column">
 					<LoadingColumn/>
 				</Col>
 			)
-		} else if (isLoading && tasks && tasks.length > 0) {
+		} else if (!isLoading && tasks && tasks.length > 0) {
 			{tasks.map((task, i) =>	{
 				const {title, course, type, deadline, completion, note} = task;
 				return (
@@ -76,7 +76,7 @@ export default class TasksColumn extends Component {
 			return (
 				<Col id="tasks-column">
 					<Empty/>
-				</Col>>
+				</Col>
 			)
 		}
 	}

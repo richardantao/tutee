@@ -1,26 +1,46 @@
 import React, { Component } from "react";
 import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
+import Empty from "../../molecules/Empty";
 import styles from "./TermsColumn.css";
+import axios from "axios";
 
 export default class TermsColumn extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isLoading: false,
-			data: []
+			isLoading: true,
+			terms: []
 		}
 	}
 	
 componentDidMount() {
 	this.setState({
-		isLoading: true
+		isLoading: false
+	});
+
+	axios({
+		method: "GET",
+		url: "https://tutee.io/courses/:userId"
+	})
+	.then((req, res) => {
+		this.setState({
+			isLoading: false,
+			userId: req.body.userId,
+			terms: res.data.terms
+		});
+	})
+	.catch(err => {
+		this.setState({
+			errors: err,
+			isLoading: false
+		});
 	});
 }
 
 	render() {
 		const terms = this.props;
-		let isLoading = this.state.isLoading;
+		let { isLoading } = this.state;
 
 		if(isLoading) {
 			return (
@@ -29,13 +49,17 @@ componentDidMount() {
 				</Col>
 			)
 		} else if(!isLoading && terms && terms.length > 0) {
-			return(
+			return (
 				<Col id="terms-list">
-				
+					
 				</Col>
 			)
 		} else {
-			return null;
+			return (
+				<Col id="terms-list">
+					<Empty/>
+				</Col>
+			)
 		}
 	}
 }

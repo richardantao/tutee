@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
+import Empty from "../../molecules/Empty";
 import styles from "./CourseColumn.css";
 import axios from "axios";
 
@@ -8,7 +9,7 @@ export default class CourseColumn extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isLoading: false,
+			isLoading: true,
 			courses: [],
 			errors: null
 		}
@@ -16,33 +17,50 @@ export default class CourseColumn extends Component {
 	
 	componentDidMount() {
 		this.setState({
-			isLoading: true
+			isLoading: false
 		});
 
-		axios.get("https://jsonplaceholder.typicode.com/users").then(res => {
-			const courses = res.courses;
-			this.setState({ courses: courses });
+		axios({
+			method: "GET",
+			url: "/courses/:userId"
+		})
+		.then(res => {
+			this.setState({
+				isLoading: false,
+				courses: res.data.courses
+			});
+			
+		})
+		.catch(err => {
+			this.setState({
+				errors: err,
+				isLoading: false
+			});
 		});
 	}
 
 	render() {
 		const courses = this.props;
-		let isLoading = this.state.isLoading;
+		let { isLoading } = this.state;
 
 		if (isLoading) {
 			return (
-				<Col className="courses-list">
+				<Col id="courses-list">
 					<LoadingColumn/>
 				</Col>
 			)
 		} else if (!isLoading && courses && courses.length > 0) {
 			return (
-				<Col className="courses-list">
+				<Col id="courses-list">
 
 				</Col>
 			)
 		} else {
-			return null;
+			return (
+				<Col id="courses-list">
+					<Empty/>
+				</Col>
+			)
 		}
 	}
 }

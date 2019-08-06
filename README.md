@@ -9,7 +9,7 @@ This repository holds all of Tutee's application dev files.
 The Node back-end is stuctured using MVC architecture, and the front-end organizes the React components using atomic design theory.
 
 ## Version Control
-All releases on github mark the completion of a dev cycle, and signify a pass-over to the CI environment. 
+All releases on github mark the completion of a dev cycle, and signify a pass-over to the CI repo.
 
 ## Changelog
 
@@ -29,6 +29,7 @@ All releases on github mark the completion of a dev cycle, and signify a pass-ov
 ### Changed
 * Moved `server/config.js` to `server/config/config.js`
 * Moved index routes and view renders from `server/controllers` to `client/components/organisms/{data}Column` 
+* `Evals` to `Evalus` and `Classes` to `Sessions` to avoid confusion with JS keywords
 
 ### Removed
 * Folder stucture in `README.md` 

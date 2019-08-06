@@ -1,5 +1,3 @@
-"use strict";
-
 /* Dependencies - import dependencies */
 const express = require("express");
 const mysql = require("mysql");
@@ -25,6 +23,7 @@ const db = {
   	host: process.env.DB_HOST
 }
 
+// Configurations
 const config = require("./config/config");
 
 const connection = mysql.createConnection({
@@ -43,37 +42,24 @@ connection.connect(function(err) {
 	}
 });
 
-//// import routes
-const indexRouter = require("./routes/index");
-const usersRouter= require("./routes/users");
-const dashboardRouter= require("./routes/dashboard");
-const calendarRouter= require("./routes/calendar");
-const tasksRouter= require("./routes/tasks");
-const evaluationsRouter= require("./routes/evaluations");
-// const coursesRouter= require("./routes/courses");
-const searchRouter= require("./routes/search");
-const settingsRouter= require("./routes/settings");
-
-/* Configuration - configure system and custom settings */ 
-
 /* Middleware - preprocess requests */
 app.use(cors());
 app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/../client/public"));
 
 // routes middleware
-app.use("", indexRouter);
-app.use("/users", usersRouter);
-app.use("/dashboard", dashboardRouter);
-app.use("/calendar", calendarRouter);
-app.use("/tasks", tasksRouter);
-app.use("/evaluations", evaluationsRouter);
-// app.use("/courses", coursesRouter);
-app.use("/search", searchRouter);
-app.use("/settings", settingsRouter);
+app.use("", require("./routes/index"));
+app.use("/users", require("./routes/users"));
+app.use("/dashboard", require("./routes/dashboard"));
+app.use("/calendar", require("./routes/calendar"));
+app.use("/tasks", require("./routes/tasks"));
+app.use("/evaluations", require("./routes/evaluations"));
+// app.use("/courses", require("./routes/courses"));
+app.use("/search", require("./routes/search"));
+app.use("/settings", require("./routes/settings"));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -91,7 +77,7 @@ app.use(function(err, req, res, next) {
   	res.render("error");
 });
 
-// view engine | use template to render initial html s
+// server side render, view engine 
 app.get("*", function(req, res) {
 	res.sendFile(path.join(__dirname + "/../client/public/index.html"));
 });

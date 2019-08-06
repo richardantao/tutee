@@ -50,34 +50,25 @@ export default class TasksColumn extends Component {
 		const { isLoading, tasks } = this.state;
 
 		if (isLoading) {
-			return (
-				<Col id="tasks-column">
-					<LoadingColumn/>
-				</Col>
-			)
+			return <LoadingColumn/>
 		} else if (!isLoading && tasks && tasks.length > 0) {
-			{tasks.map((task, i) =>	{
-				const {title, course, type, deadline, completion, note} = task;
-				return (
-					<Col id="tasks-column">
-						<TaskRecord 
-							key={i}
-							title={title} 
-							course={course} 
-							type={type}
-							deadline={deadline}
-							completion={completion}
-							note={note}
-						/>
-					</Col>
-				);	
-			})}
+			tasks.map(
+				(task) =>	{
+					let {id, title, course, type, deadline, completion, note} = task;
+					return (
+							<TaskRecord 
+								key={id}
+								title={title} 
+								course={course} 
+								type={type}
+								deadline={deadline}
+								completion={completion}
+								note={note}
+							/>
+				)	
+			});
 		} else {
-			return (
-				<Col id="tasks-column">
-					<Empty/>
-				</Col>
-			)
+			return <Empty/>
 		}
 	}
 }

@@ -1,17 +1,17 @@
 import React, { Component, Fragment }from "react";
+import { Container, Row, Col} from "reactstrap";
+import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
 import Nav from "../../organisms/Nav";
-import LoadingColumn from "../../molecules/LoadingColumn";
-import ClassColumn from "../../organisms/ClassColumn";
+import SessionsColumn from "../../organisms/SessionsColumn";
 import TasksColumn from "../../organisms/TasksColumn";
-import EvalsColumn from "../../organisms/EvalsColumn";
+import EvalusColumn from "../../organisms/EvalusColumn";
+import LoadingColumn from "../../molecules/LoadingColumn";
 import Counter from "../../molecules/Counter";
 import DateDisplay from "../../atoms/Date";
-import { Container, Row, Col} from "reactstrap";
 import styles from "./Dashboard.css";
-import axios from "axios";
 
 export default class Dashboard extends Component {
 	constructor(props) {
@@ -19,9 +19,9 @@ export default class Dashboard extends Component {
 		
 		this.state = {
 			isLoading: true,
-			classes: [],
+			sessions: [],
 			tasks: [],
-			evals: []
+			evalus: []
 		}
 	}
 	
@@ -36,14 +36,14 @@ export default class Dashboard extends Component {
 		.then(res => {
 			this.setState({
 				isLoading: false,
-				classes: res.data.classes,
+				sessions: res.data.sessions,
 				tasks: res.data.tasks,
-				evals: res.data.evals
+				evalus: res.data.evalus
 			});
 		})
 		.catch(err => {
 			this.setState({
-				err,
+				errors: err,
 				isLoading: false
 			});
 		});
@@ -53,11 +53,7 @@ export default class Dashboard extends Component {
 		let { isLoading } = this.state;
 
 		if(isLoading) {
-			return(
-				<Fragment>
-					<LoadingColumn/>
-				</Fragment>
-			)
+			return <LoadingColumn/>
 		} else {
 			return (
 				<Fragment>
@@ -80,9 +76,15 @@ export default class Dashboard extends Component {
 							</Col>
 						</Row> <hr/>
 						<Row id="dashboard-columns">
-							<ClassColumn/>
-							<TasksColumn/>
-							<EvalsColumn/>
+							<Col id="sessions-column">
+								<SessionsColumn/>
+							</Col>
+							<Col id="tasks-column">
+								<TasksColumn/>
+							</Col>
+							<Col id="evalus-column">
+								<EvalusColumn/>
+							</Col>
 						</Row>
 					</Container>
 				</Fragment>

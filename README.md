@@ -13,18 +13,34 @@ All releases on github mark the completion of a dev cycle, and signify a pass-ov
 
 ## Changelog
 
+## v0.4.0 - Unreleased
+
+### Added
+* Cached sessions to improve app performance
+
+## v0.3.0 - Unreleased 
+
+### Added
+* User authentication
+* App's splash page `client/public/splash.html`
+
+### Changed
+* 
+
+### Deprecated
+
+### Fixed
+
+### Removed
+
 ## v0.2.0 - Unreleased
 
 ### Added
 * `server/config`
 * `server/migrations`
 * `server/seeds`
-* conditional configurations in `server/config/config.js`
-
-* models
-* controllers
-* routers
-* views
+* Conditional configurations in `server/config/config.js`
+* SSR with initial page loadup, and CSR after first load
 
 ### Changed
 * Moved `server/config.js` to `server/config/config.js`

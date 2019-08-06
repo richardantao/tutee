@@ -19,5 +19,5 @@ render (
 	<Router>
 		<Index />
 	</Router>,
-	document.body
+	document.querySelector("#app")
 );

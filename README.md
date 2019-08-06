@@ -17,15 +17,16 @@ All releases on github mark the completion of a dev cycle, and signify a pass-ov
 
 ### Added
 * Cached sessions to improve app performance
+* Cookies
 
 ## v0.3.0 - Unreleased 
 
 ### Added
-* User authentication
 * App's splash page `client/public/splash.html`
+* User authentification
+* Email verification
 
 ### Changed
-* 
 
 ### Deprecated
 

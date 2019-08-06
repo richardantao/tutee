@@ -15,6 +15,7 @@ moment().format(); // move these two statements to respective files where date v
 /* create app instance and define env variables */
 const app = express();
 const port = process.env.PORT || 3001;
+
 const env = process.env.NODE_ENV;
 const db = {
 	name: process.env.DB_NAME,
@@ -47,8 +48,8 @@ app.use(cors());
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(__dirname + "/../client/public"));
+app.use(cookieParser());
 
 // routes middleware
 app.use("", require("./routes/index"));

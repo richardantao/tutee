@@ -62,7 +62,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 
 // routes middleware
 app.use("", indexRouter);
@@ -89,6 +89,11 @@ app.use(function(err, req, res, next) {
   	// render the error page
   	res.status(err.status || 500);
   	res.render("error");
+});
+
+// view engine | use template to render initial html s
+app.get("*", function(req, res) {
+	res.sendFile(path.join(__dirname + "/../client/public/index.html"));
 });
 
 /* Bootup */

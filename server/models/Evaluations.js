@@ -9,8 +9,8 @@ const Model = Sequelize.Model;
 const Users = require("./Users");
 const Courses = require("./Courses");
 
-class Evals extends Model{}
-Evals.init({
+class Evalus extends Model{}
+Evalus.init({
 	id: {
 		type: Sequelize.INTEGER,
 		primaryKey: true,
@@ -48,7 +48,7 @@ Evals.init({
 	}
 }, { sequelize, modelName: "Evals" });
 
-Evals.belongsTo(Users, {as: "Users"});
-Evals.belongsTo(Courses, {as: "Courses"});
+Evalus.belongsTo(Users, {as: "Users"});
+Evalus.belongsTo(Courses, {as: "Courses"});
 
-module.exports = Evals;
+module.exports = Evalus;

@@ -48,6 +48,10 @@ All releases on github mark the completion of a dev cycle, and signify a pass-ov
 * Moved index routes and view renders from `server/controllers` to `client/components/organisms/{data}Column` 
 * `Evals` to `Evalus` and `Classes` to `Sessions` to avoid confusion with JS keywords
 
+### Fixed 
+* `models/` configurations to the database 
+* 
+
 ### Removed
 * Folder stucture in `README.md` 
 

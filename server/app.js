@@ -80,7 +80,7 @@ app.use(function(err, req, res, next) {
 
 // server side render, view engine 
 app.get("/*", function(req, res) {
-	res.sendFile(path.join(__dirname + "/../client/public/index.html"));
+	res.sendFile(path.join(__dirname + "/public/index.html"));
 });
 
 /* Bootup */

@@ -19,6 +19,7 @@ export default class Dashboard extends Component {
 		
 		this.state = {
 			isLoading: true,
+			user: [],
 			sessions: [],
 			tasks: [],
 			evalus: []
@@ -29,16 +30,20 @@ export default class Dashboard extends Component {
 		this.setState({
 			isLoading: false
 		});
-		axios({
-			method: "GET",
-			url: "/dashboard"
-		})
+
+		axios.get("/dashboard/:userId")
 		.then(res => {
+			let user = res.data.users;
+			let sessions = res.data.users;
+			let tasks = res.data.tasks;
+			let evalus = res.data.evalus;
+
 			this.setState({
 				isLoading: false,
-				sessions: res.data.sessions,
-				tasks: res.data.tasks,
-				evalus: res.data.evalus
+				user: user,
+				sessions: sessions,
+				tasks: tasks,
+				evalus: evalus
 			});
 		})
 		.catch(err => {

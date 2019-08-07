@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Form from "../../molecules/Form";
+import LoadingColumn from "../../molecules/LoadingColumn";
 import styles from "./EvaluWindow.css";
 
 export default class EvaluWindow extends Component {
@@ -13,11 +15,7 @@ export default class EvaluWindow extends Component {
         }
     }
     
-    componentDidMount() {
-        this.setState({
-            isLoading: false
-        });
-
+    getEvaluRecord = () => {
         axios.get("/dashboard/:userId/evalus/:evaluId/edit")
 		.then(res => {
             let user = res.data.userId;
@@ -37,11 +35,65 @@ export default class EvaluWindow extends Component {
 		});
     }
 
-    render() {
-        return(
-            <div>
+    updateEvaluRecord = (event) => {
+        event.preventDefault();
 
-            </div>
-        )
+        var evalu = {
+
+        }
+
+        axios.put("/:userId/evals/:evalId/update")
+        .then(res => {
+            user = res.data.userId;
+
+            this.setState({
+                isLoading: false
+            })
+        })
+        .catch(err => {
+            this.setState({
+                errors: err,
+                isLoading: false
+            });
+            
+        });
+    }
+
+    deleteEvaluRecord = () => {
+
+    }
+
+    componentDidMount() {
+        this.setState({
+            isLoading: false
+        });
+        
+        this.getEvaluRecord();
+        this.updateEvaluRecord();
+        this.deleteEvaluRecord();
+    }
+
+    render() {
+        let { isLoading, user, evalu } = this.state;
+
+        if (isLoading) {
+            return <LoadingColumn />
+        } else {
+            return (
+                <Form>
+                    <Row>
+                        <Col>
+                        
+                        </Col>
+                        <Col>
+                        
+                        </Col>
+                    </Row>
+                    <Row>
+
+                    </Row>
+                </Form>
+            )
+        }
     }
 }

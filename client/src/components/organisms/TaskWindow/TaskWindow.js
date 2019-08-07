@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { Col, Row } from "reactstrap";
+import Form from "../../molecules/Form";
+import LoadingColumn from "../../molecules/LoadingColumn";
 import Button from "../../atoms/Button";
 import styles from "./TaskWindow.css";
 
@@ -10,18 +12,14 @@ export default class TaskWindow extends Component {
 
         this.state = { 
             isLoading: true,
-            method: [],
+            url: [],
             user: [],
             session: [],
             
         }
     }
     
-    componentDidMount() {
-        this.setState({
-            isLoading: false
-        });
-
+    getTaskRecord = () => {
         axios.get("/dashboard/:userId/tasks/:taskId/edit")
 		.then(res => {
             let user = res.data.userId;
@@ -29,7 +27,7 @@ export default class TaskWindow extends Component {
 
 			this.setState({
                 isLoading: false,
-                method: "get-edit",
+                url: "/dashboard/:userId/tasks/:taskId/edit",
                 user: user,
 				task: task
 			});
@@ -40,7 +38,9 @@ export default class TaskWindow extends Component {
 				isLoading: false
 			});
         });
-        
+    }
+
+    getTaskForm = () => {
         axios.get("/dashboard/:userId/tasks/create")
 		.then(res => {
             let user = res.data.userId;
@@ -48,7 +48,7 @@ export default class TaskWindow extends Component {
 
 			this.setState({
                 isLoading: false,
-                method: "get-create",
+                url: "/dashboard/:userId/tasks/create",
                 user: user,
 				task: task
 			});
@@ -59,13 +59,15 @@ export default class TaskWindow extends Component {
 				isLoading: false
 			});
         });
-        
+    }
+
+    createTaskRecord = () => {
         axios.post("/dashboard/:userId/tasks/create")
 		.then(res => {
             
 			this.setState({
                 isLoading: false,
-                method: "post-create"
+                url: "/dashboard/:userId/tasks/create"
 			});
 		})
 		.catch(err => {
@@ -76,45 +78,65 @@ export default class TaskWindow extends Component {
 		});
     }
 
+    updateTaskRecord = (event) => {
+        event.preventDefault();
+
+
+    }
+
+    deleteTaskRecord = () => {
+
+    }
+
+    componentDidMount() {
+        this.setState({
+            isLoading: false
+        });
+
+        this.getTaskRecord();
+        this.getTaskForm();
+        this.createTaskRecord();
+        this.updateTaskRecord();
+        this.deleteTaskRecord();
+    }
+
     render() {
-        let { method } = this.state
-        if(method === "get-edit") {
+        let { isLoading, url, user, task } = this.state;
+
+        if (isLoading) {
+            return <LoadingColumn />
+        } else if(!isLoading && url === "/dashboard/:userId/tasks/:taskId/edit") {
             return (
-                <form className="tasks-get-edit">
+                <Form method="PUT" action="/dashboard/:userId/evals/:evalId/update" className="tasks-window-edit">
                     <Row>
                         <Col>
-                            <Button type="submit"></Button>
+                            <Button type="button" onClick={this.deleteTaskRecord}>Delete</Button> // delete
                         </Col>
                         <Col>
-                            <Button href="/dashboard/:userId"></Button>
+                            <Button href="/dashboard/:userId">Cancel</Button>
                             <Button type="submit">Save</Button>
                         </Col>
                         </Row>
-                </form>
-            )
-        } else if (method === "get-create") {
-            return (
-                <form className="tasks-get-create">
-
-                </form>
+                </Form>
             )
         } else {
             return (
-                <form method="POST" action="/dashboard/:userId/tasks/create" className="tasks-post-create">
+                <Form method="POST" action="/dashboard/:userId/tasks/create" className="tasks-window-create">
                     <Row className="form-details">
-
-
+                        <Col>
+                        
+                        </Col>
+                        <Col>
+                        
+                        </Col>
                     </Row>
                     <Row className="form-action">
                         <Col>
-                            <Button type="submit"></Button>
-                        </Col>
-                        <Col>
-                            <Button href="/dashboard/:userId"></Button>
-                            <Button type="submit"></Button>
+                            <Button href="/dashboard/:userId">Cancel</Button>
+                            <Button type="submit">Save</Button>
                         </Col>
                     </Row>
-                </form>
+                </Form>
             )
         }
     }

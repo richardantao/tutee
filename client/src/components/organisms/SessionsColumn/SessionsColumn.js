@@ -22,10 +22,7 @@ export default class SessionColumn extends Component {
 			isLoading: false
 		});
 
-		axios({
-			method: "GET",
-			url: "/dashboard"
-		})
+		axios.get("/dashboard")
 		.then(res => {
 				this.setState({ 
 					isLoading: false,
@@ -34,10 +31,10 @@ export default class SessionColumn extends Component {
 			})
 			.catch(err => {
 				this.setState({
-					err,
+					errors: err,
 					isLoading: false
 				})
-			})
+			});
 	}
 	
 	render() {

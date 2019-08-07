@@ -69,8 +69,6 @@ export default class EvaluWindow extends Component {
         });
         
         this.getEvaluRecord();
-        this.updateEvaluRecord();
-        this.deleteEvaluRecord();
     }
 
     render() {
@@ -90,7 +88,13 @@ export default class EvaluWindow extends Component {
                         </Col>
                     </Row>
                     <Row>
-
+                        <Col>
+                            <Button type="button" onClick={this.deleteEvaluRecord}></Button>
+                        </Col>
+                        <Col>
+                            <Button ></Button>
+                            <Button type="submit" onSubmit={this.updateEvaluRecord}></Button>
+                        </Col>
                     </Row>
                 </Form>
             )

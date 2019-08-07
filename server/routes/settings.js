@@ -2,9 +2,6 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/settings");
 
-// GET request for profile form (default settings page)
-router.get("/:userId/profile/edit", controller.index);
-
 router.get("/profile/create", controller.profileCreateGet);
 
 router.post("/profile/create", controller.profileCreatePost);

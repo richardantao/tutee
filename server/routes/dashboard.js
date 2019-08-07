@@ -11,7 +11,7 @@ router.delete("/:userId/classes/:sessionId/delete", controller.dashboardSessionD
 // GET specific task selected by user
 router.get("/:userId/tasks/:taskId/edit", controller.dashboardTaskEdit); // routed in react
 
-// GET data for user to POST new task
+// GET data for user to POST new tasks
 router.get("/:userId/tasks/create", controller.dashboardTaskCreateGet); // routed in react
 
 // POST new task created by user
@@ -24,7 +24,7 @@ router.put("/:userId/tasks/:taskId/update", controller.dashboardTaskUpdate);
 router.delete("/:userId/tasks/:taskId/delete", controller.dashboardTaskDelete);
 
 // GET specific eval selected by user
-router.get("/:userId/evals/:evalId/edit", controller.dashboardEvalEdit);
+router.get("/:userId/evals/:evalId/edit", controller.dashboardEvalEdit); // routed in react
 
 // PUT specific eval selected by user
 router.put("/:userId/evals/:evalId/update", controller.dashboardEvalUpdate);

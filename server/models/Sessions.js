@@ -8,12 +8,12 @@ const Model = Sequelize.Model;
 const Users = require("./Users");
 const Modules = require("./Modules");
 
-class Classes extends Model {}
-Classes.init({
+class Sessions extends Model {}
+Sessions.init({
 	
 }, { sequelize, modelName: "classes" });
 
-Classes.belongsTo(Users, {as: "user"});
-Classes.belongsTo(Modules, {as: "module"});
+Sessions.belongsTo(Users, {as: "user"});
+Sessions.belongsTo(Modules, {as: "module"});
 
-module.exports = Classes;
+module.exports = Sessions;

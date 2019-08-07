@@ -1,11 +1,11 @@
 // import dependencies
-const Classes = require("../models/Classes");
+const Classes = require("../models/Sessions");
 const Tasks = require("../models/Tasks");
 const Evals = require("../models/Evaluations");
 const { check, validationResult, filter } = require("express-validator");
 
 // GET display class editor for specific class
-exports.dashboardClassEdit = function(req, res) {
+exports.dashboardSessionEdit = function(req, res) {
 	const error = validationResult(req);
 	
 	if (!errors.isEmpty()) {
@@ -15,7 +15,7 @@ exports.dashboardClassEdit = function(req, res) {
 	}
 };
 
-exports.dashboardClassDelete = function(req, res) {
+exports.dashboardSessionDelete = function(req, res) {
 
 		const error = validationResult(req);
 

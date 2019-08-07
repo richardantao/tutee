@@ -48,7 +48,7 @@ app.use(cors());
 app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(__dirname + "/../client/public"));
+app.use(express.static("public"));
 app.use(cookieParser());
 
 // routes middleware
@@ -79,7 +79,7 @@ app.use(function(err, req, res, next) {
 });
 
 // server side render, view engine 
-app.get("*", function(req, res) {
+app.get("/*", function(req, res) {
 	res.sendFile(path.join(__dirname + "/../client/public/index.html"));
 });
 

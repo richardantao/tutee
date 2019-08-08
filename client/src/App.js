@@ -16,7 +16,6 @@ import Settings from "./components/pages/Settings";
 	import Integration from "./components/organisms/Integration";
 import Help from "./components/pages/Help";
 
-
 const App = () => {
 	return (
 			<Switch>

@@ -1,7 +1,7 @@
-const config = require("../config/config");
-const sequelize = config.sequelize;
-const Sequelize = config.Sequelize;
-const Model = Sequelize.Model;
+const config = require("../config/config"); // import configurations
+const sequelize = config.sequelize; // import import 
+const Sequelize = config.Sequelize; // import Sequelize from config.js
+const Model = Sequelize.Model; // import model instance
 
 class Users extends Model{}
 Users.init({
@@ -10,7 +10,12 @@ Users.init({
 		primaryKey: true,
 		allowNull: false,
 		autoIncrement: true
-	}, 
+	},
+	isBetaMember: {
+		type: Sequelize.BOOLEAN,
+		defaultValue: false,
+		allowNull: false
+	},
 	firstName: {
 		type: Sequelize.STRING(25),
 		allowNull: false
@@ -39,6 +44,9 @@ Users.init({
 	institution: {
 		type: Sequelize.STRING(100)		   
 	}
-}, { sequelize, modelName: "users" });
+}, { 
+	sequelize, 
+	modelName: "Users" // expected table in database
+});
 
 module.exports = Users;

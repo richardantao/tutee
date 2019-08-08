@@ -18,13 +18,17 @@ exports.evalusEdit = function(req, res) {
 	
 	// if errors array is NOT empty, render JSON error message
 	if (!errors.isEmpty()) {
-		return res.status(422).json();
+		return res.status(404).json();
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
 		evalus.find({
       		where: { id: req.params.id}
-    	}).then(function(evalus) {
-			return res.status(200).json(evalus).redirect(301, "/"); // verify redirect status code during unit testing;	
+		})
+		.then(function(evalu) {
+			return res.status(200).json(evalu).redirect(301, "/"); // verify redirect status code during unit testing;	
+		})
+		.catch(() => {
+			res.status(500).json({ errors: errors.array() });
 		});
 	}
 };
@@ -33,9 +37,17 @@ exports.evalusCreateGet = function(req, res) {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(404).json({ errors: errors.array() });
 	} else {
-		
+		tasks.find({
+			where: {id: req.params.id}
+		})
+		.then(task => {
+			res.status(200).json({task}); // pipe a redirect ??
+		})
+		.catch(() => {
+			res.status(500).json({ errors: errors.array() });
+		})
 	}
 }
 
@@ -58,19 +70,22 @@ exports.evalusCreatePost = function(req, res) {
 
 	// check for errors and render JSON error if true
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// use POST parameters from form inputs to generate a new task object
 		evalus.create({
 			course: req.body.course,
+			user: req.params.userId,
 			module: req.body.module,
 			title: req.body.title,
 			type: req.body.type,
 			deadline: req.body.deadline,
 			completion: req.body.completion,
 			note: req.body.note
-		}).then(function(evalus) {
+		}).then(evalus => {
 			return res.status(201).json(evalus).redirect(301, ".."); // verify redirect status code during unit testing;
+		}).catch(err => {
+			res.status(500).json({ errors: errors.array() });
 		});
 	}
 }
@@ -101,12 +116,13 @@ exports.evalusUpdate = function(req, res, next) {
 	filter("score").escape();
 		
 	if(!errors.isEmpty()) {
-		res.status(422).json({ errors: errors.array() });
+		res.status(400).json({ errors: errors.array() });
 	} else {
 		evalus.find({
      		where: { id: req.params.id }
-    	}).then(function(evalus) {
-        	return tasks.updateAttributes({
+		})
+		.then(function(evalus) {
+        	return evalus.updateAttributes({
 				course: req.body.course,
 				module: req.body.module,
 				title: req.body.title,
@@ -115,9 +131,13 @@ exports.evalusUpdate = function(req, res, next) {
 				completion: req.body.completion,
 				note: req.body.note
 			})
-    	}).then(function(updatedEvalu) {
+		})
+		.then(updatedEvalu => {
     		res.status(204).json(updatedEvalu).redirect(301, "/"); // verify redirect status code during unit testing;
-     	});
+		 })
+		 .catch(() =>{
+			res.status(500).json({ errors: errors.array() });
+		 });
 	}
 }	
 
@@ -131,8 +151,12 @@ exports.evalusDelete = function(req, res) {
 		} else {
 			evalus.destroy({
 				where: { id: req.params.id }
-			}).then(function(deletedEvalus) {
+			})
+			.then(deletedEvalus => {
 				return res.status(204).json(deletedEvalus).redirect(301, "/"); // verify redirect status code during unit testing;
+			})
+			.catch(() => {
+				res.status(500).json({ errors: errors.array() });
 			});
 		}
 	}

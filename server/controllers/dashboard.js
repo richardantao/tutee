@@ -1,7 +1,7 @@
 // import dependencies
 const Classes = require("../models/Sessions");
 const Tasks = require("../models/Tasks");
-const Evals = require("../models/Evaluations");
+const Evalus = require("../models/Evaluations");
 const { check, validationResult, filter } = require("express-validator");
 
 // GET display class editor for specific class
@@ -20,7 +20,7 @@ exports.dashboardSessionDelete = function(req, res) {
 		const error = validationResult(req);
 
 		if (!errors.isEmpty()) {
-			return res.status(422).json({ errors: errors.array() });
+			return res.status(400).json({ errors: errors.array() });
 		} else {
 			
 		}
@@ -41,7 +41,7 @@ exports.dashboardTaskCreateGet = function(req, res) {
 	const errors = validationResult(req)
 	
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		
 	}
@@ -60,7 +60,7 @@ exports.dashboardTaskDelete = function(req, res) {
 }
 
 
-exports.dashboardEvalEdit = function(req, res) {
+exports.dashboardEvaluEdit = function(req, res) {
 	const error = validationResult(req);
 	
 	if (!errors.isEmpty()) {
@@ -70,11 +70,11 @@ exports.dashboardEvalEdit = function(req, res) {
 	}
 }
 
-exports.dashboardEvalUpdate = function(req, res) {
+exports.dashboardEvaluUpdate = function(req, res) {
 		
 	}
 
-exports.dashboardEvalDelete = function(req, res) {
+exports.dashboardEvaluDelete = function(req, res) {
 		
 }
 

@@ -23,8 +23,12 @@ exports.tasksEdit = function(req, res) {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
 		tasks.find({
       		where: { id: req.params.id}
-    	}).then(function(tasks) {
+		})
+		.then(tasks => {
 			return res.status(200).json(tasks).redirect(301, "/"); // verify redirect status code during unit testing;	
+		})
+		.catch(() => {
+			res.status(500).json({ errors: errors.array() });
 		});
 	}
 };
@@ -73,8 +77,12 @@ exports.tasksCreatePost = function(req, res) {
 				deadline: req.body.deadline,
 				completion: req.body.completion,
 				note: req.body.note
-			}).then(function(tasks) {
+			})
+			.then(tasks => {
 				return res.status(201).json(tasks).redirect(301, ".."); // verify redirect status code during unit testing;
+			})
+			.catch(() => {
+				res.status(500).json({ errors: errors.array});
 			});
 		}
 	}
@@ -106,7 +114,8 @@ exports.tasksUpdate = function(req, res, next) {
 	} else {
 		tasks.find({
      		where: { id: req.params.id }
-    	}).then(function(tasks) {
+		})
+		.then(tasks => {
         	return tasks.updateAttributes({
 				course: req.body.course,
 				module: req.body.module,
@@ -116,9 +125,13 @@ exports.tasksUpdate = function(req, res, next) {
 				completion: req.body.completion,
 				note: req.body.note
 			})
-      	}).then(function(updatedTask) {
+		  })
+		  .then(updatedTask => {
         	res.status(204).json(updatedTask).redirect(301, "/"); // verify redirect status code during unit testing;
-      	});
+		})
+		.catch(() => {
+			res.status(500).json({ errors: errors.array() });
+		});
 	}
 }	
 
@@ -127,12 +140,16 @@ exports.tasksDelete = function(req, res) {
 	const errors = validationResult(req);
 		
 	if(!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		tasks.destroy({
 			where: { id: req.params.id }
-		}).then(function(deletedTask) {
+		})
+		.then(deletedTask => {
 			return res.status(204).json(deletedTask).redirect(301, "/"); // verify redirect status code during unit testing;
+		})
+		.catch(() => {
+			res.status(500).json({ errors: errors.array() });
 		});
 	}
 }

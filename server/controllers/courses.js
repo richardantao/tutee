@@ -43,6 +43,16 @@ const Courses = require("../models/Courses");
 const Modules = require("../models/Modules");
 const { check, validationResult, filter } = require("express-validator");
 
+exports.index = function(req, res) {
+	const errors = validationResult(req);
+
+	if (!errors.isEmpty()) {
+		return res.status(404).json({ errors: errors.array() });
+	} else {
+
+	}
+}
+
 // GET request when user tries to edit a specific year
 exports.yearsEdit = function(req, res) {
 	const errors = validationResult(req);
@@ -54,18 +64,31 @@ exports.yearsEdit = function(req, res) {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
 		Years.find({
       		where: { id: req.params.id}
-    	}).then(function(years) {
-			return res.status(200).json(years).redirect(301, "/"); // verify redirect status code during unit testing;	
+		})
+		.then(year => {
+			return res.status(200).json(year).redirect(301, "/"); // verify redirect status code during unit testing;	
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
 		});
 };
 	
+// check to see if can combine with route above
 exports.yearsCreateGet = function(req, res) {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
-		return null;
+		return res.status(404).json({ errors: errors.array() });
 	} else {
-		
+		Years.find({	
+			where: { id: req.params.id }
+		})
+		.then(year => {
+			return res.status(200).json(year);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 }
 
@@ -90,15 +113,19 @@ exports.yearsCreatePost = function(req, res) {
 		
 	// check for errors and render JSON error if true
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// use POST parameters from form inputs to generate a new year object
 		Years.create({
 			title: req.body.title,
 			start: req.body.start,
 			end: req.body.end
-		}).then(function(years) {
-			return res.status(201).json(years).redirect(301, ".."); // verify redirect status code during unit testing;
+		})
+		.then(year => {
+			return res.status(201).json(year).redirect(301, ".."); // verify redirect status code during unit testing;
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
 		});
 	}
 }
@@ -118,19 +145,24 @@ exports.yearsUpdate = function(req, res, next) {
 	filter("end").escape();
 		
 	if(!errors.isEmpty()) {
-		res.status(422).json({ errors: errors.array() });
+		res.status(400).json({ errors: errors.array() });
 	} else {
 		Years.find({
       		where: { id: req.params.id }
-    	}).then(function(years) {
+		})
+		.then(years => {
         	return Years.updateAttributes({
 				title: req.body.title,
 				start: req.body.start,
 				end: req.body.end
 			})
-      	}).then(function(updatedYear) {
+		})
+		.then(updatedYear => {
         	res.status(204).json(updatedYear).redirect(301, "/"); // verify redirect status code during unit testing;
-      	});
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 }
 
@@ -139,12 +171,16 @@ exports.yearsDelete = function(req, res) {
 	const errors = validationResult(req);
 		
 	if(!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Years.destroy({
 			where: { id: req.params.id }
-		}).then(function(deletedYear) {
+		})
+		.then(deletedYear => {
 			return res.status(204).json(deletedYear).redirect(301, "/"); // verify redirect status code during unit testing;
+		})
+		.catch(() => {
+
 		});
 	}
 }
@@ -160,8 +196,8 @@ exports.termsEdit = function(req, res) {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Terms.find({
       		where: { id: req.params.id}
-    	}).then(function(terms) {
-			return res.status(204).json(Terms).redirect(301, "/"); // verify redirect status code during unit testing;	
+    	}).then(term => {
+			return res.status(204).json(term).redirect(301, "/"); // verify redirect status code during unit testing;	
 		});
 };
 
@@ -197,8 +233,8 @@ exports.termsCreatePost = function(req, res) {
 			start: req.body.start,
 			end: req.body.end,
 			rotation: req.body.rotation
-		}).then(function(terms) {
-			return res.status(201).json(Terms).redirect(301, ".."); // verify redirect status code during unit testing;
+		}).then(term => {
+			return res.status(201).json(term).redirect(301, ".."); // verify redirect status code during unit testing;
 		});
 	}
 }
@@ -227,7 +263,7 @@ exports.termsUpdate = function(req, res, next) {
 	} else {
 		Terms.find({
     		where: { id: req.params.id }
-    	}).then(function(terms) {
+    	}).then(Terms => {
         	return Terms.updateAttributes({
 				title: req.body.title,
 				year: req.body.year,
@@ -235,7 +271,7 @@ exports.termsUpdate = function(req, res, next) {
 				end: req.body.end,
 				rotation: req.body.rotation
 			})
-    	}).then(function(updatedTerm) {
+    	}).then(updatedTerm => {
         	res.status(204).json(updatedTerm).redirect(301, "/"); // verify redirect status code during unit testing;
     	});
 	}
@@ -250,7 +286,7 @@ exports.termsDelete = function(req, res) {
 	} else {
 		Terms.destroy({
 			where: { id: req.params.id }
-		}).then(function(deletedTerm) {
+		}).then(deletedTerm => {
 			return res.status(204).json(deletedTerm).redirect(301, "/"); // verify redirect status code during unit testing;
 		});
 	}
@@ -262,13 +298,13 @@ exports.coursesEdit = function(req, res) {
 	
 	// if errors array is NOT empty, render JSON error message
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Courses.find({
       		where: { id: req.params.id}
-    	}).then(function(courses) {
-			return res.status(204).json(Courses).redirect(301, "/"); // verify redirect status code during unit testing;	
+    	}).then(course => {
+			return res.status(204).json(course).redirect(301, "/"); // verify redirect status code during unit testing;	
 		});
 };
 
@@ -305,8 +341,8 @@ exports.coursesCreatePost = function(req, res) {
 			code: req.body.code,
 			name: req.body.name,
 			theme: req.body.theme
-		}).then(function(courses) {
-			return res.status(201).json(Courses).redirect(301, ".."); // verify redirect status code during unit testing;
+		}).then(course => {
+			return res.status(201).json(course).redirect(301, ".."); // verify redirect status code during unit testing;
 		});
 	}
 }
@@ -325,18 +361,18 @@ exports.coursesUpdate = function(req, res, next) {
 	filter("theme").escape();
 		
 	if(!errors.isEmpty()) {
-		res.status(422).json({ errors: errors.array() });
+		res.status(400).json({ errors: errors.array() });
 	} else {
 		Courses.find({
       		where: { id: req.params.id }
-    	}).then(function(courses) {
+    	}).then(Courses => {
         	return Courses.updateAttributes({
 				code: req.body.code,
 				term: req.body.term,
 				name: req.body.name,
 				theme: req.body.theme
 			})
-      	}).then(function(updatedCourse) {
+      	}).then(updatedCourse => {
         	res.status(204).json(updatedCourse).redirect(301, "/"); // verify redirect status code during unit testing;
       	});
 	}
@@ -347,11 +383,11 @@ exports.coursesDelete = function(req, res) {
 	const errors = validationResult(req);
 		
 	if(!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Courses.destroy({
 			where: { id: req.params.id }
-		}).then(function(deletedCourse) {
+		}).then(deletedCourse => {
 			return res.status(204).json(deletedCourse).redirect(301, "/"); // verify redirect status code during unit testing;
 		});
 	}
@@ -368,8 +404,8 @@ exports.modulesEdit = function(req, res) {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Modules.find({
       		where: { id: req.params.id}
-    	}).then(function(modules) {
-			return res.status(204).json(Modules).redirect(301, "/"); // verify redirect status code during unit testing;	
+    	}).then(module => {
+			return res.status(204).json(module).redirect(301, "/"); // verify redirect status code during unit testing;	
 		});
 };
 
@@ -403,7 +439,7 @@ exports.modulesCreatePost = function(req, res) {
 		
 	// check for errors and render JSON error if true
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// use POST parameters from form inputs to generate a new course object
 		Modules.create({
@@ -412,8 +448,12 @@ exports.modulesCreatePost = function(req, res) {
 			start: req.body.start,
 			end: req.body.end,
 			instructor: req.body.instructor 
-		}).then(function(modules) {
-			return res.status(201).json(Modules).redirect(301, "..");
+		})
+		.then(module => {
+			return res.status(201).json(module).redirect(301, "..");
+		})
+		.catch(() => {
+			
 		});
 	}
 }
@@ -437,11 +477,12 @@ exports.modulesUpdate = function(req, res, next) {
 	filter("instructor").escape();
 		
 	if(!errors.isEmpty()) {
-		res.status(422).json({ errors: errors.array() });
+		res.status(400).json({ errors: errors.array() });
 	} else {
 		Modules.find({
       		where: { id: req.params.id }
-    	}).then(function(modules) {
+		})
+		.then(function(Modules) {
         	return Modules.updateAttributes({
 				type: req.body.type,
 				course: req.body.course,
@@ -449,9 +490,13 @@ exports.modulesUpdate = function(req, res, next) {
 				end: req.body.end,
 				instructor: req.body.instructor 
 			})
-      	}).then(function(updatedModule) {
-        	res.status(204).json(updatedModule).redirect(301, "/"); // verify redirect status code during unit testing;
-      	});
+		})
+		.then(updatedModule => {
+        	return res.status(204).json(updatedModule).redirect(301, "/"); // verify redirect status code during unit testing;
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		})  
 	}
 }
 
@@ -464,8 +509,12 @@ exports.modulesDelete = function(req, res) {
 	} else {
 		Modules.destroy({
 			where: { id: req.params.id }
-		}).then(function(deletedModule) {
+		})
+		.then(deletedModule => {
 			return res.status(204).json(deletedModule).redirect(301, "/"); // verify redirect status code during unit testing;
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
 		});
 	}
 }

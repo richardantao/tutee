@@ -145,7 +145,7 @@ exports.yearsUpdate = function(req, res, next) {
 	filter("end").escape();
 		
 	if(!errors.isEmpty()) {
-		res.status(400).json({ errors: errors.array() });
+		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Years.find({
       		where: { id: req.params.id }
@@ -191,7 +191,7 @@ exports.termsEdit = function(req, res) {
 	
 	// if errors array is NOT empty, render JSON error message
 	if (!errors.isEmpty()) {
-		return res.status(400).json({ errors: errors.array() });
+		return res.status(404).json({ errors: errors.array() });
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Terms.find({
@@ -209,7 +209,7 @@ exports.termsCreateGet = function(req, res) {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
-		return null;
+		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Terms.find({
 			where: { id: req.params.id }
@@ -275,7 +275,7 @@ exports.termsUpdate = function(req, res, next) {
 	// additional validation on the front end, make sure start date is before end date and within the year it belongs to
 		
 	if(!errors.isEmpty()) {
-		res.status(400).json({ errors: errors.array() });
+		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Terms.find({
     		where: { id: req.params.id }
@@ -323,7 +323,7 @@ exports.coursesEdit = function(req, res) {
 	
 	// if errors array is NOT empty, render JSON error message
 	if (!errors.isEmpty()) {
-		return res.status(400).json({ errors: errors.array() });
+		return res.status(404).json({ errors: errors.array() });
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Courses.find({
@@ -341,9 +341,17 @@ exports.coursesCreateGet = function(req, res) {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
-		return null;
+		return res.status(404).json({ errors: errors.array() });
 	} else {
-		
+		Courses.find({
+			where: { id: req.params.id}
+	  })
+	  .then(course => {
+		  return res.status(204).json(course).redirect(301, "/"); // verify redirect status code during unit testing;	
+	  })
+	  .catch(() => {
+		  return res.status(500).json({ errors: errors.array() });
+	  });
 	}
 }
 	
@@ -394,11 +402,12 @@ exports.coursesUpdate = function(req, res, next) {
 	filter("theme").escape();
 		
 	if(!errors.isEmpty()) {
-		return res.status(400).json({ errors: errors.array() });
+		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Courses.find({
       		where: { id: req.params.id }
-    	}).then(Courses => {
+		})
+		.then(Courses => {
         	return Courses.updateAttributes({
 				code: req.body.code,
 				term: req.body.term,
@@ -440,7 +449,7 @@ exports.modulesEdit = function(req, res) {
 	
 	// if errors array is NOT empty, render JSON error message
 	if (!errors.isEmpty()) {
-		return res.status(400).json({ errors: errors.array() });
+		return res.status(404).json({ errors: errors.array() });
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Modules.find({
@@ -458,7 +467,7 @@ exports.modulesCreateGet = function(req, res) {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
-		return res.status(400).json({ errors: errors.array() });
+		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Modules.find({
 			where: { id: req.params.id }
@@ -530,7 +539,7 @@ exports.modulesUpdate = function(req, res, next) {
 	filter("instructor").escape();
 		
 	if(!errors.isEmpty()) {
-		return res.status(400).json({ errors: errors.array() });
+		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Modules.find({
       		where: { id: req.params.id }

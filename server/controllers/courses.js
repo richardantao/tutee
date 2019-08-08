@@ -59,7 +59,7 @@ exports.yearsEdit = function(req, res) {
 	
 	// if errors array is NOT empty, render JSON error message
 	if (!errors.isEmpty()) {
-		return res.status(404).json();
+		return res.status(404).json({ errors: errors.array() });
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
 		Years.find({
@@ -150,7 +150,7 @@ exports.yearsUpdate = function(req, res, next) {
 		Years.find({
       		where: { id: req.params.id }
 		})
-		.then(years => {
+		.then(Years => {
         	return Years.updateAttributes({
 				title: req.body.title,
 				start: req.body.start,
@@ -158,7 +158,7 @@ exports.yearsUpdate = function(req, res, next) {
 			})
 		})
 		.then(updatedYear => {
-        	res.status(204).json(updatedYear).redirect(301, "/"); // verify redirect status code during unit testing;
+        	return res.status(204).json(updatedYear).redirect(301, "/"); // verify redirect status code during unit testing;
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -180,7 +180,7 @@ exports.yearsDelete = function(req, res) {
 			return res.status(204).json(deletedYear).redirect(301, "/"); // verify redirect status code during unit testing;
 		})
 		.catch(() => {
-
+			return res.status(500).json({ errors: errors.array() });
 		});
 	}
 }
@@ -191,13 +191,17 @@ exports.termsEdit = function(req, res) {
 	
 	// if errors array is NOT empty, render JSON error message
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Terms.find({
       		where: { id: req.params.id}
-    	}).then(term => {
+		})
+		.then(term => {
 			return res.status(204).json(term).redirect(301, "/"); // verify redirect status code during unit testing;	
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
 		});
 };
 
@@ -207,7 +211,15 @@ exports.termsCreateGet = function(req, res) {
 	if (!errors.isEmpty()) {
 		return null;
 	} else {
-		
+		Terms.find({
+			where: { id: req.params.id }
+		})
+		.then(term => {
+			return res.status(204).json(term);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 }	
 	
@@ -225,7 +237,7 @@ exports.termsCreatePost = function(req, res) {
 		
 	// check for errors and render JSON error if true
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// use POST parameters from form inputs to generate a new term object
 		Terms.create({
@@ -233,8 +245,12 @@ exports.termsCreatePost = function(req, res) {
 			start: req.body.start,
 			end: req.body.end,
 			rotation: req.body.rotation
-		}).then(term => {
+		})
+		.then(term => {
 			return res.status(201).json(term).redirect(301, ".."); // verify redirect status code during unit testing;
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
 		});
 	}
 }
@@ -259,11 +275,12 @@ exports.termsUpdate = function(req, res, next) {
 	// additional validation on the front end, make sure start date is before end date and within the year it belongs to
 		
 	if(!errors.isEmpty()) {
-		res.status(422).json({ errors: errors.array() });
+		res.status(400).json({ errors: errors.array() });
 	} else {
 		Terms.find({
     		where: { id: req.params.id }
-    	}).then(Terms => {
+		})
+		.then(Terms => {
         	return Terms.updateAttributes({
 				title: req.body.title,
 				year: req.body.year,
@@ -271,9 +288,13 @@ exports.termsUpdate = function(req, res, next) {
 				end: req.body.end,
 				rotation: req.body.rotation
 			})
-    	}).then(updatedTerm => {
-        	res.status(204).json(updatedTerm).redirect(301, "/"); // verify redirect status code during unit testing;
-    	});
+		})
+		.then(updatedTerm => {
+        	return res.status(204).json(updatedTerm).redirect(301, "/"); // verify redirect status code during unit testing;
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 }
 
@@ -282,12 +303,16 @@ exports.termsDelete = function(req, res) {
 	const errors = validationResult(req);
 		
 	if(!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Terms.destroy({
 			where: { id: req.params.id }
-		}).then(deletedTerm => {
+		})
+		.then(deletedTerm => {
 			return res.status(204).json(deletedTerm).redirect(301, "/"); // verify redirect status code during unit testing;
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
 		});
 	}
 }
@@ -303,8 +328,12 @@ exports.coursesEdit = function(req, res) {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Courses.find({
       		where: { id: req.params.id}
-    	}).then(course => {
+		})
+		.then(course => {
 			return res.status(204).json(course).redirect(301, "/"); // verify redirect status code during unit testing;	
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
 		});
 };
 
@@ -334,15 +363,19 @@ exports.coursesCreatePost = function(req, res) {
 		
 	// check for errors and render JSON error if true
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// use POST parameters from form inputs to generate a new course object
 		Courses.create({
 			code: req.body.code,
 			name: req.body.name,
 			theme: req.body.theme
-		}).then(course => {
+		})
+		.then(course => {
 			return res.status(201).json(course).redirect(301, ".."); // verify redirect status code during unit testing;
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
 		});
 	}
 }
@@ -361,7 +394,7 @@ exports.coursesUpdate = function(req, res, next) {
 	filter("theme").escape();
 		
 	if(!errors.isEmpty()) {
-		res.status(400).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Courses.find({
       		where: { id: req.params.id }
@@ -372,9 +405,13 @@ exports.coursesUpdate = function(req, res, next) {
 				name: req.body.name,
 				theme: req.body.theme
 			})
-      	}).then(updatedCourse => {
-        	res.status(204).json(updatedCourse).redirect(301, "/"); // verify redirect status code during unit testing;
-      	});
+		})
+		.then(updatedCourse => {
+        	return res.status(204).json(updatedCourse).redirect(301, "/"); // verify redirect status code during unit testing;
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 }
 
@@ -387,8 +424,12 @@ exports.coursesDelete = function(req, res) {
 	} else {
 		Courses.destroy({
 			where: { id: req.params.id }
-		}).then(deletedCourse => {
+		})
+		.then(deletedCourse => {
 			return res.status(204).json(deletedCourse).redirect(301, "/"); // verify redirect status code during unit testing;
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
 		});
 	}
 }
@@ -399,13 +440,17 @@ exports.modulesEdit = function(req, res) {
 	
 	// if errors array is NOT empty, render JSON error message
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Modules.find({
       		where: { id: req.params.id}
-    	}).then(module => {
+		})
+		.then(module => {
 			return res.status(204).json(module).redirect(301, "/"); // verify redirect status code during unit testing;	
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
 		});
 };
 
@@ -413,9 +458,17 @@ exports.modulesCreateGet = function(req, res) {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
-		return null;
+		return res.status(400).json({ errors: errors.array() });
 	} else {
-		
+		Modules.find({
+			where: { id: req.params.id }
+		})
+		.then(module => {
+			return res.status(204).json(module);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 }	
 	
@@ -453,7 +506,7 @@ exports.modulesCreatePost = function(req, res) {
 			return res.status(201).json(module).redirect(301, "..");
 		})
 		.catch(() => {
-			
+			return res.status(500).json({ errors: errors.array()} );
 		});
 	}
 }
@@ -477,12 +530,12 @@ exports.modulesUpdate = function(req, res, next) {
 	filter("instructor").escape();
 		
 	if(!errors.isEmpty()) {
-		res.status(400).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Modules.find({
       		where: { id: req.params.id }
 		})
-		.then(function(Modules) {
+		.then(Modules => {
         	return Modules.updateAttributes({
 				type: req.body.type,
 				course: req.body.course,

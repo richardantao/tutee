@@ -43,13 +43,22 @@ const Courses = require("../models/Courses");
 const Modules = require("../models/Modules");
 const { check, validationResult, filter } = require("express-validator");
 
+// resolved .then()
 exports.index = function(req, res) {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
+		Years.findAll({
 
+		})
+		.then(selectedData => {
+			return res.status(204).json({ selectedData });
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 }
 
@@ -71,6 +80,7 @@ exports.yearsEdit = function(req, res) {
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
 		});
+	}
 };
 	
 // check to see if can combine with route above
@@ -170,7 +180,7 @@ exports.yearsUpdate = function(req, res, next) {
 exports.yearsDelete = function(req, res) {
 	const errors = validationResult(req);
 		
-	if(!errors.isEmpty()) {
+	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Years.destroy({
@@ -203,7 +213,8 @@ exports.termsEdit = function(req, res) {
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
 		});
-};
+	}
+}
 
 exports.termsCreateGet = function(req, res) {
 	const errors = validationResult(req);
@@ -335,7 +346,8 @@ exports.coursesEdit = function(req, res) {
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
 		});
-};
+	}
+}
 
 exports.coursesCreateGet = function(req, res) {
 	const errors = validationResult(req);
@@ -461,7 +473,8 @@ exports.modulesEdit = function(req, res) {
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
 		});
-};
+	}
+}
 
 exports.modulesCreateGet = function(req, res) {
 	const errors = validationResult(req);
@@ -558,7 +571,7 @@ exports.modulesUpdate = function(req, res, next) {
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
-		})  
+		});  
 	}
 }
 

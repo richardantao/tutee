@@ -226,7 +226,7 @@ exports.termsCreateGet = function(req, res) {
 			where: { id: req.params.id }
 		})
 		.then(term => {
-			return res.status(204).json(term);
+			return res.status(200).json(term);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });

@@ -13,66 +13,98 @@ exports.usersEdit = function(req, res) {
 };
 
 // POST request to create user's account
-exports.usersCreate = [
+exports.usersCreate = function(req, res) {
+	const errors = validationResult(req);
 	
 	// validate and sanitize input fields | add whitelists for each parameter
-	check("firstName"),
-	check("lastName"),
-	check("password"),
-	check("email"),
-	
-	function(req, res) {
+	check("firstName");
+	check("lastName");
+	check("password");
+	check("email");
 		
-		const errors = validationResult(req);
+	filter("firstName").escape();
+	filter("lastName").escape();
+	filter("password").escape();
+	filter("email").escape();
 
-		if (!errors.isEmpty()) {
-			return res.status(422).json({ errors: errors.array() });
-		} else {
-			// Sequelize INSERT using create(), create a users account
-			Users.create({
-				id: req.body.id,
-				firstName: req.body.firstName,
-				lastName: req.body.lastName,
-				password: req.body.password,
-				email: req.body.email,
-		  	}).then(function(Users) {
-				return res.status(201).json(user);
-			});
-		}
+	if (!errors.isEmpty()) {
+		return res.status(400).json({ errors: errors.array() });
+	} else {
+		// Sequelize INSERT using create(), create a users account
+		Users.create({
+			firstName: req.body.firstName,
+			lastName: req.body.lastName,
+			password: req.body.password,
+			email: req.body.email,
+		})
+		.then(newUser =>  {
+			return res.status(201).json(newUser);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
-];
+}
 
 // PUT request to update user's account details
-exports.usersUpdate = [
-	
-	// validate and sanitize values
-	check("firstName"),
-	check(""),
-	check("email").isEmail(),
-	check(""),
-	
-	function(req, res) {
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
-			return res.status(422).json({ errors: errors.array() });
-		} else {
-			
-			//
-			
-			//
-			return res.status(204).json();
-		}
-	}
-];
+exports.usersUpdate = function(req, res) {
+	const errors = validationResult(req);
 
-exports.usersDelete = [
-	
-	function(req, res) {
-		const errors = validationResult(req);
-		if (!errors.isEmpty()) {
-			return res.status(422).json({ errors: errors.array() });
-		} else {
-			return res.status(204).json();
-		}
+	// validate and sanitize values
+	check("firstName");
+	check("lastName");
+	check("email").isEmail();
+	check("country");
+	check("region");
+	check("institution");
+
+	filter("firstName").escape();
+	filter("lastName").escape();
+	filter("email").escape();
+	filter("country").escape();
+	filter("region").escape();
+	filter("institution").escape();
+
+		
+	if (!errors.isEmpty()) {
+		return res.status(400).json({ errors: errors.array() });
+	} else {
+		Users.find({
+			where: { id: req.params.id }
+		})
+		.then(Users => {
+			return Users.updateAttributes({
+				firstName: req.body.firstName,
+				lastName: req.body.lastName,
+				email: req.body.email,
+				country: req.body.country,
+				region: req.body.region,
+				institution: req.body.institution
+			})
+		})
+		.then(retrievedUser => {
+			return res.status(204).json(retrievedUser);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
-];
+}
+
+exports.usersDelete = function(req, res) {
+	const errors = validationResult(req);
+	
+	if (!errors.isEmpty()) {
+		return res.status(400).json({ errors: errors.array() });
+	} else {
+		Users.destroy({
+			where: { id: req.params.id }
+		})
+		.then(deletedUser => {
+			return res.status(204).json(deletedUser);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.arrays() });
+		});
+	}
+}

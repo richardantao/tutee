@@ -1,13 +1,39 @@
 const Preferences = require("../models/Preferences")
 const { check, validationResult, filter } = require("express-validator");
 
+exports.index = function(req, res) {
+	const errors = validationResult(req);
+
+	if (!errors.isEmpty()) {
+		return res.status(404).json({ errors: errors.array() });
+	} else {
+		Preferences.findAll({
+
+		})
+		.then(preferences => {
+			return res.status(204).json(preferences);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
+	}
+}
+
 exports.profileCreateGet = function(req, res) {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(404).json({ errors: errors.array() });
 	} else {
-
+		Preferences.find({
+			where: { id: req.params.id }
+		})
+		.then(preference => {
+			return res.status(204).json(preference)
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 }
 
@@ -25,12 +51,17 @@ exports.profileCreatePost = function(req, res) {
 
 	if (!errors.isEmpty()) {
 		// return error message and reload page
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
   	} else {
-		// Sequelize INSERT using create(), profile info related to the user's ID
-		
-		// return status code and new object as JSON to the client to render
-		return res.status(201).json();
+		Preferences.create({
+
+		})
+		.then(preference => {
+			return res.status(201).json(preference);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});	
 	}
 };
 
@@ -47,12 +78,22 @@ exports.profileUpdate = function(req, res) {
 	check("institution"); // whitelist alphanumeric and - 
 	
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
-		// Sequelize UPDATE where  
-		
-		// return status code and updated object as JSON in the response
-		return res.status(204).json();
+		Preferences.find({
+			where: { id: req.params.id }
+		})
+		.then(Preferences => {
+			return Preferences.updatedAttribute({
+
+			})
+		})
+		.then(updatedPreference => {
+			return res.status(204).json(updatedPreference);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 };
 
@@ -74,7 +115,15 @@ exports.passwordEdit = function(req, res) {
 	if(errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		return res.status(200).json;
+		Preferences.destroy({
+			where: { id: req.params.id }
+		})
+		.then(deletedPrference => {
+			return res.status(204).json(deletedPrference);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 };
 
@@ -82,9 +131,17 @@ exports.passwordCreateGet = function(req, res) {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()){
-
+		return res.status(404).json({ errors: errors.array() });
 	} else {
-
+		Preferences.find({
+			where: { id: req.params.id }
+		})
+		.then(retrievedPassword => {
+			return res.status(204).json(retrievedPassword);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 }
 
@@ -92,11 +149,17 @@ exports.passwordCreateGet = function(req, res) {
 exports.passwordCreatePost = function(req, res) {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
-		// 
-		// return status code and updated object as JSON in the response
-		return res.status(201).json();
+		Preferences.create({
+
+		})
+		.then(createdPassword => {
+			return res.status(201).json(createdPassword);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 };
 
@@ -105,12 +168,22 @@ exports.passwordUpdate = function(req, res) {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
-		// 
-		
-		// return status code and updated object as JSON in the response
-		return res.status(204).json();
+		Preferences.find({
+			where: { id: req.params.id }
+		})
+		.then(Preferences => {
+			return Preferences.updatedAttribute({
+
+			})
+		})
+		.then(updatedPassword => {
+			return res.status(204).json(updatedPassword);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		})
 	}
 };
 
@@ -122,10 +195,15 @@ exports.preferencesEdit = function(req, res) {
 	if(!errors.isEmpty()) {
 	   return res.status(404).json({ errors: errors.array() });
 	} else {
-	   //
-
-	   // return status code with 
-	   return res.status(200).json();
+	   Preferences.find({
+		where: { id: req.params.id }
+	   })
+	   .then(preference => {
+		return res.status(204).json(preference);
+	   })
+	   .catch(() => {
+		return res.status(500).json({ errors: errors.array() });
+	   });
 	}
 };
 
@@ -133,9 +211,17 @@ exports.preferencesCreateGet = function(req, res) {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(404).json({ errors: errors.array() });
 	} else {
-
+		Preferences.find({
+			where: { if: req.params.id }
+		})
+		.then(retrievedPreferences => {
+			return res.status(204).json(retrievedPreferences);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 }
 
@@ -144,12 +230,17 @@ exports.preferencesCreatePost = function(req, res) {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
-		// 
-		
-		// return status code and updated object as JSON in the response
-		return res.status(201).json();
+		Preferences.create({
+
+		})
+		.then(createdPreference => {
+		return res.status(201).json(createdPreference);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		})
 	}
 };
 
@@ -159,10 +250,23 @@ exports.preferencesUpdate = function(req, res) {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
-		// return status code and updated object as JSON in the response
-		return res.status(204).json();
+		Preferences.find({
+			where: { id: req.params.id }
+		})
+		.then(Preferences => {
+			return Preferences.updatedAttribute({
+
+			})
+		})
+		.then(updatedPreference => {
+			return res.status(204).json(updatedPreference);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
+		
 	}
 };
 
@@ -171,11 +275,21 @@ exports.preferencesDelete = function(req, res) {
 	const errors = validationResult(req);
 		
 	if(!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });	
+		return res.status(400).json({ errors: errors.array() });	
 	} else {
-		return res.status(204).json();
+		Preferences.destroy({
+			where: { id: req.params.id }
+		})
+		.then(deletedPreference => {
+			return res.status(204).json(deletedPreference);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
 	}
 }
+
+/* Future routes */
 
 // GET request to retrieve user's third party integrations
 exports.integrationsEdit = function(req, res) {
@@ -184,7 +298,7 @@ exports.integrationsEdit = function(req, res) {
 	if (!errors.isEmpty()) {
 		return res.statu(404).json({ errors: errors.array() });
 	} else {
-		res.status(200).json();
+		return res.status(200).json();
 	}
 };
 
@@ -192,7 +306,7 @@ exports.integrationsCreateGet = function(req, res) {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
-		return res.satus(422).json({ errors: errors.array() });
+		return res.status(404).json({ errors: errors.array() });
 	} else {
 
 	}
@@ -203,7 +317,7 @@ exports.integrationsCreatePost = function(req, res) {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// Seqeulize INSERT query using create() to insert new record into database
 		
@@ -217,7 +331,7 @@ exports.integrationsUpdate = function(req, res){
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
-		return res.status(422).json({ errors: errors.array() });
+		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// Sequelize UPDATE query using ___ to update selected rows in database
 		

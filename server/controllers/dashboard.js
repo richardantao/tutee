@@ -61,8 +61,8 @@ exports.dashboardTaskCreateGet = function(req, res) {
 		Tasks.find({
 			where: { id: req.params.id}
 		})
-		.then(term => {
-			return res.status(204).json(term);
+		.then(retrievedTask => {
+			return res.status(200).json(retrievedTask);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -79,8 +79,8 @@ exports.dashboardTaskCreatePost = function(req, res) {
 		Tasks.create({
 			
 		})
-		.then(task => {
-			return res.status(204).json(task);
+		.then(createdTask => {
+			return res.status(204).json(createdTask);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -139,8 +139,8 @@ exports.dashboardEvaluEdit = function(req, res) {
 		Evalus.find({
 			where: { id: req.params.id }
 		})
-		.then(evalu => {
-			return res.status(204).json(evalu)
+		.then(retrievedEvalu => {
+			return res.status(200).json(retrievedEvalu)
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });

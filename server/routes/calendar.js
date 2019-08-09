@@ -2,12 +2,12 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/calendar");
 
-router.get("/month", controller.calendarMonth);
+router.get("/:userID/month", controller.calendarMonth);
 
-router.get("/week", controller.calendarWeek);
+router.get("/:userId/week", controller.calendarWeek);
 
-router.get("/day", controller.calendarDay);
+router.get("/:userId/day", controller.calendarDay);
 
-router.get("/agenda", controller.calendarAgenda);
+router.get("/:userId/agenda", controller.calendarAgenda);
 
 module.exports = router;

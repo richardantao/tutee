@@ -16,4 +16,6 @@ module.exports = () => {
 
     Sessions.belongsTo(Users, {as: "user"});
     Sessions.belongsTo(Modules, {as: "module"});
+
+    return Sessions;
 }

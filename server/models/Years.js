@@ -31,4 +31,6 @@ module.exports = () => {
 	}, { sequelize, modelName: "Years"});
 
 	Years.belongsTo(Users, {as: "user"});
+
+	return Years;
 }

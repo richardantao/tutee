@@ -33,4 +33,6 @@ module.exports = () => {
 
 	Courses.belongsTo(Users, {as: "user"});
 	Courses.belongsTo(Terms, {as: "term"});
+
+	return Courses;
 }

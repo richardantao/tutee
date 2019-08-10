@@ -37,5 +37,7 @@ module.exports = () => {
 
 	Tasks.belongsTo(Users, {as: "user"});
 	Tasks.belongsTo(Courses, {as: "course"});
+
+	return Tasks;
 }
 

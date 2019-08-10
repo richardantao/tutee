@@ -51,4 +51,6 @@ module.exports = () => {
 
 	Evalus.belongsTo(Users, {as: "user"});
 	Evalus.belongsTo(Courses, {as: "course"});
+
+	return Evalus;
 }

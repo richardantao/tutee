@@ -36,4 +36,6 @@ module.exports = () => {
 
 	Modules.belongsTo(Users, {as: "user"});
 	Modules.belongsTo(Courses, {as: "course"});
+
+	return Modules;
 }

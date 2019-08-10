@@ -39,4 +39,6 @@ module.exports = () => {
 	}, { sequelize, modelName: "Preferences"});
 
 	Preferences.belongsTo(Users, {as: "user"});
+
+	return Preferences;
 }

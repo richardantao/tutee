@@ -49,4 +49,6 @@ module.exports = () => {
 		sequelize, 
 		modelName: "Users" // expected table in database
 	});	
+
+	return Users;
 }

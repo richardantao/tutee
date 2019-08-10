@@ -36,4 +36,6 @@ module.exports = () => {
 
 	Terms.belongsTo(Users, {as: "user"});
 	Terms.belongsTo(Years, {as: "year"});
+
+	return Terms;
 }

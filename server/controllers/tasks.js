@@ -48,7 +48,7 @@ exports.tasksEdit = (req, res) => {
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
 		tasks.find({
-      		where: { taskId: req.params.taskId }
+      		where: { id: req.params.taskId }
 		})
 		.then(tasks => {
 			return res.status(200).json(tasks).redirect(301, "/"); // verify redirect status code during unit testing;	
@@ -66,7 +66,7 @@ exports.tasksCreateGet = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Tasks.find({
-			where: { taskId: req.params.taskId }
+			where: { id: req.params.taskId }
 		})
 		.then(retrievedTask => {
 			return res.status(204).json(retrievedTask)
@@ -105,6 +105,7 @@ exports.tasksCreatePost = (req, res) => {
 	} else {
 		// use POST parameters from form inputs to generate a new task object
 		Tasks.create({
+			userId: req.params.userId,
 			module: req.body.module,
 			title: req.body.title,
 			type: req.body.type,
@@ -147,10 +148,11 @@ exports.tasksUpdate = (req, res, next) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Tasks.find({
-     		where: { taskId: req.params.taskId }
+     		where: { id: req.params.taskId }
 		})
 		.then(Tasks => {
         	return Tasks.updateAttributes({
+				userId: req.params.userId,
 				course: req.body.course,
 				module: req.body.module,
 				title: req.body.title,
@@ -177,7 +179,7 @@ exports.tasksDelete = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		tasks.destroy({
-			where: { taskId: req.params.taskId }
+			where: { id: req.params.taskId }
 		})
 		.then(deletedTask => {
 			return res.status(204).json(deletedTask).redirect(301, "/"); // verify redirect status code during unit testing;

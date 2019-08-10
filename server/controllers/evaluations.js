@@ -9,7 +9,7 @@ exports.evalusPast = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Evalus.find({
-			where: { evaluId: req.params.evaluId}
+			where: { evaluid: req.params.evaluId}
 		})
 		.then(evalus => {
 			return res.status(204).json(evalus);
@@ -31,7 +31,7 @@ exports.evalusEdit = (req, res) => {
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
 		Evalus.find({
-      		where: { evaluId: req.params.evaluId}
+      		where: { id: req.params.evaluId}
 		})
 		.then(evalu => {
 			return res.status(200).json(evalu).redirect(301, "/"); // verify redirect status code during unit testing;	
@@ -49,7 +49,7 @@ exports.evalusCreateGet = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Evalus.find({
-			where: { evaluId: req.params.evaluId }
+			where: { id: req.params.evaluId }
 		})
 		.then(task => {
 			return res.status(200).json({task}); // pipe a redirect ??
@@ -89,6 +89,7 @@ exports.evalusCreatePost = (req, res) => {
 	} else {
 		// use POST parameters from form inputs to generate a new task object
 		Evalus.create({
+			userId: req.params.userId,
 			course: req.body.course,
 			user: req.params.userId,
 			title: req.body.title,
@@ -134,10 +135,11 @@ exports.evalusUpdate = (req, res, next) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Evalus.find({
-     		where: { evaluId: req.params.evaluId }
+     		where: { id: req.params.evaluId }
 		})
 		.then(Evalus => {
         	return Evalus.updateAttributes({
+				userId: req.params.userId,
 				course: req.body.course,
 				user: req.body.userId,
 				title: req.body.title,
@@ -164,7 +166,7 @@ exports.evalusDelete = (req, res) => {
 			return res.status(400).json({ errors: errors.array() });
 		} else {
 			Evalus.destroy({
-				where: { evaluId: req.params.evaluId }
+				where: { id: req.params.evaluId }
 			})
 			.then(deletedEvalus => {
 				return res.status(204).json(deletedEvalus).redirect(301, "/"); // verify redirect status code during unit testing;

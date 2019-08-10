@@ -68,10 +68,11 @@ exports.usersUpdate = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Users.find({
-			where: { userId: req.params.userId }
+			where: { id: req.params.userId }
 		})
 		.then(Users => {
 			return Users.updateAttributes({
+				id: req.params.userId,
 				firstName: req.body.firstName,
 				lastName: req.body.lastName,
 				email: req.body.email,
@@ -96,7 +97,7 @@ exports.usersDelete = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Users.destroy({
-			where: { userId: req.params.userId }
+			where: { id: req.params.userId }
 		})
 		.then(deletedUser => {
 			return res.status(204).json(deletedUser);

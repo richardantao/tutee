@@ -12,7 +12,7 @@ exports.dashboardSessionEdit = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Sessions.find({
-			where: { sessionId: req.params.sessionId }
+			where: { id: req.params.sessionId }
 		})
 		.then(session => {
 			return res.status(204).json(session);
@@ -41,7 +41,7 @@ exports.dashboardTaskEdit = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Tasks.find({
-			where: { taskId: req.params.taskId}
+			where: { id: req.params.taskId}
 		})
 		.then(term => {
 			return res.status(204).json(term);
@@ -59,7 +59,7 @@ exports.dashboardTaskCreateGet = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Tasks.find({
-			where: { taskId: req.params.taskId}
+			where: { id: req.params.taskId}
 		})
 		.then(retrievedTask => {
 			return res.status(200).json(retrievedTask);
@@ -95,7 +95,7 @@ exports.dashboardTaskUpdate = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Tasks.find({
-			where: { taskId: req.params.taskId }
+			where: { id: req.params.taskId }
 		})
 		.then(Tasks => {
 			return Tasks.updateAttributes({
@@ -118,7 +118,7 @@ exports.dashboardTaskDelete = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Tasks.destroy({
-			where: { taskId: req.params.taskId }
+			where: { id: req.params.taskId }
 		})
 		.then(deletedTask => {
 			return res.status(204).json(deletedTask);
@@ -137,7 +137,7 @@ exports.dashboardEvaluEdit = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Evalus.find({
-			where: { evaluId: req.params.evaluId }
+			where: { id: req.params.evaluId }
 		})
 		.then(retrievedEvalu => {
 			return res.status(200).json(retrievedEvalu)
@@ -155,11 +155,11 @@ exports.dashboardEvaluUpdate = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Evalus.find({
-			where: { evaluId: req.params.evaluId }
+			where: { id: req.params.evaluId }
 		})
 		.then(Evalus => {
 			return Evalus.updateAttributes({
-				
+				userId: req.params.userId
 			})
 		})
 		.then(updatedEvalu => {
@@ -178,7 +178,7 @@ exports.dashboardEvaluDelete = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Evalus.destroy({
-			where: { evaluId: req.params.evaluId }
+			where: { id: req.params.evaluId }
 		})
 		.then(deletedEvalu => {
 			return res.status(204).json(deletedEvalu);

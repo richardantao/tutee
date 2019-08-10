@@ -26,7 +26,7 @@ exports.profileCreateGet = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Preferences.find({
-			where: { preferenceId: req.params.preferenceId }
+			where: { id: req.params.preferenceId }
 		})
 		.then(preference => {
 			return res.status(204).json(preference)
@@ -54,7 +54,7 @@ exports.profileCreatePost = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
   	} else {
 		Preferences.create({
-
+			userId: req.params.userId
 		})
 		.then(preference => {
 			return res.status(201).json(preference);
@@ -81,7 +81,7 @@ exports.profileUpdate = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Preferences.find({
-			where: { preferenceId: req.params.preferenceId }
+			where: { id: req.params.preferenceId }
 		})
 		.then(Preferences => {
 			return Preferences.updatedAttribute({
@@ -116,7 +116,7 @@ exports.passwordEdit = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Preferences.destroy({
-			where: { preferenceId: req.params.preferenceId }
+			where: { id: req.params.preferenceId }
 		})
 		.then(deletedPrference => {
 			return res.status(204).json(deletedPrference);
@@ -134,7 +134,7 @@ exports.passwordCreateGet = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Preferences.find({
-			where: { preferenceId: req.params.preferenceId }
+			where: { id: req.params.preferenceId }
 		})
 		.then(retrievedPassword => {
 			return res.status(204).json(retrievedPassword);
@@ -171,7 +171,7 @@ exports.passwordUpdate = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Preferences.find({
-			where: { preferenceId: req.params.preferenceId }
+			where: { id: req.params.preferenceId }
 		})
 		.then(Preferences => {
 			return Preferences.updatedAttribute({
@@ -196,7 +196,7 @@ exports.preferencesEdit = (req, res) => {
 	   return res.status(404).json({ errors: errors.array() });
 	} else {
 	   Preferences.find({
-		where: { preferenceId: req.params.preferenceId }
+		where: { id: req.params.preferenceId }
 	   })
 	   .then(preference => {
 		return res.status(204).json(preference);
@@ -214,7 +214,7 @@ exports.preferencesCreateGet = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Preferences.find({
-			where: { preferenceId: req.params.preferenceId }
+			where: { id: req.params.preferenceId }
 		})
 		.then(retrievedPreferences => {
 			return res.status(204).json(retrievedPreferences);
@@ -233,7 +233,7 @@ exports.preferencesCreatePost = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Preferences.create({
-
+			userId: req.params.userId
 		})
 		.then(createdPreference => {
 		return res.status(201).json(createdPreference);
@@ -253,7 +253,7 @@ exports.preferencesUpdate = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Preferences.find({
-			where: { preferenceId: req.params.preferenceId}
+			where: { id: req.params.preferenceId}
 		})
 		.then(Preferences => {
 			return Preferences.updatedAttribute({
@@ -278,7 +278,7 @@ exports.preferencesDelete = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });	
 	} else {
 		Preferences.destroy({
-			where: { preferenceId: req.params.preferenceId }
+			where: { id: req.params.preferenceId }
 		})
 		.then(deletedPreference => {
 			return res.status(204).json(deletedPreference);

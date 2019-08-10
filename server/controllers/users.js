@@ -1,4 +1,4 @@
-// import dependencies
+const config = require("../config/config");
 const Users = require("../models/Users");
 const { check, validationResult, filter } = require("express-validator");
 

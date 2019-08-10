@@ -1,3 +1,7 @@
+## Future feature list 
+* Apple watch integration
+* Autofill fields
+
 ## v0.4.0 - Unreleased
 
 ### Added

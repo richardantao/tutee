@@ -1,6 +1,6 @@
 const { check, validationResult, filter } = require("express-validator");
 
-exports.calendarMonth = function(req, res) {
+exports.calendarMonth = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
@@ -13,7 +13,7 @@ exports.calendarMonth = function(req, res) {
 	}
 }
 
-exports.calendarWeek = function(req, res) {
+exports.calendarWeek = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
@@ -26,7 +26,7 @@ exports.calendarWeek = function(req, res) {
 	}
 }
 
-exports.calendarDay = function(req, res) {
+exports.calendarDay = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
@@ -39,7 +39,7 @@ exports.calendarDay = function(req, res) {
 	}
 }
 	
-exports.calendarAgenda = function(req, res) {
+exports.calendarAgenda = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (errors.isEmpty()) {

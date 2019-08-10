@@ -30,5 +30,5 @@ module.exports = () => {
 		}
 	}, { sequelize, modelName: "Years"});
 
-	Years.belongsTo(Users, {as: "Users"});
+	Years.belongsTo(Users, {as: "user"});
 }

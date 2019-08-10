@@ -29,7 +29,7 @@ module.exports = () => {
 			type: Sequelize.STRING(40),
 			allowNull: false
 		}
-	}, { sequelize, modelName: "courses" });
+	}, { sequelize, modelName: "Courses" });
 
 	Courses.belongsTo(Users, {as: "user"});
 	Courses.belongsTo(Terms, {as: "term"});

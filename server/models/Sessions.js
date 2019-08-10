@@ -12,7 +12,7 @@ module.exports = () => {
     class Sessions extends Model {}
     Sessions.init({
         
-    }, { sequelize, modelName: "classes" });
+    }, { sequelize, modelName: "Sessions" });
 
     Sessions.belongsTo(Users, {as: "user"});
     Sessions.belongsTo(Modules, {as: "module"});

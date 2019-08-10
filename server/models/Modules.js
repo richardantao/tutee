@@ -32,7 +32,7 @@ module.exports = () => {
 		instructor: {
 			type: Sequelize.STRING(60)
 		}
-	}, { sequelize, modelName: "modules" });
+	}, { sequelize, modelName: "Modules" });
 
 	Modules.belongsTo(Users, {as: "user"});
 	Modules.belongsTo(Courses, {as: "course"});

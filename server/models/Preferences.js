@@ -36,7 +36,7 @@ module.exports = () => {
 			type: Sequelize.BOOLEAN,
 			allowNull: false
 		}
-	}, { sequelize, modelName: "preferences"});
+	}, { sequelize, modelName: "Preferences"});
 
 	Preferences.belongsTo(Users, {as: "user"});
 }

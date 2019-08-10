@@ -47,8 +47,8 @@ module.exports = () => {
 		score: {
 			type: Sequelize.DECIMAL(10,0)
 		}
-	}, { sequelize, modelName: "Evals" });
+	}, { sequelize, modelName: "Evalus" });
 
-	Evalus.belongsTo(Users, {as: "Users"});
-	Evalus.belongsTo(Courses, {as: "Courses"});
+	Evalus.belongsTo(Users, {as: "user"});
+	Evalus.belongsTo(Courses, {as: "course"});
 }

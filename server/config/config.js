@@ -1,5 +1,30 @@
 const Sequelize = require("sequelize");
 const env = process.env.NODE_ENV;
+
+const development = {
+  user: "",
+  password: "",
+  database: "",
+  host: "",
+  dialect: "mysql"
+}
+
+const testing = {
+  user: "",
+  password: "",
+  database: "",
+  host: "",
+  dialect: "mysql"
+}
+
+const production = {
+  user: "",
+  password: "",
+  database: "",
+  host: "",
+  dialect: "mysql"
+} 
+
 const db = {
   name: process.env.DB_NAME,
   user: process.env.DB_USER,

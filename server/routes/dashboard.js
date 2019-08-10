@@ -24,13 +24,13 @@ router.put("/:userId/tasks/:taskId/update", controller.dashboardTaskUpdate);
 router.delete("/:userId/tasks/:taskId/delete", controller.dashboardTaskDelete);
 
 // GET specific eval selected by user
-router.get("/:userId/evals/:evalId/edit", controller.dashboardEvalEdit); // routed in react
+router.get("/:userId/evals/:evalId/edit", controller.dashboardEvaluEdit); // routed in react
 
 // PUT specific eval selected by user
-router.put("/:userId/evals/:evalId/update", controller.dashboardEvalUpdate);
+router.put("/:userId/evals/:evalId/update", controller.dashboardEvaluUpdate);
 
 // DELETE specific eval selected by user
-router.delete("/:userId/evals/:evalId/delete", controller.dashboardEvalDelete);
+router.delete("/:userId/evals/:evalId/delete", controller.dashboardEvaluDelete);
 
 module.exports = router;
 

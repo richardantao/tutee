@@ -44,11 +44,11 @@ connection.connect(err => {
 });
 
 /* Middleware - preprocess requests */
-app.use(cors());
-app.use(logger("dev"));
+app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static("public"));
+app.use(logger("dev"));
+app.use(cors());
 app.use(cookieParser());
 
 // routes middleware

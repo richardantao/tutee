@@ -2,14 +2,14 @@ const Evalus = require("../models/Evaluations")
 const { check, validationResult, filter } = require("express-validator");
 
 // filter evalus to get evalus with a past date
-exports.evalusPast = function(req, res) {
+exports.evalusPast = (req, res) => {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Evalus.find({
-			where: { id: req.params.id }
+			where: { evaluId: req.params.evaluId}
 		})
 		.then(evalus => {
 			return res.status(204).json(evalus);
@@ -22,7 +22,7 @@ exports.evalusPast = function(req, res) {
 }
 
 // GET request when user attempts to retrieve a specific evaluation
-exports.evalusEdit = function(req, res) {
+exports.evalusEdit = (req, res) => {
 	const errors = validationResult(req);
 	
 	// if errors array is NOT empty, render JSON error message
@@ -31,7 +31,7 @@ exports.evalusEdit = function(req, res) {
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
 		Evalus.find({
-      		where: { id: req.params.id}
+      		where: { evaluId: req.params.evaluId}
 		})
 		.then(evalu => {
 			return res.status(200).json(evalu).redirect(301, "/"); // verify redirect status code during unit testing;	
@@ -42,14 +42,14 @@ exports.evalusEdit = function(req, res) {
 	}
 };
 
-exports.evalusCreateGet = function(req, res) {
+exports.evalusCreateGet = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Evalus.find({
-			where: {id: req.params.id}
+			where: { evaluId: req.params.evaluId }
 		})
 		.then(task => {
 			return res.status(200).json({task}); // pipe a redirect ??
@@ -61,7 +61,7 @@ exports.evalusCreateGet = function(req, res) {
 }
 
 // POST request after the user SUBMITS the "New Evaluation" form
-exports.evalusCreatePost = function(req, res) {
+exports.evalusCreatePost = (req, res) => {
 	const errors = validationResult(req);
 
 	// validate and sanitize input fields
@@ -106,7 +106,7 @@ exports.evalusCreatePost = function(req, res) {
 }
 
 // PUT request after the user SAVES the Evaluations editer form
-exports.evalusUpdate = function(req, res, next) {
+exports.evalusUpdate = (req, res, next) => {
 	const errors = validationResult(req);
 
 	// validate and sanitize input fields
@@ -134,7 +134,7 @@ exports.evalusUpdate = function(req, res, next) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Evalus.find({
-     		where: { id: req.params.id }
+     		where: { evaluId: req.params.evaluId }
 		})
 		.then(Evalus => {
         	return Evalus.updateAttributes({
@@ -157,14 +157,14 @@ exports.evalusUpdate = function(req, res, next) {
 }	
 
 // DELETE request after the user DELETES the Evaluations editer form
-exports.evalusDelete = function(req, res) {
+exports.evalusDelete = (req, res) => {
 		const errors = validationResult(req);
 		
 		if(!errors.isEmpty()) {
 			return res.status(400).json({ errors: errors.array() });
 		} else {
 			Evalus.destroy({
-				where: { id: req.params.id }
+				where: { evaluId: req.params.evaluId }
 			})
 			.then(deletedEvalus => {
 				return res.status(204).json(deletedEvalus).redirect(301, "/"); // verify redirect status code during unit testing;

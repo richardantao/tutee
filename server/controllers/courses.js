@@ -44,7 +44,7 @@ const Modules = require("../models/Modules");
 const { check, validationResult, filter } = require("express-validator");
 
 // resolved .then()
-exports.index = function(req, res) {
+exports.index = (req, res) => {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
@@ -63,7 +63,7 @@ exports.index = function(req, res) {
 }
 
 // GET request when user tries to edit a specific year
-exports.yearsEdit = function(req, res) {
+exports.yearsEdit = (req, res) => {
 	const errors = validationResult(req);
 	
 	// if errors array is NOT empty, render JSON error message
@@ -72,7 +72,7 @@ exports.yearsEdit = function(req, res) {
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
 		Years.find({
-      		where: { id: req.params.id}
+      		where: { yearId: req.params.yearId}
 		})
 		.then(year => {
 			return res.status(200).json(year).redirect(301, "/"); // verify redirect status code during unit testing;	
@@ -84,14 +84,14 @@ exports.yearsEdit = function(req, res) {
 };
 	
 // check to see if can combine with route above
-exports.yearsCreateGet = function(req, res) {
+exports.yearsCreateGet = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Years.find({	
-			where: { id: req.params.id }
+			where: { yearId: req.params.yearId }
 		})
 		.then(year => {
 			return res.status(200).json(year);
@@ -141,7 +141,7 @@ exports.yearsCreatePost = function(req, res) {
 }
 
 // PUT request after user SAVES the Year editer form
-exports.yearsUpdate = function(req, res, next) {
+exports.yearsUpdate = (req, res, next) => {
 	const errors = validationResult(req);
 
 	// validate inputs | replace with whitelist
@@ -158,7 +158,7 @@ exports.yearsUpdate = function(req, res, next) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Years.find({
-      		where: { id: req.params.id }
+      		where: { yearId: req.params.yearId }
 		})
 		.then(Years => {
         	return Years.updateAttributes({
@@ -177,14 +177,14 @@ exports.yearsUpdate = function(req, res, next) {
 }
 
 // DELETE request after user DELETES the Year editor form
-exports.yearsDelete = function(req, res) {
+exports.yearsDelete = (req, res) => {
 	const errors = validationResult(req);
 		
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Years.destroy({
-			where: { id: req.params.id }
+			where: { yearId: req.params.yearId }
 		})
 		.then(deletedYear => {
 			return res.status(204).json(deletedYear).redirect(301, "/"); // verify redirect status code during unit testing;
@@ -196,7 +196,7 @@ exports.yearsDelete = function(req, res) {
 }
 
 // GET request when the user tries to edit a specific term
-exports.termsEdit = function(req, res) {
+exports.termsEdit = (req, res) => {
 	const errors = validationResult(req);
 	
 	// if errors array is NOT empty, render JSON error message
@@ -205,7 +205,7 @@ exports.termsEdit = function(req, res) {
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Terms.find({
-      		where: { id: req.params.id}
+      		where: { termId: req.params.termId}
 		})
 		.then(term => {
 			return res.status(204).json(term).redirect(301, "/"); // verify redirect status code during unit testing;	
@@ -216,14 +216,14 @@ exports.termsEdit = function(req, res) {
 	}
 }
 
-exports.termsCreateGet = function(req, res) {
+exports.termsCreateGet = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Terms.find({
-			where: { id: req.params.id }
+			where: { termId: req.params.termId }
 		})
 		.then(term => {
 			return res.status(200).json(term);
@@ -235,7 +235,7 @@ exports.termsCreateGet = function(req, res) {
 }	
 	
 // POST request after user SUBMITS the "New Term" form
-exports.termsCreatePost = function(req, res) {
+exports.termsCreatePost = (req, res) => {
 	const errors = validationResult(req);
 
 	// validate and sanitize fields
@@ -267,7 +267,7 @@ exports.termsCreatePost = function(req, res) {
 }
 
 // PUT request after user SUBMITS the Term editer form
-exports.termsUpdate = function(req, res, next) {
+exports.termsUpdate = (req, res, next) => {
 	const errors = validationResult(req);
 
 	// validate and sanitize fields
@@ -289,7 +289,7 @@ exports.termsUpdate = function(req, res, next) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Terms.find({
-    		where: { id: req.params.id }
+    		where: { termId: req.params.termId }
 		})
 		.then(Terms => {
         	return Terms.updateAttributes({
@@ -310,14 +310,14 @@ exports.termsUpdate = function(req, res, next) {
 }
 
 // DELETE request after user DELETES the Term editer form
-exports.termsDelete = function(req, res) {
+exports.termsDelete = (req, res) => {
 	const errors = validationResult(req);
 		
 	if(!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Terms.destroy({
-			where: { id: req.params.id }
+			where: { termId: req.params.termId }
 		})
 		.then(deletedTerm => {
 			return res.status(204).json(deletedTerm).redirect(301, "/"); // verify redirect status code during unit testing;
@@ -329,7 +329,7 @@ exports.termsDelete = function(req, res) {
 }
 
 // GET request after user tries to edit a specific course
-exports.coursesEdit = function(req, res) {
+exports.coursesEdit = (req, res) => {
 	const errors = validationResult(req);
 	
 	// if errors array is NOT empty, render JSON error message
@@ -338,7 +338,7 @@ exports.coursesEdit = function(req, res) {
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Courses.find({
-      		where: { id: req.params.id}
+      		where: { courseId: req.params.courseId}
 		})
 		.then(course => {
 			return res.status(204).json(course).redirect(301, "/"); // verify redirect status code during unit testing;	
@@ -349,14 +349,14 @@ exports.coursesEdit = function(req, res) {
 	}
 }
 
-exports.coursesCreateGet = function(req, res) {
+exports.coursesCreateGet = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Courses.find({
-			where: { id: req.params.id}
+			where: { courseId: req.params.courseId}
 	  })
 	  .then(course => {
 		  return res.status(204).json(course).redirect(301, "/"); // verify redirect status code during unit testing;	
@@ -368,7 +368,7 @@ exports.coursesCreateGet = function(req, res) {
 }
 	
 // POST request after user SUBMITS the "New Course" form 
-exports.coursesCreatePost = function(req, res) {
+exports.coursesCreatePost = (req, res) => {
 		const errors = validationResult(req);
 
 	// validate and sanitize input fields
@@ -401,7 +401,7 @@ exports.coursesCreatePost = function(req, res) {
 }
 
 // PUT request after user SAVES the Course editer form
-exports.coursesUpdate = function(req, res, next) {
+exports.coursesUpdate = (req, res, next) => {
 	const errors = validationResult(req);
 
 	// validate and sanitize input fields
@@ -417,7 +417,7 @@ exports.coursesUpdate = function(req, res, next) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Courses.find({
-      		where: { id: req.params.id }
+      		where: { courseId: req.params.courseId }
 		})
 		.then(Courses => {
         	return Courses.updateAttributes({
@@ -437,14 +437,14 @@ exports.coursesUpdate = function(req, res, next) {
 }
 
 // DELETE request after user DELETES the Course editer Form
-exports.coursesDelete = function(req, res) {
+exports.coursesDelete = (req, res) => {
 	const errors = validationResult(req);
 		
 	if(!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Courses.destroy({
-			where: { id: req.params.id }
+			where: { courseId: req.params.courseId }
 		})
 		.then(deletedCourse => {
 			return res.status(204).json(deletedCourse).redirect(301, "/"); // verify redirect status code during unit testing;
@@ -456,7 +456,7 @@ exports.coursesDelete = function(req, res) {
 }
 
 // GET request after a user attempts to retrieve a specific module
-exports.modulesEdit = function(req, res) {
+exports.modulesEdit = (req, res) => {
 	const errors = validationResult(req);
 	
 	// if errors array is NOT empty, render JSON error message
@@ -465,7 +465,7 @@ exports.modulesEdit = function(req, res) {
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Modules.find({
-      		where: { id: req.params.id}
+      		where: { moduleId: req.params.moduleId}
 		})
 		.then(module => {
 			return res.status(204).json(module).redirect(301, "/"); // verify redirect status code during unit testing;	
@@ -476,14 +476,14 @@ exports.modulesEdit = function(req, res) {
 	}
 }
 
-exports.modulesCreateGet = function(req, res) {
+exports.modulesCreateGet = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Modules.find({
-			where: { id: req.params.id }
+			where: { moduleId: req.params.moduleId }
 		})
 		.then(module => {
 			return res.status(204).json(module);
@@ -495,7 +495,7 @@ exports.modulesCreateGet = function(req, res) {
 }	
 	
 // POST request after the user SUBMITS the "New Module" form
-exports.modulesCreatePost = function(req, res) {
+exports.modulesCreatePost = (req, res) => {
 	const errors = validationResult(req);
 
 	// validate inputs
@@ -534,7 +534,7 @@ exports.modulesCreatePost = function(req, res) {
 }
 
 // PUT request after the user SAVES the Modules editer form
-exports.modulesUpdate = function(req, res, next) {
+exports.modulesUpdate = (req, res, next) => {
 	const errors = validationResult(req);
 
 	// validate inputs
@@ -555,7 +555,7 @@ exports.modulesUpdate = function(req, res, next) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Modules.find({
-      		where: { id: req.params.id }
+      		where: { moduleId: req.params.moduleId }
 		})
 		.then(Modules => {
         	return Modules.updateAttributes({
@@ -576,14 +576,14 @@ exports.modulesUpdate = function(req, res, next) {
 }
 
 // DELETES request after the user DELETES the Modules editer form
-exports.modulesDelete = function(req, res) {
+exports.modulesDelete = (req, res) => {
 	const errors = validationResult(req);
 		
 	if(!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Modules.destroy({
-			where: { id: req.params.id }
+			where: { moduleId: req.params.moduleId }
 		})
 		.then(deletedModule => {
 			return res.status(204).json(deletedModule).redirect(301, "/"); // verify redirect status code during unit testing;

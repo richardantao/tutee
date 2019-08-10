@@ -5,14 +5,14 @@ const Evalus = require("../models/Evaluations");
 const { check, validationResult, filter } = require("express-validator");
 
 // GET display class editor for specific class
-exports.dashboardSessionEdit = function(req, res) {
+exports.dashboardSessionEdit = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Sessions.find({
-			where: { id: req.params.id }
+			where: { sessionId: req.params.sessionId }
 		})
 		.then(session => {
 			return res.status(204).json(session);
@@ -23,7 +23,7 @@ exports.dashboardSessionEdit = function(req, res) {
 	}
 };
 
-exports.dashboardSessionDelete = function(req, res) {
+exports.dashboardSessionDelete = (req, res) => {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
@@ -34,14 +34,14 @@ exports.dashboardSessionDelete = function(req, res) {
 }
 
 
-exports.dashboardTaskEdit = function(req, res) {
+exports.dashboardTaskEdit = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Tasks.find({
-			where: { id: req.params.id}
+			where: { taskId: req.params.taskId}
 		})
 		.then(term => {
 			return res.status(204).json(term);
@@ -52,14 +52,14 @@ exports.dashboardTaskEdit = function(req, res) {
 	}
 }
 
-exports.dashboardTaskCreateGet = function(req, res) {
+exports.dashboardTaskCreateGet = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Tasks.find({
-			where: { id: req.params.id}
+			where: { taskId: req.params.taskId}
 		})
 		.then(retrievedTask => {
 			return res.status(200).json(retrievedTask);
@@ -70,7 +70,7 @@ exports.dashboardTaskCreateGet = function(req, res) {
 	}
 }
 
-exports.dashboardTaskCreatePost = function(req, res) {
+exports.dashboardTaskCreatePost = (req, res) => {
 	errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
@@ -88,14 +88,14 @@ exports.dashboardTaskCreatePost = function(req, res) {
 	}
 }
 
-exports.dashboardTaskUpdate = function(req, res) {
+exports.dashboardTaskUpdate = (req, res) => {
 	errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Tasks.find({
-			where: { id: req.params.id }
+			where: { taskId: req.params.taskId }
 		})
 		.then(Tasks => {
 			return Tasks.updateAttributes({
@@ -111,14 +111,14 @@ exports.dashboardTaskUpdate = function(req, res) {
 	}
 }
 
-exports.dashboardTaskDelete = function(req, res) {
+exports.dashboardTaskDelete = (req, res) => {
 	errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Tasks.destroy({
-			where: { id: req.params.id }
+			where: { taskId: req.params.taskId }
 		})
 		.then(deletedTask => {
 			return res.status(204).json(deletedTask);
@@ -130,14 +130,14 @@ exports.dashboardTaskDelete = function(req, res) {
 }
 
 
-exports.dashboardEvaluEdit = function(req, res) {
+exports.dashboardEvaluEdit = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Evalus.find({
-			where: { id: req.params.id }
+			where: { evaluId: req.params.evaluId }
 		})
 		.then(retrievedEvalu => {
 			return res.status(200).json(retrievedEvalu)
@@ -148,14 +148,14 @@ exports.dashboardEvaluEdit = function(req, res) {
 	}
 }
 
-exports.dashboardEvaluUpdate = function(req, res) {
+exports.dashboardEvaluUpdate = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Evalus.find({
-			where: { id: req.params.id }
+			where: { evaluId: req.params.evaluId }
 		})
 		.then(Evalus => {
 			return Evalus.updateAttributes({
@@ -171,14 +171,14 @@ exports.dashboardEvaluUpdate = function(req, res) {
 	}
 	}
 
-exports.dashboardEvaluDelete = function(req, res) {
+exports.dashboardEvaluDelete = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Evalus.destroy({
-			where: { id: req.params.id }
+			where: { evaluId: req.params.evaluId }
 		})
 		.then(deletedEvalu => {
 			return res.status(204).json(deletedEvalu);

@@ -1,7 +1,7 @@
 const Preferences = require("../models/Preferences")
 const { check, validationResult, filter } = require("express-validator");
 
-exports.index = function(req, res) {
+exports.index = (req, res) => {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
@@ -19,14 +19,14 @@ exports.index = function(req, res) {
 	}
 }
 
-exports.profileCreateGet = function(req, res) {
+exports.profileCreateGet = (req, res) => {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Preferences.find({
-			where: { id: req.params.id }
+			where: { preferenceId: req.params.preferenceId }
 		})
 		.then(preference => {
 			return res.status(204).json(preference)
@@ -38,7 +38,7 @@ exports.profileCreateGet = function(req, res) {
 }
 
 // POST request to create initial profile settings | redundant?
-exports.profileCreatePost = function(req, res) {
+exports.profileCreatePost = (req, res) => {
 	const errors = validationResult(req);
 
 	// validate and sanitize input fields
@@ -67,7 +67,7 @@ exports.profileCreatePost = function(req, res) {
 
 
 // PUT request to update existing profile settings 
-exports.profileUpdate = function(req, res) {
+exports.profileUpdate = (req, res) => {
 	const errors = validationResult(req);
 
 	check("firstName").trim().escape(); // validate alphanumeric and . - 
@@ -81,7 +81,7 @@ exports.profileUpdate = function(req, res) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Preferences.find({
-			where: { id: req.params.id }
+			where: { preferenceId: req.params.preferenceId }
 		})
 		.then(Preferences => {
 			return Preferences.updatedAttribute({
@@ -98,7 +98,7 @@ exports.profileUpdate = function(req, res) {
 };
 
 // DELETE request to delete user's account
-exports.profileDelete = function(req, res) {
+exports.profileDelete = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (errors.isEmpty()) {
@@ -109,14 +109,14 @@ exports.profileDelete = function(req, res) {
 };
 
 // GET request to retrieve user's password in settings page
-exports.passwordEdit = function(req, res) {
+exports.passwordEdit = (req, res) => {
 	const errors = validationResult(req);
 	
 	if(errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Preferences.destroy({
-			where: { id: req.params.id }
+			where: { preferenceId: req.params.preferenceId }
 		})
 		.then(deletedPrference => {
 			return res.status(204).json(deletedPrference);
@@ -127,14 +127,14 @@ exports.passwordEdit = function(req, res) {
 	}
 };
 
-exports.passwordCreateGet = function(req, res) {
+exports.passwordCreateGet = (req, res) => {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()){
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Preferences.find({
-			where: { id: req.params.id }
+			where: { preferenceId: req.params.preferenceId }
 		})
 		.then(retrievedPassword => {
 			return res.status(204).json(retrievedPassword);
@@ -146,7 +146,7 @@ exports.passwordCreateGet = function(req, res) {
 }
 
 // POST request to create user's password | redundant
-exports.passwordCreatePost = function(req, res) {
+exports.passwordCreatePost = (req, res) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
@@ -164,14 +164,14 @@ exports.passwordCreatePost = function(req, res) {
 };
 
 // PUT request to update database with user's new password
-exports.passwordUpdate = function(req, res) {
+exports.passwordUpdate = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Preferences.find({
-			where: { id: req.params.id }
+			where: { preferenceId: req.params.preferenceId }
 		})
 		.then(Preferences => {
 			return Preferences.updatedAttribute({
@@ -189,14 +189,14 @@ exports.passwordUpdate = function(req, res) {
 
 
 // GET request to retrieve user's preferences 
-exports.preferencesEdit = function(req, res) {
+exports.preferencesEdit = (req, res) => {
 	const errors = validationResult(req);
 	
 	if(!errors.isEmpty()) {
 	   return res.status(404).json({ errors: errors.array() });
 	} else {
 	   Preferences.find({
-		where: { id: req.params.id }
+		where: { preferenceId: req.params.preferenceId }
 	   })
 	   .then(preference => {
 		return res.status(204).json(preference);
@@ -207,14 +207,14 @@ exports.preferencesEdit = function(req, res) {
 	}
 };
 
-exports.preferencesCreateGet = function(req, res) {
+exports.preferencesCreateGet = (req, res) => {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Preferences.find({
-			where: { if: req.params.id }
+			where: { preferenceId: req.params.preferenceId }
 		})
 		.then(retrievedPreferences => {
 			return res.status(204).json(retrievedPreferences);
@@ -226,7 +226,7 @@ exports.preferencesCreateGet = function(req, res) {
 }
 
 // POST request to create user's preferences | redundant? maybe not
-exports.preferencesCreatePost = function(req, res) {
+exports.preferencesCreatePost = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
@@ -246,14 +246,14 @@ exports.preferencesCreatePost = function(req, res) {
 
 
 // POST request to update user's personal app preferences
-exports.preferencesUpdate = function(req, res) {
+exports.preferencesUpdate = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Preferences.find({
-			where: { id: req.params.id }
+			where: { preferenceId: req.params.preferenceId}
 		})
 		.then(Preferences => {
 			return Preferences.updatedAttribute({
@@ -271,14 +271,14 @@ exports.preferencesUpdate = function(req, res) {
 };
 
 // DELETE request to delete (reset?) user's preferences to default settings 
-exports.preferencesDelete = function(req, res) {
+exports.preferencesDelete = (req, res) => {
 	const errors = validationResult(req);
 		
 	if(!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });	
 	} else {
 		Preferences.destroy({
-			where: { id: req.params.id }
+			where: { preferenceId: req.params.preferenceId }
 		})
 		.then(deletedPreference => {
 			return res.status(204).json(deletedPreference);
@@ -292,7 +292,7 @@ exports.preferencesDelete = function(req, res) {
 /* Future routes */
 
 // GET request to retrieve user's third party integrations
-exports.integrationsEdit = function(req, res) {
+exports.integrationsEdit = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
@@ -302,7 +302,7 @@ exports.integrationsEdit = function(req, res) {
 	}
 };
 
-exports.integrationsCreateGet = function(req, res) {
+exports.integrationsCreateGet = (req, res) => {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
@@ -313,7 +313,7 @@ exports.integrationsCreateGet = function(req, res) {
 }
 
 // POST request to create third party integration connections
-exports.integrationsCreatePost = function(req, res) {
+exports.integrationsCreatePost = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
@@ -327,7 +327,7 @@ exports.integrationsCreatePost = function(req, res) {
 };
 
 // PUT request to update user's third party integrations
-exports.integrationsUpdate = function(req, res){
+exports.integrationsUpdate = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
@@ -341,7 +341,7 @@ exports.integrationsUpdate = function(req, res){
 };
 
 // DELETE request to delete user's third party integrations
-exports.integrationsDelete = function(req, res) {
+exports.integrationsDelete = (req, res) => {
 	const errors = validationResult(req);
 	if (!errors.isEmpty()) {
 		return res.status(422).json({ errors: errors.array() });

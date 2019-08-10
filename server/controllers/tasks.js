@@ -2,7 +2,7 @@
 const Tasks = require("../models/Tasks");
 const { check, validationResult, filter } = require("express-validator");
 
-exports.index = function(req, res) {
+exports.index = (req, res) => {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {
@@ -20,7 +20,7 @@ exports.index = function(req, res) {
 	}
 }
 
-exports.tasksPast = function(req, res) {
+exports.tasksPast = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
@@ -39,7 +39,7 @@ exports.tasksPast = function(req, res) {
 };
 
 // GET request for the Tasks editer form (single task by its ID)
-exports.tasksEdit = function(req, res) {
+exports.tasksEdit = (req, res) => {
 	const errors = validationResult(req);
 	
 	// if errors array is NOT empty, render JSON error message
@@ -48,7 +48,7 @@ exports.tasksEdit = function(req, res) {
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
 		tasks.find({
-      		where: { id: req.params.id}
+      		where: { taskId: req.params.taskId }
 		})
 		.then(tasks => {
 			return res.status(200).json(tasks).redirect(301, "/"); // verify redirect status code during unit testing;	
@@ -59,14 +59,14 @@ exports.tasksEdit = function(req, res) {
 	}
 };
 
-exports.tasksCreateGet = function(req, res) {
+exports.tasksCreateGet = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Tasks.find({
-			where: { id: req.params.id }
+			where: { taskId: req.params.taskId }
 		})
 		.then(retrievedTask => {
 			return res.status(204).json(retrievedTask)
@@ -78,7 +78,7 @@ exports.tasksCreateGet = function(req, res) {
 }
 
 // POST request after the user SUBMITS the "New Term" form
-exports.tasksCreatePost = function(req, res) {
+exports.tasksCreatePost = (req, res) => {
 	const errors = validationResult(req);
 	
 	// validate fields
@@ -122,7 +122,7 @@ exports.tasksCreatePost = function(req, res) {
 }
 
 // PUT request after the user SAVES the Tasks editer form 
-exports.tasksUpdate = function(req, res, next) {
+exports.tasksUpdate = (req, res, next) => {
 	const errors = validationResult(req);
 
 	// validate fields
@@ -147,7 +147,7 @@ exports.tasksUpdate = function(req, res, next) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Tasks.find({
-     		where: { id: req.params.id }
+     		where: { taskId: req.params.taskId }
 		})
 		.then(Tasks => {
         	return Tasks.updateAttributes({
@@ -170,14 +170,14 @@ exports.tasksUpdate = function(req, res, next) {
 }	
 
 // DELETE request after the user DELETES the Tasks editer form
-exports.tasksDelete = function(req, res) {
+exports.tasksDelete = (req, res) => {
 	const errors = validationResult(req);
 		
 	if(!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		tasks.destroy({
-			where: { id: req.params.id }
+			where: { taskId: req.params.taskId }
 		})
 		.then(deletedTask => {
 			return res.status(204).json(deletedTask).redirect(301, "/"); // verify redirect status code during unit testing;

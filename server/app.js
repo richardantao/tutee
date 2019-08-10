@@ -34,7 +34,7 @@ const connection = mysql.createConnection({
 		database: db.name
 	});
 
-connection.connect(function(err) {
+connection.connect(err => {
 	if (err) {
 		console.log("Your connection to the database failed");
 		throw err;
@@ -63,12 +63,12 @@ app.use("/search", require("./routes/search"));
 app.use("/settings", require("./routes/settings"));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
 	next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   	// set locals, only providing error in development
   	res.locals.message = err.message;
 	res.locals.error = req.app.get("env") === "development" ? err : {};
@@ -79,12 +79,12 @@ app.use(function(err, req, res, next) {
 });
 
 // server side render, view engine 
-app.get("*", function(req, res) {
+app.get("*", (req, res) => {
 	res.sendFile(path.join(__dirname + "/public/index.html"));
 });
 
 /* Bootup */
-app.listen(port, function() {
+app.listen(port, () => {
 	console.log(`Your ${env} server is up and running on port ${port}`);
 });
 

@@ -1,21 +1,21 @@
 // import dependencies
-const Sessions = require("../models/Sessions");
+const Classes = require("../models/Classes");
 const Tasks = require("../models/Tasks");
 const Evalus = require("../models/Evaluations");
 const { check, validationResult, filter } = require("express-validator");
 
 // GET display class editor for specific class
-exports.dashboardSessionEdit = (req, res) => {
+exports.dashboardClassEdit = (req, res) => {
 	const errors = validationResult(req);
 	
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Sessions.find({
-			where: { id: req.params.sessionId }
+		Classes.find({
+			where: { id: req.params.classId }
 		})
-		.then(session => {
-			return res.status(204).json(session);
+		.then(classes => {
+			return res.status(204).json(classes);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -23,7 +23,7 @@ exports.dashboardSessionEdit = (req, res) => {
 	}
 };
 
-exports.dashboardSessionDelete = (req, res) => {
+exports.dashboardClassDelete = (req, res) => {
 	const errors = validationResult(req);
 
 	if (!errors.isEmpty()) {

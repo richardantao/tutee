@@ -1,39 +1,38 @@
-module.exports = (models, Sequelize) => {
-	const Terms = models.define("Terms", {
-		id: {
-			type: Sequelize.INTEGER,
-			primaryKey: true,
-			allowNull: false,
-			autoIncrement: true
-		},
-		title: {
-			type: Sequelize.STRING(50),
-			allowNull: false
-		},
-		start: {
-			type: Sequelize.DATE,
-			allowNull: false
-		},
-		end: {
-			type: Sequelize.DATE,
-			allowNull: false
-		},
-		rotation: {
-			type: Sequelize.STRING(50),
-			allowNull: false
-		}
-	}, {});
+// import database
+const database = require("../config/config");
 
-	Terms.associate = (models) => {
-		Terms.belongsTo(models.Users, {
-			foreignKey: "userId",
-			as: "user"
-		});
-		Terms.belongsTo(models.Years, {
-			foreignKey: "yearId",
-			as: "year"
-		});
-	}
+// instantiate model
+const Terms = [];
 
-	return Terms;
+Terms.findAll = () => {
+	return database.query(
+		``
+	);
 }
+
+Terms.findById = () => {
+	return database.query(
+		``
+	);
+}
+
+Terms.create = () => {
+	return database.query(
+		``
+	);
+}
+
+Terms.update = () => {
+	return database.query(
+		``
+	);
+}
+
+Terms.delete = () => {
+	return database.query(
+		``
+	);
+}
+
+// export model
+module.exports = Terms;

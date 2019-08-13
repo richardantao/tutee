@@ -2,37 +2,37 @@
 const database = require("../config/config");
 
 // instantiate model
-const Modules = [];
+const Classes = [];
 
-Modules.findAll = () => {
+Classes.findAll = () => {
 	return database.query(
 		``
 	);
 }
 
-Modules.findById = () => {
+Classes.findById = () => {
 	return database.query(
 		``
 	);
 }
 
-Modules.create = () => {
+Classes.create = () => {
 	return database.query(
 		``
 	);
 }
 
-Modules.update = () => {
+Classes.update = () => {
 	return database.query(
 		``
 	);
 }
 
-Modules.delete = () => {
+Classes.delete = () => {
 	return database.query(
 		``
 	);
 }
 
 // export model
-module.exports = Modules;
+module.exports = Classes;

@@ -1,31 +1,38 @@
-module.exports = (models, Sequelize) => {
-	const Years = models.define("Years", {
-		id: {
-			type: Sequelize.INTEGER,
-			primaryKey: true,
-			allowNull: false,
-			autoIncrement: true
-		},
-		title: {
-			type: Sequelize.STRING(40),
-			allowNull: false
-		},
-		start: {
-			type: Sequelize.DATE,
-			allowNull: false
-		},
-		end: {
-			type: Sequelize.DATE,
-			allowNull: false
-		}
-	}, {});
+// import database
+const database = require("../config/config");
 
-	Years.associate = (models) => {
-		Years.belongsTo(models.Users, {
-			foreignKey: "userId",
-			as: "user"
-		});
-	}
-	
-	return Years;
+// instantiate model
+const Years = [];
+
+Years.findAll = () => {
+	return database.query(
+		``
+	);
 }
+
+Years.findbyId = () => {
+	return database.query(
+		``
+	);
+}
+
+Years.create = () => {
+	return database.query(
+		``
+	);
+}
+
+Years.update = () => {
+	return database.query(
+		``
+	);
+}
+
+Years.delete = () => {
+	return database.query(
+		``
+	);
+}
+
+// export model
+module.exports = Years;

@@ -1,38 +1,38 @@
-module.exports = (models, Sequelize) => {
-	const Preferences = models.define("Modules", {
-		id: {
-			type: Sequelize.INTEGER,
-			primaryKey: true,
-			allowNull: false,
-			autoIncrement: true
-		},
-		day: {
-			type: Sequelize.STRING(8),
-			allowNull: false
-		},
-		time: {
-			type: Sequelize.STRING(20),
-			allowNull: false
-		},
-		duration: {
-			type: Sequelize.INTEGER,
-			allowNull: false
-		},
-		calendar: {
-			type: Sequelize.STRING(5),
-			allowNull: false
-		},
-		emailList: {
-			type: Sequelize.BOOLEAN,
-			allowNull: false
-		}
-	}, {})
+// import database
+const database = require("../config/config");
 
-	Preferences.associate = (models) => {
-		Preferences.belongsTo(models.Users, {
-			foreignKey: "userId",
-			as: "user"
-		});
-	}
-	return Preferences;
+// instantiate model
+const Preferences = [];
+
+Preferences.findAll = () => {
+	return database.query(
+		``
+	);
 }
+
+Preferences.findById = () => {
+	return database.query(
+		``
+	);
+}
+
+Preferences.create = () => {
+	return database.query(
+		``
+	);
+}
+
+Preferences.update = () => {
+	return database.query(
+		``
+	);
+}
+
+Preferences.delete = () => {
+	return database.query(
+		``
+	);
+}
+
+// export model
+module.exports = Preferences;

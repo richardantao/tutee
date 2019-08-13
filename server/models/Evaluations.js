@@ -1,52 +1,38 @@
-module.exports = (models, Sequelize) => {
-	const Evalus = models.define("Evalus", {
-		id: {
-			type: Sequelize.INTEGER,
-			primaryKey: true,
-			allowNull: false,
-			autoIncrement: true
-		},
-		title: {
-			type: Sequelize.STRING(50),
-			allowNull: false
-		},
-		type: {
-			type: Sequelize.STRING(30),
-			allowNull: false
-		},
-		location: {
-			type: Sequelize.STRING(50),
-		},
-		date: {
-			type: Sequelize.DATE,
-			allowNull: false
-		},
-		time: {
-			type: Sequelize.STRING(20),
-			allowNull: false
-		},
-		duration: {
-			type: Sequelize.INTEGER,
-			allowNull: false
-		},
-		weighting: {
-			type: Sequelize.DECIMAL(10,0)
-		},
-		score: {
-			type: Sequelize.DECIMAL(10,0)
-		}
-	}, {});
+// import database 
+const database = require("../config/config");
 
-	Evalus.associate = (models) => {
-		Evalus.belongsTo(models.Users, {
-			foreignKey: "userId",
-			as: "user"
-		});
-		Evalus.belongsTo(models.Courses, {
-			foreignKey: "courseId",
-			as: "course"
-		});
-	}
+// instantiate model
+const Evals = [];
 
-	return Evalus;
+Evals.findAll = () => {
+	return database.query(
+		``
+	);
 }
+
+Evals.findById = () => {
+	return database.query(
+		``
+	);
+}
+
+Evals.create = () => {
+	return database.query(
+		``
+	);
+}
+
+Evals.update = () => {
+	return database.query(
+		``
+	);
+}
+
+Evals.delete = () => {
+	return database.query(
+		``
+	);
+}
+
+// export model
+module.exports = Evals;

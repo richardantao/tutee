@@ -1,35 +1,38 @@
-module.exports = (models, Sequelize) => {
-	const Courses = models.define("Courses", {
-		id: {
-			type: Sequelize.INTEGER,
-			primaryKey: true,
-			allowNull: false,
-			autoIncrement: true
-		},
-		code: {
-			type: Sequelize.STRING(20),
-			allowNull: false
-		},
-		name: {
-			type: Sequelize.STRING(75),
-			allowNull: false
-		},
-		theme: {
-			type: Sequelize.STRING(40),
-			allowNull: false
-		}
-	}, {});
+// import database
+const database = require("../config/config");
 
-	Courses.associate = (models) => {
-		Courses.belongsTo(models.Users, {
-			foreignKey: "userId",
-			as: "user"
-		});
-		Courses.belongsTo(models.Terms, {
-			foreignKey: "termId",
-			as: "term"
-		});
-	}
+// instantiate model
+const Courses = [];
 
-	return Courses;
+Courses.findAll = () => {
+	return database.query(
+		``
+	);
 }
+
+Courses.findById = () => {
+	return database.query(
+		``
+	);
+}
+
+Courses.create = () => {
+	return database.query(
+		``
+	);
+}
+
+Courses.update = () => {
+	return database.query(
+		``
+	);
+}
+
+Courses.delete = () => {
+	return database.query(
+		``
+	);
+}
+
+// export model
+module.exports = Courses;

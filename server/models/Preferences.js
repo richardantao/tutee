@@ -1,15 +1,5 @@
-// import configurations
-const config = require("../config/config");
-const sequelize = config.sequelize;
-const Sequelize = config.Sequelize;
-const Model = Sequelize.Model;
-
-// import related models
-const Users = require("./Users");
-
-module.exports = () => {
-	class Preferences extends Model{}
-	Preferences.init({
+module.exports = (models, Sequelize) => {
+	const Preferences = models.define("Modules", {
 		id: {
 			type: Sequelize.INTEGER,
 			primaryKey: true,
@@ -36,9 +26,13 @@ module.exports = () => {
 			type: Sequelize.BOOLEAN,
 			allowNull: false
 		}
-	}, { sequelize, modelName: "Preferences"});
+	}, {})
 
-	Preferences.belongsTo(Users, {as: "user"});
-
+	Preferences.associate = (models) => {
+		Preferences.belongsTo(models.Users, {
+			foreignKey: "userId",
+			as: "user"
+		});
+	}
 	return Preferences;
 }

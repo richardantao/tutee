@@ -1,17 +1,5 @@
-// import configurations
-const config = require("../config/config");
-const sequelize = config.sequelize;
-const Sequelize = config.Sequelize;
-const Model = Sequelize.Model;
-
-// import related models
-
-const Users = require("./Users");
-const Courses = require("./Courses");
-
-module.exports = () => {
-	class Evalus extends Model{}
-	Evalus.init({
+module.exports = (models, Sequelize) => {
+	const Evalus = models.define("Evalus", {
 		id: {
 			type: Sequelize.INTEGER,
 			primaryKey: true,
@@ -47,10 +35,18 @@ module.exports = () => {
 		score: {
 			type: Sequelize.DECIMAL(10,0)
 		}
-	}, { sequelize, modelName: "Evalus" });
+	}, {});
 
-	Evalus.belongsTo(Users, {as: "user"});
-	Evalus.belongsTo(Courses, {as: "course"});
+	Evalus.associate = (models) => {
+		Evalus.belongsTo(models.Users, {
+			foreignKey: "userId",
+			as: "user"
+		});
+		Evalus.belongsTo(models.Courses, {
+			foreignKey: "courseId",
+			as: "course"
+		});
+	}
 
 	return Evalus;
 }

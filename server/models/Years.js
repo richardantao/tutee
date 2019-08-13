@@ -1,15 +1,5 @@
-// import Sequelize dependencies
-const config = require("../config/config");
-const sequelize = config.sequelize;
-const Sequelize = config.Sequelize;
-const Model = Sequelize.Model;
-
-// import related model
-const Users = require("./Users");
-
-module.exports = () => {
-	class Years extends Model{}
-	Years.init({
+module.exports = (models, Sequelize) => {
+	const Years = models.define("Years", {
 		id: {
 			type: Sequelize.INTEGER,
 			primaryKey: true,
@@ -28,9 +18,14 @@ module.exports = () => {
 			type: Sequelize.DATE,
 			allowNull: false
 		}
-	}, { sequelize, modelName: "Years"});
+	}, {});
 
-	Years.belongsTo(Users, {as: "user"});
-
+	Years.associate = (models) => {
+		Years.belongsTo(models.Users, {
+			foreignKey: "userId",
+			as: "user"
+		});
+	}
+	
 	return Years;
 }

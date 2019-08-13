@@ -1,14 +1,5 @@
-const config = require("../config/config");
-const sequelize = config.sequelize;
-const Sequelize = config.Sequelize;
-const Model = Sequelize.Model;
-
-const Users = require("./Users");
-const Courses = require("./Courses");
-
-module.exports = () => {
-	class Tasks extends Model{}
-	Tasks.init({
+module.exports = (models, Sequelize) => {
+	const Tasks = models.define("Tasks", {
 		id: {
 			type: Sequelize.INTEGER,
 			primaryKey: true,
@@ -33,11 +24,19 @@ module.exports = () => {
 		note: {
 			type: Sequelize.STRING(2000)
 		}, 
-	}, { sequelize, modelName: "Tasks" });
+	}, {});
 
-	Tasks.belongsTo(Users, {as: "user"});
-	Tasks.belongsTo(Courses, {as: "course"});
-
+	Tasks.associate = (models) => {
+		Tasks.belongsTo(models.Users, {
+			foreignKey: "userId",
+			as: "user"
+		});
+		Tasks.belongsTo(models.Courses, {
+			foreignKey: "courseId",
+			as: "course"
+		});
+	}
+	
 	return Tasks;
 }
 

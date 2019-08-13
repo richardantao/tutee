@@ -1,11 +1,5 @@
-const config = require("../config/config"); // import configurations
-const sequelize = config.sequelize; // import import 
-const Sequelize = config.Sequelize; // import Sequelize from config.js
-const Model = Sequelize.Model; // import model instance
-
-module.exports = () => {
-	class Users extends Model{}
-	Users.init({
+module.exports = (models, Sequelize) => {
+	const Users = models.define("Users", {
 		id: {
 			type: Sequelize.INTEGER,
 			primaryKey: true,
@@ -45,10 +39,7 @@ module.exports = () => {
 		institution: {
 			type: Sequelize.STRING(100)		   
 		}
-	}, { 
-		sequelize, 
-		modelName: "Users" // expected table in database
-	});	
+	}, {});	
 
 	return Users;
 }

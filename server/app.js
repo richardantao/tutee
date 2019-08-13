@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
 
 /* Bootup */
 app.listen(port, () => {
-	console.log(`Your ${env} server is up and running on port ${port}`);
+	console.log(`Your ${env} server is up and running on port ` + port);
 });
 
 module.exports = app;

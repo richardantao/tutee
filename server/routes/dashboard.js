@@ -3,10 +3,10 @@ const router = express.Router();
 const controller = require("../controllers/dashboard");
 
 // GET specific class selected by user
-router.get("/:userId/classes/:sessionId/edit", controller.dashboardSessionEdit); // routed in react
+router.get("/:userId/classes/:classId/edit", controller.dashboardClassEdit); // routed in react
 
 // DELETE specific class selected by user
-router.delete("/:userId/classes/:sessionId/delete", controller.dashboardSessionDelete); 
+router.delete("/:userId/classes/:classId/delete", controller.dashboardClassDelete); 
 
 // GET specific task selected by user
 router.get("/:userId/tasks/:taskId/edit", controller.dashboardTaskEdit); // routed in react

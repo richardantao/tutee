@@ -1,6 +1,5 @@
 /* Dependencies - import dependencies */
 const express = require("express");
-// const mysql = require("mysql");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const cors = require("cors");
@@ -12,36 +11,12 @@ const dotenv = require('dotenv').config();
 const moment = require('moment');
 moment().format(); // move these two statements to respective files where date validation is required
 
-/* create app instance and define env variables */
+/* Configurations */
 const app = express();
 const port = process.env.PORT || 3001;
+const database = require("./config/config");
+const env = process.env.NODE_ENV || "development";
 
-const env = process.env.NODE_ENV;
-// const db = {
-// 	name: process.env.DB_NAME,
-//   	user: process.env.DB_USER,
-//   	password: process.env.DB_PASSWORD,
-//   	host: process.env.DB_HOST
-// }
-
-// Configurations
-const config = require("./config/config");
-
-// const connection = mysql.createConnection({
-// 		host: db.host,
-// 		user: db.user,
-// 		password: db.password,
-// 		database: db.name
-// 	});
-
-// connection.connect(err => {
-// 	if (err) {
-// 		console.log("Your connection to the database failed");
-// 		throw err;
-// 	} else {
-// 		console.log(`Your connection to the ${env} database was successful`)
-// 	}
-// });
 
 /* Middleware - preprocess requests */
 app.use(express.static("public"));
@@ -65,6 +40,7 @@ app.use("/settings", require("./routes/settings"));
 app.get("/", (req, res) => {
 	res.send("index page");
 });
+
 
 /* Bootup */
 app.listen(port, () => {

@@ -1,7 +1,7 @@
 {
   "name": "tutee-server",
   "version": "0.2.0",
-  "description": "tutee's initial node package manager",
+  "description": "tutee's server npm",
   "main": "app.js",
   "scripts": {
     "test": "mocha",

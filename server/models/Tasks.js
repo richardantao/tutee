@@ -34,9 +34,9 @@ Tasks.findById = () => {
 }
 
 Tasks.create = () => {
+	let userId = req.params.UserId;
+	let taskId = req.params.TaskId; 
 	let created = {
-		userId: req.params.UserId,
-		moduleId: req.params.ModuleId, // confirm moduleId or taskId
 		taskTitle: req.body.taskTitle,
 		taskType: req.body.taskType,
 		taskDeadline: req.body.taskDeadline,
@@ -47,7 +47,7 @@ Tasks.create = () => {
 	return database.query(
 		`INSERT INTO Tasks
 		(UserId, ModuleId, TaskTitle, TaskType, TaskDeadline, TaskCompletion, TaskNote)
-		VALUES (${created.userId},${created.moduleId},${created.taskTitle},
+		VALUES (${userId},${taskId},${created.taskTitle},
 			${created.taskType}, ${created.taskDeadline},${created.taskCompletion},${created.taskNote})`
 	);
 }

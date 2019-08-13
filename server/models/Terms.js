@@ -4,7 +4,7 @@ const database = require("../config/config");
 // instantiate model
 const Terms = [];
 
-Terms.findAll = () => {
+Terms.findAll = (req) => {
 	let userId = req.params.UserId;
 
 	return database.query(
@@ -13,7 +13,7 @@ Terms.findAll = () => {
 	);
 }
 
-Terms.findById = () => {
+Terms.findById = (req) => {
 	let userId = req.params.UserId;
 	let termId = req.params.TermId;
 
@@ -23,10 +23,10 @@ Terms.findById = () => {
 	);
 }
 
-Terms.create = () => {
+Terms.create = (req) => {
+	let userId = req.params.UserId;
+	let yearId = req.params.YearId;
 	let created = {
-		userId: req.params.UserId,
-		yearId: req.params.YearId,
 		termTitle: req.body.termTitle,
 		termStart: req.body.termStart,
 		termEnd: req.body.termEnd,
@@ -36,12 +36,12 @@ Terms.create = () => {
 	return database.query(
 		`INSERT INTO Terms
 		(UserId, YearId, TermTitle, TermStart, TermEnd, TermRotation)
-		VALUES (${created.userId}, ${created.yearId}, ${created.termTitle},
+		VALUES (${userId}, ${yearId}, ${created.termTitle},
 			 ${created.termStart}, ${created.termEnd}, ${created.termRotation})`
 	);
 }
 
-Terms.update = () => {
+Terms.update = (req) => {
 	let userId = req.params.UserId;
 	let termId = req.params.TermId;
 	let updated = {
@@ -63,9 +63,13 @@ Terms.update = () => {
 	);
 }
 
-Terms.delete = () => {
+Terms.delete = (req) => {
+	let userId = req.params.UserId;
+	let termId = req.params.TermId;
+
 	return database.query(
-		``
+		`DELETE FROM Terms
+		WHERE UserId = ${userId} AND TermId = ${termId}`
 	);
 }
 

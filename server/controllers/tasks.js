@@ -1,5 +1,4 @@
-const config = require("../config/config");
-const models = config.models;
+// import model and validation objects
 const Tasks = require("../models/Tasks");
 const { check, validationResult, filter } = require("express-validator");
 
@@ -9,7 +8,7 @@ exports.index = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		findAll({
+		Tasks.findAll({
 
 		})
 		.then({
@@ -48,7 +47,7 @@ exports.tasksEdit = (req, res) => {
 		return res.status(404).json();
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
-		models.Tasks.find({
+		Tasks.findById({
       		where: { id: req.params.taskId }
 		})
 		.then(tasks => {
@@ -66,7 +65,7 @@ exports.tasksCreateGet = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Tasks.find({
+		Tasks.findById({
 			where: { id: req.params.taskId }
 		})
 		.then(retrievedTask => {
@@ -148,7 +147,7 @@ exports.tasksUpdate = (req, res, next) => {
 	if(!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Tasks.find({
+		Tasks.findById({
      		where: { id: req.params.taskId }
 		})
 		.then(Tasks => {
@@ -190,7 +189,6 @@ exports.tasksDelete = (req, res) => {
 		});
 	}
 }
-
 
 
 

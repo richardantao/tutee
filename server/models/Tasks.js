@@ -34,7 +34,7 @@ Tasks.findById = () => {
 }
 
 Tasks.create = () => {
-	let newTask = {
+	let created = {
 		userId: req.params.UserId,
 		moduleId: req.params.ModuleId, // confirm moduleId or taskId
 		taskTitle: req.body.taskTitle,
@@ -47,18 +47,30 @@ Tasks.create = () => {
 	return database.query(
 		`INSERT INTO Tasks
 		(UserId, ModuleId, TaskTitle, TaskType, TaskDeadline, TaskCompletion, TaskNote)
-		VALUES (${newTask.userId},${newTask.moduleId},${newTask.taskTitle},
-			${newTask.taskType}, ${newTask.taskDeadline},${newTask.taskCompletion},${newTask.taskNote})`
+		VALUES (${created.userId},${created.moduleId},${created.taskTitle},
+			${created.taskType}, ${created.taskDeadline},${created.taskCompletion},${created.taskNote})`
 	);
 }
 
 Tasks.update = () => {
 	let userId = req.params.UserId;
 	let taskId = req.params.TaskId;
+	let updated = {
+		taskTitle: req.body.taskTitle,
+		taskType: req.body.taskType,
+		taskDeadline: req.body.taskDeadline,
+		taskCompletion: req.body.taskCompletion,
+		taskNote: req.body.taskNote  
+	}
 
 	return database.query(
 		`UPDATE Tasks
 		SET 
+			TaskTitle = ${updated.taskTitle},
+			TaskType = ${updated.taskType},
+			TaskDeadline = ${updated.taskDeadline},
+			TaskCompletion = ${updated.taskCompletion},
+			TaskNote = ${updated.taskNote}
 		WHERE UserId = ${userId} AND TaskId = ${taskId}`
 	);
 }

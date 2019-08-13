@@ -1,4 +1,5 @@
-// import dependencies
+const config = require("../config/config");
+const models = config.models;
 const Tasks = require("../models/Tasks");
 const { check, validationResult, filter } = require("express-validator");
 
@@ -47,14 +48,14 @@ exports.tasksEdit = (req, res) => {
 		return res.status(404).json();
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
-		tasks.find({
+		models.Tasks.find({
       		where: { id: req.params.taskId }
 		})
 		.then(tasks => {
-			return res.status(200).json(tasks).redirect(301, "/"); // verify redirect status code during unit testing;	
+			return res.status(200).json(tasks);	
 		})
 		.catch(() => {
-			res.status(500).json({ errors: errors.array() });
+			return res.status(500).json({ errors: errors.array() });
 		});
 	}
 };
@@ -69,7 +70,7 @@ exports.tasksCreateGet = (req, res) => {
 			where: { id: req.params.taskId }
 		})
 		.then(retrievedTask => {
-			return res.status(204).json(retrievedTask)
+			return res.status(204).json(retrievedTask);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });	

@@ -3,7 +3,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const cors = require("cors");
-// const createError = require("http-errors");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const dotenv = require('dotenv').config();
@@ -16,7 +15,6 @@ const app = express();
 const port = process.env.PORT || 3001;
 const database = require("./config/config");
 const env = process.env.NODE_ENV || "development";
-
 
 /* Middleware - preprocess requests */
 app.use(express.static("public"));
@@ -36,11 +34,10 @@ app.use("/courses", require("./routes/courses"));
 app.use("/search", require("./routes/search"));
 app.use("/settings", require("./routes/settings"));
 
-// server side render, view engine 
+// test home page
 app.get("/", (req, res) => {
 	res.send("index page");
 });
-
 
 /* Bootup */
 app.listen(port, () => {

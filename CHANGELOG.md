@@ -36,6 +36,7 @@
 * Moved `server/config.js` to `server/config/config.js`
 * Moved index routes and view renders from `server/controllers` to `client/components/organisms/{data}Column` 
 * `Evals` to `Evalus` and `Classes` to `Sessions` to avoid confusion with JS keywords
+* Rewrote models and controllers with native MySQL queries
 
 ### Fixed 
 * `models/` configurations to the database 
@@ -43,6 +44,7 @@
 
 ### Removed
 * Folder stucture in `README.md` 
+* Sequelize, and all Sequelize related code and dependencies
 
 ## v0.1.0 - 04-08-2019
 

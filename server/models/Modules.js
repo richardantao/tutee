@@ -25,7 +25,6 @@ Modules.findById = (req) => {
 
 Modules.create = (req) => {
 	let userId = req.params.UserId;
-
 	let courseId = req.params.CourseId;
 	
 	let created = {
@@ -64,9 +63,13 @@ Modules.update = (req) => {
 	);
 }
 
-Modules.delete = () => {
+Modules.delete = (req) => {
+	let userId = req.params.UserId;
+	let moduleId = req.params.ModuleId;
+
 	return database.query(
-		``
+		`DELETE FROM Modules
+		WHERE UserId = ${userId} AND ModuleId = ${moduleId}`
 	);
 }
 

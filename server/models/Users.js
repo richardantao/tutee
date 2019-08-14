@@ -7,7 +7,7 @@ const Users = [];
 // GET all users; admin query
 Users.findAll = () => {
 	return database.query(
-		``
+		`SELECT * FROM Users`
 	);
 }
 
@@ -16,7 +16,7 @@ Users.findById = (req) => {
 	let userId = req.params.id;
 
 	return database.query(
-		`SELECT   
+		`SELECT * FROM Users  
 		WHERE UserId = ${userId}`
 	);
 }
@@ -29,17 +29,37 @@ Users.create = () => {
 }
 
 // PUT when user updates personal data in settings tab
-Users.update = () => {
+Users.update = (req) => {
+	let userId = req.params.UserId;
+	let updated = {
+		userFirstName: req.body.UserFirstName,
+		userLastName: req.body.UserLastName,
+		userEmail: req.body.UserEmail,
+		userCountry: req.body.UserCountry,
+		userRegion: req.body.UserRegion,
+		userInstitution: req.body.UserInstitution
+	}
+
 	return database.query(
-		`UPDATE`
+		`UPDATE Users
+		SET
+			UserFirstName = ${updated.userFirstName},
+			UserLastName = ${updated.userLastName},
+			UserEmail = ${updated.userEmail},
+			UserCountry = ${updated.userCountry}
+			UserRegions = ${updated.userRegion}
+			UserInstitution = ${updated.userInstitution}
+		WHERE UserId = ${userId}`
 	);
 }
 
 // DELETE when user deletes account
-Users.delete = () => {
-	let id = req.params.id;
+Users.delete = (req) => {
+	let userId = req.params.userId;
+	
 	return database.query(
-		``
+		`DELETE FROM Users
+		WHERE UserId = ${userId}`
 	);
 }
 

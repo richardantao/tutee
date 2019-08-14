@@ -23,7 +23,7 @@ Years.findbyId = (req) => {
 	);
 }
 
-Years.create = (req, res) => {
+Years.create = (req) => {
 	let userId = req.params.UserId;
 	let created = {
 		yearTitle: req.body.yearTitle,

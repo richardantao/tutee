@@ -1,46 +1,10 @@
-/* Courses Controller */
-
-/* CRUD functions
-GET - used to retrieve existing data; not changing server data or manipulating data | MySQL SELECT | SEQUELIZE Find()
-POST - used to insert new record into database | MySQL INSERT | SEQUELIZE create()
-PUT - used to update data into existing records | MySQL UPDATE | SEQUELIZE update()
-DELETE - used to delete selected records| MySQL DELETE | SEQUELIZE destroy()
-*/
-
-/* Controller Structure  
- GET/index:
- 1. render html 
- 2. pass JSON values from database to SPA view 
- 3. error handle all transactions
- 
- GET/Edit:
- 1. render html 
- 2. pass JSON values from database into modal fields | Only selecting the conditional record(s)
- 3. error handle all transactions
- 
- POST/Create:
- 1. validate and sanitize user input for new object 
- 2. INSERT checked data into database 
- 3. pass next function back to the index of the controller to rerender the new HTML and JSON (with new record)
- 4. error handle all transactions
- 
- PUT/Update:
- 1. validate and sanitize user input for updated objects 
- 2. UPDATE checked data into database | conditional on only the selected OBJECT_ID from the URL
- 3. pass next function back to the index of the controller to rerender the new HTML and JSON (with updated record)
- 4. error handle all transactions
- 
- DELETE/Delete:
- 1. query database with DELETE to remove record | condition needs to ensure that only the selected record(s) are deleted
- 2. pass next function back to the index of the controller to rerender the new HTML and JSON (without deleted record)
- 3. error handle all transactions
-*/
-
 // import dependencies
 const Years = require("../models/Years");
 const Terms = require("../models/Terms");
 const Courses = require("../models/Courses");
 const Modules = require("../models/Modules");
+
+// import validation functions
 const { check, validationResult, filter } = require("express-validator");
 
 // resolved .then()
@@ -50,9 +14,7 @@ exports.index = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Years.findAll({
-
-		})
+		Years.findAll()
 		.then(selectedData => {
 			return res.status(204).json({ selectedData });
 		})
@@ -71,11 +33,9 @@ exports.yearsEdit = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
-		Years.find({
-      		where: { id: req.params.yearId}
-		})
-		.then(year => {
-			return res.status(200).json(year).redirect(301, "/"); // verify redirect status code during unit testing;	
+		Years.find()
+		.then(selectedYear => {
+			return res.status(200).json(selectedYear).redirect(301, "/"); // verify redirect status code during unit testing;	
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -90,11 +50,9 @@ exports.yearsCreateGet = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Years.find({	
-			where: { id: req.params.yearId }
-		})
-		.then(year => {
-			return res.status(200).json(year);
+		Years.find()
+		.then(newYear => {
+			return res.status(200).json(newYear);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -126,14 +84,9 @@ exports.yearsCreatePost = function(req, res) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// use POST parameters from form inputs to generate a new year object
-		Years.create({
-			userId: req.params.userId,
-			title: req.body.title,
-			start: req.body.start,
-			end: req.body.end
-		})
-		.then(year => {
-			return res.status(201).json(year).redirect(301, ".."); // verify redirect status code during unit testing;
+		Years.create()
+		.then(createdYear => {
+			return res.status(201).json(createdYear).redirect(301, ".."); // verify redirect status code during unit testing;
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -158,17 +111,7 @@ exports.yearsUpdate = (req, res, next) => {
 	if(!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Years.find({
-      		where: { id: req.params.yearId }
-		})
-		.then(Years => {
-        	return Years.updateAttributes({
-				userId: req.params.userId,
-				title: req.body.title,
-				start: req.body.start,
-				end: req.body.end
-			})
-		})
+		Years.update()
 		.then(updatedYear => {
         	return res.status(204).json(updatedYear).redirect(301, "/"); // verify redirect status code during unit testing;
 		})
@@ -185,9 +128,7 @@ exports.yearsDelete = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Years.destroy({
-			where: { id: req.params.yearId }
-		})
+		Years.delete()
 		.then(deletedYear => {
 			return res.status(204).json(deletedYear).redirect(301, "/"); // verify redirect status code during unit testing;
 		})
@@ -206,11 +147,9 @@ exports.termsEdit = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
-		Terms.find({
-      		where: { id: req.params.termId}
-		})
-		.then(term => {
-			return res.status(204).json(term).redirect(301, "/"); // verify redirect status code during unit testing;	
+		Terms.find()
+		.then(selectedTerm => {
+			return res.status(204).json(selectedTerm).redirect(301, "/"); // verify redirect status code during unit testing;	
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -224,11 +163,9 @@ exports.termsCreateGet = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Terms.find({
-			where: { id: req.params.termId }
-		})
-		.then(term => {
-			return res.status(200).json(term);
+		Terms.find()
+		.then(newTerm => {
+			return res.status(200).json(newTerm);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -253,15 +190,9 @@ exports.termsCreatePost = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// use POST parameters from form inputs to generate a new term object
-		Terms.create({
-			userId: req.params.userId,
-			title: req.body.title,
-			start: req.body.start,
-			end: req.body.end,
-			rotation: req.body.rotation
-		})
-		.then(term => {
-			return res.status(201).json(term).redirect(301, ".."); // verify redirect status code during unit testing;
+		Terms.create()
+		.then(createdTerm => {
+			return res.status(201).json(createdTerm).redirect(301, ""); // verify redirect status code during unit testing;
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -291,19 +222,7 @@ exports.termsUpdate = (req, res, next) => {
 	if(!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Terms.find({
-    		where: { id: req.params.termId }
-		})
-		.then(Terms => {
-        	return Terms.updateAttributes({
-				userId: req.params.userId,
-				title: req.body.title,
-				year: req.body.year,
-				start: req.body.start,
-				end: req.body.end,
-				rotation: req.body.rotation
-			})
-		})
+		Terms.update()
 		.then(updatedTerm => {
         	return res.status(204).json(updatedTerm).redirect(301, "/"); // verify redirect status code during unit testing;
 		})
@@ -320,9 +239,7 @@ exports.termsDelete = (req, res) => {
 	if(!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Terms.destroy({
-			where: { id: req.params.termId }
-		})
+		Terms.delete()
 		.then(deletedTerm => {
 			return res.status(204).json(deletedTerm).redirect(301, "/"); // verify redirect status code during unit testing;
 		})
@@ -341,11 +258,9 @@ exports.coursesEdit = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
-		Courses.find({
-      		where: { id: req.params.courseId}
-		})
-		.then(course => {
-			return res.status(204).json(course).redirect(301, "/"); // verify redirect status code during unit testing;	
+		Courses.find()
+		.then(selectedCourse => {
+			return res.status(204).json(selectedCourse).redirect(301, "/"); // verify redirect status code during unit testing;	
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -359,11 +274,9 @@ exports.coursesCreateGet = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Courses.find({
-			where: { id: req.params.courseId}
-	  })
-	  .then(course => {
-		  return res.status(204).json(course).redirect(301, "/"); // verify redirect status code during unit testing;	
+		Courses.find()
+	  .then(newCourse => {
+		  return res.status(204).json(newCourse).redirect(301, "/"); // verify redirect status code during unit testing;	
 	  })
 	  .catch(() => {
 		  return res.status(500).json({ errors: errors.array() });
@@ -390,14 +303,9 @@ exports.coursesCreatePost = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// use POST parameters from form inputs to generate a new course object
-		Courses.create({
-			userId: req.params.userId,
-			code: req.body.code,
-			name: req.body.name,
-			theme: req.body.theme
-		})
-		.then(course => {
-			return res.status(201).json(course).redirect(301, ".."); // verify redirect status code during unit testing;
+		Courses.create()
+		.then(createdCourse => {
+			return res.status(201).json(createdCourse).redirect(301, ".."); // verify redirect status code during unit testing;
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -421,18 +329,7 @@ exports.coursesUpdate = (req, res, next) => {
 	if(!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Courses.find({
-      		where: { id: req.params.courseId }
-		})
-		.then(Courses => {
-        	return Courses.updateAttributes({
-				userId: req.params.userId,
-				code: req.body.code,
-				term: req.body.term,
-				name: req.body.name,
-				theme: req.body.theme
-			})
-		})
+		Courses.update()
 		.then(updatedCourse => {
         	return res.status(204).json(updatedCourse).redirect(301, "/"); // verify redirect status code during unit testing;
 		})
@@ -449,9 +346,7 @@ exports.coursesDelete = (req, res) => {
 	if(!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Courses.destroy({
-			where: { id: req.params.courseId }
-		})
+		Courses.delete()
 		.then(deletedCourse => {
 			return res.status(204).json(deletedCourse).redirect(301, "/"); // verify redirect status code during unit testing;
 		})
@@ -470,11 +365,9 @@ exports.modulesEdit = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
-		Modules.find({
-      		where: { id: req.params.moduleId}
-		})
-		.then(module => {
-			return res.status(204).json(module).redirect(301, "/"); // verify redirect status code during unit testing;	
+		Modules.find()
+		.then(selectedModule => {
+			return res.status(204).json(selectedModule).redirect(301, "/"); // verify redirect status code during unit testing;	
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -488,11 +381,9 @@ exports.modulesCreateGet = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Modules.find({
-			where: { id: req.params.moduleId }
-		})
-		.then(module => {
-			return res.status(204).json(module);
+		Modules.find()
+		.then(newModule => {
+			return res.status(204).json(newModule);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -523,16 +414,9 @@ exports.modulesCreatePost = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// use POST parameters from form inputs to generate a new course object
-		Modules.create({
-			userId: req.params.userId,
-			type: req.body.type,
-			course: req.body.course,
-			start: req.body.start,
-			end: req.body.end,
-			instructor: req.body.instructor 
-		})
-		.then(module => {
-			return res.status(201).json(module).redirect(301, "..");
+		Modules.create()
+		.then(createdModule => {
+			return res.status(201).json(createdModule).redirect(301, "..");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array()} );
@@ -561,19 +445,7 @@ exports.modulesUpdate = (req, res, next) => {
 	if(!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Modules.find({
-      		where: { id: req.params.moduleId }
-		})
-		.then(Modules => {
-        	return Modules.updateAttributes({
-				userId: req.params.userId,
-				type: req.body.type,
-				course: req.body.course,
-				start: req.body.start,
-				end: req.body.end,
-				instructor: req.body.instructor 
-			})
-		})
+		Modules.update()
 		.then(updatedModule => {
         	return res.status(204).json(updatedModule).redirect(301, "/"); // verify redirect status code during unit testing;
 		})
@@ -590,9 +462,7 @@ exports.modulesDelete = (req, res) => {
 	if(!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Modules.destroy({
-			where: { id: req.params.moduleId }
-		})
+		Modules.delete()
 		.then(deletedModule => {
 			return res.status(204).json(deletedModule).redirect(301, "/"); // verify redirect status code during unit testing;
 		})

@@ -4,42 +4,59 @@ const database = require("../config/config");
 // instantiate model
 const Years = [];
 
-Years.findAll = () => {
+Years.findAll = (req) => {
+	let userId = req.params.UserId;
+
 	return database.query(
-		``
+		`SELECT * FROM Years
+		WHERE UserId = ${userId}`
 	);
 }
 
 Years.findbyId = (req) => {
 	let userId = req.params.UserId;
+	let yearId = req.params.YearId;
 
 	return database.query(
-		` SELECT * FROM Years
-		WHERE UserId = ${userId}`
+		`SELECT * FROM Years
+		WHERE UserId = ${userId} AND YearId = ${yearId}`
 	);
 }
 
 Years.create = (req, res) => {
+	let userId = req.params.UserId;
+	let created = {
+		yearTitle: req.body.yearTitle,
+		yearStart: req.body.yearStart,
+		yearEnd: req.body.yearEnd
+	}
 	
 	return database.query(
 		`INSERT INTO Years 
-		(UserFirstName, UserLastName, UserEmail, UserPassword, UserCountry, UserRegion, UserInstitution) 
-		VALUES ()`
+		(UserId, YearTitle, YearStart, YearEnd)
+		VALUES (${userId}, ${created.yearTitle}, ${created.yearStart}, ${created.yearEnd})`
 	);
 }
 
-Years.update = () => {
+Years.update = (req) => {
 	let userId = req.params.UserId;
-	
-	let update = ``;
+	let updated = {
+		yearTitle: req.body.yearTitle,
+		yearStart: req.body.yearStart,
+		yearEnd: req.body.yearEnd
+	};
 
 	return database.query(
-		`UPDATE Years SET 
+		`UPDATE Years 
+		SET
+			YearTitle = ${updated.yearTitle},
+			YearStart = ${updated.yearStart},
+			YearEnd = ${updated.yearEnd}
 		WHERE UserId = ${userId}`
 	);
 }
 
-Years.delete = () => {
+Years.delete = (req) => {
 	let userId = req.params.UserId;
 	
 	return database.query(

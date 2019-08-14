@@ -4,7 +4,7 @@ const database = require("../config/config");
 // instantiate model
 const Evals = [];
 
-Evals.findAll = (req) => {
+Evals.findAll = req => {
 	let userId = req.params.UserId;
 
 	return database.query(
@@ -13,7 +13,16 @@ Evals.findAll = (req) => {
 	);
 }
 
-Evals.findById = (req) => {
+Evals.findAllPast = req => {
+	let userId = req.params.UserId;
+
+	return database.query(
+		`SELECT * FROM Evals
+		WHERE UserId = ${userId}`
+	);
+}
+
+Evals.findById = req => {
 	let userId = req.params.UserId;
 	let evalId = req.params.EvalId;
 
@@ -23,7 +32,7 @@ Evals.findById = (req) => {
 	);
 }
 
-Evals.create = (req) => {
+Evals.create = req => {
 	let userId = req.params.UserId;
 	let courseId = req.params.CourseId;
 	let created = {
@@ -47,7 +56,7 @@ Evals.create = (req) => {
 	);
 }
 
-Evals.update = (req) => {
+Evals.update = req => {
 	let userId = req.params.UserId;
 	let evalId = req.params.EvalId;
 	let updated = {

@@ -5,7 +5,7 @@ const database = require("../config/config");
 const Tasks = [];
 
 /* model queries */
-Tasks.findAll = () => {
+Tasks.findAll = req => {
 	let userId = req.params.UserId;
 
 	return database.query(
@@ -14,7 +14,7 @@ Tasks.findAll = () => {
 	);
 }
 
-Tasks.findAllPast = () => {
+Tasks.findAllPast = req => {
 	let userId = req.params.UserId;
 
 	return database.query(
@@ -23,7 +23,7 @@ Tasks.findAllPast = () => {
 	);
 }
 
-Tasks.findById = () => {
+Tasks.findById = req => {
 	let userId = req.params.UserId;
 	let taskId = req.params.TaskId; 
 
@@ -33,9 +33,9 @@ Tasks.findById = () => {
 	);
 }
 
-Tasks.create = () => {
+Tasks.create = req => {
 	let userId = req.params.UserId;
-	let taskId = req.params.TaskId; 
+	let moduleId = req.params.ModuleId; 
 	let created = {
 		taskTitle: req.body.taskTitle,
 		taskType: req.body.taskType,
@@ -47,12 +47,12 @@ Tasks.create = () => {
 	return database.query(
 		`INSERT INTO Tasks
 		(UserId, ModuleId, TaskTitle, TaskType, TaskDeadline, TaskCompletion, TaskNote)
-		VALUES (${userId},${taskId},${created.taskTitle},
+		VALUES (${userId},${moduleId},${created.taskTitle},
 			${created.taskType}, ${created.taskDeadline},${created.taskCompletion},${created.taskNote})`
 	);
 }
 
-Tasks.update = () => {
+Tasks.update = req => {
 	let userId = req.params.UserId;
 	let taskId = req.params.TaskId;
 	let updated = {
@@ -75,7 +75,7 @@ Tasks.update = () => {
 	);
 }
 
-Tasks.delete = () => {
+Tasks.delete = req => {
 	let userId = req.params.UserId;
 	let taskId = req.params.TaskId;
 

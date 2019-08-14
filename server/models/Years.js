@@ -4,7 +4,7 @@ const database = require("../config/config");
 // instantiate model
 const Years = [];
 
-Years.findAll = (req) => {
+Years.findAll = req => {
 	let userId = req.params.UserId;
 
 	return database.query(
@@ -13,7 +13,7 @@ Years.findAll = (req) => {
 	);
 }
 
-Years.findbyId = (req) => {
+Years.findbyId = req => {
 	let userId = req.params.UserId;
 	let yearId = req.params.YearId;
 
@@ -23,7 +23,7 @@ Years.findbyId = (req) => {
 	);
 }
 
-Years.create = (req) => {
+Years.create = req => {
 	let userId = req.params.UserId;
 	let created = {
 		yearTitle: req.body.yearTitle,
@@ -38,7 +38,7 @@ Years.create = (req) => {
 	);
 }
 
-Years.update = (req) => {
+Years.update = req => {
 	let userId = req.params.UserId;
 	let updated = {
 		yearTitle: req.body.yearTitle,
@@ -56,7 +56,7 @@ Years.update = (req) => {
 	);
 }
 
-Years.delete = (req) => {
+Years.delete = req => {
 	let userId = req.params.UserId;
 	
 	return database.query(

@@ -4,7 +4,7 @@ const database = require("../config/config");
 // instantiate model
 const Terms = [];
 
-Terms.findAll = (req) => {
+Terms.findAll = req => {
 	let userId = req.params.UserId;
 
 	return database.query(
@@ -13,7 +13,7 @@ Terms.findAll = (req) => {
 	);
 }
 
-Terms.findById = (req) => {
+Terms.findById = req => {
 	let userId = req.params.UserId;
 	let termId = req.params.TermId;
 
@@ -23,7 +23,7 @@ Terms.findById = (req) => {
 	);
 }
 
-Terms.create = (req) => {
+Terms.create = req => {
 	let userId = req.params.UserId;
 	let yearId = req.params.YearId;
 	let created = {
@@ -41,7 +41,7 @@ Terms.create = (req) => {
 	);
 }
 
-Terms.update = (req) => {
+Terms.update = req => {
 	let userId = req.params.UserId;
 	let termId = req.params.TermId;
 	let updated = {
@@ -62,7 +62,7 @@ Terms.update = (req) => {
 	);
 }
 
-Terms.delete = (req) => {
+Terms.delete = req => {
 	let userId = req.params.UserId;
 	let termId = req.params.TermId;
 

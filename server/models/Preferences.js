@@ -4,7 +4,7 @@ const database = require("../config/config");
 // instantiate model
 const Preferences = [];
 
-Preferences.findById = (req) => {
+Preferences.findById = req => {
 	let userId = req.params.UserId;
 
 	return database.query(
@@ -13,7 +13,7 @@ Preferences.findById = (req) => {
 	);
 }
 
-Preferences.create = (req) => {
+Preferences.create = req => {
 	let userId = req.params.UserId;
 	let created = {
 		preferenceDay: req.body.preferenceDay,
@@ -31,7 +31,7 @@ Preferences.create = (req) => {
 	);
 }
 
-Preferences.update = (req) => {
+Preferences.update = req => {
 	let userId = req.params.UserId;
 	let updated = {
 		preferenceDay: req.body.preferenceDay,

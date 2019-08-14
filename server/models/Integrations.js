@@ -4,7 +4,7 @@ const database = require("../config/config");
 // instantiate models
 const Integrations = [];
 
-Integrations.findById = (req) => {
+Integrations.findById = req => {
     let userId = req.params.UserId;
 
     return database.query(
@@ -13,7 +13,7 @@ Integrations.findById = (req) => {
     )
 }
 
-Integrations.create = (req) => {
+Integrations.create = req => {
     let userId = req.params.UserId;
 
     return database.query(
@@ -23,7 +23,7 @@ Integrations.create = (req) => {
     )
 }
 
-Integrations.update = (req) => {
+Integrations.update = req => {
     let userId = req.params.UserId;
 
     return database.query(
@@ -34,7 +34,7 @@ Integrations.update = (req) => {
     )
 }
 
-Integrations.delete = (req) => {
+Integrations.delete = req => {
     let userId = req.params.UserId;
 
     return database.query(

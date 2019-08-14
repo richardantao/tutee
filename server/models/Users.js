@@ -5,14 +5,14 @@ const database = require("../config/config");
 const Users = [];
 
 // GET all users; admin query
-Users.findAll = () => {
+Users.findAll = req => {
 	return database.query(
 		`SELECT * FROM Users`
 	);
 }
 
 // GET when user opens personal settings page
-Users.findById = (req) => {
+Users.findById = req => {
 	let userId = req.params.id;
 
 	return database.query(
@@ -22,14 +22,27 @@ Users.findById = (req) => {
 }
 
 // POST to db when user creates a new account
-Users.create = () => {
+Users.create = req => {
+	let created ={
+		userFirstName: req.body.userFirstName,
+		userLastName: req.body.userLastName,
+		userPassword: req.body.userPassword,
+		userEmail: req.body.userEmail,
+		userCountry: req.body.userCountry,
+		userRegion: req.body.userRegion,
+		userInstitution: req.body.userInstitution
+	}
+
 	return database.query(
-		`INSERT `
+		`INSERT INTO Users
+		(UserFirstName, UserLastName, UserPassword, UserEmail, UserCountry, UserRegion, UserInstitution)
+		VALUES (${created.UserFirstName}, ${created.userLastName}, ${created.userPassword},
+			${created.userEmail}, ${created.userCountry}, ${created.userRegion}, ${created.userInstitution})`
 	);
 }
 
 // PUT when user updates personal data in settings tab
-Users.update = (req) => {
+Users.update = req => {
 	let userId = req.params.UserId;
 	let updated = {
 		userFirstName: req.body.UserFirstName,
@@ -54,7 +67,7 @@ Users.update = (req) => {
 }
 
 // DELETE when user deletes account
-Users.delete = (req) => {
+Users.delete = req => {
 	let userId = req.params.userId;
 	
 	return database.query(

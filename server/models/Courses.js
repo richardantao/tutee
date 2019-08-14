@@ -4,7 +4,7 @@ const database = require("../config/config");
 // instantiate model
 const Courses = [];
 
-Courses.findAll = (req) => {
+Courses.findAll = req => {
 	let userId = req.params.UserId;
 
 	return database.query(
@@ -13,7 +13,7 @@ Courses.findAll = (req) => {
 	);
 }
 
-Courses.findById = (req) => {
+Courses.findById = req => {
 	let userId = req.params.UserId;
 	let courseId = req.params.CourseId;
 
@@ -23,7 +23,7 @@ Courses.findById = (req) => {
 	);
 }
 
-Courses.create = (req) => {
+Courses.create = req => {
 	let userId = req.params.UserId;
 	let termId = req.params.TermId;
 	let created = {
@@ -40,7 +40,7 @@ Courses.create = (req) => {
 	);
 }
 
-Courses.update = (req) => {
+Courses.update = req => {
 	let userId = req.params.UserId;
 	let courseId = req.params.CourseId;
 	let updated = {
@@ -59,7 +59,7 @@ Courses.update = (req) => {
 	);
 }
 
-Courses.delete = () => {
+Courses.delete = req => {
 	let userId = req.params.UserId;
 	let courseId = req.params.CourseId;
 

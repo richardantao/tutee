@@ -4,7 +4,7 @@ const database = require("../config/config");
 // instantiate model
 const Password = [];
 
-Password.findById = (req) => {
+Password.findById = req => {
     let userId = req.params.UserId;
 
     return database.query(
@@ -13,7 +13,7 @@ Password.findById = (req) => {
     );
 }
 
-Password.update = (req) => {
+Password.update = req => {
     let userId = req.params.UserId;
     let userPassword = req.body.UserPassword;
 

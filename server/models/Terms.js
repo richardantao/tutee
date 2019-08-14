@@ -58,7 +58,6 @@ Terms.update = (req) => {
 			TermStart = ${updated.termStart},
 			TermEnd = ${updated.termEnd},
 			TermRotation = ${updated.termRotation}
-		
 		WHERE UserId = ${userId} AND TermId = ${termId}`
 	);
 }

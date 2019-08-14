@@ -1,6 +1,22 @@
 const Evalus = require("../models/Evaluations")
 const { check, validationResult, filter } = require("express-validator");
 
+exports.index = (req, res) => {
+	const errors = validationResult(req);
+
+	if (!errors.isEmpty()) {
+		return res.status(404).json({ errors: errors.array() });
+	} else {
+		Evalus.findAll()
+		.then(allEvalus => {
+			return res.status(200).json(allEvalus);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
+	}
+}
+
 // filter evalus to get evalus with a past date
 exports.evalusPast = (req, res) => {
 	const errors = validationResult(req);
@@ -8,11 +24,9 @@ exports.evalusPast = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Evalus.find({
-			where: { evaluid: req.params.evaluId}
-		})
-		.then(evalus => {
-			return res.status(204).json(evalus);
+		Evalus.find()
+		.then(selectedEvalus => {
+			return res.status(204).json(selectedEvalus);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -30,9 +44,7 @@ exports.evalusEdit = (req, res) => {
 		return res.status(404).json();
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
-		Evalus.find({
-      		where: { id: req.params.evaluId}
-		})
+		Evalus.find()
 		.then(evalu => {
 			return res.status(200).json(evalu).redirect(301, "/"); // verify redirect status code during unit testing;	
 		})
@@ -48,11 +60,9 @@ exports.evalusCreateGet = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Evalus.find({
-			where: { id: req.params.evaluId }
-		})
-		.then(task => {
-			return res.status(200).json({task}); // pipe a redirect ??
+		Evalus.find()
+		.then(newEvalu => {
+			return res.status(200).json({newEvalu}); // pipe a redirect ??
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -65,42 +75,30 @@ exports.evalusCreatePost = (req, res) => {
 	const errors = validationResult(req);
 
 	// validate and sanitize input fields
-	check("course");
-	check("user");
-	check("title");
-	check("type");
-	check("date");
-	check("time");
-	check("location");
-	check("note");
+	check("evalTitle");
+	check("evalType");
+	check("evalDate");
+	check("evalTime");
+	check("evalLocation");
+	check("evalNote");
 
-	filter("course").escape();
-	filter("user").escape();
-	filter("title").escape();
-	filter("type").escape();
-	filter("date").escape();
-	filter("time").escape();
-	filter("location").escape();
-	filter("note").escape();
+	filter("evalTitle").escape();
+	filter("evalType").escape();
+	filter("evalDate").escape();
+	filter("evalTime").escape();
+	filter("evalLocation").escape();
+	filter("evalNote").escape();
 
 	// check for errors and render JSON error if true
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// use POST parameters from form inputs to generate a new task object
-		Evalus.create({
-			userId: req.params.userId,
-			course: req.body.course,
-			user: req.params.userId,
-			title: req.body.title,
-			type: req.body.type,
-			date: req.body.date,
-			time: req.body.time,
-			location: req.body.location,
-			note: req.body.note
-		}).then(evalus => {
-			return res.status(201).json(evalus).redirect(301, ".."); // verify redirect status code during unit testing;
-		}).catch(() => {
+		Evalus.create()
+		.then(createdEvalu => {
+			return res.status(201).json(createdEvalu).redirect(301, ".."); // verify redirect status code during unit testing;
+		})
+		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
 		});
 	}
@@ -111,44 +109,24 @@ exports.evalusUpdate = (req, res, next) => {
 	const errors = validationResult(req);
 
 	// validate and sanitize input fields
-	check("title");
-	check("course.id");
-	check("type");
-	check("location");
-	check("date");
-	check("time");
-	check("duration");
-	check("weighting");
-	check("score");
-	
-	filter("title").escape();
-	filter("course.id").escape();
-	filter("type").escape();
-	filter("location").escape();
-	filter("date").escape();
-	filter("time").escape();
-	filter("duration").escape();
-	filter("weighting").escape();
-	filter("score").escape();
+	check("evalTitle");
+	check("evalType");
+	check("evalDate");
+	check("evalTime");
+	check("evalLocation");
+	check("evalNote");
+
+	filter("evalTitle").escape();
+	filter("evalType").escape();
+	filter("evalDate").escape();
+	filter("evalTime").escape();
+	filter("evalLocation").escape();
+	filter("evalNote").escape();
 		
 	if(!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Evalus.find({
-     		where: { id: req.params.evaluId }
-		})
-		.then(Evalus => {
-        	return Evalus.updateAttributes({
-				userId: req.params.userId,
-				course: req.body.course,
-				user: req.body.userId,
-				title: req.body.title,
-				type: req.body.type,
-				deadline: req.body.deadline,
-				completion: req.body.completion,
-				note: req.body.note
-			})
-		})
+		Evalus.update()
 		.then(updatedEvalu => {
     		return res.status(204).json(updatedEvalu).redirect(301, "/"); // verify redirect status code during unit testing;
 		 })
@@ -165,11 +143,9 @@ exports.evalusDelete = (req, res) => {
 		if(!errors.isEmpty()) {
 			return res.status(400).json({ errors: errors.array() });
 		} else {
-			Evalus.destroy({
-				where: { id: req.params.evaluId }
-			})
-			.then(deletedEvalus => {
-				return res.status(204).json(deletedEvalus).redirect(301, "/"); // verify redirect status code during unit testing;
+			Evalus.delete()
+			.then(deletedEvalu => {
+				return res.status(204).json(deletedEvalu).redirect(301, "/"); // verify redirect status code during unit testing;
 			})
 			.catch(() => {
 				return res.status(500).json({ errors: errors.array() });

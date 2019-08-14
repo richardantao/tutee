@@ -1,4 +1,7 @@
+// import model
 const Preferences = require("../models/Preferences")
+
+// import validation functions
 const { check, validationResult, filter } = require("express-validator");
 
 exports.index = (req, res) => {
@@ -7,11 +10,9 @@ exports.index = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Preferences.findAll({
-
-		})
-		.then(preferences => {
-			return res.status(204).json(preferences);
+		Preferences.findAll()
+		.then(allPreferences => {
+			return res.status(204).json(allPreferences);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -25,11 +26,9 @@ exports.profileCreateGet = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Preferences.find({
-			where: { id: req.params.preferenceId }
-		})
-		.then(preference => {
-			return res.status(204).json(preference)
+		Preferences.find()
+		.then(newPreference => {
+			return res.status(204).json(newPreference)
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -53,11 +52,9 @@ exports.profileCreatePost = (req, res) => {
 		// return error message and reload page
 		return res.status(400).json({ errors: errors.array() });
   	} else {
-		Preferences.create({
-			userId: req.params.userId
-		})
-		.then(preference => {
-			return res.status(201).json(preference);
+		Preferences.create()
+		.then(createdPreference => {
+			return res.status(201).json(createdPreference);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -80,14 +77,7 @@ exports.profileUpdate = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Preferences.find({
-			where: { id: req.params.preferenceId }
-		})
-		.then(Preferences => {
-			return Preferences.updatedAttribute({
-
-			})
-		})
+		Preferences.find()
 		.then(updatedPreference => {
 			return res.status(204).json(updatedPreference);
 		})
@@ -97,7 +87,7 @@ exports.profileUpdate = (req, res) => {
 	}
 };
 
-// DELETE request to delete user's account
+// DELETE user's account
 exports.profileDelete = (req, res) => {
 	const errors = validationResult(req);
 	

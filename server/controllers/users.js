@@ -29,12 +29,7 @@ exports.usersCreate = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// Sequelize INSERT using create(), create a users account
-		Users.create({
-			firstName: req.body.firstName,
-			lastName: req.body.lastName,
-			password: req.body.password,
-			email: req.body.email,
-		})
+		Users.create()
 		.then(newUser =>  {
 			return res.status(201).json(newUser);
 		})
@@ -49,40 +44,27 @@ exports.usersUpdate = (req, res) => {
 	const errors = validationResult(req);
 
 	// validate and sanitize values
-	check("firstName");
-	check("lastName");
-	check("email").isEmail();
-	check("country");
-	check("region");
-	check("institution");
+	check("userFirstName");
+	check("userLastName");
+	check("userEmail").isEmail();
+	check("userCountry");
+	check("userRegion");
+	check("userInstitution");
 
-	filter("firstName").escape();
-	filter("lastName").escape();
-	filter("email").escape();
-	filter("country").escape();
-	filter("region").escape();
-	filter("institution").escape();
+	filter("userFirstName").escape();
+	filter("userLastName").escape();
+	filter("userEmail").escape();
+	filter("userCountry").escape();
+	filter("userRegion").escape();
+	filter("userInstitution").escape();
 
 		
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Users.find({
-			where: { id: req.params.userId }
-		})
-		.then(Users => {
-			return Users.updateAttributes({
-				id: req.params.userId,
-				firstName: req.body.firstName,
-				lastName: req.body.lastName,
-				email: req.body.email,
-				country: req.body.country,
-				region: req.body.region,
-				institution: req.body.institution
-			})
-		})
-		.then(retrievedUser => {
-			return res.status(204).json(retrievedUser);
+		Users.update()
+		.then(updatedUser => {
+			return res.status(204).json(updatedUser);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -96,9 +78,7 @@ exports.usersDelete = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Users.destroy({
-			where: { id: req.params.userId }
-		})
+		Users.delete()
 		.then(deletedUser => {
 			return res.status(204).json(deletedUser);
 		})

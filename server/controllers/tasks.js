@@ -8,11 +8,9 @@ exports.index = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Tasks.findAll({
-
-		})
-		.then({
-
+		Tasks.findAll()
+		.then(allTasks => {
+			return res.status(200).json(allTasks);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -26,9 +24,7 @@ exports.tasksPast = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({errors: errors.array() });
 	} else {
-		Tasks.findAll({
-			where: { }
-		})
+		Tasks.findAll()
 		.then(pastTasks => {
 			return res.status(204).json(pastTasks);
 		})
@@ -47,11 +43,9 @@ exports.tasksEdit = (req, res) => {
 		return res.status(404).json();
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
-		Tasks.findById({
-      		where: { id: req.params.taskId }
-		})
-		.then(tasks => {
-			return res.status(200).json(tasks);	
+		Tasks.findById()
+		.then(selectedTask => {
+			return res.status(200).json(selectedTask);	
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -65,11 +59,9 @@ exports.tasksCreateGet = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Tasks.findById({
-			where: { id: req.params.taskId }
-		})
-		.then(retrievedTask => {
-			return res.status(204).json(retrievedTask);
+		Tasks.findById()
+		.then(newTask => {
+			return res.status(204).json(newTask);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });	
@@ -104,15 +96,7 @@ exports.tasksCreatePost = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		// use POST parameters from form inputs to generate a new task object
-		Tasks.create({
-			userId: req.params.userId,
-			module: req.body.module,
-			title: req.body.title,
-			type: req.body.type,
-			deadline: req.body.deadline,
-			completion: req.body.completion,
-			note: req.body.note
-		})
+		Tasks.create()
 		.then(createdTask => {
 			return res.status(201).json(createdTask).redirect(301, ".."); // verify redirect status code during unit testing;
 		})
@@ -147,21 +131,7 @@ exports.tasksUpdate = (req, res, next) => {
 	if(!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Tasks.findById({
-     		where: { id: req.params.taskId }
-		})
-		.then(Tasks => {
-        	return Tasks.updateAttributes({
-				userId: req.params.userId,
-				course: req.body.course,
-				module: req.body.module,
-				title: req.body.title,
-				type: req.body.type,
-				deadline: req.body.deadline,
-				completion: req.body.completion,
-				note: req.body.note
-			})
-		})
+		Tasks.update()
 		.then(updatedTask => {
         	return res.status(204).json(updatedTask).redirect(301, "/"); // verify redirect status code during unit testing;
 		})
@@ -178,9 +148,7 @@ exports.tasksDelete = (req, res) => {
 	if(!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		tasks.destroy({
-			where: { id: req.params.taskId }
-		})
+		Tasks.delete()
 		.then(deletedTask => {
 			return res.status(204).json(deletedTask).redirect(301, "/"); // verify redirect status code during unit testing;
 		})

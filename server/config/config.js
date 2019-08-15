@@ -16,14 +16,14 @@ const database = mysql.createConnection({
   host: env.host,
   database: env.database,
   user: env.user,
-  password: env.password,
+  password: env.password
 });
 
 database.connect(err => {
   if (err) {
-        console.log("Connection error: " + err);
+        console.log("Connection " + err);
   } else {
-        console.log(`Connection success: You are now connected to Tutee's ${env.env} database`);
+        console.log(`Connection Success: You are now connected to Tutee's ${env.env} database`);
   }
 });
 

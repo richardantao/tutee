@@ -5,7 +5,7 @@ const database = require("../config/config");
 const Users = [];
 
 // GET all users; admin query
-Users.findAll = req => {
+Users.findAll = () => {
 	return database.query(
 		`SELECT * FROM Users`
 	);

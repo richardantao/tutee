@@ -31,6 +31,7 @@
 * `server/seeds`
 * Conditional configurations in `server/config/config.js`
 * SSR with initial page loadup, and CSR after first load
+* Promisified database queries
 
 ### Changed
 * Moved `server/config.js` to `server/config/config.js`

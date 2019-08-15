@@ -1,4 +1,8 @@
+// import 
+const util = require("util");
 const mysql = require("mysql");
+
+// import environment variables
 const env = {
     env: process.env.NODE_ENV,
     host: process.env.DB_HOST,
@@ -7,6 +11,7 @@ const env = {
     password: process.env.DB_PASSWORD
 }
 
+// change to pool in production
 const database = mysql.createConnection({
   host: env.host,
   database: env.database,
@@ -22,4 +27,8 @@ database.connect(err => {
   }
 });
 
+// promisify all queries to the database
+database.query = util.promisify(database.query);
+
+// export database
 module.exports = database;

@@ -24,14 +24,14 @@ app.use(cors());
 app.use(cookieParser());
 
 // routes middleware
-app.use("/users", require("./routes/users"));
-app.use("/dashboard", require("./routes/dashboard"));
-app.use("/calendar", require("./routes/calendar"));
-app.use("/tasks", require("./routes/tasks"));
-app.use("/evaluations", require("./routes/evaluations"));
-app.use("/courses", require("./routes/courses"));
-app.use("/search", require("./routes/search"));
-app.use("/settings", require("./routes/settings"));
+app.use("/users/:UserId", require("./routes/users"));
+app.use("/dashboard/:UserId", require("./routes/dashboard"));
+app.use("/calendar/:UserId", require("./routes/calendar"));
+app.use("/tasks/:UserId", require("./routes/tasks"));
+app.use("/evaluations/:UserId", require("./routes/evaluations"));
+app.use("/courses/:UserId", require("./routes/courses"));
+app.use("/search/:UserId", require("./routes/search"));
+app.use("/settings/:UserId", require("./routes/settings"));
 
 // test home page
 app.get("/", (req, res) => {

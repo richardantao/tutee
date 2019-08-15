@@ -3,11 +3,20 @@ const Users = require("../models/Users");
 const { check, validationResult, filter } = require("express-validator");
 
 exports.usersEdit = (req, res) => {
-	
-	// Sequelize SELECT using Find(), users account by their ID
-	
-	// return json 
-	return res.status(200).json();
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(404).json({ errors: errors.array() });
+	} else {
+		console.log("Running the model...")
+		Users.findAll()
+		.then(user => {
+			console.log(user);
+			return res.status(200).json(user);
+		})
+		.catch(() => {
+			return res.status(500).json({ errors: errors.array() });
+		});
+	}
 };
 
 // POST request to create user's account

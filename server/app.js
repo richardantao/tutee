@@ -3,17 +3,16 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const cors = require("cors");
-const path = require("path");
+// const path = require("path");
 const cookieParser = require("cookie-parser");
-const dotenv = require('dotenv').config();
+// const dotenv = require('dotenv').config();
 
-const moment = require('moment');
-moment().format(); // move these two statements to respective files where date validation is required
+// const moment = require('moment');
+// moment().format(); // move these two statements to respective files where date validation is required
 
 /* Configurations */
 const app = express();
 const port = process.env.PORT || 3001;
-const database = require("./config/config");
 const env = process.env.NODE_ENV || "development";
 
 /* Middleware - preprocess requests */

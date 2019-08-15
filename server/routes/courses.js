@@ -3,63 +3,63 @@ const router = express.Router();
 const controller = require("../controllers/courses");
 
 // GET request to retrieve specific year
-router.get("/:yearId/edit", controller.yearsEdit);
+router.get("/:YearId/edit", controller.yearsEdit);
 
 // GET request to provide data for a POST
-router.get("/:userId/create", controller.yearsCreateGet);
+router.get("/create", controller.yearsCreateGet);
 
 // POST request to create new Year 
 router.post("/create", controller.yearsCreatePost);
 
 // PUT request to update current Year
-router.put("/:yearId/update", controller.yearsUpdate);
+router.put("/:YearId/update", controller.yearsUpdate);
 
 // DELETE request to delete current Year
-router.delete("/:yearId/delete", controller.yearsDelete);
+router.delete("/:YearId/delete", controller.yearsDelete);
 
 // GET request to retrieve specific term
-router.get("/:termId/edit", controller.termsEdit);
+router.get("/:TermId/edit", controller.termsEdit);
 
 // GET request to supply data for Terms POST
-router.get("/:userId/create", controller.termsCreateGet);
+router.get("/create", controller.termsCreateGet);
 
 // POST request to create new Term
 router.post("/create", controller.termsCreatePost);
 
 // PUT request to update current Term
-router.put("/:termId/update", controller.termsUpdate);
+router.put("/:TermId/update", controller.termsUpdate);
 
 // DELETE request to delete current Term
-router.delete("/:termId/delete", controller.termsDelete);
+router.delete("/:TermId/delete", controller.termsDelete);
 
 // GET request to retrieve specific course
-router.get("/:courseId/edit", controller.coursesEdit);
+router.get("/:CourseId/edit", controller.coursesEdit);
 
 // GET request to supply data for Course POST
-router.get("/:userId/create", controller.coursesCreateGet);
+router.get("/create", controller.coursesCreateGet);
 
 // POST request to create new Course
 router.post("/create", controller.coursesCreatePost);
 
 // PUT request to update current Course
-router.put("/:courseId/update", controller.coursesUpdate);
+router.put("/:CourseId/update", controller.coursesUpdate);
 
 // DELETE request to delete current Course
-router.delete("/:courseId/delete", controller.coursesDelete);
+router.delete("/:CourseId/delete", controller.coursesDelete);
 
 // GET request to retrieve specific module
-router.get("/:moduleId/edit", controller.modulesEdit);
+router.get("/:ModuleId/edit", controller.modulesEdit);
 
 // GET request to supply data for Module POST
-router.get("/:userId/create", controller.modulesCreateGet);
+router.get("/create", controller.modulesCreateGet);
 
 // POST request to create new Module
 router.post("/create", controller.modulesCreatePost);
 
 // PUT request to update current Module
-router.put("/:moduleId/update", controller.modulesUpdate);
+router.put("/:ModuleId/update", controller.modulesUpdate);
 
 // DELETE request to delete current Module
-router.delete("/:moduleId/delete", controller.modulesDelete);
+router.delete("/:ModuleId/delete", controller.modulesDelete);
 
 module.exports = router; 

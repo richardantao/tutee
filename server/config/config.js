@@ -1,4 +1,4 @@
-// import 
+// import dependencies
 const util = require("util");
 const mysql = require("mysql");
 
@@ -27,7 +27,7 @@ database.connect(err => {
   }
 });
 
-// promisify all queries to the database
+// promisify all database queries
 database.query = util.promisify(database.query);
 
 // export database

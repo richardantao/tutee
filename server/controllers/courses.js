@@ -15,8 +15,8 @@ exports.index = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Years.findAll()
-		.then(selectedData => {
-			return res.status(204).json({ selectedData });
+		.then(years => {
+			return res.status(204).json(years);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -34,8 +34,8 @@ exports.yearsEdit = (req, res) => {
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
 		Years.find()
-		.then(selectedYear => {
-			return res.status(200).json(selectedYear).redirect(301, "/"); // verify redirect status code during unit testing;	
+		.then(year => {
+			return res.status(200).json(year);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -51,8 +51,8 @@ exports.yearsCreateGet = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Years.find()
-		.then(newYear => {
-			return res.status(200).json(newYear);
+		.then(year => {
+			return res.status(200).json(year);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -85,8 +85,8 @@ exports.yearsCreatePost = function(req, res) {
 	} else {
 		// use POST parameters from form inputs to generate a new year object
 		Years.create()
-		.then(createdYear => {
-			return res.status(201).json(createdYear).redirect(301, ".."); // verify redirect status code during unit testing;
+		.then(() => {
+			return res.redirect(301, "/"); 
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -112,8 +112,8 @@ exports.yearsUpdate = (req, res, next) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Years.update()
-		.then(updatedYear => {
-        	return res.status(204).json(updatedYear).redirect(301, "/"); // verify redirect status code during unit testing;
+		.then(() => {
+        	return res.redirect(301, "/");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -129,8 +129,8 @@ exports.yearsDelete = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Years.delete()
-		.then(deletedYear => {
-			return res.status(204).json(deletedYear).redirect(301, "/"); // verify redirect status code during unit testing;
+		.then(() => {
+			return res.redirect(301, "/"); // verify redirect status code during unit testing;
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -148,8 +148,8 @@ exports.termsEdit = (req, res) => {
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Terms.find()
-		.then(selectedTerm => {
-			return res.status(204).json(selectedTerm).redirect(301, "/"); // verify redirect status code during unit testing;	
+		.then(term => {
+			return res.status(204).json(term);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -164,8 +164,8 @@ exports.termsCreateGet = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Terms.find()
-		.then(newTerm => {
-			return res.status(200).json(newTerm);
+		.then(term => {
+			return res.status(200).json(term);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -191,8 +191,8 @@ exports.termsCreatePost = (req, res) => {
 	} else {
 		// use POST parameters from form inputs to generate a new term object
 		Terms.create()
-		.then(createdTerm => {
-			return res.status(201).json(createdTerm).redirect(301, ""); // verify redirect status code during unit testing;
+		.then(() => {
+			return res.redirect(301, "/");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -223,8 +223,8 @@ exports.termsUpdate = (req, res, next) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Terms.update()
-		.then(updatedTerm => {
-        	return res.status(204).json(updatedTerm).redirect(301, "/"); // verify redirect status code during unit testing;
+		.then(() => {
+        	return res.redirect(301, "/");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -240,8 +240,8 @@ exports.termsDelete = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Terms.delete()
-		.then(deletedTerm => {
-			return res.status(204).json(deletedTerm).redirect(301, "/"); // verify redirect status code during unit testing;
+		.then(() => {
+			return res.redirect(301, "/"); // verify redirect status code during unit testing;
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -259,8 +259,8 @@ exports.coursesEdit = (req, res) => {
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Courses.find()
-		.then(selectedCourse => {
-			return res.status(204).json(selectedCourse).redirect(301, "/"); // verify redirect status code during unit testing;	
+		.then(course => {
+			return res.status(204).json(course)
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -275,8 +275,8 @@ exports.coursesCreateGet = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Courses.find()
-	  .then(newCourse => {
-		  return res.status(204).json(newCourse).redirect(301, "/"); // verify redirect status code during unit testing;	
+	  .then(course => {
+		  return res.status(204).json(course);
 	  })
 	  .catch(() => {
 		  return res.status(500).json({ errors: errors.array() });
@@ -304,8 +304,8 @@ exports.coursesCreatePost = (req, res) => {
 	} else {
 		// use POST parameters from form inputs to generate a new course object
 		Courses.create()
-		.then(createdCourse => {
-			return res.status(201).json(createdCourse).redirect(301, ".."); // verify redirect status code during unit testing;
+		.then(() => {
+			return res.redirect(301, "/"); 
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -330,8 +330,8 @@ exports.coursesUpdate = (req, res, next) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Courses.update()
-		.then(updatedCourse => {
-        	return res.status(204).json(updatedCourse).redirect(301, "/"); // verify redirect status code during unit testing;
+		.then(() => {
+        	return res.redirect(301, "/"); 
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -347,8 +347,8 @@ exports.coursesDelete = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Courses.delete()
-		.then(deletedCourse => {
-			return res.status(204).json(deletedCourse).redirect(301, "/"); // verify redirect status code during unit testing;
+		.then(() => {
+			return res.redirect(301, "/");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -366,8 +366,8 @@ exports.modulesEdit = (req, res) => {
 	} else {
 		// else find term by ID, and pass task as JSON with status code 200 to client to render
 		Modules.find()
-		.then(selectedModule => {
-			return res.status(204).json(selectedModule).redirect(301, "/"); // verify redirect status code during unit testing;	
+		.then(module => {
+			return res.status(204).json(module);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -382,8 +382,8 @@ exports.modulesCreateGet = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Modules.find()
-		.then(newModule => {
-			return res.status(204).json(newModule);
+		.then(module => {
+			return res.status(204).json(module);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -415,8 +415,8 @@ exports.modulesCreatePost = (req, res) => {
 	} else {
 		// use POST parameters from form inputs to generate a new course object
 		Modules.create()
-		.then(createdModule => {
-			return res.status(201).json(createdModule).redirect(301, "..");
+		.then(() => {
+			return res.redirect(301, "..");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array()} );
@@ -446,8 +446,8 @@ exports.modulesUpdate = (req, res, next) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Modules.update()
-		.then(updatedModule => {
-        	return res.status(204).json(updatedModule).redirect(301, "/"); // verify redirect status code during unit testing;
+		.then(() => {
+        	return res.redirect(301, "/"); 
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -463,8 +463,8 @@ exports.modulesDelete = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Modules.delete()
-		.then(deletedModule => {
-			return res.status(204).json(deletedModule).redirect(301, "/"); // verify redirect status code during unit testing;
+		.then(() => {
+			return res.redirect(301, "/"); 
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });

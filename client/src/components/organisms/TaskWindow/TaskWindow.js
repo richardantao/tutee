@@ -4,7 +4,7 @@ import { Col, Row } from "reactstrap";
 import Form from "../../molecules/Form";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import Button from "../../atoms/Button";
-import styles from "./TaskWindow.css";
+import styles from "./TaskWindow.scss";
 
 export default class TaskWindow extends Component {
     constructor(props) {

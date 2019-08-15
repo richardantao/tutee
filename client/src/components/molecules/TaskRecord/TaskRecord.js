@@ -1,6 +1,6 @@
 import React from "react";
 import {Row, Col} from "react-bootstrap";
-import styles from "./TaskRecord.css";
+import styles from "./TaskRecord.scss";
 
 const TaskRecord = ({ title, course, type, deadline }) => {
 	return (

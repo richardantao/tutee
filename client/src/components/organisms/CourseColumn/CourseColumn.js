@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import Empty from "../../molecules/Empty";
-import styles from "./CourseColumn.css";
+import styles from "./CourseColumn.scss";
 import axios from "axios";
 
 export default class CourseColumn extends Component {

@@ -2,7 +2,7 @@ import React from "react";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
 import { Container, Row, Col} from "reactstrap";
-import styles from "./Help.css";
+import styles from "./Help.scss";
 
 export default function Help() {
 	return (

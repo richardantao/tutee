@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Form from "../../molecules/Form";
 import LoadingColumn from "../../molecules/LoadingColumn";
-import styles from "./EvaluWindow.css";
+import styles from "./EvaluWindow.scss";
 
 export default class EvaluWindow extends Component {
     constructor(props) {

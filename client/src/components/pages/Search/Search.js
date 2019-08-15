@@ -6,7 +6,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
 import SelectReact from "../../atoms/Select";
-import styles from "./Search.css";
+import styles from "./Search.scss";
 
 
 export default function Search() {

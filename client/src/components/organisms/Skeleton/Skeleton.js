@@ -1,5 +1,5 @@
 import { createSkeletonProvider, createSkeletonElement } from '@trainline/react-skeletor';
-import styles from "./Skeleton.css";
+import styles from "./Skeleton.scss";
 
 const navButton = createSkeletonElement("div");
 

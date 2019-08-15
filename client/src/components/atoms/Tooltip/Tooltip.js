@@ -1,5 +1,6 @@
 import React from "react";
 import { Tooltip } from "reactstrap";
+import styles from "./Tooltip.scss";
 
 const TooltipReact = () => {
   constructor(props) {

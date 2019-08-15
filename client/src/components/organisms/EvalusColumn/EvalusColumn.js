@@ -4,7 +4,7 @@ import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import Empty from "../../molecules/Empty";
 import EvaluRecord from "../../molecules/EvaluRecord";
-import styles from "./EvalusColumn.css";
+import styles from "./EvalusColumn.scss";
 
 
 export default class EvaluColumn extends Component {

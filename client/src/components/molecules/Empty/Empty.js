@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import styles from "./Empty.scss";
 
 export default class Empty extends Component {
     constructor(props) {

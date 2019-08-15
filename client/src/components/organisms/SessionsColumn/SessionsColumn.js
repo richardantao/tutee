@@ -4,7 +4,7 @@ import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import Empty from "../../molecules/Empty";
 import SessionRecord from "../../molecules/SessionRecord";
-import styles from "./SessionsColumn";
+import styles from "./SessionsColumn.scss";
 
 
 

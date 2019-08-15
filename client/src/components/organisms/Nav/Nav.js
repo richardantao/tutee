@@ -5,7 +5,7 @@ import {
 	faSearch, faCog, faQuestionCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
-import styles from "./Nav.css";
+import styles from "./Nav.scss";
 import Logo from "../../atoms/Logo";
 
 

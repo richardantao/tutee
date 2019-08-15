@@ -39,8 +39,8 @@ exports.usersCreate = (req, res) => {
 	} else {
 		// Sequelize INSERT using create(), create a users account
 		Users.create()
-		.then(newUser =>  {
-			return res.status(201).json(newUser);
+		.then(() =>  {
+			return res.redirect(301, "/");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -72,8 +72,8 @@ exports.usersUpdate = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Users.update()
-		.then(updatedUser => {
-			return res.status(204).json(updatedUser);
+		.then(() => {
+			return res.redirect(301), "/";
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -88,8 +88,8 @@ exports.usersDelete = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Users.delete()
-		.then(deletedUser => {
-			return res.status(204).json(deletedUser);
+		.then(() => {
+			return res.redirect(301, "/");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.arrays() });

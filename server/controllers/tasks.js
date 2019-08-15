@@ -9,8 +9,8 @@ exports.index = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Tasks.findAll()
-		.then(allTasks => {
-			return res.status(200).json(allTasks);
+		.then(tasks => {
+			return res.status(200).json(tasks);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -25,8 +25,8 @@ exports.tasksPast = (req, res) => {
 		return res.status(404).json({errors: errors.array() });
 	} else {
 		Tasks.findAll()
-		.then(pastTasks => {
-			return res.status(204).json(pastTasks);
+		.then(tasks => {
+			return res.status(204).json(tasks);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -44,8 +44,8 @@ exports.tasksEdit = (req, res) => {
 	} else {
 		// else find task by ID, and pass task as JSON with status code 200 to client to render
 		Tasks.findById()
-		.then(selectedTask => {
-			return res.status(200).json(selectedTask);	
+		.then(task => {
+			return res.status(200).json(task);	
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -60,8 +60,8 @@ exports.tasksCreateGet = (req, res) => {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
 		Tasks.findById()
-		.then(newTask => {
-			return res.status(204).json(newTask);
+		.then(task => {
+			return res.status(204).json(task);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });	
@@ -97,8 +97,8 @@ exports.tasksCreatePost = (req, res) => {
 	} else {
 		// use POST parameters from form inputs to generate a new task object
 		Tasks.create()
-		.then(createdTask => {
-			return res.status(201).json(createdTask).redirect(301, ".."); // verify redirect status code during unit testing;
+		.then(() => {
+			return res.redirect(301, "/");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array});
@@ -132,8 +132,8 @@ exports.tasksUpdate = (req, res, next) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Tasks.update()
-		.then(updatedTask => {
-        	return res.status(204).json(updatedTask).redirect(301, "/"); // verify redirect status code during unit testing;
+		.then(() => {
+        	return res.redirect(301, "/"); 
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -149,8 +149,8 @@ exports.tasksDelete = (req, res) => {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
 		Tasks.delete()
-		.then(deletedTask => {
-			return res.status(204).json(deletedTask).redirect(301, "/"); // verify redirect status code during unit testing;
+		.then(() => {
+			return res.redirect(301, "/");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });

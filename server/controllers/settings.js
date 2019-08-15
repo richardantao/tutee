@@ -105,11 +105,9 @@ exports.passwordEdit = (req, res) => {
 	if(errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Preferences.destroy({
-			where: { id: req.params.preferenceId }
-		})
-		.then(deletedPrference => {
-			return res.status(204).json(deletedPrference);
+		Preferences.delete()
+		.then(() => {
+			return res.redirect(301, "/");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -141,11 +139,9 @@ exports.passwordCreatePost = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Preferences.create({
-
-		})
-		.then(createdPassword => {
-			return res.status(201).json(createdPassword);
+		Preferences.create()
+		.then(() => {
+			return res.redirect(301, "/");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -160,16 +156,9 @@ exports.passwordUpdate = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Preferences.find({
-			where: { id: req.params.preferenceId }
-		})
-		.then(Preferences => {
-			return Preferences.updatedAttribute({
-
-			})
-		})
-		.then(updatedPassword => {
-			return res.status(204).json(updatedPassword);
+		Preferences.update()
+		.then(() => {
+			return res.direct(301, "/");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -185,9 +174,7 @@ exports.preferencesEdit = (req, res) => {
 	if(!errors.isEmpty()) {
 	   return res.status(404).json({ errors: errors.array() });
 	} else {
-	   Preferences.find({
-		where: { id: req.params.preferenceId }
-	   })
+	   Preferences.find()
 	   .then(preference => {
 		return res.status(204).json(preference);
 	   })
@@ -203,11 +190,9 @@ exports.preferencesCreateGet = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(404).json({ errors: errors.array() });
 	} else {
-		Preferences.find({
-			where: { id: req.params.preferenceId }
-		})
-		.then(retrievedPreferences => {
-			return res.status(204).json(retrievedPreferences);
+		Preferences.find()
+		.then(preference => {
+			return res.status(204).json(preference);
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -222,11 +207,9 @@ exports.preferencesCreatePost = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Preferences.create({
-			userId: req.params.userId
-		})
-		.then(createdPreference => {
-		return res.status(201).json(createdPreference);
+		Preferences.create()
+		.then(() => {
+		return res.redirect(301, "/");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -242,16 +225,9 @@ exports.preferencesUpdate = (req, res) => {
 	if (!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });
 	} else {
-		Preferences.find({
-			where: { id: req.params.preferenceId}
-		})
-		.then(Preferences => {
-			return Preferences.updatedAttribute({
-
-			})
-		})
-		.then(updatedPreference => {
-			return res.status(204).json(updatedPreference);
+		Preferences.update()
+		.then(() => {
+			return res.redirect(301, "/");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });
@@ -267,11 +243,9 @@ exports.preferencesDelete = (req, res) => {
 	if(!errors.isEmpty()) {
 		return res.status(400).json({ errors: errors.array() });	
 	} else {
-		Preferences.destroy({
-			where: { id: req.params.preferenceId }
-		})
-		.then(deletedPreference => {
-			return res.status(204).json(deletedPreference);
+		Preferences.delete()
+		.then(() => {
+			return res.redirect(301, "");
 		})
 		.catch(() => {
 			return res.status(500).json({ errors: errors.array() });

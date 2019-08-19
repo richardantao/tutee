@@ -5,7 +5,7 @@ import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
 import { Container, Row, Col} from "reactstrap";
 import { Button } from "react-bootstrap";
-import styles from "./Courses.scss";
+import "./Courses.scss";
 import TermsColumn from "../../organisms/TermsColumn/TermsColumn";
 import TermRecord from "../../molecules/TermRecord";
 import CourseColumn from "../../organisms/CourseColumn/CourseColumn";

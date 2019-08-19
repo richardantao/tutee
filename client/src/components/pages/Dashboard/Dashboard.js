@@ -11,7 +11,7 @@ import EvalusColumn from "../../organisms/EvalusColumn";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import Counter from "../../molecules/Counter";
 import DateDisplay from "../../atoms/Date";
-import styles from "./Dashboard.scss";
+import "./Dashboard.scss";
 
 export default class Dashboard extends Component {
 	constructor(props) {

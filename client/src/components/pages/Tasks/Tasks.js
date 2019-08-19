@@ -8,7 +8,7 @@ import Header from "../../organisms/Header";
 import Form from "../../molecules/Form";
 import SelectReact from "../../atoms/Select";
 import { Button } from "react-bootstrap";
-import styles from "./Tasks.scss";
+import "./Tasks.scss";
 
 export default class Tasks extends Component {
 

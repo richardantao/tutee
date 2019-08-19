@@ -3,7 +3,9 @@ import { render } from 'react-dom';
 
 const Settings = () => {
 	return(
-		
+		<div>
+			
+		</div>
 	)
 }
 

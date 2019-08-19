@@ -1,11 +1,11 @@
 import React from "react";
-import styles from "./Counter.scss";
+import "./Counter.scss";
 
 const Counter = (props) => {
 	return(
 		<figure className="counter">
 			<figcaption></figcaption>
-			<img className="" src=""/>
+			<img className="" src="" alt=""/>
 			<svg width="100" height="100">
 				<circle className="" cx="50" cy="50" r="50"/>
 		  <foreignObject width="100" height="100">

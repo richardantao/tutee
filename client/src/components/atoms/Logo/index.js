@@ -1,4 +1,3 @@
-import Logo from "./Logo.js";
-import "./Logo.css";
+import Logo from "./Logo";
 
 export default Logo;

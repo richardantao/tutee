@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import styles from "./TermRecord.scss";
+import "./TermRecord.scss";
 
 const TermRecord = ({ title, rotation, start, end }) => {
     return (

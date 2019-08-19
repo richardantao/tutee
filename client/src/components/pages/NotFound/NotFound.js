@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import LoadingColumn from "../../molecules/LoadingColumn";
-import styles from "./NotFound.scss";
+import "./NotFound.scss";
 
 
 export default class NotFound extends Component {

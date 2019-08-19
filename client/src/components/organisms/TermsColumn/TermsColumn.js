@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import Empty from "../../molecules/Empty";
-import styles from "./TermsColumn.scss";
+import "./TermsColumn.scss";
 import axios from "axios";
 
 export default class TermsColumn extends Component {

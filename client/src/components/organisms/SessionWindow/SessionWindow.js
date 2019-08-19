@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import styles from "./SessionWindow.scss";
+import "./SessionWindow.scss";
 
 export default class SessionWindow extends Component {
     constructor(props) {

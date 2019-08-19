@@ -6,7 +6,7 @@ import { Container, Row, Col} from "reactstrap";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare, faLinkedin, faInstagram, faTwitterSquare } from "@fortawesome/free-brands-svg-icons";
-import styles from "./Settings.scss";
+import "./Settings.scss";
 
 export default class Settings extends Component {
 	constructor(props) {

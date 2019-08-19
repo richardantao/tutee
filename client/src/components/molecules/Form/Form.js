@@ -2,7 +2,7 @@ import React from "react";
 import SelectReact from "../../atoms/Select";
 import { Button, InputGroup, FormControl } from "react-bootstrap";
 import { Row, Col } from "reactstrap";
-import styles from "./Form.scss";
+import "./Form.scss";
 
 // functionality list
 

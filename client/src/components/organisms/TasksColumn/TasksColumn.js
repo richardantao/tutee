@@ -4,7 +4,7 @@ import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import Empty from "../../molecules/Empty";
 import TaskRecord from "../../molecules/TaskRecord";
-import styles from "./TasksColumn.scss";
+import "./TasksColumn.scss";
 
 export default class TasksColumn extends Component {
 	constructor(props) {

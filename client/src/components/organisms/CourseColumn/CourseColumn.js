@@ -1,9 +1,9 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import Empty from "../../molecules/Empty";
-import styles from "./CourseColumn.scss";
-import axios from "axios";
+import "./CourseColumn.scss";
 
 export default class CourseColumn extends Component {
 	constructor(props) {

@@ -3,7 +3,7 @@ import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
 import { Container, Row, Col} from "reactstrap";
 import { Button } from "react-bootstrap"
-import styles from "./Calendar.scss";
+import "./Calendar.scss";
 import axios from "axios";
 
 export default class Calendar extends Component {

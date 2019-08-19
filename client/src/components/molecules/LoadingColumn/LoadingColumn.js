@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import styles from "./LoadingColumn.scss";
+import "./LoadingColumn.scss";
 
 export default class LoadingColumn extends Component {
     render() {

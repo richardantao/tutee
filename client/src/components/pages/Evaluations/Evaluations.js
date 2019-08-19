@@ -8,7 +8,7 @@ import Header from "../../organisms/Header";
 import Form from "../../molecules/Form";
 import SelectReact from "../../atoms/Select";
 import { Button } from "react-bootstrap";
-import styles from "./Evaluations.scss";
+import "./Evaluations.scss";
 
 export default class Evaluations extends Component{
 	constructor(props) {

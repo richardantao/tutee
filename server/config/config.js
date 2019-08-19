@@ -16,7 +16,8 @@ const database = mysql.createConnection({
   host: env.host,
   database: env.database,
   user: env.user,
-  password: env.password
+  password: env.password,
+  insecureAuth: true
 });
 
 database.connect(err => {

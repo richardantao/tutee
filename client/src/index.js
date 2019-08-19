@@ -30,37 +30,3 @@ render (
 	</Router>,
 	document.querySelector("#app")
 );
-
-// defined for universal routing; don't move
-const routes = [
-	{
-		path: "/dashboard",
-		component: Dashboard
-	},
-	{
-		path: "/calendar",
-		component: Calendar
-	},
-	{
-		path: "/tasks",
-		component: Tasks
-	},
-	{
-		path: "/evaluations",
-		component: Evaluations
-	},
-	{
-		path: "/courses",
-		component: Courses
-	},
-	{
-		path: "/settings",
-		component: Settings
-	},
-	{
-		path: "*",
-		component: NotFound
-	}
-]
-
-export default routes;

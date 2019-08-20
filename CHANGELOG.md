@@ -32,6 +32,7 @@
 * Conditional configurations in `server/config/config.js`
 * SSR with initial page loadup, and CSR after first load
 * Promisified database queries
+* User Settings
 
 ### Changed
 * Moved `server/config.js` to `server/config/config.js`

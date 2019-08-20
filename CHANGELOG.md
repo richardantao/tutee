@@ -33,6 +33,7 @@
 * SSR with initial page loadup, and CSR after first load
 * Promisified database queries
 * User Settings
+* Static front-end prior to authentication
 
 ### Changed
 * Moved `server/config.js` to `server/config/config.js`
@@ -40,6 +41,7 @@
 * `Evals` to `Evalus` and `Classes` to `Sessions` to avoid confusion with JS keywords
 * Rewrote models and controllers with native MySQL queries
 * `.css` to `.scss`
+* test folder for mocha
 
 ### Fixed 
 * `models/` configurations to the database 

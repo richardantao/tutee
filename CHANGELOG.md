@@ -33,7 +33,7 @@
 * SSR with initial page loadup, and CSR after first load
 * Promisified database queries
 * User Settings
-* test folder for mocha
+* test folder for mochag
 * Static front-end prior to authentication
 
 ### Changed

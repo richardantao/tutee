@@ -19,10 +19,7 @@ export default class Settings extends Component {
 	}
 
 	componentDidMount() {
-		axios({
-			method: "GET",
-			url: "/settings"
-		})
+		axios.get("/settings")
 		.then(res => {
 			this.setState({
 				isLoading: false,

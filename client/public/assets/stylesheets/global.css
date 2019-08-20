@@ -1,0 +1,14 @@
+nav {
+    color: #00BBFF;
+    font-size: 2em;
+}
+
+nav a {
+    float: right;
+    margin: 1.75%;
+}
+
+#logo {
+    height: 100px;
+    width: 100px;
+}

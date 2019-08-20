@@ -9,17 +9,9 @@ import {
 } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 
-import Dashboard from "./components/pages/Dashboard";
-import Calendar from "./components/pages/Calendar";
-import Tasks from "./components/pages/Tasks";
-import Evaluations from "./components/pages/Evaluations";
-import Courses from "./components/pages/Courses";
-import Settings from "./components/pages/Settings";
-import NotFound from "./components/pages/NotFound";
-
 const Index = () => <App />
 
-render (
+render(
 	<Router>
 		<Index />
 	</Router>,

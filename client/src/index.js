@@ -17,12 +17,7 @@ import Courses from "./components/pages/Courses";
 import Settings from "./components/pages/Settings";
 import NotFound from "./components/pages/NotFound";
 
-
-const Index = () => {
-	return (
-		<App />
-	)
-};
+const Index = () => <App />
 
 render (
 	<Router>

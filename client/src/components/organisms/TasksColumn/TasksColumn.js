@@ -17,10 +17,7 @@ export default class TasksColumn extends Component {
 		};
 	}
 	componentDidMount() {
-		axios({
-			method: "GET",
-			url: "/dashboard/:userId"		
-		})
+		axios.get("/dashboard/:userId")
 		.then(res => {
 			res.tasks.results.map(task => ({
 				title: `${task.title}`,

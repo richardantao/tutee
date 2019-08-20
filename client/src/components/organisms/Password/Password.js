@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { Col, Row } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import ButtonReact from "../../atoms/Button";
@@ -8,13 +9,27 @@ export default class Password extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            isLoading: true
+            isLoading: true,
+            password: []
         }
     }
 
     componentDidMount() {
         this.setState({
             isLoading: false
+        });
+        
+        axios.get("/:UserId/settings/password/:UserPassword/edit")
+        .then(res => {
+            this.setState({
+                password: res.data.UserPassword
+            });
+        })
+        .catch(err => {
+            this.setState({
+                errors: err,
+                isLoading: false
+            })
         });
     }
     
@@ -31,29 +46,29 @@ export default class Password extends Component {
                             <label for="UserPassword">Current Password</label>
                         </Col>
                         <Col>
-                            <input name="UserPassword" type=""/>
+                            <input name="UserPassword" type="password"/>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <label></label>
+                            <label for=""></label>
                         </Col>
                         <Col>
-                        <input/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <label></label>
-                        </Col>
-                        <Col>
-                            <input/>
+                            <input name="" type="password"/>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <ButtonReact>Reset</ButtonReact>
-                            <ButtonReact>Save</ButtonReact>
+                            <label for=""></label>
+                        </Col>
+                        <Col>
+                            <input name="" type="password"/>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <ButtonReact type="reset">Reset</ButtonReact>
+                            <ButtonReact type="submit">Save</ButtonReact>
                         </Col>
                     </Row>
                 </form>

@@ -12,6 +12,20 @@ form {
     z-index: 1;
 }
 
+.active-page {
+    text-decoration: underline;
+}
+
+.form-reset {
+    background-color: red;
+    color: white;
+}
+
+.form-submit {
+    background-color: #00BBFF;
+    color: white;
+}
+
 #logo {
     height: 75px;
     width: 75px;

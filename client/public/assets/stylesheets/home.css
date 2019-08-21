@@ -1,6 +1,18 @@
+main {
+    position: relative;
+}
+
+.beta-signup {
+    position: absolute;
+        left: 0;
+        top: 0;
+}
+
 #background {
+    /* background-image: url("../images/home.jpg"); */
     height: auto;
-    object-fit: cover;
+    object-fit: contain;
+    position: relative;
     width: 100%;
     z-index: 0;
 }

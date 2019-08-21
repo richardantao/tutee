@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+		<meta name="application-name" content="Tutee">
+		<meta name="author" content="Richard Antao">
+		<meta name="description" content="Tutee helps you organize your academic life with our intuitive all-in-one web application">
+		<meta name="keywords" content="Tutee, homework, app, study app, homework app, university app, planner, study planner, highschool">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"> <!-- fontawesome fonts -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet" crossorigin="anonymous"> <!-- bootstrap css-->
+        <link href="assets/icons/favicon.png" rel="icon"> <!-- favicon--> <!-- fill in right path -->
+        <link href="assets/stylesheets/global.css" type="text/css" rel="stylesheet">
+		<link href="assets/stylesheets/home.css" type="text/css" rel="stylesheet">
+		<script src="assets/scripts/home.js" type="text/javascript" defer></script> <!-- personal js -->
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this webpage.</noscript>
+        <header role="banner">
+             <nav role="navigation">
+                <img src="assets/icons/tutee.jpg" id="logo" alt="Tutee logo">
+                <a href="contact.html">Contact</a>
+                <a href="about.html">About</a>
+                <a href="home.html" class="active-page">Home</a>
+            </nav>
+        </header>
+        <main role="main">
+            <img src="assets/images/home.jpg" id="background" class="beta-signup">
+            <!-- <div id="background"></div> -->
+            <form method="POST" action="/signup" role="form">
+                <div class="form-group">
+                    <label for="betaFirstName">First Name</label>
+                    <input name="betaFirstName" class="form-control" type="text" placeholder="First name..">
+                </div>
+                <div class="form-group">
+                    <label for="betaLastName">Last Name</label>
+                    <input name="betaLastName" class="form-control" type="text" placeholder="Last name..">
+                </div>
+                <div class="form-group">
+                    <label for="betaEmail">Email</label>
+                    <input name="betaEmail" class="form-control" type="email" placeholder="Email..">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                    <button class="form-reset btn" type="reset">Reset Form</button>
+                    <button class="form-submit btn" type="submit">Sign Up</button>
+                </div>
+            </form>
+        </main>
+        <footer role="contentinfo">
+            <div>
+                <h3>Tutee</h3>
+                <p>Building the Foundations for Student Success.</p>
+            </div>
+                <h5>Explore</h5>
+                <a>About Us</a>
+                <a>Careers</a>
+            <div>
+                <h5>Resources</h5>
+                <a>Beta Terms of Service</a>
+                <a>Privacy Policy</a>
+                <a>Cookie Policy</a>
+            </div>
+            <div>
+                <h5>System</h5>
+                <a>Changelog</a>
+                <a>System Incidents</a>
+            </div>
+            <div>
+                <a href="" target="_blank"></a>
+                <a href="" target="_blank"></a>
+                <a href="" target="_blank"></a>
+                <a href="" target="_blank"></a>
+            </div>
+        </footer>
+    </body>
+</html>

@@ -1,3 +1,7 @@
+body {
+    overflow-x: hidden;
+}
+
 nav {
     color: #00BBFF;
     font-size: 2em;
@@ -22,7 +26,7 @@ form {
     color: white;
     position: absolute;
         bottom: 1%;
-        right: 8%;
+        right: 20%;
 }
 
 .form-submit {

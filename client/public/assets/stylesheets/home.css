@@ -2,13 +2,6 @@ main {
     position: relative;
 }
 
-.beta-form {
-    position: absolute;
-        left: 40%;
-        top: 25%;
-    width: 40%;
-}
-
 #background {
     /* background-image: url("../images/home.jpg"); */
     height: auto;
@@ -17,3 +10,16 @@ main {
     width: 100%;
     z-index: 0;
 }
+
+.beta-form {
+    border-radius: 2%;
+    padding: 2%;
+    position: absolute;
+        left: 50%;
+        top: 25%;
+    width: 40%;
+}
+
+/* .beta-form label, .beta-form input, .beta-form button {
+    margin: 5px;
+} */

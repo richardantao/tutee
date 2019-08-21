@@ -11,6 +11,14 @@ main {
     z-index: 0;
 }
 
+#pitch {
+    /* color: white; */
+    position: absolute;
+        left: 20%;
+        top: 25%;
+    width: 25%;
+}
+
 .beta-form {
     border-radius: 2%;
     padding: 2%;

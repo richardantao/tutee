@@ -25,9 +25,9 @@
             </nav>
         </header>
         <main role="main">
-            <img src="assets/images/home.jpg" id="background" class="beta-signup">
+            <img src="assets/images/home.jpg" id="background">
             <!-- <div id="background"></div> -->
-            <form method="POST" action="/signup" role="form">
+            <form method="POST" action="/signup" class="beta-form" role="form">
                 <div class="form-group">
                     <label for="betaFirstName">First Name</label>
                     <input name="betaFirstName" class="form-control" type="text" placeholder="First name..">
@@ -47,30 +47,44 @@
                 </div>
             </form>
         </main>
-        <footer role="contentinfo">
-            <div>
-                <h3>Tutee</h3>
-                <p>Building the Foundations for Student Success.</p>
-            </div>
-                <h5>Explore</h5>
-                <a>About Us</a>
-                <a>Careers</a>
-            <div>
-                <h5>Resources</h5>
-                <a>Beta Terms of Service</a>
-                <a>Privacy Policy</a>
-                <a>Cookie Policy</a>
-            </div>
-            <div>
-                <h5>System</h5>
-                <a>Changelog</a>
-                <a>System Incidents</a>
-            </div>
-            <div>
-                <a href="" target="_blank"></a>
-                <a href="" target="_blank"></a>
-                <a href="" target="_blank"></a>
-                <a href="" target="_blank"></a>
+        <footer class="container-fluid" role="contentinfo">
+            <div class="row">
+                <div class="col">
+                    <h3>Tutee</h3>
+                    <p>Building the Foundations for Student Success.</p>
+                </div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <h5>Explore</h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <a href="about.html">About Us</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <a href="careers.html">Careers</a>
+                        </div>
+                    </div>
+                </div class="col">
+                    <h5>Resources</h5>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="cookies.html">Cookie Policy</a>
+                </div>
+                </div class="col">
+                    <h5>System</h5>
+                    <a href="changelog.html">Changelog</a>
+                    <a href="incidents.html">System Incidents</a>
+                </div>
+                </div class="col">
+                    <a href="" target="_blank"></a>
+                    <a href="" target="_blank"></a>
+                    <a href="" target="_blank"></a>
+                    <a href="" target="_blank"></a>
+                </div>
             </div>
         </footer>
     </body>

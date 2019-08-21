@@ -9,6 +9,7 @@ nav a {
 }
 
 form {
+    background-color: #F1F1F1;
     z-index: 1;
 }
 
@@ -19,11 +20,17 @@ form {
 .form-reset {
     background-color: red;
     color: white;
+    position: absolute;
+        bottom: 1%;
+        right: 8%;
 }
 
 .form-submit {
     background-color: #00BBFF;
     color: white;
+    position: absolute;
+        bottom: 1%;
+        right: 1%;
 }
 
 #logo {

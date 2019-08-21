@@ -2,10 +2,11 @@ main {
     position: relative;
 }
 
-.beta-signup {
+.beta-form {
     position: absolute;
-        left: 0;
-        top: 0;
+        left: 40%;
+        top: 25%;
+    width: 40%;
 }
 
 #background {

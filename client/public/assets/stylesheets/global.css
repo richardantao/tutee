@@ -2,8 +2,11 @@ body {
     overflow-x: hidden;
 }
 
-nav {
+a {
     color: #00BBFF;
+}
+
+nav {
     font-size: 2em;
 }
 
@@ -39,5 +42,18 @@ form {
 
 #logo {
     height: 75px;
+    margin: 0.5%;
     width: 75px;
+}
+
+/* Footer styles */
+
+footer {
+    display: grid;
+        grid-template-columns: 60% 15% 15% 15% 15%;
+        grid-template-rows: 75%;
+}
+
+footer a {
+    display: block;
 }

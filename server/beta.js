@@ -2,8 +2,9 @@ const app = require("./app");
 const nodemailer = require("nodemailer");
 
 const env = {
-    authUser: process.env.emailAuthUser,
-    authPass: process.env.emailAuthPassword
+    authUser: process.env.EMAIL_AUTH_USER,
+    authPass: process.env.EMAIL_AUTH_PASSWORD,
+    authEmail: process.env.EMAIL_AUTH_EMAIL
 }
 
 app.post("/", (req, res) => {

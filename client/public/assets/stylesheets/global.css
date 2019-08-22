@@ -27,7 +27,7 @@ form {
 .form-reset {
     background-color: red;
     color: white;
-    margin: 2%;
+    margin: 2% 4%;
     position: absolute;
         bottom: 1%;
         right: 35%;
@@ -36,7 +36,7 @@ form {
 .form-submit {
     background-color: #00BBFF;
     color: white;
-    margin: 2%;
+    margin: 2% 4%;
     position: absolute;
         bottom: 1%;
         right: 1%;
@@ -52,12 +52,18 @@ form {
 
 footer {
     display: grid;
-        grid-template-columns: 60% 15% 15% 15% 15%;
-        grid-template-rows: 75%;
+        grid-template-columns: 55% 15% 15% 15%;
+        grid-template-rows: 80% 20%;
     margin: 20px;
     min-height: 130px;
 }
 
 footer a {
     display: block;
+}
+
+.social {
+    display: inline-block;
+    font-size: 1.25em;
+    margin-left: 13%;
 }

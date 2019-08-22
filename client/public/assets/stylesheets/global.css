@@ -27,6 +27,7 @@ form {
 .form-reset {
     background-color: red;
     color: white;
+    margin: 2%;
     position: absolute;
         bottom: 1%;
         right: 35%;
@@ -35,6 +36,7 @@ form {
 .form-submit {
     background-color: #00BBFF;
     color: white;
+    margin: 2%;
     position: absolute;
         bottom: 1%;
         right: 1%;

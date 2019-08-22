@@ -21,7 +21,7 @@ main {
 
 .beta-form {
     border-radius: 2%;
-    padding: 2%;
+    padding: 2% 2% 4% 2%;
     position: absolute;
         left: 50%;
         top: 25%;

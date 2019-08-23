@@ -11,7 +11,8 @@
 		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet" crossorigin="anonymous"> <!-- bootstrap css-->
         <link href="assets/icons/favicon.png" rel="icon"> <!-- favicon--> <!-- fill in right path -->
         <link href="assets/stylesheets/global.css" type="text/css" rel="stylesheet">
-		<link href="assets/stylesheets/contact.css" type="text/css" rel="stylesheet"> <!-- personal css-->
+        <link href="assets/stylesheets/contact.css" type="text/css" rel="stylesheet"> <!-- personal css-->
+        <script src="assets/scripts/global.js" type="text/javascript" defer></script>
 		<script src="assets/scripts/contact.js" type="text/javascript" defer></script> <!-- personal js -->
     </head>
     <body>
@@ -26,7 +27,8 @@
             </nav>
         </header>
         <main role="main">
-            <form method="GET" action="/" role="form">
+            <img src="assets/images/contact.jpg" id="background">
+            <form method="GET" action="/" class="contact-form" role="form">
                 <div class="form-group">
                     <label for="">Name</label>
                     <input name="" class="form-control" type="text" placeholder="Your name..">
@@ -46,6 +48,7 @@
             </form>
         </main>
         <footer class="container-fluid" role="contentinfo">
+            <div id="footer-internal">
                 <div>
                     <h3>Tutee</h3>
                     <p>Building the Foundations for Student Success.</p>
@@ -68,15 +71,18 @@
                     <a href="changelog.html">Changelog</a>
                     <a href="incidents.html">System Incidents</a>
                 </div>
-                <div>
-                    <p id="copyright"></p>
+            </div>
+            <div id="footer-public">
+                <div id="copyright">
+                    <p></p>
                 </div>
-                <div>
-                    <a href="https://facebook.com" class="social" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="https://www.linkedin.com/company/tutee" class="social" target="_blank"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.instagram.com/tutee" class="social" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://twitter.com/tutee" class="social" target="_blank"><i class="fab fa-twitter-square"></i></a>
+            <div>
+                <a href="https://facebook.com" class="social" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.linkedin.com/company/tutee" class="social" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/tutee" class="social" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com/tutee" class="social" target="_blank"><i class="fab fa-twitter-square"></i></a>
                 </div>
-            </footer>
+            </div>
+        </footer>
     </body>
 </html>

@@ -1,0 +1,17 @@
+main {
+    background-color: #FAFAFA;
+}
+
+main h1, main div {
+    margin: 2%;
+}
+
+.blog-thumbnail {
+    height: auto;
+    width: 100%;
+}
+
+.card {
+    margin-bottom: 5%;
+    max-width: 25%;
+}

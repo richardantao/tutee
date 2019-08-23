@@ -1,4 +1,18 @@
+main {
+    background: #F6F6F6;
+    margin: 0;
+}
+
+h1, div {
+    margin-left: 2%;
+}
+
 .headshot {
     height: auto;
     width: 100%;
+}
+
+.card {
+    margin-bottom: 5%;
+    max-width: 25%;
 }

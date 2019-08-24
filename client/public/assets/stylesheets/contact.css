@@ -1,16 +1,24 @@
 #background {
-    /* height: auto; */
-    /* object-fit: contain; */
-    /* position: relative; */
+    height: auto;
+    object-fit: contain;
+    position: relative;
     width: 100%;
-    /* z-index: 0; */
+    z-index: 0;
 }
 
-/* .contact-form {
+#pitch {
+    color: white;
+    position: absolute;
+        left: 20%;
+        top: 40%;
+    width: 20%;
+}
+
+.contact-form {
     border-radius: 2%;
     padding: 2% 2% 4% 2%;
     position: absolute;
         left: 50%;
-        top: 25%;
+        top: 40%;
     width: 40%;
-} */
+}

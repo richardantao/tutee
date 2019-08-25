@@ -10,8 +10,9 @@
 		<link href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" rel="stylesheet" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous"> <!-- fontawesome fonts -->
 		<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet" crossorigin="anonymous"> <!-- bootstrap css-->
         <link href="assets/icons/favicon.png" rel="icon"> <!-- favicon--> <!-- fill in right path -->
-        <link href="assets/stylesheets/global.css">
-		<link href="assets/stylesheets/terms.css" type="text/css" rel="stylesheet"> <!-- personal css-->
+        <link href="assets/stylesheets/global.css" type="text/css" rel="stylesheet">
+        <link href="assets/stylesheets/terms.css" type="text/css" rel="stylesheet"> <!-- personal css-->
+        <script src="assets/scripts/global.js" type="text/javascript" defer></script>
 		<script src="assets/scripts/terms.js" type="text/javascript" defer></script> <!-- personal js -->
     </head>
     <body>
@@ -25,7 +26,7 @@
             </nav>
        </header>
         <main role="main">
-            <h1>Tutee Terms of Service</h1>
+            <h1>Terms of Service</h1>
             <div>
                 <h3>1. Terms</h3>
                 <p>
@@ -70,7 +71,10 @@
             </div>
             <div>
                 <h3>3. Beta Program</h3>
-                <p></p>
+                <p>
+                    All users registered in the Beta Program are susceptible to experience bugs, errors, and other problems. As a beta user and early adopter of Tutee, 
+                    you have commited to reporting bugs, and providing meaningful feedback on the performance of the application to improve the future user experience for all users.
+                </p>
             </div>
             <div>
                 <h3>4. Disclaimer</h3>
@@ -131,6 +135,7 @@
 
         </main>
         <footer class="container-fluid" role="contentinfo">
+            <div id="footer-internal">
                 <div>
                     <h3>Tutee</h3>
                     <p>Building the Foundations for Student Success.</p>
@@ -153,8 +158,10 @@
                     <a href="changelog.html">Changelog</a>
                     <a href="incidents.html">System Incidents</a>
                 </div>
-                <div>
-                    <p id="copyright"></p>
+            </div>
+            <div id="footer-public">
+                <div id="copyright">
+                    <p></p>
                 </div>
                 <div>
                     <a href="https://facebook.com" class="social" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -162,6 +169,7 @@
                     <a href="https://www.instagram.com/tutee" class="social" target="_blank"><i class="fab fa-instagram"></i></a>
                     <a href="https://twitter.com/tutee" class="social" target="_blank"><i class="fab fa-twitter-square"></i></a>
                 </div>
-            </footer>
+            </div>
+        </footer>
     </body>
 </html>

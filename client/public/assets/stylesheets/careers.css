@@ -2,8 +2,13 @@ main {
     background: #FAFAFA;
 }
 
+h1, .panel, .job-panel{
+  margin: 0 2%;
+}
+
 .background {
     height: auto;
+    margin: 0;
     width: 100%;
 }
 

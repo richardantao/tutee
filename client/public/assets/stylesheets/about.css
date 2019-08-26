@@ -1,10 +1,9 @@
 main {
     background: #FAFAFA;
-    margin: 0;
 }
 
 main h1, main div {
-    margin-left: 2%;
+    margin: 0 2%;
 }
 
 .headshot {

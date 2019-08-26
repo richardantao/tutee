@@ -11,22 +11,35 @@
         <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet" crossorigin="anonymous"> <!-- bootstrap css-->
         <link href="assets/icons/favicon.png" rel="icon"> <!-- favicon--> <!-- fill in right path -->
         <link href="assets/stylesheets/global.css" type="text/css" rel="stylesheet">
-        <link href="assets/stylesheets/incidents.css" type="text/css" rel="stylesheet"> <!-- personal css-->
-        <script src="assets/scripts/incidents.js" type="text/javascript" defer></script> <!-- personal js -->
+        <link href="assets/stylesheets/incidents.css" type="text/css" rel="stylesheet">
+        <script src="assets/scripts/global.js" type="text/javascript" defer></script> 
     </head>
     <body>
         <header role="banner">
             <nav role="navigation">
-
+                <img src="assets/icons/tutee.jpg" id="logo" alt="Tutee logo">
+                <a href="contact.html">Contact</a>
+                <a href="blog.html">Blog</a>
+                <a href="about.html">About</a>
+                <a href="home.html" class="active-page">Home</a>
             </nav>
         </header>
         <main role="main">
             <h1>System Incidents</h1>
             <div>
-                <p>There are currently no reported incidents.</p>
+                <hr>
+            </div>
+            <div>
+                <h3>Gold Release Staging</h3>
+                <h5>December 21-31, 2019</h5>
+                <p>
+                    We will be staging the release of Tutee's gold (official) release. The system will be down during this period.
+                </p>
+                <hr>
             </div>
         </main>
         <footer class="container-fluid" role="contentinfo">
+            <div id="footer-internal">
                 <div>
                     <h3>Tutee</h3>
                     <p>Building the Foundations for Student Success.</p>
@@ -39,6 +52,11 @@
                     <a href="careers.html">Careers</a>
                 </div>
                 <div>
+                    <h5>Documentation</h5>
+                    <a href="what.html">What is Tutee?</a>
+                    <a href="why.html">Why use Tutee?</a>
+                </div>
+                <div>
                     <h5>Resources</h5>
                     <a href="terms.html">Terms of Service</a>
                     <a href="privacy.html">Privacy Policy</a>
@@ -49,8 +67,10 @@
                     <a href="changelog.html">Changelog</a>
                     <a href="incidents.html">System Incidents</a>
                 </div>
-                <div>
-                    <p id="copyright"></p>
+            </div>
+            <div id="footer-public">
+                <div id="copyright">
+                    <p></p>
                 </div>
                 <div>
                     <a href="https://facebook.com" class="social" target="_blank"><i class="fab fa-facebook"></i></a>
@@ -58,6 +78,7 @@
                     <a href="https://www.instagram.com/tutee" class="social" target="_blank"><i class="fab fa-instagram"></i></a>
                     <a href="https://twitter.com/tutee" class="social" target="_blank"><i class="fab fa-twitter-square"></i></a>
                 </div>
-            </footer>
+            </div>
+        </footer>
     </body>
 </html>

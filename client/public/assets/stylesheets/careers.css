@@ -64,4 +64,5 @@ h1, .panel, .job-panel{
   .job-panel .btn {
     background-color: #00BFFF;
     color: white;
+    margin: 2%;
   }

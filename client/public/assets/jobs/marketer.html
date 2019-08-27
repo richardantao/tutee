@@ -16,11 +16,44 @@
     </head>
     <body>
         <main role="main">
+            <header role="banner">
+                <nav role="navigation">
+                    <img src="../icons/tutee.jpg" id="logo" alt="Tutee logo">
+                    <a href="../../contact.html">Contact</a>
+                    <a href="../../blog.html">Blog</a>
+                    <a href="../../about.html">About</a>
+                    <a href="../../home.html">Home</a>
+                </nav>
+            </header>
             <form method="POST" action="" class="" role="form">
-                <div>
-
+                <h1>Marketing Specialist Application</h1>
+                <div class="form-tab">
+                    <label for="firstName">First Name</label>
+                    <p>
+                        <input name="firstName" type="text" placeholder="Jane">
+                    </p>
+                    <label for="lastName">Last Name</label>
+                    <p>
+                        <input name="lastName" type="text" placeholder="Doe">
+                    </p>
+                </div>
+                <div class="form-tab">
+                    <label for="email">Email</label>
+                    <p>
+                        <input name="email" type="email" placeholder="janedoe@example.com">
+                    </p>
+                    <label for="phone">Phone Number</label>
+                    <p>
+                        <input name="phone" type="tel" placeholder="9483716025">
+                    </p>
                 </div>
                 <div>
+                    <label for="dob">Date of Birth</label>
+                    <p>
+                        <input name="dob" type="date" placeholder="yyyy-mm-dd">
+                    </p>
+                </div>
+                <div class="form-tab">
                     <button class="btn" type="submit">Submit Application</button>
                 </div>
             </form>

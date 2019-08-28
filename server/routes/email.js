@@ -18,7 +18,7 @@ router.post("/frontend", controller.frontendApp);
 router.post("/backend", controller.backendApp);
 
 // POST swift app to email through nodemailer
-router.post("/swift", controller.mobileApp);
+router.post("/swift", controller.swiftApp);
 
 // POST marketing app to email through nodemailer
 router.post("/marketer", controller.marketerApp);

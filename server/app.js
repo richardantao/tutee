@@ -34,6 +34,7 @@ app.use("/evaluations/:UserId", require("./routes/evaluations"));
 app.use("/courses/:UserId", require("./routes/courses"));
 app.use("/search/:UserId", require("./routes/search"));
 app.use("/settings/:UserId", require("./routes/settings"));
+app.use("/", require("./routes/email"));
 
 // test home page
 app.get("/", (req, res) => {

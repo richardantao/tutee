@@ -1,6 +1,11 @@
 ## Future feature list 
+* Push notifications
+* Course overview & reviews
+* File storage
+* Pomodero
+* Feedback forum
 * Apple watch integration
-* Autofill fields
+* Autocomplete fields
 
 ## v0.4.0 - Unreleased
 
@@ -33,7 +38,7 @@
 * SSR with initial page loadup, and CSR after first load
 * Promisified database queries
 * User Settings
-* test folder for mochag
+* test folder for mocha
 * Static front-end prior to authentication
 
 ### Changed

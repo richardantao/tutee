@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const cors = require("cors");
 const session = require("express-session");
-// const path = require("path");
+const path = require("path");
 const cookieParser = require("cookie-parser");
 // const dotenv = require('dotenv').config();
 
@@ -36,9 +36,8 @@ app.use("/search/:UserId", require("./routes/search"));
 app.use("/settings/:UserId", require("./routes/settings"));
 app.use("/", require("./routes/email"));
 
-// test home page
 app.get("/", (req, res) => {
-	res.send("index page");
+
 });
 
 /* Bootup */

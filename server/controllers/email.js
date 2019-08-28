@@ -65,8 +65,18 @@ exports.designerApp = (req, res) => {
     const confirmation = "Your application has been successfully submitted";
 
     // check fields 
+    check("firstName").exists().isAlpha();
+    check("lastName").exists().isAlpha();
+    check("email").isEmail();
+    check("phone").exists().isNumeric();
+    check("dob").exists(); // check for isDate() method
 
     // filter fields
+    filter("firstName").escape();
+    filter("lastName").escape();
+    filter("email").escape();
+    filter("phone").escape();
+    filter("dob").escape();
 
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -87,8 +97,18 @@ exports.frontendApp = (req, res) => {
     const confirmation = "Your application has been successfully submitted";
 
     // check fields 
+    check("firstName").exists().isAlpha();
+    check("lastName").exists().isAlpha();
+    check("email").isEmail();
+    check("phone").exists().isNumeric();
+    check("dob").exists(); // check for isDate() method
 
     // filter fields
+    filter("firstName").escape();
+    filter("lastName").escape();
+    filter("email").escape();
+    filter("phone").escape();
+    filter("dob").escape();
 
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -108,8 +128,18 @@ exports.backendApp = (req, res) => {
     const errors = validationResult(req);
 
     // check fields 
+    check("firstName").exists().isAlpha();
+    check("lastName").exists().isAlpha();
+    check("email").isEmail();
+    check("phone").exists().isNumeric();
+    check("dob").exists(); // check for isDate() method
 
     // filter fields
+    filter("firstName").escape();
+    filter("lastName").escape();
+    filter("email").escape();
+    filter("phone").escape();
+    filter("dob").escape();
 
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -130,8 +160,18 @@ exports.swiftApp = (req, res) => {
     const confirmation = "Your application has been successfully submitted";
 
     // check fields 
+    check("firstName").exists().isAlpha();
+    check("lastName").exists().isAlpha();
+    check("email").isEmail();
+    check("phone").exists().isNumeric();
+    check("dob").exists(); // check for isDate() method
 
     // filter fields
+    filter("firstName").escape();
+    filter("lastName").escape();
+    filter("email").escape();
+    filter("phone").escape();
+    filter("dob").escape();
 
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -152,11 +192,18 @@ exports.marketerApp = (req, res) => {
     const confirmation = "Your application has been successfully submitted";
 
     // check fields 
-    check("").exists();
-    
+    check("firstName").exists().isAlpha();
+    check("lastName").exists().isAlpha();
+    check("email").isEmail();
+    check("phone").exists().isNumeric();
+    check("dob").exists(); // check for isDate() method
 
     // filter fields
-    filter("").escape();
+    filter("firstName").escape();
+    filter("lastName").escape();
+    filter("email").escape();
+    filter("phone").escape();
+    filter("dob").escape();
 
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });

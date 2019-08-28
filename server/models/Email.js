@@ -1,4 +1,7 @@
 // import dependencies
+const express = require("express");
+const app = express();
+
 const nodemailer = require("nodemailer");
 const bodyParser = require("body-parser");
 const path = require("path");

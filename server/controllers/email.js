@@ -4,7 +4,7 @@ const Email = require("../models/Email");
 // import validation
 const { check, validationResult, filter } = require("express-validator");
 
-// POST /beta form
+// POST /beta form to email
 exports.beta = (req, res) => {
     const errors = validationResult(req);
 
@@ -30,13 +30,21 @@ exports.beta = (req, res) => {
     }
 }
 
-// POST /contact form
+// POST /contact form to email
 exports.contact = (req, res) => {
     const errors = validationResult(req);
 
-    // check fields 
+    // check fields
+    check("name").exists().isAlphanumeric();
+    check("email").isEmail();
+    check("message").exists().isAlphanumeric();
+
 
     // filter fields
+    filter("name").escape();
+    filter("email").escape();
+    filter("message").escape();
+
 
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
@@ -51,7 +59,7 @@ exports.contact = (req, res) => {
     }
 }
 
-//
+// POST visual designer application to email
 exports.designerApp = (req, res) => {
     const errors = validationResult(req);
     const confirmation = "Your application has been successfully submitted";
@@ -73,7 +81,7 @@ exports.designerApp = (req, res) => {
     }
 }
 
-//
+// post frontend react dev app to email
 exports.frontendApp = (req, res) => {
     const errors = validationResult(req);
     const confirmation = "Your application has been successfully submitted";
@@ -95,7 +103,7 @@ exports.frontendApp = (req, res) => {
     }
 }
 
-//
+// POST backend node dev app to email
 exports.backendApp = (req, res) => {
     const errors = validationResult(req);
 
@@ -116,7 +124,7 @@ exports.backendApp = (req, res) => {
     }
 }
 
-//
+// POST mobile swift dev app to email
 exports.swiftApp = (req, res) => {
     const errors = validationResult(req);
     const confirmation = "Your application has been successfully submitted";
@@ -138,7 +146,7 @@ exports.swiftApp = (req, res) => {
     }
 }
 
-// POST /
+// POST marketing speicialist app to email
 exports.marketerApp = (req, res) => {
     const errors = validationResult(req);
     const confirmation = "Your application has been successfully submitted";

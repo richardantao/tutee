@@ -1,0 +1,84 @@
+body {
+    overflow-x: hidden;
+}
+
+a {
+    color: #00BBFF;
+}
+
+nav {
+    font-size: 2em;
+}
+
+nav a {
+    float: right;
+    margin: 1.75%;
+}
+
+form {
+    background-color: #F1F1F1;
+    z-index: 1;
+}
+
+.active-page {
+    text-decoration: underline;
+}
+
+.form-reset {
+    background-color: red;
+    color: white;
+    margin: 2% 4%;
+    position: absolute;
+        bottom: 1%;
+        right: 35%;
+}
+
+.form-submit {
+    background-color: #00BBFF;
+    color: white;
+    margin: 2% 4%;
+    position: absolute;
+        bottom: 1%;
+        right: 1%;
+}
+
+#logo {
+    height: 75px;
+    margin: 0.5%;
+    width: 75px;
+}
+
+/* Footer styles */
+
+footer {
+    margin: 20px;
+    min-height: 130px;
+}
+
+#footer-internal {
+    display: grid;
+        grid-template-columns: 54% 10% 12% 12% 12%;
+        grid-template-rows: 100%;
+    margin-bottom: 1%;
+}
+
+#footer-public {
+    display: grid;
+        grid-column-start: 2;
+        grid-template-columns: 33% 33% 33%;
+        grid-template-rows: 100%;
+}
+
+footer a {
+    display: block;
+}
+
+#copyright {
+    grid-column-start: 2;
+}
+
+.social {
+    display: inline-block;
+    font-size: 1.5em;
+    margin-left: 5%;
+}

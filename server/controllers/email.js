@@ -19,6 +19,13 @@ exports.beta = (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     } else {
+        Email.betaReq()
+        .then((msg) => {
+            return res.status(200).json(msg);
+        })
+        .catch(err => {
+            return res.status(422).json(err);
+        });
         
     }
 }
@@ -34,7 +41,13 @@ exports.contact = (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     } else {
-        
+        Email.contactMsg()
+        .then(msg => {
+            return res.status(200).json(msg); 
+        })
+        .catch(err => {
+            return res.status(422).json(err);
+        });
     }
 }
 
@@ -50,7 +63,13 @@ exports.designerApp = (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     } else {
-        return res.status(200).json({ message: confirmation});
+        Email.teamApp()
+        .then(() => {
+            return res.status(200).json({ message: confirmation});
+        })
+        .catch(err => {
+            return res.status(422).json(err);
+        });
     }
 }
 
@@ -66,7 +85,13 @@ exports.frontendApp = (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     } else {
-        return res.status(200).json({ message: confirmation});
+        Email.teamApp()
+        .then(() => {
+            return res.status(200).json({ message: confirmation});
+        })
+        .catch(err => {
+            return res.status(422).json(err);
+        });
     }
 }
 
@@ -81,7 +106,13 @@ exports.backendApp = (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     } else {
-        return res.status(200).json({ message: confirmation});
+        Email.teamApp()
+        .then(() => {
+            return res.status(200).json({ message: confirmation});
+        })
+        .catch(err => {
+            return res.status(422).json(err);
+        });
     }
 }
 
@@ -97,7 +128,13 @@ exports.swiftApp = (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     } else {
-        return res.status(200).json({ message: confirmation});
+        Email.teamApp()
+        .then(() => {
+            return res.status(200).json({ message: confirmation});
+        })
+        .catch(err => {
+            return res.status(422).json(err);
+        });
     }
 }
 
@@ -116,6 +153,12 @@ exports.marketerApp = (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     } else {
-        return res.status(200).json({ message: confirmation});
+        Email.teamApp()
+        .then(() => {
+            return res.status(200).json({ message: confirmation});
+        })
+        .catch(err => {
+            return res.status(422).json(err);
+        });
     }
 }

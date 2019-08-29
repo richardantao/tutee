@@ -8,11 +8,11 @@ const { check, validationResult, filter } = require("express-validator");
 exports.beta = (req, res) => {
     const errors = validationResult(req);
 
-    // check fields 
+    // check form fields 
     check("betaName").exists().isAlphanumeric();
     check("betaEmail").exists().isEmail();
 
-    // filter fields
+    // filter form fields
     filter("betaName").escape();
     filter("betaEmail").escape();
 
@@ -26,7 +26,6 @@ exports.beta = (req, res) => {
         .catch(err => {
             return res.status(422).json(err);
         });
-        
     }
 }
 
@@ -34,13 +33,13 @@ exports.beta = (req, res) => {
 exports.contact = (req, res) => {
     const errors = validationResult(req);
 
-    // check fields
+    // check form fields
     check("name").exists().isAlphanumeric();
     check("email").isEmail();
     check("message").exists().isAlphanumeric();
 
 
-    // filter fields
+    // filter form fields
     filter("name").escape();
     filter("email").escape();
     filter("message").escape();
@@ -64,14 +63,14 @@ exports.designerApp = (req, res) => {
     const errors = validationResult(req);
     const confirmation = "Your application has been successfully submitted";
 
-    // check fields 
+    // check form fields
     check("firstName").exists().isAlpha();
     check("lastName").exists().isAlpha();
     check("email").isEmail();
     check("phone").exists().isNumeric();
     check("dob").exists(); // check for isDate() method
 
-    // filter fields
+    // filter form fields
     filter("firstName").escape();
     filter("lastName").escape();
     filter("email").escape();
@@ -96,14 +95,14 @@ exports.frontendApp = (req, res) => {
     const errors = validationResult(req);
     const confirmation = "Your application has been successfully submitted";
 
-    // check fields 
+    // check form fields 
     check("firstName").exists().isAlpha();
     check("lastName").exists().isAlpha();
     check("email").isEmail();
     check("phone").exists().isNumeric();
     check("dob").exists(); // check for isDate() method
 
-    // filter fields
+    // filter form fields
     filter("firstName").escape();
     filter("lastName").escape();
     filter("email").escape();
@@ -127,14 +126,14 @@ exports.frontendApp = (req, res) => {
 exports.backendApp = (req, res) => {
     const errors = validationResult(req);
 
-    // check fields 
+    // check form fields 
     check("firstName").exists().isAlpha();
     check("lastName").exists().isAlpha();
     check("email").isEmail();
     check("phone").exists().isNumeric();
     check("dob").exists(); // check for isDate() method
 
-    // filter fields
+    // filter form fields
     filter("firstName").escape();
     filter("lastName").escape();
     filter("email").escape();
@@ -159,14 +158,14 @@ exports.swiftApp = (req, res) => {
     const errors = validationResult(req);
     const confirmation = "Your application has been successfully submitted";
 
-    // check fields 
+    // check form fields 
     check("firstName").exists().isAlpha();
     check("lastName").exists().isAlpha();
     check("email").isEmail();
     check("phone").exists().isNumeric();
     check("dob").exists(); // check for isDate() method
 
-    // filter fields
+    // filter form fields
     filter("firstName").escape();
     filter("lastName").escape();
     filter("email").escape();
@@ -191,14 +190,14 @@ exports.marketerApp = (req, res) => {
     const errors = validationResult(req);
     const confirmation = "Your application has been successfully submitted";
 
-    // check fields 
+    // check form fields 
     check("firstName").exists().isAlpha();
     check("lastName").exists().isAlpha();
     check("email").isEmail();
     check("phone").exists().isNumeric();
     check("dob").exists(); // check for isDate() method
 
-    // filter fields
+    // filter form fields
     filter("firstName").escape();
     filter("lastName").escape();
     filter("email").escape();

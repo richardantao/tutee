@@ -16,6 +16,17 @@ const app = express();
 const port = process.env.PORT || 3001;
 const env = process.env.NODE_ENV || "development";
 
+/* Routes */
+const users = require("./routes/users");
+const dashboard = require("./routes/dashboard");
+const calendar = require("./routes/calendar");
+const tasks = require("./routes/tasks");
+const evaluations = require("./routes/evaluations");
+const courses = require("./routes/courses");
+const search = require("./routes/search");
+const settings = require("./routes/settings");
+const email = require("./routes/email");
+
 /* Middleware - preprocess requests */
 app.use(express.static("public"));
 app.use(bodyParser.json());
@@ -26,15 +37,15 @@ app.use(cookieParser());
 app.use(session({secret: "shhh"}));
 
 // routes middleware
-app.use("/users/:UserId", require("./routes/users"));
-app.use("/dashboard/:UserId", require("./routes/dashboard"));
-app.use("/calendar/:UserId", require("./routes/calendar"));
-app.use("/tasks/:UserId", require("./routes/tasks"));
-app.use("/evaluations/:UserId", require("./routes/evaluations"));
-app.use("/courses/:UserId", require("./routes/courses"));
-app.use("/search/:UserId", require("./routes/search"));
-app.use("/settings/:UserId", require("./routes/settings"));
-app.use("/", require("./routes/email"));
+app.use("/users/:UserId", users);
+app.use("/dashboard/:UserId", dashboard);
+app.use("/calendar/:UserId", calendar);
+app.use("/tasks/:UserId", tasks);
+app.use("/evaluations/:UserId", evaluations);
+app.use("/courses/:UserId", courses);
+app.use("/search/:UserId", search);
+app.use("/settings/:UserId", settings);
+app.use("/", email);
 
 app.get("/", (req, res) => {
 

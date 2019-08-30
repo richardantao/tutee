@@ -9,7 +9,7 @@ a {
 }
 
 nav {
-    font-size: 1.5em;
+    font-size: 1.25em;
 }
 
 nav a {
@@ -18,9 +18,9 @@ nav a {
 }
 
 #logo {
-    height: 50px;
+    height: 40px;
     margin: 0.5%;
-    width: 50px;
+    width: 40px;
 }
 
 form {
@@ -58,33 +58,32 @@ footer {
     min-height: 130px;
 }
 
-#footer-internal {
-    display: grid;
-        grid-template-columns: 50% 25% 25%;
-        grid-template-rows: 50% 50%;
-}
-
-#footer-internal div:nth-child(4) {
-    grid-column-start: 2;
-}
-
-#footer-internal div:nth-child(4), #footer-internal div:nth-child(5) {
-    margin-top: 5%;
-}
-
-#footer-public {
-    display: grid;
-        grid-column-start: 2;
-        grid-template-columns: 0 70% 30%;
-        grid-template-rows: 100%;
-}
-
 footer a {
     display: block;
 }
 
+#footer-internal {
+    display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 30% 40% 30%;
+}
+
+#footer-internal div:first-child {
+    grid-column-end: span 3;
+}
+
+#footer-internal div:nth-child(4) {
+    grid-column-start: 1;
+}
+
+#footer-public {
+    display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 50% 50%;
+}
+
 #copyright {
-    grid-column-start: 2;
+    font-size: 0.75em;
 }
 
 .social {
@@ -97,11 +96,6 @@ footer a {
 
 /* Landscape phones */
 @media (min-width: 576px) {
-
-}
-
-/* Tablets */
-@media (min-width: 768px) {
     nav {
         font-size: 1.75em;
     }
@@ -122,6 +116,35 @@ footer a {
     #footer-internal {
         font-size: 1.5vw;
         grid-template-columns: 48% 11% 15% 13% 13%;
+        grid-template-rows: 100%;
+    }
+
+    #footer-internal div:first-child {
+        grid-column-end: span 1;
+    }
+    
+    #footer-internal div:nth-child(4) {
+        grid-column-start: 4;
+    }
+    
+    #footer-public {
+        grid-column-start: 2;
+        grid-template-columns: 0 70% 30%;
+        grid-template-rows: 100%;
+        font-size: 1.5vw;
+    }
+    
+    #copyright {
+        grid-column-start: 2;
+        font-size: 1em;
+    }
+}
+
+/* Tablets */
+@media (min-width: 768px) {
+    #footer-internal {
+        font-size: 1.5vw;
+        grid-template-columns: 48% 11% 15% 13% 13%;
     }
 
     #footer-internal div:nth-child(4) {
@@ -133,7 +156,6 @@ footer a {
     }
 
     #footer-public {
-        font-size: 1.5vw;
         grid-template-columns: 26% 40% 33%;
     }    
 }

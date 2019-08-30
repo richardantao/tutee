@@ -1,15 +1,13 @@
 /* This stylesheet uses mobile-first design */
-
 main {
     position: relative;
 }
 
 #background {
-    /* background-image: url("../images/home.jpg"); */
-    height: auto;
-    object-fit: contain;
+    height: 500px;
+    object-fit: cover;
     position: relative;
-    width: 100%;
+    width: auto;
     z-index: 0;
 }
 
@@ -25,17 +23,27 @@ main {
 }
 
 #pitch p {
-    font-size: 80%;
+    font-size: 0.89em;
 }
 
 .beta-form {
     border-radius: 2%;
-    left: 10%;
+    min-height: 250px;
     padding: 2% 2% 4% 2%;
     position: absolute;
-    top: 30%;
-    width: 70%;
+        left: 10%;
+        top: 40%;
+    width: 85%;
 }
+
+.form-control {
+    display: none;
+}
+
+.form-control-sm {
+    display: block;
+}
+
 
 /* MEDIA QUERIES */
 
@@ -46,24 +54,27 @@ main {
         top: 9.5%;
         width: 90%;
     }
+
+    #pitch p {
+        font-size: 1em;
+    }
     
-    #pitch h3 {
+    /* #pitch h3 {
         font-size: 1.5em;
     }
 
     #pitch p {
         font-size: 1em;
-    }
-
-    .beta-form {
-        left: 10%;
-        top: 30%;
-        width: 70%;
-    }
+    } */
 }
 
 /* Tablets */
 @media (min-width: 768px) {
+    #background {
+        height: auto;
+        object-fit: contain;
+        width: 100%;
+    }
     #pitch {
         left: 15%;
         top: 25%;
@@ -78,6 +89,14 @@ main {
         left: 50%;
         top: 25%;
         width: 40%;
+    }
+
+    .form-control {
+        display: block;
+    }
+
+    .form-control-sm {
+        display: none;
     }
 }
 

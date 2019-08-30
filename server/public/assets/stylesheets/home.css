@@ -6,8 +6,8 @@ main {
 #background {
     height: 500px;
     object-fit: cover;
-    position: relative;
     opacity: 0.8;
+    position: relative;
     width: auto;
     z-index: 0;
 }
@@ -59,14 +59,6 @@ main {
     #pitch p {
         font-size: 1em;
     }
-    
-    /* #pitch h3 {
-        font-size: 1.5em;
-    }
-
-    #pitch p {
-        font-size: 1em;
-    } */
 }
 
 /* Tablets */

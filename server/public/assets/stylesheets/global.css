@@ -142,16 +142,7 @@ footer a {
 
 /* Tablets */
 @media (min-width: 768px) {
-    #footer-internal {
-        font-size: 1.5vw;
-        grid-template-columns: 48% 11% 15% 13% 13%;
-    }
-
-    #footer-internal div:nth-child(4) {
-        grid-column-start: 4;
-    }
-
-    #footer-internal div:nth-child(4), #footer-internal div:nth-child(5) {
+    #footer-internal div:nth-child(n+4):nth-child(-n+5) {
         margin-top: 0;
     }
 
@@ -173,10 +164,6 @@ footer a {
 
     .form-reset {
         display: block;
-    }
-
-    #footer-internal {
-        grid-template-columns: 48% 11% 15% 13% 13%;
     }
 
     #footer-public {

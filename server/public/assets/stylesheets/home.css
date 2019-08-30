@@ -1,3 +1,5 @@
+/* This stylesheet uses mobile-first design */
+
 main {
     position: relative;
 }
@@ -13,37 +15,32 @@ main {
 
 #pitch {
     position: absolute;
-        left: 15%;
-        top: 25%;
-    width: 26%;
+    left: 5%;
+    top: 9.5%;
+    width: 90%;
+}
+
+#pitch h3 {
+    font-size: 1.25em;
 }
 
 #pitch p {
-    font-size: 140%;
+    font-size: 80%;
 }
 
 .beta-form {
     border-radius: 2%;
+    left: 10%;
     padding: 2% 2% 4% 2%;
     position: absolute;
-        left: 50%;
-        top: 25%;
-    width: 40%;
+    top: 30%;
+    width: 70%;
 }
-
-/* .beta-form label, .beta-form input, .beta-form button {
-    margin: 5px;
-} */
 
 /* MEDIA QUERIES */
 
-/* Portrait phones */
-@media (min-width: 0) and (max-width: 575.98px) {
-
-}
-
 /* Landscape phones */
-@media (min-width: 576px) and (max-width: 767.98px) {
+@media (min-width: 576px) {
     #pitch {
         left: 5%;
         top: 9.5%;
@@ -51,11 +48,11 @@ main {
     }
     
     #pitch h3 {
-        font-size: 140%;
+        font-size: 1.5em;
     }
 
     #pitch p {
-        font-size: 80%;
+        font-size: 1em;
     }
 
     .beta-form {
@@ -66,31 +63,41 @@ main {
 }
 
 /* Tablets */
-@media (min-width: 768px) and (max-width: 991.98px) {
+@media (min-width: 768px) {
     #pitch {
+        left: 15%;
+        top: 25%;
         width: 30%;
-    }
-    
-    #pitch h3 {
-        font-size: 140%;
-    }
-
-    #pitch p {
-        font-size: 80%;
     }
     
     small {
         font-size: 1.25vw;
     }
+
+    .beta-form {
+        left: 50%;
+        top: 25%;
+        width: 40%;
+    }
 }
 
 /* Desktops */
-@media (min-width: 992px) and (max-width: 1199.98px) {
+@media (min-width: 992px) {
     #pitch h3 {
-        font-size: 160%;
+        font-size: 1.75em;
     }
 
     #pitch p {
-        font-size: 100%;
+        font-size: 1.2em;
+    }
+}
+
+@media (min-width: 1200px) {
+    #pitch h3 {
+        font-size: 2em;
+    }
+
+    #pitch p {
+        font-size: 1.5em;
     }
 }

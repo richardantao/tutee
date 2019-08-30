@@ -97,31 +97,40 @@ footer a {
 
 /* Tablets */
 @media (max-width: 991.98px) {
-    
+
+    footer h3 {
+        font-size: 2em;
+    }
+
+    footer h5 {
+        font-size: 1.25em;
+    }
+
+    #footer-internal {
+        font-size: 1.5vw;
+    }
+
+    #footer-public {
+        font-size: 1.5vw;
+    }
 }
 
 /* Desktops */
 @media (max-width: 1199.98px) {
     .form-reset {
         font-size: 0.75em;
-        margin: 2% 4%;
-        position: absolute;
-            right: 37%;
+        right: 37%;
     }
 
     .form-submit {
         font-size: 0.75em;
-        margin: 2% 4%;
-        position: absolute;
-            bottom: 1%;
-            right: 1%;
     }
 
     #footer-internal {
-            grid-template-columns: 49% 11% 14% 13% 13%;
+        grid-template-columns: 48% 11% 15% 13% 13%;
     }
 
     #footer-public {
-            grid-template-columns: 26% 40% 33%;
+        grid-template-columns: 26% 40% 33%;
     }
 }

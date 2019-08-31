@@ -65,7 +65,7 @@ footer a {
 #footer-internal {
     display: grid;
         grid-template-columns: 50% 50%;
-        grid-template-rows: 30% 40% 30%;
+        grid-template-rows: 25% 42% 33%;
 }
 
 #footer-internal div:first-child {

@@ -10,8 +10,7 @@
 /server/config/config.json
 /app/.env
 /server/.env
-/app/app.yaml
-/server/app.yaml
+app.yaml
 
 # packages
 /app/src/json

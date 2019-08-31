@@ -63,7 +63,8 @@ export default class Settings extends Component {
 							<Button href="https://twitter.com/tutee" target="_blank" className="social"><FontAwesomeIcon icon={faTwitterSquare}/></Button>
 						</Col>
 						<Col>
-							<p>Copyright {year} Alpha Innovation. All rights reserved. </p>
+							<p>Copyright {year} Tutee LLC. All rights reserved. </p>
+							<p>Version 1.0.0</p>
 						</Col>
 					</Row>
 				</Container>

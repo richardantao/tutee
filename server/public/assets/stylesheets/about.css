@@ -6,13 +6,20 @@ main h1, main div {
     margin: 0 2%;
 }
 
+#team {
+    display: grid;
+        grid-template-columns: 100%;
+        grid-template-rows: 50px 575px 575px 575px;
+}
+
 .headshot {
     height: auto;
     width: 100%;
 }
 
 .card {
-    
+    margin-bottom: 5%;
+    width: 85%;   
 }
 
 @media (min-width:576px) {
@@ -20,16 +27,27 @@ main h1, main div {
 }
 
 @media (min-width:768px) {
+    #team {
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 50px 520px 520px;
+    }
 
+    #team h2 {
+        grid-column-end: span 2;
+    }
 }
 
 @media (min-width:992px) {
+    #team {
+        grid-template-columns: 33% 33% 33%;
+        grid-template-rows: 50px 532px;
+    }
 
+    #team h2 {
+        grid-column-end: span 3;
+    }
 }
 
 @media (min-width:1200px) {
-    .card {
-        margin-bottom: 5%;
-        max-width: 25%;
-    }
+    
 }

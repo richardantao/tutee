@@ -1,5 +1,7 @@
 main {
-    background: #FAFAFA;
+    background-color: #FAFAFA;
+    border-bottom: #E1E1E1 1px solid;
+    border-top: #E1E1E1 1px solid;
 }
 
 main div, main h1 {

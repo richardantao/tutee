@@ -119,6 +119,11 @@ footer a {
         grid-template-rows: 100%;
     }
 
+    form label:after{
+        color: red;
+        content: '*';
+    }
+
     #footer-internal div:first-child {
         grid-column-end: span 1;
     }

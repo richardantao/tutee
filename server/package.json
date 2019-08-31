@@ -4,9 +4,10 @@
   "description": "tutee's server npm",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --timeout 5000",
+    "dev": "nodemon app.js",
+    "prepare": "npm run gcp-build",
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "test": "mocha --timeout 5000"
   },
   "repository": {
     "type": "git",

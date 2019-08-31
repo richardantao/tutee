@@ -12,9 +12,27 @@ nav {
     font-size: 1.25em;
 }
 
-nav a {
+#nav a {
     float: right;
     margin: 1.75%;
+}
+
+#side-nav {
+    border-right: #E1E1E1 1px solid;
+    float: left;
+    height: 720px;
+    margin-right: 2%;
+    width: 20%;
+}
+
+#side-nav h3 {
+    margin: 5%;
+}
+
+#side-nav a {
+    display: block;
+    font-size: 0.7em;
+    margin: 5%;
 }
 
 #logo {

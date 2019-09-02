@@ -2,7 +2,12 @@
 const express = require("express");
 const app = express();
 
+// import nodemailer credentials
 const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
+const OAuth2 = google.auth.OAuth2;
+
+// import middelware
 const bodyParser = require("body-parser");
 const path = require("path");
 
@@ -10,8 +15,24 @@ const path = require("path");
 const env = {
     authUser: process.env.EMAIL_AUTH_USER,
     authPass: process.env.EMAIL_AUTH_PASSWORD,
-    authEmail: process.env.EMAIL_AUTH_EMAIL
+    authEmail: process.env.EMAIL_AUTH_EMAIL,
+    authClient: process.env.CLIENT_ID, 
+    authSecret: process.env.CLIENT_SECRET,
+    authRedirect: process.env.REDIRECT_URL,
+    authRefresh: process.env.REFRESH_TOKEN
 }
+
+const oauth2Client = new OAuth2(
+    env.CLIENT_ID, 
+    env.CLIENT_SECRET,
+    env.REDIRECT_URL
+);
+
+oauth2Client.setCredentials({
+    refresh_token: env.REFRESH_TOKEN
+});
+
+const accessToken = oauth2Client.getAccessToken()
 
 // body parser middleware
 app.use(bodyParser.json());
@@ -27,8 +48,12 @@ Email.betaReq = (req, res) => {
         port: 587,
         secure: false,
         auth: {
-          user: env.authUser,
-          pass: env.authPass
+            type: "OAuth2",
+            user: env.authEmail, 
+            clientId: env.authClient,
+            clientSecret: env.authSecret,
+            refreshToken: env.authRefresh,
+            accessToken: accessToken
         },
         rejectUnauthorized: false
     });

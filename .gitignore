@@ -11,6 +11,7 @@
 /app/.env
 /server/.env
 app.yaml
+dispatch.yaml
 
 # packages
 /app/src/json

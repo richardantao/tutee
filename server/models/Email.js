@@ -54,8 +54,7 @@ Email.betaReq = (req, res) => {
             clientSecret: env.authSecret,
             refreshToken: env.authRefresh,
             accessToken: accessToken
-        },
-        rejectUnauthorized: false
+        }
     });
             
     const mailOptions = {
@@ -74,7 +73,6 @@ Email.betaReq = (req, res) => {
     });
 }
 
-
 // nodemailer credentials for the website's contact form
 Email.contactMsg = (req, res) => {
     const transporter = nodemailer.createTransport({
@@ -88,8 +86,7 @@ Email.contactMsg = (req, res) => {
             clientSecret: env.authSecret,
             refreshToken: env.authRefresh,
             accessToken: accessToken
-        },
-        rejectUnauthorized: false
+        }
     });
             
     const mailOptions = {
@@ -124,8 +121,7 @@ Email.teamApp = (req, res) => {
             clientSecret: env.authSecret,
             refreshToken: env.authRefresh,
             accessToken: accessToken
-        },
-        rejectUnauthorized: false
+        }
     });
             
     const mailOptions = {

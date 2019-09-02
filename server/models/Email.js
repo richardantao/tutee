@@ -59,13 +59,10 @@ Email.betaReq = (req, res) => {
     });
             
     const mailOptions = {
-        from: req.body.firstName + " " + req.body.lastName + " <" + req.body.email +">",
+        from: "<" + req.body.email + ">",
         to: env.authEmail,
-        attachments: [
-            {
-                path: ""
-            }
-        ]
+        subject: req.body.firstName + " " + req.body.lastName + " has requested a beta invite!",
+        html: ""
     };
             
     transporter.sendMail(mailOptions, (err, info) => {
@@ -85,8 +82,12 @@ Email.contactMsg = (req, res) => {
         port: 587,
         secure: false,
         auth: {
-          user: env.authUser,
-          pass: env.authPass
+            type: "OAuth2",
+            user: env.authEmail, 
+            clientId: env.authClient,
+            clientSecret: env.authSecret,
+            refreshToken: env.authRefresh,
+            accessToken: accessToken
         },
         rejectUnauthorized: false
     });
@@ -117,8 +118,12 @@ Email.teamApp = (req, res) => {
         port: 587,
         secure: false,
         auth: {
-          user: env.authUser,
-          pass: env.authPass
+            type: "OAuth2",
+            user: env.authEmail, 
+            clientId: env.authClient,
+            clientSecret: env.authSecret,
+            refreshToken: env.authRefresh,
+            accessToken: accessToken
         },
         rejectUnauthorized: false
     });

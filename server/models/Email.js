@@ -90,8 +90,10 @@ Email.contactMsg = (req, res) => {
     });
             
     const mailOptions = {
-        from: req.body.firstName + " " + req.body.lastName + " <" + req.body.email +">",
+        from: "<" + req.body.email + ">",
         to: env.authEmail,
+        subject: req.body.name + " has sent you a message!",
+        text: req.body.message,
         attachments: [
             {
                 path: ""

@@ -70,6 +70,7 @@ Email.betaReq = (req, res) => {
         } else {
             console.log('Email sent: ' + info.response);
         }
+        transporter.close();
     });
 }
 
@@ -93,12 +94,7 @@ Email.contactMsg = (req, res) => {
         from: "<" + req.body.email + ">",
         to: env.authEmail,
         subject: req.body.name + " has sent you a message!",
-        text: req.body.message,
-        attachments: [
-            {
-                path: ""
-            }
-        ]
+        text: req.body.message
     };
             
     transporter.sendMail(mailOptions, (err, info) => {
@@ -107,6 +103,7 @@ Email.contactMsg = (req, res) => {
         } else {
             console.log('Email sent: ' + info.response);
         }
+        transporter.close();
     });
 }
 

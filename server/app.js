@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const cors = require("cors");
-const session = require("express-session");
+// const session = require("express-session");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 // const dotenv = require('dotenv').config();
@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger("dev"));
 app.use(cors());
 app.use(cookieParser());
-app.use(session({secret: "shhh"}));
+// app.use(session({secret: "shhh"}));
 
 // routes middleware
 app.use("/users/:UserId", users);

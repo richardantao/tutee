@@ -2,5 +2,5 @@
 window.onload = function copyrightYear() {
     let year = new Date().getFullYear();
 
-    document.querySelector("#copyright p").innerHTML = "Copyright <i class='far fa-copyright'></i> " + year + " Tutee LLC. All rights reserved.";
+    document.querySelector("#copyright p").innerHTML = "Copyright <i class='far fa-copyright'></i> " + year + " Tutee. All rights reserved.";
 }

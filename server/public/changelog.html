@@ -13,6 +13,7 @@
         <link href="assets/stylesheets/global.css" type="text/css" rel="stylesheet">
         <link href="assets/stylesheets/changelog.css" type="text/css" rel="stylesheet">
         <script src="assets/scripts/global.js" type="text/javascript" defer></script>
+        <script src="assets/scripts/changelog.js" type="text/javascript" defer></script>
     </head>
     <body>
         <header role="banner">
@@ -26,14 +27,18 @@
         </header>
         <main role="main">
             <h1>Changelog</h1>
-            <div>
-                <hr>
+            <div id="filters">
+                <input type="checkbox" name="major" value="" checked> <span>Major Versions</span>
+                <input type="checkbox" name="minor" value="" checked> <span>Minor Versions</span>
+                <input type="checkbox" name="patch" value="" checked> <span>Patch Versions</span>
             </div>
-            <div>
-                <h2>v0.2.0</h2>
+            <br>
+            <div class="minor">
+                <h2>v0.3.0</h2>
                 <h5>Unreleased</h5>
-                <p>Our website is now live! Our sights are now set on launching our first beta.</p>
-                <p>But first, lets share the latest updates in the app's development:</p>
+                <p>
+
+                </p>
                 <h5>Added</h5>
                 <ul>
                     <li></li>
@@ -56,7 +61,18 @@
                 </ul>
                 <hr>
             </div>
-            <div>
+            <div class="minor">
+                <h2>v0.2.0</h2>
+                <h5>Unreleased</h5>
+                <p>
+                    Our website is live! Users can now register for the beta program, view the docs, and contact the developers.
+                </p>
+                <p>
+                    Our sights are now set on releasing supporting pages for the website, and launching the first version of the beta.
+                </p>
+                <hr>
+            </div>
+            <div class="minor">
                 <h2>v0.1.0</h2>
                 <h5>August 10, 2019</h5>
                 <p>

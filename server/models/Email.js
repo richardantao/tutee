@@ -7,7 +7,7 @@ const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 
-// import middelware
+// import middleware
 const bodyParser = require("body-parser");
 const path = require("path");
 
@@ -128,7 +128,7 @@ Email.teamApp = (req, res) => {
         to: env.authEmail,
         attachments: [
             {
-                path: ""
+                path: ABSPATH + ""
             }
         ]
     };

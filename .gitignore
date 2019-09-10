@@ -7,10 +7,12 @@
 .pnp.js
 
 # configurations
-/server/config/config.json
+
+/app/app.yaml
 /app/.env
 /server/.env
-app.yaml
+/server/app.yaml
+/server/config/config.json
 cron.yaml
 dispatch.yaml
 index.yaml

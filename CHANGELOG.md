@@ -16,7 +16,7 @@
 ## v0.3.0 - Unreleased 
 
 ### Added
-* App's splash page `client/public/splash.html`
+* Home website is now live
 * User authentification
 * Email verification
 
@@ -45,13 +45,11 @@
 * Moved `server/config.js` to `server/config/config.js`
 * Moved index routes and view renders from `server/controllers` to `client/components/organisms/{data}Column` 
 * `Evals` to `Evalus` and `Classes` to `Sessions` to avoid confusion with JS keywords
-* Rewrote models and controllers with native MySQL queries
+* Changed stack; now using Mongo instead of MySQL
 * `.css` to `.scss`
 
-
 ### Fixed 
-* `models/` configurations to the database 
-* 
+* `models/` configurations to the database  
 
 ### Removed
 * Folder stucture in `README.md` 

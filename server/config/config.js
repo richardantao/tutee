@@ -1,35 +1,35 @@
-// import dependencies
-const util = require("util");
-const mysql = require("mysql");
+// import database client
+const MongoClient = require("mongodb").MongoClient;
+const url = "mongodb://localhost:27017/mydb";
 
 // import environment variables
 const env = {
-    env: process.env.NODE_ENV,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD
+  env: process.env.NODE_ENV,
+  host: process.env.DB_HOST,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD
 }
 
-// change to pool in production
-const database = mysql.createConnection({
-  host: env.host,
-  database: env.database,
-  user: env.user,
-  password: env.password,
-  insecureAuth: true
+db.createCollection('test', (err, collection) => {
+  
 });
 
-database.connect(err => {
+
+
+MongoClient.connect(url, (err, db) => {
   if (err) {
-        console.log("Connection " + err);
-  } else {
-        console.log(`Connection Success: You are now connected to Tutee's ${env.env} database`);
+   throw err; 
+  }
+  else {
+    const database = db.db("TuteeDB");
+    database.createCollection("test", err => {
+      if (err) {
+        throw err;
+      } else {
+        console.log("Collection created!");
+        db.close();
+      }
+    });
   }
 });
-
-// promisify all database queries
-database.query = util.promisify(database.query);
-
-// export database
-module.exports = database;

@@ -1,5 +1,5 @@
 // import model
-const Preferences = require("../models/Preferences")
+
 
 // import validation functions
 const { check, validationResult, filter } = require("express-validator");

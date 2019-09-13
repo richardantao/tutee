@@ -8,10 +8,10 @@ const EvaluationSchema = new Schema({
   	location: String,
   	date: {type: Date, required: true},
   	time: {type: String, required: true},
-	duration: {type: Number, required: true},
+	duration: {type: Number, required: true, min: 0},
 	grade: {
-		weighting: Number,
-  		score: Number
+		weighting: {type: Number, min: 0, max: 100},
+  		score: {type: Number, min: 0, max: 100}
 	},
 	meta: {
 		createdAt: {type: Date, default: Date.now()},

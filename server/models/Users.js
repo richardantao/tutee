@@ -28,8 +28,8 @@ const UserSchema = new Schema({
     },
     meta: {
         isBeta: Boolean,
-        membership: {type: String, default: "basic"},
-        sessions: Number,
+        membership: {type: String, default: "Basic"},
+        sessions: {type: Number, default: 0, min: 0},
         lastLogin: Date,
         createdAt: {type: Date, default: Date.now()},
 		updatedAt: {type: Date, default: Date.now()}

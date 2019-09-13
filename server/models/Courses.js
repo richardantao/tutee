@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 const model = mongoose.model;
 
 const CourseSchema = new Schema({
+	id: Schema.Types.ObjectId,
 	code: {type: String, required: true},
 	title: {type: String, required: true},
 	theme: {type: String, default: "#00BBFF"}, 

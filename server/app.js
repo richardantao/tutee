@@ -48,10 +48,9 @@ app.use("/settings/:UserId", settings);
 app.use("/", email);
 
 app.get("/", (req, res) => {
-
+	res.send("Hello World");
 });
 
-/* Bootup */
 app.listen(port, () => {
 	console.log(`Your ${env} server is up and running on port ` + port);
 });

@@ -1,23 +1,14 @@
-const client = require("mongodb").MongoClient;
-const url = "mongo://localhost:27017/TuteeDev";
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
 
-async function asyncFunction() {
-  await client.connect(url, (err, db) => {
-    if (err) { 
-      console.log(err);
-    } else {
-      console.log("Connected successfully to the database");
-      db.close();
-    }
-  });
+const mongoDB = 'mongodb://127.0.0.1/TuteeDev';
 
-  const session = client.startSession({defaultTransactionOptions: {
-    readConcern: { level: 'local' },
-    writeConcern: { w: 'majority' },
-    readPreference: 'primary'
-  }});
-}
+mongoose.connect(mongoDB)
+.then(() =>  {
+  console.log('You have successfully connected to the mongo server');
+})
+.catch(err => {
+  console.error(err);
+});
 
-asyncFunction();
 
-module.exports = client;

@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const model = mongoose.model;
 
-const ModuleSchema = new mongoose.Schema({
+const ModuleSchema = new Schema({
 	type: String,
 	date: {
 		start: Date,
@@ -13,4 +15,4 @@ const ModuleSchema = new mongoose.Schema({
 	} 
 });
 
-module.exports = mongoose.model("Modules", ModuleSchema)
+module.exports = model("Modules", ModuleSchema)

@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
-// const Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
+const model = mongoose.model;
 
-const YearSchema = new mongoose.Schema({
-	// id: Schema.Types.ObjectId,
+const YearSchema = new Schema({
+	id: Schema.Types.ObjectId,
 	title: String,
 	date: {
 		start: Date,
@@ -14,4 +15,4 @@ const YearSchema = new mongoose.Schema({
 	}
 });
 
-module.exports = mongoose.model('Years', YearSchema);
+module.exports = model('Years', YearSchema);

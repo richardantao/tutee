@@ -1,90 +1,17 @@
-// import database
-const database = require("../config/config");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const model = mongoose.model;
 
-// instantiate model
-const Tasks = [];
-
-/* model queries */
-Tasks.findAll = req => {
-	let userId = req.params.UserId;
-
-	return database.query(
-		`SELECT * FROM Tasks
-		WHERE UserId = ${userId}`
-	);
-}
-
-Tasks.findAllPast = req => {
-	let userId = req.params.UserId;
-
-	return database.query(
-		`SELECT * FROM Tasks
-		WHERE UserId = ${userId}`
-	);
-}
-
-Tasks.findById = req => {
-	let userId = req.params.UserId;
-	let taskId = req.params.TaskId; 
-
-	return database.query(
-		`SELECT * FROM Tasks
-		WHERE UserId = ${userId} AND TaskId = ${taskId}`
-	);
-}
-
-Tasks.create = req => {
-	let userId = req.params.UserId;
-	let moduleId = req.params.ModuleId; 
-	let created = {
-		taskTitle: req.body.taskTitle,
-		taskType: req.body.taskType,
-		taskDeadline: req.body.taskDeadline,
-		taskCompletion: req.body.taskCompletion,
-		taskNote: req.body.taskNote 
+const TaskSchema = new Schema({
+	title: String,
+	type: String,
+	deadline: Date,
+	completion: Number,
+	note: String,
+	meta: {
+		createdAt: Date,
+		updatedAt: Date
 	}
+});
 
-	return database.query(
-		`INSERT INTO Tasks
-		(UserId, ModuleId, TaskTitle, TaskType, TaskDeadline, TaskCompletion, TaskNote)
-		VALUES (${userId},${moduleId},${created.taskTitle},
-			${created.taskType}, ${created.taskDeadline},${created.taskCompletion},${created.taskNote})`
-	);
-}
-
-Tasks.update = req => {
-	let userId = req.params.UserId;
-	let taskId = req.params.TaskId;
-	let updated = {
-		taskTitle: req.body.taskTitle,
-		taskType: req.body.taskType,
-		taskDeadline: req.body.taskDeadline,
-		taskCompletion: req.body.taskCompletion,
-		taskNote: req.body.taskNote  
-	}
-
-	return database.query(
-		`UPDATE Tasks
-		SET 
-			TaskTitle = ${updated.taskTitle},
-			TaskType = ${updated.taskType},
-			TaskDeadline = ${updated.taskDeadline},
-			TaskCompletion = ${updated.taskCompletion},
-			TaskNote = ${updated.taskNote}
-		WHERE UserId = ${userId} AND TaskId = ${taskId}`
-	);
-}
-
-Tasks.delete = req => {
-	let userId = req.params.UserId;
-	let taskId = req.params.TaskId;
-
-	return database.query(
-		`DELETE FROM Tasks 
-		WHERE UserId = ${userId} AND TaskId = ${taskId}
-		`
-	);
-}
-
-// export model
-module.exports = Tasks;
+module.exports = model("Tasks", TaskSchema);

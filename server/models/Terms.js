@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const model = mongoose.model;
 
-const TermSchema = new mongoose.Schema({
+const TermSchema = new Schema({
 	title: String,
   	date: {
 		start: Date,
@@ -13,4 +15,4 @@ const TermSchema = new mongoose.Schema({
 	  }
 });
 
-module.exports = mongoose.model('Terms', TermSchema);
+module.exports = model('Terms', TermSchema);

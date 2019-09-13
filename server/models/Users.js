@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
-// const Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
+const model = mongoose.model;
 
-const UserSchema = new mongoose.Schema({
-	// id: Schema.Types.ObjectId,
+const UserSchema = new Schema({
+	id: Schema.Types.ObjectId,
 	name: {
 		first: String,
 		last: String
@@ -35,4 +36,4 @@ const UserSchema = new mongoose.Schema({
 	}
 });
 
-module.exports = mongoose.model('Users', UserSchema);
+module.exports = model('Users', UserSchema);

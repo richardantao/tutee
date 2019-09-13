@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const model = mongoose.model;
 
-const EvaluationSchema = new mongoose.Schema({
+const EvaluationSchema = new Schema({
 	title: String,
   	type: String,
   	location: String,
@@ -17,4 +19,4 @@ const EvaluationSchema = new mongoose.Schema({
 	}
 });
 
-module.exports = mongoose.model("Evaluations", EvaluationSchema);
+module.exports = model("Evaluations", EvaluationSchema);

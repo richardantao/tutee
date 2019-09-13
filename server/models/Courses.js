@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const model = mongoose.model;
 
-const CourseSchema = new mongoose.Schema({
+const CourseSchema = new Schema({
 	code: String,
 	title: String,
 	theme: String, 
@@ -10,4 +12,4 @@ const CourseSchema = new mongoose.Schema({
 	}
 });
 
-module.exports = mongoose.model("Courses", CourseSchema);
+module.exports = model("Courses", CourseSchema);

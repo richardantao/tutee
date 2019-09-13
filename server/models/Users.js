@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     preferences: {
         startDay: String,
         startTime: {type: String, default: "8:00am"},
-        defaultDuration: {type: Number, default: 50},
+        defaultDuration: {type: Number, default: 50, min: [0, "Default duration must be greater than 0"]},
         defaultCalendar: {type: String, default: "Week"},
         onEmailList: {type: Boolean, default: true}
     },

@@ -3,19 +3,19 @@ const Schema = mongoose.Schema;
 const model = mongoose.model;
 
 const EvaluationSchema = new Schema({
-	title: String,
-  	type: String,
+	title: {type: String, required: true},
+  	type: {type: String, required: true},
   	location: String,
-  	date: Date,
-  	time: String,
-	duration: Number,
+  	date: {type: Date, required: true},
+  	time: {type: String, required: true},
+	duration: {type: Number, required: true},
 	grade: {
 		weighting: Number,
   		score: Number
 	},
 	meta: {
-		createdAt: Date,
-		updatedAt: Date
+		createdAt: {type: Date, default: Date.now()},
+		updatedAt: {type: Date, default: Date.now()}
 	}
 });
 

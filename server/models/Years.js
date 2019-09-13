@@ -4,14 +4,14 @@ const model = mongoose.model;
 
 const YearSchema = new Schema({
 	id: Schema.Types.ObjectId,
-	title: String,
+	title: {type: String, required: true},
 	date: {
-		start: Date,
-		end: Date
+		start: {type: Date, required: true},
+		end: {type: Date, required: true}
 	},
 	meta: {
-		createdAt: Date,
-		updatedAt: Date
+		createdAt: {type: Date, default: Date.now()},
+		updatedAt: {type: Date, default: Date.now()}
 	}
 });
 

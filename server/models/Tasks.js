@@ -3,14 +3,14 @@ const Schema = mongoose.Schema;
 const model = mongoose.model;
 
 const TaskSchema = new Schema({
-	title: String,
-	type: String,
-	deadline: Date,
-	completion: Number,
+	title: {type: String, required: true},
+	type: {type: String, required: true},
+	deadline: {type: Date, required: true},
+	completion: {type: Number, default: 0},
 	note: String,
 	meta: {
-		createdAt: Date,
-		updatedAt: Date
+		createdAt: {type: Date, default: Date.now()},
+		updatedAt: {type: Date, default: Date.now()}
 	}
 });
 

@@ -3,15 +3,16 @@ const Schema = mongoose.Schema;
 const model = mongoose.model;
 
 const TermSchema = new Schema({
-	title: String,
+	id: Schema.Types.ObjectId,
+	title: {type: String, required: true}
   	date: {
-		start: Date,
-		end: Date
+		start: {type: Date, required: true},
+		end: {type: Date, required: true}
 	  },
-	  rotation: String,
+	  rotation: {type: String, required: true},
 	  meta: {
-		  createdAt: Date,
-		  updatedAt: Date
+		createdAt: {type: Date, default: Date.now()},
+		updatedAt: {type: Date, default: Date.now()}
 	  }
 });
 

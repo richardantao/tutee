@@ -5,14 +5,14 @@ const model = mongoose.model;
 const UserSchema = new Schema({
 	id: Schema.Types.ObjectId,
 	name: {
-		first: String,
-		last: String
+		first: {type: String, required: true},
+		last: {type: String, required: true}
 	},
 	email: {
-		address: String,
-		verified: Boolean
+		address: {type: String, required: true},
+		verified: {type: Boolean, default: false}
 	},
-	password: String,
+	password: {type: String, required: true},
     location: {
     	country: String,
         region: String,
@@ -21,18 +21,18 @@ const UserSchema = new Schema({
     },
     preferences: {
         startDay: String,
-        startTime: String,
-        defaultDuration: Number,
-        defaultCalendar: String,
-        onEmailList: Boolean
+        startTime: {type: String, default: "8:00am"},
+        defaultDuration: {type: Number, default: 50},
+        defaultCalendar: {type: String, default: "Week"},
+        onEmailList: {type: Boolean, default: true}
     },
     meta: {
         isBeta: Boolean,
-        membership: String,
+        membership: {type: String, default: "basic"},
         sessions: Number,
         lastLogin: Date,
-        createdAt: Date,
-        updatedAt: Date
+        createdAt: {type: Date, default: Date.now()},
+		updatedAt: {type: Date, default: Date.now()}
 	}
 });
 

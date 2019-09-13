@@ -3,12 +3,12 @@ const Schema = mongoose.Schema;
 const model = mongoose.model;
 
 const CourseSchema = new Schema({
-	code: String,
-	title: String,
-	theme: String, 
+	code: {type: String, required: true},
+	title: {type: String, required: true},
+	theme: {type: String, default: "#00BBFF"}, 
 	meta: {
-		createdAt: Date,
-        updatedAt: Date
+		createdAt: {type: Date, default: Date.now()},
+		updatedAt: {type: Date, default: Date.now()}
 	}
 });
 

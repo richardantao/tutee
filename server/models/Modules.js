@@ -1,77 +1,16 @@
-// import database
-const database = require("../config/config");
+const mongoose = require("mongoose");
 
-// instantiate model
-const Modules = [];
+const ModuleSchema = new mongoose.Schema({
+	type: String,
+	date: {
+		start: Date,
+		end: Date
+	},
+	instructor: String,
+	meta: {
+		createdAt: Date,
+		updateAt: Date
+	} 
+});
 
-Modules.findAll = req => {
-	let userId = req.params.UserId;
-
-	return database.query(
-		`SELECT * FROM Modules
-		WHERE UserId = ${userId}`
-	);
-}
-
-Modules.findById = req => {
-	let userId = req.params.UserId;
-	let moduleId = req.params.ModuleId;
-
-	return database.query(
-		`SELECT * FROM Modules
-		WHERE UserId = ${userId} AND ModuleId = ${moduleId}`
-	);
-}
-
-Modules.create = req => {
-	let userId = req.params.UserId;
-	let courseId = req.params.CourseId;
-	
-	let created = {
-		moduleType: req.body.moduleType,
-		moduleStart: req.body.moduleStart,
-		moduleEnd: req.body.moduleEnd,
-		moduleInstructor: req.body.moduleInstructor
-	}
-
-	return database.query(
-		`INSERT INTO Modules
-		(UserId, CourseId, ModuleType, ModuleStart, ModuleEnd, ModuleInstructor)
-		VALUES (${userId}, ${courseId}, ${created.moduleType},
-			 ${created.moduleStart}, ${created.moduleEnd}, ${created.moduleInstructor})`
-	);
-}
-
-Modules.update = req => {
-	let userId = req.params.UserId;
-	let moduleId = req.params.ModuleId;
-	let updated = {
-		moduleType: req.body.moduleType,
-		moduleStart: req.body.moduleStart,
-		moduleEnd: req.body.moduleEnd,
-		moduleInstructor: req.body.moduleInstructor
-	}
-
-	return database.query(
-		`UPDATE Modules
-		SET 
-			moduleType = ${updated.moduleType},
-			moduleStart = ${updated.moduleStart},
-			moduleEnd = ${updated.moduleEnd},
-			moduleInstructor = ${updated.moduleInstructor}
-		WHERE UserId = ${userId} AND ModuleId = ${moduleId}`
-	);
-}
-
-Modules.delete = req => {
-	let userId = req.params.UserId;
-	let moduleId = req.params.ModuleId;
-
-	return database.query(
-		`DELETE FROM Modules
-		WHERE UserId = ${userId} AND ModuleId = ${moduleId}`
-	);
-}
-
-// export model
-module.exports = Modules;
+module.exports = mongoose.model("Modules", ModuleSchema)

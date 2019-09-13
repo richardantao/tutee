@@ -1,44 +1,7 @@
-// import database
-const database = require("../config/config");
+const mongoose = require("mongoose");
 
-// instantiate models
-const Integrations = [];
+const IntegrationSchema = new mongoose.Schema({
 
-Integrations.findById = req => {
-    let userId = req.params.UserId;
+});
 
-    return database.query(
-        `SELECT * FROM Integrations
-        WHERE UserId = ${userId}`        
-    )
-}
-
-Integrations.create = req => {
-    let userId = req.params.UserId;
-
-    return database.query(
-        `INSERT INTO Integrations
-        (UserId,)
-        VALUES (${userId})`        
-    )
-}
-
-Integrations.update = req => {
-    let userId = req.params.UserId;
-
-    return database.query(
-        `UPDATE Integrations
-        SET
-        
-        WHERE UserId = ${userId}`        
-    )
-}
-
-Integrations.delete = req => {
-    let userId = req.params.UserId;
-
-    return database.query(
-        `DELETE FROM Integrations
-        WHERE UserId = ${userId}`        
-    )
-}
+module.exports = mongoose.model("Integrations", IntegrationSchema);

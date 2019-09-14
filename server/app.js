@@ -8,9 +8,6 @@ const uuid = require("uuid");
 const cookieParser = require("cookie-parser");
 // const dotenv = require('dotenv').config();
 
-// const moment = require('moment');
-// moment().format(); // move these two statements to respective files where date validation is required
-
 /* Configurations */
 const app = express();
 const port = process.env.PORT || 3001;

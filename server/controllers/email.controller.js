@@ -1,5 +1,5 @@
 // import nodemailer model
-const Email = require("../models/Email");
+const Email = require("../models/Email.model");
 
 // import validation
 const { check, validationResult, filter } = require("express-validator");

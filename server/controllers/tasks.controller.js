@@ -1,7 +1,7 @@
 const async = require("async");
 
 // import model
-const Tasks = require("../models/Tasks");
+const Tasks = require("../models/Tasks.model");
 
 // instantiate controller
 const controller = [];

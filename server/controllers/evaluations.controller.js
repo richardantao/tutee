@@ -1,7 +1,7 @@
 const async = require("async");
 
 // import model
-const Evalus = require("../models/Evaluations")
+const Evalus = require("../models/Evaluations.model")
 
 // instantiate controller
 const controller = [];

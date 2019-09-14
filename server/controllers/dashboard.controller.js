@@ -1,9 +1,9 @@
 const async = require("async");
 
 // import models
-const Classes = require("../models/Classes").default.default.default;
-const Tasks = require("../models/Tasks");
-const Evalus = require("../models/Evaluations");
+const Classes = require("../models/Classes.model").default.default.default;
+const Tasks = require("../models/Tasks.model");
+const Evalus = require("../models/Evaluations.model");
 
 // instantiate models
 const controller = [];

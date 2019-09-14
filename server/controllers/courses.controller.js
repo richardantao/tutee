@@ -1,8 +1,8 @@
 // import dependencies
 const Years = require("../models/Years");
-const Terms = require("../models/Terms");
-const Courses = require("../models/Courses");
-const Modules = require("../models/Modules");
+const Terms = require("../models/Terms.model");
+const Courses = require("../models/Courses.model");
+const Modules = require("../models/Modules.model");
 
 const async = require("async");
 

@@ -1,5 +1,3 @@
-const async = require("async");
-
 // import model
 const Tasks = require("../models/Tasks.model");
 
@@ -7,37 +5,128 @@ const Tasks = require("../models/Tasks.model");
 const controller = [];
 
 controller.index = (req, res) => {
-	async.parallel({
-		
+	Tasks.find()
+    .then(tasks => {
+        return res.json(tasks);
+    }).catch(err => {
+        return res.status(500).json({
+            message: err.message || "An error occured while retrieving your tasks"
+        });
+    });
+}
+
+controller.past = (req, res) => {
+	
+}
+
+controller.edit = (req, res) => {
+	Tasks.findById(req.params.id)
+	.then(selectedTask => {
+		if(!selectedTask) {
+			return res.status(404).json({
+				message: "This task could not be successfully found"
+			});
+		} else {
+			return res.json(selectedTask);
+		}
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "This task could not be successfully found"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occured while retrieving this task"
+			});
+		}
 	});
 }
 
-controller.tasksPast = (req, res) => {
+controller.createGet = (req, res) => {
 	
 }
 
-// GET request for the Tasks editer form (single task by its ID)
-controller.tasksEdit = (req, res) => {
-	
+controller.createPost = (req, res) => {
+	const task = new Tasks({
+		title: req.body.title,
+		type: req.body.type,
+		deadline: req.body.deadline,
+		completion: req.body.completion,
+		note: req.body.note,
+		meta: {
+			createdAt: Date.now(),
+			updatedAt: Date.now()
+		}
+	});
+
+	task.save()
+	.then(newTask => {
+		return res.json(newTask);
+	})
+	.catch(err => {
+		return res.status(500).json({
+			message: err.message || "An error occured while creating this task"
+		});
+	});
 }
 
-controller.tasksCreateGet = (req, res) => {
-	
-}
-
-// POST request after the user SUBMITS the "New Term" form
-controller.tasksCreatePost = (req, res) => {
-		
-}
-
-// PUT request after the user SAVES the Tasks editer form 
-controller.tasksUpdate = (req, res, next) => {
-	
+controller.update = (req, res, next) => {
+	// set attributes to prevent total override
+	Tasks.findByIdAndUpdate(req.params.id, {
+		title: req.body.title,
+		type: req.body.type,
+		deadline: req.body.deadline,
+		completion: req.body.completion,
+		note: req.body.note,
+		meta: {
+			updatedAt: Date.now()
+		}
+	})
+	.then(updatedTask => {
+		if(!updatedTask) {
+			return res.status(404).json({
+				message: "This task was not successfully found"
+			});
+		} else {
+			return res.json(updatedTask);
+		}
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "This task was not successfully found"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occured while updating this task"
+			});
+		}
+	})
 }	
 
-// DELETE request after the user DELETES the Tasks editer form
-controller.tasksDelete = (req, res) => {
-	
+controller.delete = (req, res) => {
+	Tasks.findByIdAndDelete(req.params.id)
+	.then(deletedTask => {
+		if(!deletedTask) {
+			return res.status(400).json({
+				message: "This task was not successfully found"
+			});
+		} else {
+			return res.json(deletedTask);
+		}
+	})
+	.catch(err => {
+		if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+			return res.status(404).json({
+				message: "This task was not successfully found"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occured while deleting this task"
+			})
+		}
+	});
 }
 
 module.exports = controller;

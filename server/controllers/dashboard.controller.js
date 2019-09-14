@@ -139,7 +139,15 @@ controller.taskCreateGet = (req, res) => {
 //
 controller.taskCreatePost = (req, res) => {
 	const task = new Tasks({
-
+		title: req.body.title,
+		type: req.body.type,
+		deadline: req.body.deadline,
+		completion: req.body.completion,
+		note: req.body.note,
+		meta: {
+			createdAt: Date.now(),
+			updatedAt: Date.now()
+		}
 	});
 
 	task.save()
@@ -156,8 +164,16 @@ controller.taskCreatePost = (req, res) => {
 //
 controller.taskUpdate = (req, res) => {
 	// define updated attributes
+	// use set to only update the following attributes
 	Tasks.findByIdAndUpdate(req.params.id, {
-
+		title: req.body.title,
+		type: req.body.type,
+		deadline: req.body.deadline,
+		completion: req.body.completion,
+		note: req.body.note,
+		meta: {
+			updatedAt: Date.now()
+		}
 	})
 	.then(updatedTask => {
 		if(!updatedTask) {

@@ -18,7 +18,7 @@ const UserSchema = new Schema({
     location: {
     	country: String,
         region: String,
-        institution: String,
+        institution: {type: String, enum: ["University", "College", "High School", "Middle School"]},
         school: String
     },
     preferences: {

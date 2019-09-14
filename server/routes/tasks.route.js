@@ -1,22 +1,18 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const controller = require("../controllers/tasks.controller");
+
+router.get("/", controller.index);
 
 router.get("/past", controller.tasksPast); // handle logic on frontend?
 
-// GET request for Tasks editer form
-router.get("/:taskId/edit", controller.tasksEdit);
+router.get("/:taskId/edit", controller.edit);
 
-// GET request to load form options 
-router.get("/create", controller.tasksCreateGet); 
+router.get("/create", controller.createGet); 
 
-// POST request for creating a new task
-router.post("/create", controller.tasksCreatePost);
+router.post("/create", controller.createPost);
 
-// PUT user's update to database
-router.put("/:taskId/update", controller.tasksUpdate);
+router.put("/:taskId/update", controller.update);
 
-// POST request for deleting an existent task
-router.delete("/:taskId/delete", controller.tasksDelete);
+router.delete("/:taskId/delete", controller.delete);
 
 module.exports = router;

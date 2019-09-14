@@ -1,23 +1,16 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const controller = require("../controllers/evaluations.controller");
 
-// handle route on frontend? maybe
-router.get("/past", controller.evalusPast);
+router.get("/past", controller.past);
 
-// GET request for specific evaluation
-router.get("/:EvalId/edit", controller.evalusEdit);
+router.get("/:EvalId/edit", controller.edit);
 
-// GET user's data for the POST request
-router.get("/create", controller.evalusCreateGet)
+router.get("/create", controller.createGet)
 
-// POST request for creating a new evaluation
-router.post("/create", controller.evalusCreatePost);
+router.post("/create", controller.createPost);
 
-// PUT request for updating an existing evaluation
-router.put("/:EvalId/update", controller.evalusUpdate);
+router.put("/:EvalId/update", controller.update);
 
-// DELETE request for deleting an existing evaluation
-router.delete("/:EvalId/delete", controller.evalusDelete);
+router.delete("/:EvalId/delete", controller.delete);
 
 module.exports = router;

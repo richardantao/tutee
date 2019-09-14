@@ -1,19 +1,19 @@
 // instatiate constroller
 const controller = [];
 
-controller.calendarMonth = (req, res) => {
+controller.month = (req, res) => {
 	
 }
 
-controller.calendarWeek = (req, res) => {
+controller.week = (req, res) => {
 
 }
 
-controller.calendarDay = (req, res) => {
+controller.day = (req, res) => {
 
 }
 	
-controller.calendarAgenda = (req, res) => {
+controller.agenda = (req, res) => {
 
 }
 

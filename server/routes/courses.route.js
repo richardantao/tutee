@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/courses");
+const controller = require("../controllers/courses.controller");
 
 // GET request to retrieve specific year
 router.get("/:YearId/edit", controller.yearsEdit);

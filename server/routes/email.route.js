@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/email");
+const controller = require("../controllers/email.controller");
 
 // POST to beta database and send email when user submits index form
 router.post("/", controller.beta);

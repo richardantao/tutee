@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/calendar");
+const controller = require("../controllers/calendar.controller");
 
 router.get("/month", controller.calendarMonth);
 

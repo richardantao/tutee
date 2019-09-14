@@ -34,14 +34,14 @@ app.use(cookieParser());
 // app.use(session({secret: "shhh"}));
 
 // routes middleware
-app.use("/users/:UserId", users);
-app.use("/dashboard/:UserId", dashboard);
-app.use("/calendar/:UserId", calendar);
-app.use("/tasks/:UserId", tasks);
-app.use("/evaluations/:UserId", evaluations);
-app.use("/courses/:UserId", courses);
-app.use("/search/:UserId", search);
-app.use("/settings/:UserId", settings);
+app.use("/user", users);
+app.use("/dashboard", dashboard);
+app.use("/calendar", calendar);
+app.use("/tasks", tasks);
+app.use("/evaluations", evaluations);
+app.use("/courses", courses);
+app.use("/search", search);
+app.use("/settings", settings);
 app.use("/", email);
 
 app.get("/", (req, res) => {

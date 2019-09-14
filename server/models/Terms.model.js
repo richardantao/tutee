@@ -6,7 +6,7 @@ const moment = require("moment");
 
 const TermSchema = new Schema({
 	id: Schema.Types.ObjectId,
-	title: {type: String, required: true}
+	title: {type: String, required: true},
   	date: {
 		start: {type: Date, required: true},
 		end: {type: Date, required: true}

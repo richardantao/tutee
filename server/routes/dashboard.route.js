@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/dashboard");
+const controller = require("../controllers/dashboard.controller");
 
 // GET specific class selected by user
 router.get("classes/:classId/edit", controller.dashboardClassEdit); // routed in react

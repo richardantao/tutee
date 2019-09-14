@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/tasks");
+const controller = require("../controllers/tasks.controller");
 
 router.get("/past", controller.tasksPast); // handle logic on frontend?
 

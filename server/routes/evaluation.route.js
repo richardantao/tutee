@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const controller = require("../controllers/evaluations");
+const controller = require("../controllers/evaluations.controller");
 
 // handle route on frontend? maybe
 router.get("/past", controller.evalusPast);

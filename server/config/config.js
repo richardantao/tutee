@@ -1,14 +1,23 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-const mongoDB = 'mongodb://127.0.0.1/TuteeDev';
+const mongoDB = "mongodb://localhost/TuteeDev"
 
-mongoose.connect(mongoDB, {useNewUrlParser: true})
+mongoose.connect(mongoDB, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true
+})
 .then(() =>  {
-  console.log('You have successfully connected to the mongo server');
+  console.log('Sucessfully connected to mongo!');
 })
 .catch(err => {
-  console.error("Failed mongo connection");
+  console.error(err);
 });
 
-// export mongoose
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, 'connection error:'));
+db.once("open", () => {
+  console.log("Your connection with the database has been eastablished");
+});
+
+module.exports = db;

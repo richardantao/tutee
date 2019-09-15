@@ -14,15 +14,15 @@ const port = process.env.PORT || 3001;
 const env = process.env.NODE_ENV || "development";
 
 /* Routes */
-const users = require("./routes/users");
-const dashboard = require("./routes/dashboard");
-const calendar = require("./routes/calendar");
-const tasks = require("./routes/tasks");
-const evaluations = require("./routes/evaluations");
-const courses = require("./routes/courses");
-const search = require("./routes/search");
-const settings = require("./routes/settings");
-const email = require("./routes/email");
+const users = require("./routes/users.route");
+const dashboard = require("./routes/dashboard.route");
+const calendar = require("./routes/calendar.route");
+const tasks = require("./routes/tasks.route");
+const evaluations = require("./routes/evaluations.route");
+const courses = require("./routes/courses.route");
+const search = require("./routes/search.route");
+const settings = require("./routes/settings.route");
+const email = require("./routes/email.route");
 
 /* Middleware - preprocess requests */
 app.use(express.static("public"));

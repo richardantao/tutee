@@ -1,5 +1,4 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const controller = require("../controllers/courses.controller");
 
 // GET request to retrieve specific year

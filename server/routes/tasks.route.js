@@ -3,7 +3,7 @@ const controller = require("../controllers/tasks.controller");
 
 router.get("/", controller.index);
 
-router.get("/past", controller.tasksPast); // handle logic on frontend?
+router.get("/past", controller.past); // handle logic on frontend?
 
 router.get("/:taskId/edit", controller.edit);
 

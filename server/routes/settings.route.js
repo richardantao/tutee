@@ -15,28 +15,14 @@ router.delete("/:userId/profile/delete", controller.profileDelete);
 // GET request to retrieve user's password information
 router.get("/:userId/password/edit", controller.passwordEdit);
 
-// GET data for user to POST new password
-router.get("/password/create", controller.passwordCreateGet);
-
-// POST request for user's password creation
-router.post("/password/create", controller.passwordCreatePost);
-
 // PUT request for updating user's password
 router.put("/:userId/password/update", controller.passwordUpdate);
 
 // GET request for user's preferences information
 router.get("/:preferencesId/preferences/edit", controller.preferencesEdit);
 
-router.get("/preferences/create", controller.preferencesCreateGet);
-
-// POST request for creating user's preferences
-router.post("/preferences/create", controller.preferencesCreatePost);
-
 // PUT request to update user's preferences 
 router.put("/:preferencesId/preferences/update", controller.preferencesUpdate);
-
-// DELETE request to reset user's preferences to the default settings
-router.delete("/:preferencesId/preferences/delete", controller.preferencesDelete);
 
 // GET request to display user's linked account information 
 router.get("/:preferencesId/integrations/edit", controller.integrationsEdit);

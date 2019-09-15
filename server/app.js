@@ -1,4 +1,4 @@
-/* Dependencies - import dependencies */
+/* Dependencies */
 const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
@@ -14,7 +14,7 @@ const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || "development";
 const db = require("./config/config");
 
-/* Middleware - preprocess requests */
+/* Middleware - preprocessing */
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -34,7 +34,7 @@ app.use("/search", require("./routes/search.route"));
 app.use("/settings", require("./routes/settings.route"));
 // app.use("/", require("./routes/email.route");
 
-// test route
+// Test route
 app.get("/", (req, res) => {
 	res.send("Hello World");
 });

@@ -10,7 +10,7 @@ const cookieParser = require("cookie-parser");
 
 /* Configurations */
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV || "development";
 
 /* Routes */
@@ -22,7 +22,7 @@ const evaluations = require("./routes/evaluations.route");
 const courses = require("./routes/courses.route");
 const search = require("./routes/search.route");
 const settings = require("./routes/settings.route");
-const email = require("./routes/email.route");
+// const email = require("./routes/email.route");
 
 /* Middleware - preprocess requests */
 app.use(express.static("public"));
@@ -42,7 +42,7 @@ app.use("/evaluations", evaluations);
 app.use("/courses", courses);
 app.use("/search", search);
 app.use("/settings", settings);
-app.use("/", email);
+// app.use("/", email);
 
 app.get("/", (req, res) => {
 	res.send("Hello World");

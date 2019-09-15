@@ -3,12 +3,12 @@ mongoose.Promise = global.Promise;
 
 const mongoDB = 'mongodb://127.0.0.1/TuteeDev';
 
-mongoose.connect(mongoDB)
+mongoose.connect(mongoDB, {useNewUrlParser: true})
 .then(() =>  {
   console.log('You have successfully connected to the mongo server');
 })
 .catch(err => {
-  console.error(err);
+  console.error("Failed mongo connection");
 });
 
-
+// export mongoose

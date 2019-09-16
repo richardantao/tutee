@@ -1,14 +1,13 @@
 const Schema = require("mongoose").Schema;
 const model = require("mongoose").model;
 
-const moment = require("moment");
-
-const IntegrationSchema = new Schema({
+const SessionSchema = new Schema({
     id: Schema.Types.ObjectId,
+    
     meta: {
         createdAt: {type: Date, default: Date.now()},
-		updatedAt: {type: Date, default: Date.now()}
+        updated: {type: Date, default: Date.now()}
     }
 });
 
-module.exports = model("Integrations", IntegrationSchema);
+module.exports = model("Sessions", SessionSchema);

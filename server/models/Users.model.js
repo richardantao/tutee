@@ -6,15 +6,17 @@ const moment = require("moment");
 
 const UserSchema = new Schema({
 	id: Schema.Types.ObjectId,
-	name: {
-		first: {type: String, required: true},
-		last: {type: String, required: true}
-	},
-	email: {
-		address: {type: String, required: true},
-		verified: {type: Boolean, default: false}
-	},
-	password: {type: String, required: true},
+	profile: {
+        name: {
+            first: {type: String, required: true},
+            last: {type: String, required: true}
+        },
+        email: {
+            address: {type: String, required: true},
+            verified: {type: Boolean, default: false}
+        },
+        password: {type: String, required: true}
+    },
     location: {
     	country: String,
         region: String,
@@ -30,7 +32,7 @@ const UserSchema = new Schema({
     },
     meta: {
         isBeta: Boolean,
-        membership: {type: String, default: "Basic", enum: ["Basic, Premium, Beta"]},
+        membership: {type: String, default: "Basic", enum: ["Basic", "Premium", "Beta"]},
         sessions: {type: Number, default: 0, min: 0},
         lastLogin: Date,
         createdAt: {type: Date, default: Date.now()},

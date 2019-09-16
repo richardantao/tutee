@@ -30,13 +30,21 @@ controller.edit = (req, res) => {
 
 // POST request to create user's account
 controller.create = (req, res) => {
-	const user = new User({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: req.body.password,
-        createdAt: Date.now(),
-        updatedAt: Date.now()
+	const user = new Users({
+        profile: {
+            name: {
+                first:req.body.firstName,
+                last: req.body.lastName
+            },
+            email: {
+                address: req.body.email
+            },
+            password: req.body.password,
+            meta: {
+                createdAt: Date.now(),
+                updatedAt: Date.now()
+            }
+        }
     });
 
     user.save()
@@ -44,8 +52,9 @@ controller.create = (req, res) => {
         return res.json(newUser);
     })
     .catch(err => {
+        console.log("Error occured")
         return res.status(500).json({
-            message: err.message || "An error occured when creating user settings"
+            message: err.message || "An error occured while creating your account"
         });
     });
 }
@@ -57,10 +66,18 @@ Confirm data entries
 */
 controller.update = (req, res) => {
     Users.findByIdAndUpdate(req.params.id, {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        updatedAt: Date.now()
+        profile: {
+            name: {
+                first: req.body.firstName,
+                last: req.body.lastName
+            },
+            email: {
+                address: req.body.email
+            }
+        },
+        meta: {
+            updatedAt: Date.now()
+        }
     })
     .then(updatedUser => {
         if(!updatedUser) {

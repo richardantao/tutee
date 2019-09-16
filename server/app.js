@@ -24,6 +24,8 @@ app.use(cookieParser());
 // app.use(session({secret: "shhh"}));
 
 /* Routes middleware */
+app.use("/", require("./routes/sessions.route"));
+app.use("/beta", require("./routes/beta.route"));
 app.use("/user", require("./routes/users.route"));
 app.use("/dashboard", require("./routes/dashboard.route"));
 app.use("/calendar", require("./routes/calendar.route"));

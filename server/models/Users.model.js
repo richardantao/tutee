@@ -15,7 +15,7 @@ const UserSchema = new Schema({
             address: {type: String, required: true},
             verified: {type: Boolean, default: false}
         },
-        password: {type: String, required: true}
+        password: {type: String, required: true, minlength: 6}
     },
     location: {
     	country: String,

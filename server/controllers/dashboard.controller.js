@@ -166,13 +166,15 @@ controller.taskUpdate = (req, res) => {
 	// define updated attributes
 	// use set to only update the following attributes
 	Tasks.findByIdAndUpdate(req.params.id, {
-		title: req.body.title,
-		type: req.body.type,
-		deadline: req.body.deadline,
-		completion: req.body.completion,
-		note: req.body.note,
-		meta: {
-			updatedAt: Date.now()
+		$set: {
+			title: req.body.title,
+			type: req.body.type,
+			deadline: req.body.deadline,
+			completion: req.body.completion,
+			note: req.body.note,
+			meta: {
+				updatedAt: Date.now()
+			}
 		}
 	})
 	.then(updatedTask => {

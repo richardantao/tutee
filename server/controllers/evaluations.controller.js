@@ -81,21 +81,23 @@ controller.createPost = (req, res) => {
 }
 
 // PUT request after the user SAVES the Evaluations editer form
-controller.update = (req, res, next) => {
+controller.update = (req, res) => {
 	// selective update
 	Evals.findByIdAndUpdate(req.params.id, {
-		title: req.body.title,
-		type: req.body.type,
-		location: req.body.location,
-		date: req.body.date,
-		time: req.body.time,
-		duration: req.body.duration,
-		grade: {
-			weighting: req.body.weighting,
-			score: req.body.score
-		},
-		meta: {
-			updatedAt: Date.now()
+		$set: {
+			title: req.body.title,
+			type: req.body.type,
+			location: req.body.location,
+			date: req.body.date,
+			time: req.body.time,
+			duration: req.body.duration,
+			grade: {
+				weighting: req.body.weighting,
+				score: req.body.score
+			},
+			meta: {
+				updatedAt: Date.now()
+			}
 		}
 	})
 	.then(updatedEval => {

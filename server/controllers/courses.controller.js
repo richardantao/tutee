@@ -117,14 +117,15 @@ controller.yearsCreatePost = function(req, res) {
 // PUT request after user SAVES the Year editer form
 controller.yearsUpdate = (req, res, next) => {
 	Years.findByIdAndUpdate(req.params.id, {
-		// selective update
-		title: req.body.title,
-		date: {
-			start: req.body.startDate,
-			end: req.body.endDate
-		},
-		meta: {
-			updatedAt: Date.now()
+		$set: {
+			title: req.body.title,
+			date: {
+				start: req.body.startDate,
+				end: req.body.endDate
+			},
+			meta: {
+				updatedAt: Date.now()
+			}
 		}
 	})
 	.then(updatedYear => {
@@ -149,7 +150,6 @@ controller.yearsUpdate = (req, res, next) => {
 	})
 }
 
-// DELETE request after user DELETES the Year editor form
 controller.yearsDelete = (req, res) => {
 	Years.findByIdAndDelete(req.params.id)
 	.then(deletedYear => {
@@ -174,7 +174,6 @@ controller.yearsDelete = (req, res) => {
 	});
 }
 
-// GET request when the user tries to edit a specific term
 controller.termsEdit = (req, res) => {
 	Terms.findById(req.params.id)
 	.then(selectedTerm => {
@@ -203,7 +202,6 @@ controller.termsCreateGet = (req, res) => {
 
 }	
 	
-// POST request after user SUBMITS the "New Term" form
 controller.termsCreatePost = (req, res) => {
 	const term = new Terms({
 		title: req.body.title,
@@ -229,17 +227,18 @@ controller.termsCreatePost = (req, res) => {
 	})
 }
 
-// PUT request after user SUBMITS the Term editer form
-controller.termsUpdate = (req, res, next) => {
+controller.termsUpdate = (req, res) => {
 	Terms.findByIdAndUpdate(req.params.id, {
-		title: req.body.title,
-		date: {
-		  start: req.body.startDate,
-		  end: req.body.endDate
-		},
-		rotation: req.body.rotation,
-		meta: {
-		  updatedAt: Date.now()
+		$set: {
+			title: req.body.title,
+			date: {
+			start: req.body.startDate,
+			end: req.body.endDate
+			},
+			rotation: req.body.rotation,
+			meta: {
+			updatedAt: Date.now()
+			}
 		}
 	})
 	.then(updatedTerm => {
@@ -264,7 +263,6 @@ controller.termsUpdate = (req, res, next) => {
 	});
 }
 
-// DELETE request after user DELETES the Term editer form
 controller.termsDelete = (req, res) => {
 	Terms.findByIdAndDelete(req.params.id)
 	.then(deletedTerm => {
@@ -289,7 +287,6 @@ controller.termsDelete = (req, res) => {
 	});
 }
 
-// GET request after user tries to edit a specific course
 controller.coursesEdit = (req, res) => {
 	Courses.findById(req.params.id)
 	.then(selectedCourse => {
@@ -318,7 +315,6 @@ controller.coursesCreateGet = (req, res) => {
 
 }
 	
-// POST request after user SUBMITS the "New Course" form 
 controller.coursesCreatePost = (req, res) => {
 	const course = new Courses({
 		code: req.body.code,
@@ -341,14 +337,15 @@ controller.coursesCreatePost = (req, res) => {
 	});
 }
 
-// PUT request after user SAVES the Course editer form
 controller.coursesUpdate = (req, res) => {
 	Courses.findByIdAndUpdate(req.params.id, {
-		code: req.body.code,
-		title: req.body.title,
-		theme: req.body.theme, 
-		meta: {
-			updatedAt: Date.now()
+		$set: {
+			code: req.body.code,
+			title: req.body.title,
+			theme: req.body.theme, 
+			meta: {
+				updatedAt: Date.now()
+			}
 		}
 	})
 	.then(updatedCourse => {
@@ -373,7 +370,6 @@ controller.coursesUpdate = (req, res) => {
 	});
 }
 
-// DELETE request after user DELETES the Course editer Form
 controller.coursesDelete = (req, res) => {
 	Courses.findByIdAndDelete(req.params.id)
 	.then(deletedCourse => {
@@ -398,7 +394,6 @@ controller.coursesDelete = (req, res) => {
 	});
 }
 
-// GET request after a user attempts to retrieve a specific module
 controller.modulesEdit = (req, res) => {
 	Modules.findById(req.params.id)
 	.then(selectedModule => {
@@ -427,7 +422,6 @@ controller.modulesCreateGet = (req, res) => {
 
 }	
 	
-// POST request after the user SUBMITS the "New Module" form
 controller.modulesCreatePost = (req, res) => {
 	const modules = new Modules({
 		type: req.body.type,
@@ -453,17 +447,18 @@ controller.modulesCreatePost = (req, res) => {
 	});
 }
 
-// PUT request after the user SAVES the Modules editer form
 controller.modulesUpdate = (req, res, next) => {
 	Modules.findByIdAndUpdate(req.params.id, {
-		type: req.body.type,
-		date: {
-			start: req.body.startDate,
-			end: req.body.endDate
-		},
-		instructor: req.body.instructor,
-		meta: {
-			updatedAt: Date.now()
+		$set: {
+			type: req.body.type,
+			date: {
+				start: req.body.startDate,
+				end: req.body.endDate
+			},
+			instructor: req.body.instructor,
+			meta: {
+				updatedAt: Date.now()
+			}
 		}
 	})
 	.then(updatedModule => {
@@ -488,7 +483,6 @@ controller.modulesUpdate = (req, res, next) => {
 	});
 }
 
-// DELETES request after the user DELETES the Modules editer form
 controller.modulesDelete = (req, res) => {
 	Modules.findByIdAndDelete(req.params.id)
 	.then(deletedModule => {

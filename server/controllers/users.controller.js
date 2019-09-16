@@ -66,17 +66,19 @@ Confirm data entries
 */
 controller.update = (req, res) => {
     Users.findByIdAndUpdate(req.params.id, {
-        profile: {
-            name: {
-                first: req.body.firstName,
-                last: req.body.lastName
+        $set: {
+            profile: {
+                name: {
+                    first: req.body.firstName,
+                    last: req.body.lastName
+                },
+                email: {
+                    address: req.body.email
+                }
             },
-            email: {
-                address: req.body.email
+            meta: {
+                updatedAt: Date.now()
             }
-        },
-        meta: {
-            updatedAt: Date.now()
         }
     })
     .then(updatedUser => {

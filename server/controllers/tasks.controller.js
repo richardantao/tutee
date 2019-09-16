@@ -74,13 +74,15 @@ controller.createPost = (req, res) => {
 controller.update = (req, res, next) => {
 	// set attributes to prevent total override
 	Tasks.findByIdAndUpdate(req.params.id, {
-		title: req.body.title,
-		type: req.body.type,
-		deadline: req.body.deadline,
-		completion: req.body.completion,
-		note: req.body.note,
-		meta: {
-			updatedAt: Date.now()
+		$set: {
+			title: req.body.title,
+			type: req.body.type,
+			deadline: req.body.deadline,
+			completion: req.body.completion,
+			note: req.body.note,
+			meta: {
+				updatedAt: Date.now()
+			}
 		}
 	})
 	.then(updatedTask => {

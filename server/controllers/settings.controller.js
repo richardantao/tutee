@@ -49,20 +49,24 @@ controller.profileCreatePost = (req, res) => {
 };
 
 controller.profileUpdate = (req, res) => {
-	Users.findByIdAndUpdate({
-		name: {
-			first: req.body.firstName,
-			last: req.body.lastName
-		},
-		email: {
-			address: req.body.email,
-			verified: true
-		},
-		location: {
-			country: req.body.country,
-			region: req.body.region,
-			institution: req.body.institution,
-			school: req.body.school
+	Users.findByIdAndUpdate(req.params.id, {
+		$set: {
+			profile: {
+				name: {
+					first: req.body.firstName,
+					last: req.body.lastName
+				},
+				email: {
+					address: req.body.email,
+					verified: true
+				}
+			},
+			location: {
+				country: req.body.country,
+				region: req.body.region,
+				institution: req.body.institution,
+				school: req.body.school
+			}
 		}
 	})
 	.then(updatedUser => {
@@ -119,7 +123,11 @@ controller.passwordEdit = (req, res) => {
 // PUT request to update database with user's new password
 controller.passwordUpdate = (req, res) => {
 	Users.findById(req.params.id, {
-		password: req.body.password
+		$set: {
+			profile: {
+				password: req.body.password
+			}
+		}
 	})
 	.then(updatedPassword => {
 		if(!updatedPassword) {
@@ -170,14 +178,15 @@ controller.preferencesEdit = (req, res) => {
 
 // POST request to update user's personal app preferences
 controller.preferencesUpdate = (req, res) => {
-	// selective update
-	Users.findByIdAndUpdate({
-		preferences: {
-			startDay: req.body.startDay,
-			startTime: req.body.startTime,
-			defaultDuration: req.body.defaultDuration,
-			defaultCalendar: req.body.defaultCalendar,
-			onEmailList: req.body.onEmailList
+	Users.findByIdAndUpdate(req.params.id, {
+		$set: {
+			preferences: {
+				startDay: req.body.startDay,
+				startTime: req.body.startTime,
+				defaultDuration: req.body.defaultDuration,
+				defaultCalendar: req.body.defaultCalendar,
+				onEmailList: req.body.onEmailList
+			}
 		}
 	})
 	.then(updatedPreferences => {

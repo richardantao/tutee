@@ -17,7 +17,7 @@ mongoose.connect(mongoDB, {
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "Connection error:"));
 db.once("open", () => {
-  console.log("Your connection with the database has been eastablished");
+  console.log("Your connection with the database has been established");
 });
 
 module.exports = db;

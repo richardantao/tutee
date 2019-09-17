@@ -10,7 +10,7 @@ const cookieParser = require("cookie-parser");
 
 /* Configurations */
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const env = process.env.NODE_ENV || "development";
 const db = require("./config/config");
 

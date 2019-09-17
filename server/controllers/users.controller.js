@@ -28,9 +28,8 @@ controller.edit = (req, res) => {
     });
 }
 
-// POST request to create user's account
 controller.create = (req, res) => {
-	const user = new Users({
+    const user = new Users({
         profile: {
             name: {
                 first:req.body.firstName,
@@ -46,7 +45,7 @@ controller.create = (req, res) => {
             }
         }
     });
-
+    
     user.save()
     .then(newUser => {
         return res.json(newUser);
@@ -58,8 +57,6 @@ controller.create = (req, res) => {
         });
     });
 }
-
-// PUT request to update user's account details
 
 /*
 Confirm data entries
@@ -103,7 +100,6 @@ controller.update = (req, res) => {
     })
 }
 
-// DELETE request to delete the user's account
 controller.delete = (req, res) => {
     Users.findByIdAndDelete(req.params.id)
     .then(deletedUser => {

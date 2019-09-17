@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 import './App.scss';
 import "./App";
@@ -16,8 +16,24 @@ import Settings from "./components/pages/Settings";
 	import Integration from "./components/organisms/Integration";
 import Help from "./components/pages/Help";
 
-const App = () => {
-	return (
+export default class App extends Component {
+	
+	constructor(props) {
+		super(props);
+		
+		this.state = {
+			isLoading: true
+		}
+	}
+
+	componentDidMount() {
+		this.setState({
+			isLoading: false
+		});
+	}
+
+	render() {
+		return (
 			<Switch>
 				<Route name="dashboard" path="/dashboard" component={Dashboard}/>
 				<Route name="calendar" path="/calendar" component={Calendar}/>
@@ -32,7 +48,6 @@ const App = () => {
 					<Route name="integrations" path="settings/integrations" component={Integration}/>
 				<Route name="help" path="/Help" component={Help}/>
 			</Switch>
-	)
+		)
+	}
 }
-
-export default App;

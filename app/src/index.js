@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 
-const Index = () => <App />
+const Index = () => <App/>
 
 render(
 	<Router>

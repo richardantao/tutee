@@ -5,6 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
+    "dev": "concurrently \"cd server && npm run dev\" \"cd app && npm start\"",
     "start": "concurrently \"cd server && npm start\" \"cd app && npm start\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

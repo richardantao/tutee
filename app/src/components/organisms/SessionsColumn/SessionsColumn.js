@@ -22,7 +22,7 @@ export default class SessionColumn extends Component {
 			isLoading: false
 		});
 
-		axios.get("/dashboard")
+		axios.get("http://localhost:3000/dashboard")
 		.then(res => {
 				this.setState({ 
 					isLoading: false,

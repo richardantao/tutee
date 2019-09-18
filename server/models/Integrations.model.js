@@ -5,6 +5,9 @@ const moment = require("moment");
 
 const IntegrationSchema = new Schema({
     id: Schema.Types.ObjectId,
+    parent: {
+        user: {type: Schema.Types.ObjectId, required: true}
+    },
     meta: {
         createdAt: {type: Date, default: Date.now()},
 		updatedAt: {type: Date, default: Date.now()}

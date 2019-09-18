@@ -5,6 +5,10 @@ const moment = require("moment");
 
 const TermSchema = new Schema({
 	id: Schema.Types.ObjectId,
+	parent: {
+		user: {type: Schema.Types.ObjectId, required: true},
+		year: {type: Schema.Types.ObjectId, required: true}
+	},
 	title: {type: String, required: true},
   	date: {
 		start: {type: Date, required: true},

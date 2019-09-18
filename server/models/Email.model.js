@@ -46,7 +46,6 @@ Email.betaReq = (req, res) => {
     const transporter = nodemailer.createTransport({
         host: "Gmail",
         port: 587,
-        secure: false,
         auth: {
             type: "OAuth2",
             user: env.authEmail, 
@@ -61,7 +60,7 @@ Email.betaReq = (req, res) => {
         from: "<" + req.body.email + ">",
         to: env.authEmail,
         subject: req.body.firstName + " " + req.body.lastName + " has requested a beta invite!",
-        html: ""
+        text: "Your database should be populated with this user's information." 
     };
             
     transporter.sendMail(mailOptions, (err, info) => {

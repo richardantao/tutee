@@ -5,6 +5,10 @@ const moment = require("moment");
 
 const CourseSchema = new Schema({
 	id: Schema.Types.ObjectId,
+	parent: {
+		user: {type: Schema.Types.ObjectId, required: true}, 
+		term: {type: Schema.Types.ObjectId, required: true}
+	},
 	code: {type: String, required: true},
 	title: {type: String, required: true},
 	theme: {type: String, default: "#00BBFF"}, 

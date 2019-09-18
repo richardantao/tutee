@@ -33,12 +33,10 @@ const UserSchema = new Schema({
         isBeta: Boolean,
         membership: {type: String, default: "Basic", enum: ["Basic", "Premium", "Beta"]},
         sessions: {type: Number, default: 0, min: 0},
-        lastLogin: Date,
+        lastActiveAt: {type: Date, default: null},
         createdAt: {type: Date, default: Date.now()},
 		updatedAt: {type: Date, default: Date.now()}
 	}
 });
-
-
 
 module.exports = model('Users', UserSchema);

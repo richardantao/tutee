@@ -5,6 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
+    "dev": "concurrently \"cd server && npm run dev\" \"cd app && npm start\"",
     "start": "concurrently \"cd server && npm start\" \"cd app && npm start\"",
     "test": "mocha"
   },
@@ -26,7 +27,6 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "eslint": "^6.4.0",
     "mocha": "^6.2.0",
     "sinon": "^7.4.2",
     "supertest": "^4.0.2"

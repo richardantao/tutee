@@ -13,12 +13,12 @@ const TermSchema = new Schema({
   	date: {
 		start: {type: Date, required: true},
 		end: {type: Date, required: true}
-	  },
-	  rotation: {type: String, required: true},
-	  meta: {
+	},
+	rotation: {type: String, required: true}, // required ?
+	meta: {
 		createdAt: {type: Date, default: Date.now()},
 		updatedAt: {type: Date, default: Date.now()}
-	  }
+	}
 });
 
 module.exports = model('Terms', TermSchema);

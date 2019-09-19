@@ -5,12 +5,16 @@ const moment = require("moment");
 
 const CourseSchema = new Schema({
 	id: Schema.Types.ObjectId,
-	parent: {
+	parents: {
 		user: {type: Schema.Types.ObjectId, required: true}, 
-		term: {type: Schema.Types.ObjectId, required: true}
+		year: {type: Schema.Types.ObjectId, required: true}
 	},
 	code: {type: String, required: true},
 	title: {type: String, required: true},
+	date: {
+		start: {type: Date, required: true},
+		end: {type: Date, required: true}
+	},
 	theme: {type: String, default: "#00BBFF"}, 
 	meta: {
 		createdAt: {type: Date, default: Date.now()},

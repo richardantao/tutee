@@ -64,7 +64,7 @@ export default class Settings extends Component {
 						</Col>
 						<Col>
 							<p>Copyright {year} Tutee. All rights reserved. </p>
-							<p>Version 1.0.0</p>
+							<a href="https://tutee.ca/changelog" target="_blank">Version 1.0.0</a>
 						</Col>
 					</Row>
 				</Container>

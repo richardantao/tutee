@@ -1,6 +1,8 @@
 const Schema = require("mongoose").Schema;
 const model = require("mongoose").model;
 
+// import { Schema, model } from "mongoose"; 
+
 const moment = require("moment");
 
 const YearSchema = new Schema({
@@ -19,4 +21,6 @@ const YearSchema = new Schema({
 	}
 });
 
-module.exports = model('Years', YearSchema);
+// export default YearSchema;
+
+module.exports = model("Years", YearSchema);

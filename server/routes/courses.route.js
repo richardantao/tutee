@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const controller = require("../controllers/courses.controller");
 
+router.get("/", controller.index);
+
 // years
 router.get("/years/:YearId/edit", controller.yearsEdit);
 

@@ -6,7 +6,13 @@ const moment = require("moment");
 const BetaSchema = new Schema({
     id: Schema.Types.ObjectId,
     parents: {
-        user: {type: Schema.Types.ObjectId, required: true}
+        user: {
+			id: {type: Schema.Types.ObjectId, required: true},
+			name: {
+				first: {type: String, required: true},
+				last: {type: String, required: true}
+			}
+		}
     },
     personal: {
         name: {type: String, required: true},

@@ -92,6 +92,9 @@ controller.yearsCreateGet = (req, res) => {
 // POST request after user SUBMITS the "New Academic Year" form
 controller.yearsCreatePost = function(req, res) {
 	const year = new Years({
+		parents: {
+			user: req.body.user
+		},
 		title: req.body.title,
 		date: {
 			start: req.body.startDate,
@@ -321,9 +324,17 @@ controller.coursesCreateGet = (req, res) => {
 	
 controller.coursesCreatePost = (req, res) => {
 	const course = new Courses({
+		parents: {
+			user: req.body.user,
+			year: req.body.year
+		},
 		code: req.body.code,
 		title: req.body.title,
-		theme: req.body.theme, 
+		// theme: req.body.theme,
+		date: {
+			start: req.body.startDate,
+			end: req.body.endDate
+		},
 		meta: {
 			createdAt: Date.now(),
 			updatedAt: Date.now()

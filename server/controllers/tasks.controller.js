@@ -46,8 +46,22 @@ controller.edit = (req, res) => {
 }
 
 controller.createGet = (req, res) => {
-	Courses.findById(req.params.id)
-	.then(Modules.findById(req.params.id))
+	const today = new Date();
+	
+	Courses.find({
+		"parents.user": req.params.id, 
+		"date.start": "$lte new Date()", 
+		"date.end": "$gte new Date()"
+	}, {
+		"title": 1
+	})
+	.then(Modules.find({
+			"parents.user": req.params.id,
+			"parents.course": "" // define the id | change name of id suffixes or other method
+		}, {
+			"title": 1
+		})
+	)
 	.then(selectedParents => {
 		if(!selectedParents) {
 			return res.status(404).json({

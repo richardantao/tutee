@@ -8,16 +8,114 @@ const controller = [];
 controller.index = (req, res) => {
 	async.parallel({
 		profile: (callback) => {
-
+			Users.findById({
+				"id": req.params.id
+			}, {
+				"profile.name": 1,
+				"profile.email.address": 1,
+				"location": 1
+			})
+			.then(selectedProfile => {
+				if(!selectedProfile) {
+					return res.status(404).json({
+						message: "The server was unable to successfully find your profile"
+					});
+				} else {
+					return res.json(selectedProfile);
+				}
+			})
+			.catch(err => {
+				if(err.kind === "ObjectId") {
+					return res.status(404).json({
+						message: "The server was unable to successfully find your profile"
+					});
+				} else {
+					return res.status(500).json({
+						message: err.message || "An error occured while retrieving your profile"
+					});
+				}
+			});
 		},
 		password: (callback) => {
-
+			Users.findById({
+				"id": req.params.id
+			},{
+				"profile.password": 1 
+			})
+			.then(selectedPassword => {
+				if(!selectedPassword) {
+					return res.status(404).json({
+						message: "The server was unable to successfully find your current password"
+					});
+				} else {
+					return res.json(selectedPassword);
+				}
+			})
+			.catch(err => {
+				if(err.kind === "ObjectId") {
+					return res.status(404).json({
+						message: "The server was unable to successfully find your current password"
+					});
+				} else {
+					return res.status(500).json({
+						message: err.message || "An error occured while fetching your current password"
+					});
+				}
+			});
 		},
 		preferences: (callback) => {
-
+			Users.findById({
+				"id": req.params.id
+			}, {
+				"preferences": 1
+			})
+			.then(selectedPreferences => {
+				if(!selectedPreferences) {
+					return res.status(404).json({
+						message: "The server was unable to successfully retrieve your preferences"
+					});
+				} else {
+					return res.json(selectedPreferences);
+				}
+			})
+			.catch(err => {
+				if(err.kind === "ObjectId") {
+					return res.status(404).json({
+						message: "The server was unable to successfully retrieve your preferences"
+					});
+				} else {
+					return res.status(500).json({
+						message: err.message || "An error occured while retrieving your preferences"
+					});
+				}
+			});
 		},  
 		integrations: (callback) => {
-
+			Users.find({
+				"id": req.params.id
+			}, {
+				"integrations": 1
+			})
+			.then(selectedIntegrations => {
+				if(!selectedIntegrations) {
+					return res.status(404).json({
+						message: "The server was unable to successfully find your integrations"	
+					});
+				} else {
+					return res.json(selectedIntegrations);
+				}
+			})
+			.catch(err => {
+				if(err.kind === "ObjectId") {
+					return res.status(404).json({
+						message: "The server was unable to successfully find your integrations"	
+					});
+				} else {
+					return res.status(500).json({
+						message: err.message || "An error occured while retrieving your integrations"
+					});
+				}
+			})
 		},  
 	});
 }

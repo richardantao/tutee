@@ -1,11 +1,13 @@
 // import model
 const Evals = require("../models/Evaluations.model")
 
-// instantiate controller
 const controller = [];
 
 controller.index = (req, res) => {
-	Evals.find()
+	Evals.find({
+		id: req.params.id, // user id
+		date: "$gte Date.now()"
+	})
 	.then(evals => {
 		return res.json(evals);
 	})
@@ -16,12 +18,33 @@ controller.index = (req, res) => {
 	});
 }
 
-// filter evalus to get evalus with a past date
 controller.past = (req, res) => {
-	
+	Evals.find({
+		id: req.params.id, // user id
+		date: "$lte Date.now()"
+	})
+	.then(pastEvaluations => {
+		if(!pastEvaluations) {
+			return res.status(404).json({
+				message: "The server was unable to successfully find your past evaluations"
+			});
+		} else {
+			return res.json(pastEvaluations);
+		}
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The server was unable to successfully find your past evaluations"
+			});
+		} else {
+			return res.status(505).json({
+				message: err.message || "An error occured while retrieving your past evaluations"
+			});
+		}
+	});
 }
 
-// GET request when user attempts to retrieve a specific evaluation
 controller.edit = (req, res) => {
 	Evals.findById(req.params.id)
 	.then(selectedEval => {
@@ -50,23 +73,26 @@ controller.createGet = (req, res) => {
 	
 }
 
-// POST request after the user SUBMITS the "New Evaluation" form
 controller.createPost = (req, res) => {
 	const eval = new Evals({
-		parent: {
-			user: req.body.id,
-			course: req.body.course
+		parents: {
+			user: {
+				id: req.body.userId,
+				name: {
+					first: req.body.fname,
+					last: req.body.lname
+				}
+			},
+			course: {
+				id: req.body.courseId,
+				title: req.body.courseTitle
+			}
 		},
 		title: req.body.title,
 		type: req.body.type,
-		location: req.body.location,
-		date: req.body.date,
+	  	date: req.body.date,
 		time: req.body.time,
 		duration: req.body.duration,
-		grade: {
-			weighting: req.body.weighting,
-			score: req.body.score
-		},
 		meta: {
 			createdAt: Date.now(),
 			updatedAt: Date.now()
@@ -84,9 +110,7 @@ controller.createPost = (req, res) => {
 	});
 }
 
-// PUT request after the user SAVES the Evaluations editer form
 controller.update = (req, res) => {
-	// selective update
 	Evals.findByIdAndUpdate(req.params.id, {
 		$set: {
 			title: req.body.title,

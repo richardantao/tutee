@@ -7,18 +7,56 @@ const Modules = require("../models/Modules.model");
 const controller = [];
 
 controller.index = (req, res) => {
-	Tasks.find()
+	Tasks.find({
+		id: req.params.id, //userid
+		deadline: "$gte Date.now()"
+	})
     .then(tasks => {
-        return res.json(tasks);
+		if(!tasks) {
+			return res.status(404).json({
+				message: "The server was unable to successfully find your tasks"
+			});
+		} else {
+			return res.json(tasks);
+		}
     }).catch(err => {
-        return res.status(500).json({
-            message: err.message || "An error occured while retrieving your tasks"
-        });
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The server was unable to successfully find your tasks"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occured while retrieving your tasks"
+			});
+		}
     });
 }
 
 controller.past = (req, res) => {
-	
+	Tasks.find({
+		id: req.params.id, // user id
+		deadline: "$lte Date.now()"
+	})
+	.then(pastTasks => {
+		if(!pastTasks) {
+			return res.status(404).json({
+				message: "The server was unable to successfully find your past tasks"
+			});
+		} else {
+			return res.json(pastTasks);
+		}
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The server was unable to successfully find your past tasks"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occured while retrieving your past tasks"
+			});
+		}
+	});
 }
 
 controller.edit = (req, res) => {

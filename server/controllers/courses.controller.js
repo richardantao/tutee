@@ -439,6 +439,10 @@ controller.modulesCreateGet = (req, res) => {
 	
 controller.modulesCreatePost = (req, res) => {
 	const modules = new Modules({
+		parents: {
+			user: req.body.user,
+			course: req.body.course
+		},
 		type: req.body.type,
 		date: {
 			start: req.body.startDate,

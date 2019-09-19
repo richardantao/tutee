@@ -1,7 +1,7 @@
 const Schema = require("mongoose").Schema;
 const model = require("mongoose").model;
 
-const moment = require("moment")
+const moment = require("moment");
 
 const EvaluationSchema = new Schema({
 	id: Schema.Types.ObjectId,

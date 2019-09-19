@@ -37,6 +37,7 @@ const ClassSchema = new Schema({
         Sunday: {type: Boolean, default: false},
     },
     occurence: {type: String, enum: ["Does not repeat", "Daily", "Weekdays", "Weekly", "Biweekly"]},
+    note: String,
     meta: {
 	    createdAt: {type: Date, default: Date.now()},
         updatedAt: {type: Date, default: Date.now()}

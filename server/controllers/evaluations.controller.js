@@ -53,6 +53,10 @@ controller.createGet = (req, res) => {
 // POST request after the user SUBMITS the "New Evaluation" form
 controller.createPost = (req, res) => {
 	const eval = new Evals({
+		parent: {
+			user: req.body.id,
+			course: req.body.course
+		},
 		title: req.body.title,
 		type: req.body.type,
 		location: req.body.location,

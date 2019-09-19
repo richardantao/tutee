@@ -1,5 +1,7 @@
 // import model
 const Tasks = require("../models/Tasks.model");
+const Courses = require("../models/Courses.model");
+const Modules = require("../models/Modules.model");
 
 // instantiate controller
 const controller = [];
@@ -44,11 +46,37 @@ controller.edit = (req, res) => {
 }
 
 controller.createGet = (req, res) => {
-	
+	Courses.findById(req.params.id)
+	.then(Modules.findById(req.params.id))
+	.then(selectedParents => {
+		if(!selectedParents) {
+			return res.status(404).json({
+				message: "The server was unable to successfully find your courses"
+			});
+		} else {
+			return res.json(selectedParents);
+		}
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The server was unable to successfully find your courses"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occured while retrieving your courses"
+			});
+		}
+	});
 }
 
 controller.createPost = (req, res) => {
 	const task = new Tasks({
+		parent: {
+			user: req.body.id,
+			course: req.body.course,
+			module: req.body.module
+		},
 		title: req.body.title,
 		type: req.body.type,
 		deadline: req.body.deadline,

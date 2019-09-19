@@ -204,6 +204,10 @@ controller.termsCreateGet = (req, res) => {
 	
 controller.termsCreatePost = (req, res) => {
 	const term = new Terms({
+		parent: {
+			user: req.body.id,
+			year: req.body.year
+		},
 		title: req.body.title,
 		date: {
 		  start: req.body.startDate,

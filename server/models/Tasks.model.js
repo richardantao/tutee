@@ -7,6 +7,7 @@ const TaskSchema = new Schema({
 	id: Schema.Types.ObjectId,
 	parent: {
 		user: {type: Schema.Types.ObjectId, required: true},
+		course: {type: Schema.Types.ObjectId, required: true},
 		module: {type: Schema.Types.ObjectId, required: true}
 	},
 	title: {type: String, required: true},

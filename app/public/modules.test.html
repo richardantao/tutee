@@ -4,16 +4,28 @@
         <meta charset="utf-8">
     </head>
     <body>
-        <form method="POST" action="/" role="form">
+        <form method="POST" action="/courses/modules/create" role="form">
             <div>
-                <label for=""></label>
-                <input type="text" name="">        
+                <label for="user">User Id</label>
+                <input type="text" name="user">        
+                <label for="course">Course Id</label>
+                <input type="text" name="course">  
             </div>
             <div>
-                <label for=""></label>
-                <input type="text" name="">
+                <label for="type">Type</label>
+                <input type="text" name="type">
             </div>
-            <button type="submit"></button>
+            <div>
+                <label for="startDate">Start Date</label>
+                <input type="date" name="startDate">
+                <label for="endDate">End Date</label>
+                <input type="date" name="endDate">
+            </div>
+            <div>
+                <label for="instructor">Instructor</label>
+                <input type="text" name="instructor">
+            </div>
+            <button type="submit">Add New Module</button>
         </form>
     </body>
 </html>

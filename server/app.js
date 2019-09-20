@@ -1,4 +1,3 @@
-/* Dependencies */
 const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
@@ -8,13 +7,13 @@ const uuid = require("uuid");
 const cookieParser = require("cookie-parser");
 // const dotenv = require('dotenv').config();
 
-/* Configurations */
+// Configurations
 const app = express();
 const port = process.env.PORT || 3001;
 const env = process.env.NODE_ENV || "development";
 const db = require("./config/config");
 
-/* Middleware - preprocessing */
+// Middleware - preprocessing 
 app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -23,7 +22,7 @@ app.use(cors());
 app.use(cookieParser());
 // app.use(session({secret: "shhh"}));
 
-/* Routes middleware */
+// Routes middleware
 app.use("/", require("./routes/sessions.route"));
 app.use("/beta", require("./routes/beta.route"));
 app.use("/user", require("./routes/users.route"));
@@ -41,7 +40,7 @@ app.get("/", (req, res) => {
 	res.send("Hello World");
 });
 
-/* Bootup */
+// Bootup 
 app.listen(port, () => {
 	console.log(`Your ${env} server is up and running on port ` + port);
 });

@@ -7,9 +7,9 @@ router.get("/past", controller.past); // handle logic on frontend?
 
 router.get("/:taskId/edit", controller.edit);
 
-router.get("/create", controller.createGet); 
+router.get("/new", controller.new); 
 
-router.post("/create", controller.createPost);
+router.post("/create", controller.create);
 
 router.put("/:taskId/update", controller.update);
 

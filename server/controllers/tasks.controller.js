@@ -83,7 +83,7 @@ controller.edit = (req, res) => {
 	});
 }
 
-controller.createGet = (req, res) => {
+controller.new = (req, res) => {
 	const today = new Date();
 	
 	Courses.find({
@@ -122,18 +122,24 @@ controller.createGet = (req, res) => {
 	});
 }
 
-controller.createPost = (req, res) => {
+controller.create = (req, res) => {
 	const task = new Tasks({
-		parent: {
-			user: req.body.id,
-			course: req.body.course,
-			module: req.body.module
+		parents: {
+			user: {
+				id: req.body.userId,
+				name: {
+					first: req.body.fname,
+					last: req.body.lname
+				}
+			},
+			module: {
+				id: req.body.moduleId,
+				type: req.body.moduleType
+			}
 		},
 		title: req.body.title,
 		type: req.body.type,
 		deadline: req.body.deadline,
-		completion: req.body.completion,
-		note: req.body.note,
 		meta: {
 			createdAt: Date.now(),
 			updatedAt: Date.now()

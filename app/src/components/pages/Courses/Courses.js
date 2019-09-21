@@ -53,7 +53,7 @@ export default class Courses extends Component {
 						</Col>
 						<Col>
 							<Button href="/courses/years/edit">Manage Academics</Button>
-							<Button href="/courses/years/create"><FontAwesomeIcon icon={faPlus} /> New Academic Year</Button>
+							<Button href="/courses/years/new"><FontAwesomeIcon icon={faPlus} /> New Academic Year</Button>
 						</Col>
 					</Row> <hr/>
 					<Row>
@@ -63,7 +63,7 @@ export default class Courses extends Component {
 									<h4>Terms</h4>
 								</Col>
 								<Col>
-									<Button href="/courses/terms/create"><FontAwesomeIcon icon={faPlus} /></Button>
+									<Button href="/courses/terms/new"><FontAwesomeIcon icon={faPlus} /></Button>
 									<Button href="/courses/terms/edit"><FontAwesomeIcon icon={faEdit} /></Button>
 								</Col>
 							</Row>
@@ -74,14 +74,20 @@ export default class Courses extends Component {
 									<h4>Courses</h4>
 								</Col>
 								<Col>
-									<Button href="/courses/courses/create"><FontAwesomeIcon icon={faPlus} /></Button>
+									<Button href="/courses/courses/new"><FontAwesomeIcon icon={faPlus} /></Button>
 									<Button href="/courses/courses/edit"><FontAwesomeIcon icon={faEdit} /></Button>
 								</Col>
 							</Row>
 						</Col>
 						<Col>
-							<Row>
-								<h4>Course Details</h4>
+							<Row className="course-header">
+								<Col>
+									<h4>Modules</h4>
+								</Col>
+								<Col>
+									<Button href="/courses/modules/new"><FontAwesomeIcon icon={faPlus} /></Button>
+									<Button href="/courses/modules/edit"><FontAwesomeIcon icon={faEdit} /></Button>
+								</Col>
 							</Row>
 						</Col>
 					</Row> <hr/>

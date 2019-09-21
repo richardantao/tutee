@@ -81,7 +81,7 @@ export default class Evaluations extends Component{
 								/> 
 							</Col>
 							<Col>
-								<Button href="/evaluations/newEvaluation"><FontAwesomeIcon icon={faPlus} /> New Evaluation</Button>
+								<Button href="/evaluations/new"><FontAwesomeIcon icon={faPlus} /> New Evaluation</Button>
 							</Col>
 						</Row> <hr/>
 						<Row>

@@ -72,7 +72,7 @@ export default class Dashboard extends Component {
 							</Col>
 							<Col className="dashboard-header">
 								<h3>Tasks</h3>
-								<Button href="/dashboard/tasks/create" className=""><FontAwesomeIcon icon={faPlus} /> New Task</Button>
+								<Button href="/dashboard/tasks/new" className=""><FontAwesomeIcon icon={faPlus} /> New Task</Button>
 								<Counter type="Tasks" count="3"/>
 							</Col>
 							<Col className="dashboard-header">

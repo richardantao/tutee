@@ -4,11 +4,11 @@ const Users = require("../models/Users.model");
 // instantiate model
 const controller = [];
 
-controller.login = (req, res) => {
+controller.signin = (req, res) => {
     
 }
 
-controller.logout = (req, res) => {
+controller.signout = (req, res) => {
     
 }
 

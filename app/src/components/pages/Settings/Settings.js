@@ -43,7 +43,7 @@ export default class Settings extends Component {
 						<Col>
 							<Button href="/signout">Sign Out</Button>
 						</Col>
-					</Row> <hr/>
+					</Row>
 					<Row>
 						<Col>
 							<Button href="/settings/profile" block>Profile</Button>
@@ -54,7 +54,7 @@ export default class Settings extends Component {
 						<Col>
 				
 						</Col>
-					</Row> <hr/>
+					</Row>
 					<Row>
 						<Col>
 							<Button href="https://facebook.com" target="_blank" className="social"><FontAwesomeIcon icon={faFacebookSquare}/></Button>
@@ -73,5 +73,4 @@ export default class Settings extends Component {
 	}
 }
 
-// display year for copyright
 const year = new Date().getFullYear();

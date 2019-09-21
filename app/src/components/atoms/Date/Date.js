@@ -1,12 +1,23 @@
-import React from "react";
+import React, { Component } from "react";
 
-// date component
-const DateDisplay = (props) => {
-	return(
-		<React.Fragment>
-			<h4>{dashboardDate}</h4>
-		</React.Fragment>
-	)
+export default class DateDisplay extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isLoading: true
+        }
+    }
+
+    componentDidMount() {
+        this.setState({
+            isLoading: false
+        });
+    }
+    
+    render() {
+	    return <h4>{dashboardDate}</h4>
+    }
 }
 
 // create switch cases to render day of week and date
@@ -76,5 +87,3 @@ switch (new Date().getMonth()) {
 }
 
 var dashboardDate = day + ", " + month + " " + date;
-
-export default DateDisplay;

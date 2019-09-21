@@ -1,8 +1,8 @@
-import React from "react";
+import React, { Component } from "react";
 import { Tooltip } from "reactstrap";
 import styles from "./Tooltip.scss";
 
-const TooltipReact = () => {
+export default class TooltipReact extends Component {
   constructor(props) {
     super(props);
 
@@ -18,7 +18,7 @@ const TooltipReact = () => {
     });
   }
 	
-render() {
+  render() {
     const classes = 'tooltip-inner'
     return (
       <div>

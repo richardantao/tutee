@@ -10,11 +10,11 @@ export default class Empty extends Component {
         }
     }
     
-componentDidMount() {
-    this.setState({
-        isLoading: false
-    });
-}
+    componentDidMount() {
+        this.setState({
+            isLoading: false
+        });
+    }
 
     render() {
         return(

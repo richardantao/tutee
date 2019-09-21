@@ -55,7 +55,7 @@ export default class Evaluations extends Component{
 							<Col>
 								<Button href="/evaluations/create"><FontAwesomeIcon icon={faPlus} /> New Evaluation</Button>
 							</Col>
-						</Row> <hr/>
+						</Row>
 						<Row>
 							<Col>
 								<SelectReact placeholder="Filter by Course.."/>
@@ -64,7 +64,6 @@ export default class Evaluations extends Component{
 								<Button href="/evaluations" className="current">Current</Button>
 								<Button href="/evaluations/past" className="past">Past</Button>
 							</Col>	
-							<hr/>
 						</Row>
 					</Container>
 				</Fragment>
@@ -83,7 +82,7 @@ export default class Evaluations extends Component{
 							<Col>
 								<Button href="/evaluations/new"><FontAwesomeIcon icon={faPlus} /> New Evaluation</Button>
 							</Col>
-						</Row> <hr/>
+						</Row>
 						<Row>
 							<Col>
 								<Row>
@@ -95,7 +94,6 @@ export default class Evaluations extends Component{
 										<Button href="/evaluations/past" className="past">Past</Button>
 									</Col>
 								</Row>
-								<hr/>
 							</Col>
 							<Col>
 								<Form 

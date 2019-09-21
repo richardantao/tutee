@@ -1,9 +1,10 @@
 import React from "react";
+import logo from "./tutee.jpg"
 import "./Logo.scss";
 
 const Logo = () => {
 	return(
-		<img src="../../../../public/assets/icons/logo.png" alt="Tutee logo and mascot" className="logo"/>
+		<img src={logo} alt="Tutee logo and mascot" className="logo"/>
 	)
 }
 

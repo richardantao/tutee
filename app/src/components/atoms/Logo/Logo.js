@@ -1,11 +1,23 @@
-import React from "react";
+import React, { Component } from "react";
 import logo from "./tutee.jpg"
 import "./Logo.scss";
 
-const Logo = () => {
-	return(
-		<img src={logo} alt="Tutee logo and mascot" className="logo"/>
-	)
-}
+export default class Logo extends Component {
+	constructor(props) {
+		super(props);
 
-export default Logo;
+		this.state = {
+			isLoading: true
+		}
+	}
+	
+	componentDidMount() {
+		this.setState({
+			isLoading: false
+		});
+	}
+
+	render() {
+		return <img src={logo} alt="Tutee logo and mascot" className="logo"/>
+	}
+}

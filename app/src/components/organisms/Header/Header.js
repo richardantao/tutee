@@ -1,13 +1,23 @@
-import React from "react";
+import React, { Component } from "react";
 import "./Header.scss";
 
-// component 
-const Header = (props) => {
-	return(
-		<React.Fragment>
-			<h1>{props.header}</h1>
-		</React.Fragment>
-	)
+export default class Header extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			isLoading: true
+		}
+	}
+	
+	componentDidMount() {
+		this.setState({
+			isLoading: false
+		});
+	}
+
+	render() {
+		return <h1>{this.props.header}</h1>		
+	}	
 }
 
-export default Header;

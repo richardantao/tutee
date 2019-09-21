@@ -1,5 +1,6 @@
 nav  {
     background: #EDF2F4;
+    clear: left;
     float: left;
     height: 620px;
     text-align: center;
@@ -18,7 +19,7 @@ nav .btn {
 }
 
 nav a {
-	position: relative; /* position icons relative to button/link */
+	position: relative; 
 }
 
 nav svg {
@@ -30,12 +31,11 @@ nav svg {
 	transform: translateX(-50%) translateY(-50%);
     -moz-transform: translateX(-50%) translateY(-50%);
     -webkit-transform: translateX(-50%) translateY(-50%);
-    
 }
 
 nav svg:hover {
 	color: white;
-} /* convert to javascript, with svg white on button hover not svg hover */
+} 
 
 .active-nav {
 	background-color: #0083B3;

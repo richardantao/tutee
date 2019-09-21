@@ -1,8 +1,8 @@
 import React, { Component, Fragment }from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-	faTachometerAlt, faCalendarAlt, faTasks, faGraduationCap, faUniversity,
-	faSearch, faCog, faQuestionCircle
+	faTachometerAlt, faCalendarAlt, faTasks, faGraduationCap,
+	faUniversity, faSearch, faCog, faQuestionCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
 import "./Nav.scss";

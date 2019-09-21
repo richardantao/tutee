@@ -10,12 +10,12 @@ nav  {
 nav .btn {
     display: grid;
         grid-template-columns: 100%;
-        grid-template-rows: 10% 10% 10% 10% 10%;
-        grid-gap: 10px;
+        grid-template-rows: 5% 5% 5% 5% 5%;
+        // grid-gap: 0;
     font-size: 2.25em;
-    height: 50px;
-    margin: 30px;
-	width: 50px;
+    height: 45px;
+    margin: 28px;
+	width: 45px;
 }
 
 nav a {
@@ -43,6 +43,6 @@ nav svg:hover {
 
 .secondary-nav-button {
     position: relative;
-    	top: 30px;
+    	top: 15px;
 }
 

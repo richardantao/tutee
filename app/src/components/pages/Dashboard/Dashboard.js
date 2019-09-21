@@ -79,7 +79,7 @@ export default class Dashboard extends Component {
 								<h3>Evaluations</h3>
 								<Counter type="Evaluations" count="2"/>
 							</Col>
-						</Row> <hr/>
+						</Row>
 						<Row id="dashboard-columns">
 							<Col id="sessions-column">
 								<SessionsColumn/>

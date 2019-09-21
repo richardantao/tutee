@@ -23,10 +23,7 @@ export default class Tasks extends Component {
 
 	componentDidMount() {
 
-		axios({
-			method: "GET",
-			url: "/tasks"
-		})
+		axios.get("http://localhost:3000/tasks")
 		.then(res => {
 			this.setState({
 				isLoading: false,
@@ -57,7 +54,7 @@ export default class Tasks extends Component {
 							<Col>
 								<Button href="/tasks/create"><FontAwesomeIcon icon={faPlus} /> New Task</Button>
 							</Col>
-						</Row> <hr/>
+						</Row>
 						<Row>	
 							<Col>
 								<SelectReact placeholder="Filter by Course.."/>
@@ -66,7 +63,6 @@ export default class Tasks extends Component {
 								<Button href="/tasks" className="current">Current</Button>
 								<Button href="/tasks/past" className="past">Past</Button>
 							</Col>
-							<hr/>
 						</Row>
 					</Container>
 				</Fragment>
@@ -83,7 +79,7 @@ export default class Tasks extends Component {
 							<Col>
 								<Button href="/tasks/newTask"><FontAwesomeIcon icon={faPlus} /> New Task</Button>
 							</Col>
-						</Row> <hr/>
+						</Row>
 						<Row>
 							<Col>
 								<Row>
@@ -95,7 +91,6 @@ export default class Tasks extends Component {
 										<Button href="/tasks/past" className="past">Past</Button>
 									</Col>
 								</Row>
-								<hr/>
 							</Col>
 							<Col>
 								<Form 

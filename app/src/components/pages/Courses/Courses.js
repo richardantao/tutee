@@ -27,12 +27,8 @@ export default class Courses extends Component {
 	}
 
 	componentDidMount() {
-		axios({
-			method: "GET",
-			url: "/courses"
-		})
+		axios.get("http://localhost:3000/courses")
 		.then(res => {
-			
 			this.setState({
 				isLoading: false
 			});
@@ -55,7 +51,7 @@ export default class Courses extends Component {
 							<Button href="/courses/years/edit">Manage Academics</Button>
 							<Button href="/courses/years/new"><FontAwesomeIcon icon={faPlus} /> New Academic Year</Button>
 						</Col>
-					</Row> <hr/>
+					</Row>
 					<Row>
 						<Col>
 							<Row className="course-header">

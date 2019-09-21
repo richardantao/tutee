@@ -33,7 +33,7 @@ export default class Calendar extends Component {
 				<Container id="calendar">
 					<Row className="header">
 						<Header header="Calendar"/> 
-					</Row> <hr/>
+					</Row>
 					<Row>
 						
 					</Row>

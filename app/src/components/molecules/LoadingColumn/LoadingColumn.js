@@ -4,6 +4,14 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import "./LoadingColumn.scss";
 
 export default class LoadingColumn extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+
+        }
+    }
+
     render() {
         return (
             <Loader

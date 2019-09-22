@@ -1,9 +1,24 @@
-import React from "react";
+import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import "./Button.scss";
 
-const ButtonReact = (props) => (
-	<Button>{props.icon}{props.name}</Button>
-)
+export default class ButtonReact extends Component {
+	constructor(props) {
+		super(props);
 
-export default ButtonReact;
+		this.state = {
+			
+		}
+	}
+	
+	componentDidMount() {
+		this.setState({
+
+		});
+	}
+
+	render() {
+		return <Button>{this.props.icon}{this.props.name}</Button>
+	}
+}
+

@@ -33,21 +33,27 @@ export default class App extends Component {
 	}
 
 	render() {
-		return (
-			<Switch>
-				<Route name="dashboard" path="/dashboard" component={Dashboard}/>
-				<Route name="calendar" path="/calendar" component={Calendar}/>
-				<Route name="tasks" path="/tasks" component={Tasks}/>
-				<Route name="evaluations" path="/evaluations" component={Evaluations}/>
-				<Route name="courses" path="/courses" component={Courses}/>
-				<Route name="search" path="/search" component={Search}/>
-				<Route name="settings" path="/settings" component={Settings}/>
-					<Route name="profile" path="settings/profile" component={Profile}/>
-					<Route name="password" path="settings/password" component={Password}/>
-					<Route name="preferences" path="settings/preferences" component={Preference}/>
-					<Route name="integrations" path="settings/integrations" component={Integration}/>
-				<Route name="help" path="/Help" component={Help}/>
-			</Switch>
-		)
+		let { isLoading } = this.state;
+
+		if(isLoading) {
+			return null;
+		} else {
+			return (
+				<Switch>
+					<Route name="dashboard" path="/dashboard" component={Dashboard}/>
+					<Route name="calendar" path="/calendar" component={Calendar}/>
+					<Route name="tasks" path="/tasks" component={Tasks}/>
+					<Route name="evaluations" path="/evaluations" component={Evaluations}/>
+					<Route name="courses" path="/courses" component={Courses}/>
+					<Route name="search" path="/search" component={Search}/>
+					<Route name="settings" path="/settings" component={Settings}/>
+						<Route name="profile" path="settings/profile" component={Profile}/>
+						<Route name="password" path="settings/password" component={Password}/>
+						<Route name="preferences" path="settings/preferences" component={Preference}/>
+						<Route name="integrations" path="settings/integrations" component={Integration}/>
+					<Route name="help" path="/help" component={Help}/>
+				</Switch>
+			)
+		}	
 	}
 }

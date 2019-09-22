@@ -1,3 +1,2 @@
-import "./Day";
-
+import Day from "./Day";
 export default Day;

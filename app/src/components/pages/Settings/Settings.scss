@@ -1,5 +1,6 @@
-.social {
-	margin-left: 5%;
+.data {
+	border-bottom: #E5E5E5 1px solid;
+	height: 500px;
 }
 
 @media (min-width: 576px) {
@@ -15,5 +16,7 @@
 }
 
 @media (min-width: 1200px) {
-
+	.social {
+		margin-left: 5%;
+	}
 }

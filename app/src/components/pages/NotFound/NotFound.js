@@ -22,7 +22,7 @@ export default class NotFound extends Component {
         let { isLoading } = this.state;
 
         if (isLoading) {
-            return LoadingColumn;
+            return <LoadingColumn/>;
         } else {
             return (
                 <div>

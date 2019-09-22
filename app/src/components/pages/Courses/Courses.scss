@@ -1,7 +1,3 @@
-.course-header a {
-	margin-right: 2%;
-}
-
 @media (min-width: 576px) {
 
 }
@@ -15,5 +11,7 @@
 }
 
 @media (min-width: 1200px) {
-
+	.course-header a {
+		margin-right: 2%;
+	}
 }

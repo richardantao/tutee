@@ -30,5 +30,11 @@
 }
 
 @media (min-width: 1200px) {
-
+	.dashboard-header a {
+			left: 5%;
+	}
+	
+	#dashboard-columns {
+		height: 600px;
+	}
 }

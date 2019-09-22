@@ -19,9 +19,10 @@ export default class Password extends Component {
             isLoading: false
         });
         
-        axios.get("/:UserId/settings/password/:UserPassword/edit")
+        axios.get("https://localhost:3000/settings/password/")
         .then(res => {
             this.setState({
+                isLoading: false,
                 password: res.data.UserPassword
             });
         })
@@ -40,29 +41,29 @@ export default class Password extends Component {
             return LoadingColumn;
         } else {    
             return(
-                <form method="PUT" action="/password/update" >
+                <form method="PUT" action="/password/update" role="form">
                     <Row>
                         <Col>
-                            <label for="UserPassword">Current Password</label>
+                            <label for="currentPassword">Current Password</label>
                         </Col>
                         <Col>
-                            <input name="UserPassword" type="password"/>
+                            <input name="currentPassword" type="password"/>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <label for=""></label>
+                            <label for="newPassword"></label>
                         </Col>
                         <Col>
-                            <input name="" type="password"/>
+                            <input name="newPassword" type="password"/>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <label for=""></label>
+                            <label for="confirmPassword"></label>
                         </Col>
                         <Col>
-                            <input name="" type="password"/>
+                            <input name="confirmPassword" type="password"/>
                         </Col>
                     </Row>
                     <Row>

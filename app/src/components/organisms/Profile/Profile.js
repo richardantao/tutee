@@ -8,17 +8,26 @@ import "./Profile.scss";
 
 export default class Profile extends Component {
 	constructor(props) {
+		super(props);
 
+		this.state = {
+			isLoading: true
+		}
 	}
 
 	componentDidMount() {
-		axios.get()
+		axios.get("http://localhost:3000/settings/profile/")
 		.then(res =>{
-
+			this.setState({
+				isLoading: false
+			});
 		})
 		.catch(err => {
-
-		})
+			this.setState({
+				error: err,
+				isLoading: false
+			});
+		});
 	}
 	
 	render() {

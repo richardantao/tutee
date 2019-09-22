@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Col, Row} from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import "./Preference.scss";
 
@@ -18,7 +18,7 @@ export default class Preference extends Component {
         this.setState({
             isLoading: false
         });
-        axios.get("")
+        axios.get("https://localhost:3000/settings/preferences/")
         .then(res => {
             this.setState({
                 isLoading: false,

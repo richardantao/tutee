@@ -1,4 +1,6 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
+import axios from "axios";
+import LoadingColumn from "../../molecules/LoadingColumn";
 import "./Agenda.scss";
 
 export default class Agenda extends Component{
@@ -14,13 +16,31 @@ export default class Agenda extends Component{
 		this.setState({
 			isLoading: false
 		});
+		axios.get("http:localhost:3000/calendar/agenda")
+		.then(res => {
+			this.setState({
+				isLoading: false
+			});
+		})
+		.catch(err => {
+			this.setState({
+				error: err,
+				isLoading: false
+			});
+		});
 	}
 
 	render() {
-		return(
-			<Fragment>
+		let { isLoading } = this.state;
+		
+		if(isLoading) {
+			return <LoadingColumn/>;
+		} else {
+			return(
+				<div id="agenda">
 
-			</Fragment>
-		)
+				</div>
+			)
+		}
 	}
 }

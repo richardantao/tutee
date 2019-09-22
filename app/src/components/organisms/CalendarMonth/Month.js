@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
+import LoadingColumn from "../../molecules/LoadingColumn";
 import "./Month.scss";
 
 export default class Month extends Component{
@@ -14,13 +15,31 @@ export default class Month extends Component{
 		this.setState({
 			isLoading: false
 		});
+		axios.get("http:localhost:3000/calendar/month")
+		.then(res => {
+			this.setState({
+				isLoading: false
+			});
+		})
+		.catch(err => {
+			this.setState({
+				error: err,
+				isLoading: false
+			});
+		});
 	}
 
 	render() {
-		return(
-			<Fragment>
+		let { isLoading } = this.state; 
+		
+		if(isLoading) {
+			return <LoadingColumn/>;
+		} else {
+			return(
+				<div id="calendar-month">	
 
-			</Fragment>
-		)
+				</div>
+			)
+		}
 	}
 }

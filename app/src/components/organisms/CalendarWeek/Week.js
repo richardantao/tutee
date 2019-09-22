@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
+import LoadingColumn from "../../molecules/LoadingColumn";
 import "./Week.scss";
 
 export default class Week extends Component{
@@ -14,13 +15,31 @@ export default class Week extends Component{
 		this.setState({
 			isLoading: false
 		});
+		axios.get("http:localhost:3000/calendar/week")
+		.then(res => {
+			this.setState({
+				isLoading: false
+			});
+		})
+		.catch(err => {
+			this.setState({
+				error: err,
+				isLoading: false
+			});
+		});
 	}
 
 	render() {
-		return(
-			<Fragment>
+		let { isLoading } = this.state;
 
-			</Fragment>
-		)
+		if(isLoading) {
+			return <LoadingColumn/>;
+		} else {
+			return(
+				<div id="calendar-month">
+	
+				</div>
+			)
+		}
 	}
 }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SelectReact from "../../atoms/Select";
+import LoadingColumn from "../LoadingColumn";
 import { Button, InputGroup, FormControl } from "react-bootstrap";
 import { Row, Col } from "reactstrap";
 import "./Form.scss";

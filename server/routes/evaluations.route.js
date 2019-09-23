@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const controller = require("../controllers/evaluations.controller");
 
+router.get("/", controller.index);
+
 router.get("/past", controller.past);
 
 router.get("/:EvalId/edit", controller.edit);

@@ -1,16 +1,12 @@
 import React, { Component, Fragment }from "react";
 import { Container, Row, Col} from "reactstrap";
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "react-bootstrap";
 import Nav from "../../organisms/Nav";
+import DashboardHeader from "../../organisms/DashboardHeader";
 import SessionsColumn from "../../organisms/SessionsColumn";
 import TasksColumn from "../../organisms/TasksColumn";
 import EvalusColumn from "../../organisms/EvalusColumn";
 import LoadingColumn from "../../molecules/LoadingColumn";
-import Counter from "../../molecules/Counter";
-import DateDisplay from "../../atoms/Date";
 import "./Dashboard.scss";
 
 export default class Dashboard extends Component {
@@ -65,20 +61,7 @@ export default class Dashboard extends Component {
 					<Nav />
 					<Container id="dashboard">
 						<Row className="header">
-							<Col className="dashboard-header">
-								<h3>Today</h3>
-								<DateDisplay />
-								<Counter type="Classes" count="5"/>	
-							</Col>
-							<Col className="dashboard-header">
-								<h3>Tasks</h3>
-								<Button href="/dashboard/tasks/new" className=""><FontAwesomeIcon icon={faPlus} /> New Task</Button>
-								<Counter type="Tasks" count="3"/>
-							</Col>
-							<Col className="dashboard-header">
-								<h3>Evaluations</h3>
-								<Counter type="Evaluations" count="2"/>
-							</Col>
+							<DashboardHeader/>
 						</Row>
 						<Row id="dashboard-columns" className="body">
 							<Col id="sessions-column">

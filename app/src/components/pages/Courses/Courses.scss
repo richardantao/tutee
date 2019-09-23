@@ -1,3 +1,7 @@
+.course-header {
+	margin-top: 5%;
+}
+
 @media (min-width: 576px) {
 
 }
@@ -11,7 +15,14 @@
 }
 
 @media (min-width: 1200px) {
+	.course-header {
+		border-right: #E5E5E5 1px solid;
+		margin-top: 5%;
+	}
+
 	.course-header a {
-		margin-right: 2%;
+		margin-right: 5%;
+		position: relative;
+		left: 35%;
 	}
 }

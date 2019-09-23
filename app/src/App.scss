@@ -1,5 +1,4 @@
 /* #0083B3 #FFC400*/
-
 html {
     box-sizing: border-box;
     background: #FFFFFF;
@@ -18,6 +17,14 @@ body {
 .header {
 	border-bottom: #E5E5E5 1px solid;
 	height: 101px;
+}
+
+.body {
+	background: #F7F9FA;	
+}
+
+.footer {
+	background: #F7F9FA;
 }
 
 .btn {

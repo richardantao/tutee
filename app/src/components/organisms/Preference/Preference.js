@@ -22,7 +22,7 @@ export default class Preference extends Component {
         .then(res => {
             this.setState({
                 isLoading: false,
-                preferences: res.data.UserPreferences
+                preferences: res.data.preferences
             });
         })
         .catch(err => {

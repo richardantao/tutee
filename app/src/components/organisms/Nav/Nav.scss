@@ -1,5 +1,5 @@
 nav  {
-    background: #EDF2F4;
+    border-top: #E5E5E5 1px solid;
     clear: left;
     float: left;
     height: 620px;
@@ -44,5 +44,21 @@ nav svg:hover {
 .secondary-nav-button {
     position: relative;
     	top: 15px;
+}
+
+@media (min-width: 576px) {
+
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+
 }
 

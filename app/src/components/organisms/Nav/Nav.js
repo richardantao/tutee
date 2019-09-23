@@ -24,20 +24,42 @@ export default class Nav extends Component {
 	}
 	
 	render() {
-		return ( 
-			<Fragment>
-				<Logo/> 
-				<nav role="navigation">
-					<Button href="/dashboard"><FontAwesomeIcon icon={faTachometerAlt}/></Button>
-					<Button href="/calendar"><FontAwesomeIcon icon={faCalendarAlt}/></Button>
-					<Button href="/tasks"><FontAwesomeIcon icon={faTasks}/></Button>
-					<Button href="/evaluations" className="adjust"><FontAwesomeIcon icon={faGraduationCap}/></Button>
-					<Button href="/courses"><FontAwesomeIcon icon={faUniversity}/></Button>
-					<Button href="/search"><FontAwesomeIcon icon={faSearch}/></Button>
-					<Button href="/settings" className="secondary-nav-button"><FontAwesomeIcon icon={faCog}/></Button>
-					<Button href="/help" className="secondary-nav-button"><FontAwesomeIcon icon={faQuestionCircle}/></Button>
-				</nav>
-			</Fragment>
-		)
+		let { isLoading } = this.state;
+
+		if(isLoading) {
+			return null;
+		} else {
+			return ( 
+				<Fragment>
+					<Logo/> 
+					<nav role="navigation">
+						<Button href="/dashboard">
+							<FontAwesomeIcon icon={faTachometerAlt}/>
+						</Button>
+						<Button href="/calendar">
+							<FontAwesomeIcon icon={faCalendarAlt}/>
+						</Button>
+						<Button href="/tasks">
+							<FontAwesomeIcon icon={faTasks}/>
+						</Button>
+						<Button href="/evaluations" className="adjust">
+							<FontAwesomeIcon icon={faGraduationCap}/>
+						</Button>
+						<Button href="/courses">
+							<FontAwesomeIcon icon={faUniversity}/>
+						</Button>
+						<Button href="/search">
+							<FontAwesomeIcon icon={faSearch}/>
+						</Button>
+						<Button href="/settings" className="secondary-nav-button">
+							<FontAwesomeIcon icon={faCog}/>
+						</Button>
+						<Button href="/help" className="secondary-nav-button">
+							<FontAwesomeIcon icon={faQuestionCircle}/>
+						</Button>
+					</nav>
+				</Fragment>
+			)
+		}
 	}	
 }

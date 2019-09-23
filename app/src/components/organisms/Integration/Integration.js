@@ -7,7 +7,8 @@ export default class Integration extends Component {
         super(props);
 
         this.state = {
-            isLoading: true
+            isLoading: true,
+            integrations: []
         }
     }
 
@@ -19,7 +20,7 @@ export default class Integration extends Component {
         .then(res => {
             this.setState({
                 isLoading: false,
-                preferences: res.data.UserPreferences
+                integrations: res.data.integrations
             });
         })
         .catch(err => {
@@ -31,7 +32,7 @@ export default class Integration extends Component {
     }
 
     render() {
-        let { isLoading } = this.state;
+        let { isLoading, integrations } = this.state;
         if(isLoading) {
             return <LoadingColumn/>;
         } else {

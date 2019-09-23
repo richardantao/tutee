@@ -11,15 +11,17 @@ export default class Profile extends Component {
 		super(props);
 
 		this.state = {
-			isLoading: true
+			isLoading: true,
+			profile: []
 		}
 	}
 
 	componentDidMount() {
 		axios.get("http://localhost:3000/settings/profile/")
-		.then(res =>{
+		.then(res => {
 			this.setState({
-				isLoading: false
+				isLoading: false,
+				profile: res.data.profile
 			});
 		})
 		.catch(err => {
@@ -36,7 +38,7 @@ export default class Profile extends Component {
 			return <LoadingColumn/>;
 		} else {
 			return(
-				<form method="PUT" action="/:UserId/settings/profile/FILLME/update">
+				<form method="PUT" action="">
 					<Row>
 						<Col>
 							<label for="firstName">First Name</label>

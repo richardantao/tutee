@@ -23,7 +23,7 @@ export default class Password extends Component {
         .then(res => {
             this.setState({
                 isLoading: false,
-                password: res.data.UserPassword
+                password: res.data.password
             });
         })
         .catch(err => {

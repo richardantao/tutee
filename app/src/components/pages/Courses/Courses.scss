@@ -2,6 +2,12 @@
 	margin-top: 5%;
 }
 
+.course-header a {
+	margin-right: 5%;
+	position: relative;
+		left: 35%;
+}
+
 @media (min-width: 576px) {
 
 }
@@ -21,8 +27,7 @@
 	}
 
 	.course-header a {
-		margin-right: 5%;
-		position: relative;
 		left: 35%;
+		margin-right: 5%;
 	}
 }

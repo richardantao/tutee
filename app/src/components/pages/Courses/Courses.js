@@ -49,7 +49,7 @@ export default class Courses extends Component {
 						</Col>
 						<Col>
 							<Button href="/courses/years/edit">Manage Academics</Button>
-							<Button href="/courses/years/new"><FontAwesomeIcon icon={faPlus}/>New Academic Year</Button>
+							<Button href="/courses/years/new"><FontAwesomeIcon icon={faPlus}/> New Academic Year</Button>
 						</Col>
 					</Row>
 					<Row className="body">

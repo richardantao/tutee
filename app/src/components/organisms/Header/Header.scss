@@ -7,4 +7,31 @@ h1 {
 .header a {
 	float: right;
 	margin-right: 2.5%;
+	position: relative;
+		top: 25%;
 }
+
+@media (min-width: 576px) {
+
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+	h1 {
+		left: 5%;
+		top: 20%;
+	}
+	
+	.header a {
+		margin-right: 2.5%;
+		top: 25%;
+	}
+}
+

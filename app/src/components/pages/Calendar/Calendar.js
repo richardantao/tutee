@@ -34,7 +34,7 @@ export default class Calendar extends Component {
 					<Row className="header">
 						<Header header="Calendar"/> 
 					</Row>
-					<Row>
+					<Row className="body">
 						
 					</Row>
 				</Container>

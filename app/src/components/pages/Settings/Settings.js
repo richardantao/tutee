@@ -21,11 +21,11 @@ export default class Settings extends Component {
 	}
 
 	componentDidMount() {
-		axios.get("http://localhost:3000/settings")
+		axios.get("http://localhost:3000/settings/")
 		.then(res => {
 			this.setState({
 				isLoading: false,
-				preferences: null // change to inherit res
+				preferences: res.data
 			});
 		})
 		.catch(err => {
@@ -54,7 +54,7 @@ export default class Settings extends Component {
 								<Button href="/signout">Sign Out</Button>
 							</Col>
 						</Row>
-						<Row className="data">
+						<Row className="body">
 							<Col>
 								<Button href="/settings/profile" block>Profile</Button>
 								<Button href="/settings/password" block>Password</Button>
@@ -65,7 +65,7 @@ export default class Settings extends Component {
 								
 							</Col>
 						</Row>
-						<Row>
+						<Row className="footer">
 							<Col>
 								<Button href="https://facebook.com" target="_blank" className="social"><FontAwesomeIcon icon={faFacebookSquare}/></Button>
 								<Button href="https://www.linkedin.com/company/tutee" target="_blank" className="social"><FontAwesomeIcon icon={faLinkedin}/></Button>

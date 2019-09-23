@@ -52,7 +52,7 @@ export default class Courses extends Component {
 							<Button href="/courses/years/new"><FontAwesomeIcon icon={faPlus} /> New Academic Year</Button>
 						</Col>
 					</Row>
-					<Row>
+					<Row className="body">
 						<Col>
 							<Row className="course-header">
 								<Col>
@@ -86,12 +86,12 @@ export default class Courses extends Component {
 								</Col>
 							</Row>
 						</Col>
-					</Row> <hr/>
+					</Row>
 					<Row>
 						<TermsColumn/>
 						<CourseColumn/>
 						<Col className="course-details">
-						yes, another column
+
 						</Col>
 					</Row>
 				</Container>

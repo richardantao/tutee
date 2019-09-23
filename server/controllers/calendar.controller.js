@@ -10,6 +10,10 @@ const async = require("async");
 // instantiate constroller
 const controller = [];
 
+controller.index = (req, res) => {
+    return res.direct(301, "/")
+}
+
 controller.month = (req, res) => {
 	async.parallel({
         classes: (callback) => {

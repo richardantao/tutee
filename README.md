@@ -8,5 +8,6 @@ This repository holds all of Tutee's application dev files.
 
 The Node back-end is stuctured using MVC architecture, and the front-end organizes the React components using atomic design theory.
 
+Tutee is currently hosted on Google Cloud Platform.
 
 

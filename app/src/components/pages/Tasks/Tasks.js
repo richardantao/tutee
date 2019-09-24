@@ -52,7 +52,7 @@ export default class Tasks extends Component {
 								<Header header="Tasks"/>
 							</Col>
 							<Col>
-								<Button href="/tasks/create"><FontAwesomeIcon icon={faPlus} /> New Task</Button>
+								<Button href="/tasks/new"><FontAwesomeIcon icon={faPlus}/> New Task</Button>
 							</Col>
 						</Row>
 						<Row className="body">	

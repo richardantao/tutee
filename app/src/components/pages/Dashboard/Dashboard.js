@@ -60,7 +60,7 @@ export default class Dashboard extends Component {
 				<Fragment>
 					<Nav />
 					<Container id="dashboard">
-						<Row className="header">
+						<Row>
 							<DashboardHeader/>
 						</Row>
 						<Row id="dashboard-columns" className="body">

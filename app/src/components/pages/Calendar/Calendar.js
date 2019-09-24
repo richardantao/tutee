@@ -32,7 +32,12 @@ export default class Calendar extends Component {
 				<Nav />
 				<Container id="calendar">
 					<Row className="header">
-						<Header header="Calendar"/> 
+						<Col>
+							<Header header="Calendar"/> 
+						</Col>
+						<Col>
+						
+						</Col>
 					</Row>
 					<Row className="body">
 						

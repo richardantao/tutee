@@ -30,10 +30,17 @@ export default class Help extends Component {
 					<Nav />
 					<Container id="help">
 						<Row className="header">
-							<Header header="Help"/> 
+							<Col>
+								<Header header="Help"/> 
+							</Col>
+							<Col>
+								
+							</Col>
 						</Row>
 						<Row className="body">
-				
+							<Col>
+							
+							</Col>
 						</Row>
 					</Container>
 				</Fragment>

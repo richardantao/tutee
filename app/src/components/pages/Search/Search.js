@@ -47,7 +47,12 @@ export default class Search extends Component {
 					<Nav />
 					<Container id="search">
 						<Row className="header">
-							<Header header="Search"/> 
+							<Col>
+								<Header header="Search"/>
+							</Col>
+							<Col>
+							
+							</Col>
 						</Row>
 						<Row className="body">
 							<Col>
@@ -70,7 +75,9 @@ export default class Search extends Component {
 							</Col>
 						</Row>
 						<Row className="footer">
-						
+							<Col>
+							
+							</Col>
 						</Row>
 					</Container>
 				</Fragment>

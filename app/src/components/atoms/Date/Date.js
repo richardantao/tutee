@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./Date.scss";
 
 export default class DateDisplay extends Component {
     constructor(props) {

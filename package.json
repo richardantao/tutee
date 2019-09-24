@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"cd server && npm run dev\" \"cd app && npm start\"",
+    "deploy": "concurrently \"cd server && npm deploy\" \"cd app && npm deploy\"",
     "start": "concurrently \"cd server && npm start\" \"cd app && npm start\"",
     "test": "mocha"
   },

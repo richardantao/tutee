@@ -12,6 +12,10 @@
 
 @media (min-width: 1200px) {
     .dashboard-header {
+        border-bottom: #E5E5E5 1px solid;
+        // -moz-box-shadow:    3px 3px 5px 6px #E5E5E5;
+        // -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+        // box-shadow:         3px 3px 4px 1px #E5E5E5;
         height: 130px;
         z-index: 1;
     }

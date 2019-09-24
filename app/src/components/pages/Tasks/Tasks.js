@@ -95,7 +95,7 @@ export default class Tasks extends Component {
 							<Col>
 								<Form 
 									header="Task" 
-									action="/newTask" 
+									action="tasks/create" 
 									page="/tasks"
 									course="tasksCourse"
 									module="tasksModule"

@@ -1,3 +1,18 @@
+.header-date * {
+    display: inline-block;
+    margin-left: 3%;
+}
+
+.header-date button {
+    border-radius: 50%;
+}
+
+.calendar-selector {
+    // position: absolute;
+        // left: 2%;
+        // top: 5%;
+}
+
 @media (min-width: 576px) {
 
 }
@@ -11,5 +26,7 @@
 }
 
 @media (min-width: 1200px) {
-
+    .header-date * {
+        margin-left: 3%;
+    }
 }

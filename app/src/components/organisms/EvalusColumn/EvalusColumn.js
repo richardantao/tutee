@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Col } from "react-bootstrap";
+// import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import Empty from "../../molecules/Empty";
 import EvaluRecord from "../../molecules/EvaluRecord";
 import "./EvalusColumn.scss";
-
 
 export default class EvaluColumn extends Component {
 	constructor(props) {
@@ -21,10 +20,7 @@ export default class EvaluColumn extends Component {
 			isLoading: false,
 		});
 
-		axios({
-			method: "GET",
-			url: "/dashboard"
-		})
+		axios.get("http://localhost:3000/dashboard")
 		.then(res => {
 			this.setState({ 
 				evalus: res.data.evalus 
@@ -32,7 +28,7 @@ export default class EvaluColumn extends Component {
 		})
 		.catch(err => {
 			this.setState({
-				err,
+				error: err,
 				isLoading: false
 			});
 		});
@@ -43,26 +39,24 @@ export default class EvaluColumn extends Component {
 	}
 
 	render() {
-		
 		let { isLoading, evalus } = this.state;
 
 		if (isLoading) {
 			return <LoadingColumn/>
 		} else if (!isLoading && evalus && evalus.length > 0) {
-			evalus.map(
-				(evalu) => {
-					let { id, title, course, date, time, location } = evalu;
-					return (
-						<EvaluRecord 
-							key={id}
-							title={title} 
-							course={course} 
-							date={date}
-							time={time}
-							location={location}
-						/>
-					)
-				});
+			evalus.map(evalu => {
+				let { id, title, course, date, time, location } = evalu;
+				return (
+					<EvaluRecord 
+						key={id}
+						title={title} 
+						course={course} 
+						date={date}
+						time={time}
+						location={location}
+					/>
+				)
+			});
 		} else {
 			return <Empty/>
 		}

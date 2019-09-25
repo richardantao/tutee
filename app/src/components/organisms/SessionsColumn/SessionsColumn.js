@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Col } from "react-bootstrap";
+// import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import Empty from "../../molecules/Empty";
 import SessionRecord from "../../molecules/SessionRecord";
@@ -43,20 +43,18 @@ export default class SessionColumn extends Component {
 		if (isLoading) {
 			return <LoadingColumn/>
 		} else if (!isLoading && sessions && sessions.length > 0) {
-			sessions.map(
-				(session) =>  {	
-					let { id, title, course, time, location } = session;
-					return (
-						<SessionRecord 
-							key={id}
-							module={title} 
-							course={course} 
-							time={time}
-							location={location}
-						/>
-					)
-				}
-			)
+			sessions.map(session => {	
+				let { id, title, course, time, location } = session;
+				return(
+					<SessionRecord 
+						key={id}
+						module={title} 
+						course={course} 
+						time={time}
+						location={location}
+					/>
+				)
+			});
 		} else {
 			return <Empty/>
 		}

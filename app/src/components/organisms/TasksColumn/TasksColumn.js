@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Col } from "react-bootstrap";
+// import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import Empty from "../../molecules/Empty";
 import TaskRecord from "../../molecules/TaskRecord";
@@ -49,19 +49,18 @@ export default class TasksColumn extends Component {
 		if (isLoading) {
 			return <LoadingColumn/>
 		} else if (!isLoading && tasks && tasks.length > 0) {
-			tasks.map(
-				(task) =>	{
-					let {id, title, course, type, deadline, completion, note} = task;
-					return (
-							<TaskRecord 
-								key={id}
-								title={title} 
-								course={course} 
-								type={type}
-								deadline={deadline}
-								completion={completion}
-								note={note}
-							/>
+			tasks.map(task => {
+				let {id, title, course, type, deadline, completion, note} = task;
+				return (
+					<TaskRecord 
+						key={id}
+						title={title} 
+						course={course} 
+						type={type}
+						deadline={deadline}
+						completion={completion}
+						note={note}
+					/>
 				)	
 			});
 		} else {

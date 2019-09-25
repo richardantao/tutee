@@ -54,12 +54,20 @@ export default class Settings extends Component {
 								<Button href="/signout">Sign Out</Button>
 							</Col>
 						</Row>
-						<Row className="body">
-							<Col>
+						<Row>
+							<Col className="settings-nav">
 								<Button href="/settings/profile" block>Profile</Button>
-								<Button href="/settings/password" block>Password</Button>
+								<Button href="/settings/password" block>Password</Button>	
 								<Button href="/settings/preferences" block>Preferences</Button>
 								<Button href="/settings/integrations" block>Integrations</Button>
+							</Col>
+						</Row>
+						<Row className="body">
+							<Col>
+								
+								
+								
+								
 							</Col>
 							<Col>
 								

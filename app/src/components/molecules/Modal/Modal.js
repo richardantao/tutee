@@ -9,19 +9,25 @@ export default class Modal extends Component {
 
         this.state = {
             isLoading: true,
-            type: []
+            active: false
         }
     }
     
     componentDidMount() {
         this.setState({
             isLoading: false,
-            type: []
+            active: false
+        });
+    }
+
+    toggleDisplay() {
+        this.setState(prevState => {
+            active: !prevState.active
         });
     }
 
     render() {
-        let { isLoading, type } = this.state;
+        let { isLoading, active } = this.state;
 
         return(
             <div className="modal">
@@ -31,7 +37,7 @@ export default class Modal extends Component {
                 <div className="modal-body">
                     <div>
                         <label for={}></label>
-                        <input name={}/>
+                        <input type={} name={}/>
                     </div>
                 </div>
                 <div className="modal-action">

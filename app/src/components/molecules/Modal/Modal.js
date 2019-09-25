@@ -8,18 +8,20 @@ export default class Modal extends Component {
         super(props);
 
         this.state = {
-            isLoading: true
+            isLoading: true,
+            type: []
         }
     }
     
     componentDidMount() {
         this.setState({
-            isLoading: false
+            isLoading: false,
+            type: []
         });
     }
 
     render() {
-        let { isLoading } = this.state;
+        let { isLoading, type } = this.state;
 
         return(
             <div className="modal">
@@ -27,11 +29,14 @@ export default class Modal extends Component {
                     <h3>{this.props.header}</h3>
                 </div>
                 <div className="modal-body">
-                    
+                    <div>
+                        <label for={}></label>
+                        <input name={}/>
+                    </div>
                 </div>
                 <div className="modal-action">
-                    <Button onClick="">Cancel</Button>
-                    <Button>{this.props.action}</Button>
+                    <Button onClick={}>Cancel</Button>
+                    <Button onClick={}>{this.props.action}</Button>
                 </div>
             </div>
         )

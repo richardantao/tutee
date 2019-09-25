@@ -20,11 +20,11 @@ export default class Modal extends Component {
         });
     }
 
-    toggleDisplay() {
-        this.setState(prevState => {
-            active: !prevState.active
-        });
-    }
+    // toggleDisplay = () => {
+    //     this.setState((prevState) => {
+    //         active: !prevState.active
+    //     });
+    // }
 
     render() {
         let { isLoading, active } = this.state;
@@ -36,13 +36,13 @@ export default class Modal extends Component {
                 </div>
                 <div className="modal-body">
                     <div>
-                        <label for={}></label>
-                        <input type={} name={}/>
+                        <label for=""></label>
+                        <input type="" name=""/>
                     </div>
                 </div>
                 <div className="modal-action">
-                    <Button onClick={}>Cancel</Button>
-                    <Button onClick={}>{this.props.action}</Button>
+                    <Button onClick="">Cancel</Button>
+                    <Button onClick="">{this.props.action}</Button>
                 </div>
             </div>
         )

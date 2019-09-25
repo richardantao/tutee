@@ -3,9 +3,9 @@ import axios from "axios";
 import { Container, Row, Col} from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import ReactModal from "react-modal";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
+import Modal from "../../molecules/Modal";
 import Form from "../../molecules/Form";
 import SelectReact from "../../atoms/Select";
 import { Button } from "react-bootstrap";
@@ -65,6 +65,7 @@ export default class Tasks extends Component {
 							</Col>
 						</Row>
 					</Container>
+					<Modal active={this.state.active} onClick={this.toggleDisplay}/>
 				</Fragment>
 			)
 		} else {

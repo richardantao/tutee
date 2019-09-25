@@ -1,6 +1,6 @@
 import React, { Component, Fragment }from "react";
-import { Container, Row, Col} from "reactstrap";
 import axios from "axios";
+import { Container, Row, Col} from "reactstrap";
 import Nav from "../../organisms/Nav";
 import DashboardHeader from "../../organisms/DashboardHeader";
 import SessionsColumn from "../../organisms/SessionsColumn";
@@ -16,7 +16,7 @@ export default class Dashboard extends Component {
 		this.state = {
 			isLoading: true,
 			user: [],
-			sessions: [],
+			classes: [],
 			tasks: [],
 			evalus: []
 		}
@@ -27,17 +27,17 @@ export default class Dashboard extends Component {
 			isLoading: false
 		});
 
-		axios.get("/dashboard/:userId")
+		axios.get("http://localhost:3000/dashboard/")
 		.then(res => {
 			let user = res.data.users;
-			let sessions = res.data.users;
+			let classes = res.data.classes;
 			let tasks = res.data.tasks;
 			let evalus = res.data.evalus;
 
 			this.setState({
 				isLoading: false,
 				user: user,
-				sessions: sessions,
+				classes: classes,
 				tasks: tasks,
 				evalus: evalus
 			});

@@ -3,6 +3,7 @@ import axios from "axios";
 import { Container, Row, Col} from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import ReactModal from "react-modal";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
 import Form from "../../molecules/Form";
@@ -11,7 +12,6 @@ import { Button } from "react-bootstrap";
 import "./Tasks.scss";
 
 export default class Tasks extends Component {
-
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -77,7 +77,7 @@ export default class Tasks extends Component {
 								<Header header="Tasks"/>
 							</Col>
 							<Col>
-								<Button href="/tasks/newTask"><FontAwesomeIcon icon={faPlus} /> New Task</Button>
+								<Button href="/tasks/new"><FontAwesomeIcon icon={faPlus} /> New Task</Button>
 							</Col>
 						</Row>
 						<Row>

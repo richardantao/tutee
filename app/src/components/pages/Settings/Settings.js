@@ -65,15 +65,9 @@ export default class Settings extends Component {
 						<Row className="body settings-body">
 							<Col>
 								
-								
-								
-								
-							</Col>
-							<Col>
-								
 							</Col>
 						</Row>
-						<Row className="settings-footer">
+						<Row className="footer settings-footer">
 							<Col>
 								<Button href="https://facebook.com" target="_blank" className="social"><FontAwesomeIcon icon={faFacebookSquare}/></Button>
 								<Button href="https://www.linkedin.com/company/tutee" target="_blank" className="social"><FontAwesomeIcon icon={faLinkedin}/></Button>

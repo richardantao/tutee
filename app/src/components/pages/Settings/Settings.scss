@@ -1,7 +1,6 @@
 .settings-body {
 	border-bottom: #E5E5E5 1px solid;
-	height: 500px;
-	margin-top: 0.25%; 
+	height: 400px;
 }
 
 .settings-body a {	
@@ -13,10 +12,11 @@
 }
 
 .settings-nav {
-	background: #E5E5E5;
+	background: #00BBFF;
 	display: grid;
 		grid-template-columns: 20% 20% 20% 20% 20%;
 		grid-template-rows: 100%;
+		padding: 0;
 }
 
 .settings-nav a.btn {

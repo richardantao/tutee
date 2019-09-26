@@ -1,8 +1,8 @@
-.course-header {
+.course-column {
 	margin-top: 5%;
 }
 
-.course-header a {
+.course-column a {
 	margin-right: 5%;
 	position: relative;
 		left: 35%;
@@ -21,12 +21,12 @@
 }
 
 @media (min-width: 1200px) {
-	.course-header {
+	.course-column {
 		border-right: #E5E5E5 1px solid;
 		margin-top: 5%;
 	}
 
-	.course-header a {
+	.course-column a {
 		left: 35%;
 		margin-right: 5%;
 	}

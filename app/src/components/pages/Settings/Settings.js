@@ -62,7 +62,7 @@ export default class Settings extends Component {
 								<Button href="/settings/integrations" block>Integrations</Button>
 							</Col>
 						</Row>
-						<Row className="body">
+						<Row className="body settings-body">
 							<Col>
 								
 								
@@ -73,7 +73,7 @@ export default class Settings extends Component {
 								
 							</Col>
 						</Row>
-						<Row className="footer">
+						<Row className="settings-footer">
 							<Col>
 								<Button href="https://facebook.com" target="_blank" className="social"><FontAwesomeIcon icon={faFacebookSquare}/></Button>
 								<Button href="https://www.linkedin.com/company/tutee" target="_blank" className="social"><FontAwesomeIcon icon={faLinkedin}/></Button>

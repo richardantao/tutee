@@ -56,7 +56,7 @@ export default class Evaluations extends Component{
 								<Button href="/evaluations/new"><FontAwesomeIcon icon={faPlus} /> New Evaluation</Button>
 							</Col>
 						</Row>
-						<Row className="body">
+						<Row className="body evals-body">
 							<Col>
 								<SelectReact placeholder="Filter by Course.."/>
 							</Col>

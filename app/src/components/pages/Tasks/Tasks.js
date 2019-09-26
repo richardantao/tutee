@@ -55,7 +55,7 @@ export default class Tasks extends Component {
 								<Button href="/tasks/new"><FontAwesomeIcon icon={faPlus}/> New Task</Button>
 							</Col>
 						</Row>
-						<Row className="body">	
+						<Row className="tasks-body">	
 							<Col>
 								<SelectReact placeholder="Filter by Course.."/>
 							</Col>

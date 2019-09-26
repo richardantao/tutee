@@ -30,7 +30,7 @@ export default class Modal extends Component {
         let { isLoading, active } = this.state;
 
         return(
-            <div className="modal">
+            <form method="" action="" className="modal" role="form">
                 <div className="modal-header">
                     <h3>{this.props.header}</h3>
                 </div>
@@ -44,7 +44,7 @@ export default class Modal extends Component {
                     <Button onClick="">Cancel</Button>
                     <Button onClick="">{this.props.action}</Button>
                 </div>
-            </div>
+            </form>
         )
     }
 }

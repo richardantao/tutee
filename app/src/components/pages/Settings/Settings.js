@@ -14,7 +14,9 @@ import "./Settings.scss";
 export default class Settings extends Component {
 	constructor(props) {
 		super(props);
-
+		
+		this.activeForm = this.activeForm.bind(this);
+		
 		this.state = {
 			isLoading: true,
 			visibleForm: [true, false, false, false],
@@ -46,6 +48,30 @@ export default class Settings extends Component {
 		
 	}
 
+	showProfile() {
+		this.setState({
+			activeForm: "profile"
+		});
+	}
+
+	showPassword() {
+		this.setState({
+			activeForm: "password"
+		});
+	}
+
+	showPreferences() {
+		this.setState({
+			activeForm: "preferences"
+		});
+	}
+
+	showIntegrations() {
+		this.setState({
+			activeForm: "integrations"
+		});
+	}
+
 	render() {
 		let { isLoading } = this.state;
 		
@@ -66,10 +92,10 @@ export default class Settings extends Component {
 						</Row>
 						<Row>
 							<Col className="settings-nav">
-								<Button href="/settings/profile" onClick={this.state} block>Profile</Button>
-								<Button href="/settings/password" onClick={this} block>Password</Button>	
-								<Button href="/settings/preferences" onClick={this} block>Preferences</Button>
-								<Button href="/settings/integrations" onClick={this} block>Integrations</Button>
+								<Button href="/settings/profile" onClick={this.state.activeForm = "profile"} block>Profile</Button>
+								<Button href="/settings/password" onClick={this.state.activeForm = "password"} block>Password</Button>	
+								<Button href="/settings/preferences" onClick={this.state.activeForm = "preferences"} block>Preferences</Button>
+								<Button href="/settings/integrations" onClick={this.state.activeForm = "integrations"} block>Integrations</Button>
 							</Col>
 						</Row>
 						<Row className="body settings-body">

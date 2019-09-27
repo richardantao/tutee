@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import axios from "axios";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
+import SettingsForm from "../../organisms/SettingsForm";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import { Container, Row, Col} from "reactstrap";
 import { Button } from "react-bootstrap";
@@ -16,6 +17,7 @@ export default class Settings extends Component {
 
 		this.state = {
 			isLoading: true,
+			visibleForm: [true, false, false, false],
 			preferences: []
 		};
 	}
@@ -35,7 +37,15 @@ export default class Settings extends Component {
 			});
 		})
 	}
-	
+
+	componentDidUpdate() {
+
+	}
+
+	componentWillUnmount() {
+		
+	}
+
 	render() {
 		let { isLoading } = this.state;
 		
@@ -56,16 +66,16 @@ export default class Settings extends Component {
 						</Row>
 						<Row>
 							<Col className="settings-nav">
-								<Button href="/settings/profile" block>Profile</Button>
-								<Button href="/settings/password" block>Password</Button>	
-								<Button href="/settings/preferences" block>Preferences</Button>
-								<Button href="/settings/integrations" block>Integrations</Button>
+								<Button href="/settings/profile" onClick={this.state} block>Profile</Button>
+								<Button href="/settings/password" onClick={this} block>Password</Button>	
+								<Button href="/settings/preferences" onClick={this} block>Preferences</Button>
+								<Button href="/settings/integrations" onClick={this} block>Integrations</Button>
 							</Col>
 						</Row>
 						<Row className="body settings-body">
 							<Col>
-								
-							</Col>
+								<SettingsForm/>
+							</Col>		
 						</Row>
 						<Row className="footer settings-footer">
 							<Col>

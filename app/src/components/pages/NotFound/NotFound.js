@@ -18,6 +18,10 @@ export default class NotFound extends Component {
         });
     }
     
+    componentWillUnmount() {
+        
+    }
+
     render() {
         let { isLoading } = this.state;
 

@@ -50,6 +50,14 @@ export default class Dashboard extends Component {
 		});
 	}
 
+	componentDidUpdate() {
+
+	}
+
+	componentWillUnmount() {
+		
+	}
+
 	render() {
 		let { isLoading } = this.state;
 

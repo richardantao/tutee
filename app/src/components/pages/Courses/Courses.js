@@ -37,6 +37,10 @@ export default class Courses extends Component {
 			throw err;
 		});
 	}
+
+	componentWillUnmount() {
+		
+	}
 	
 	render() {
 		return (

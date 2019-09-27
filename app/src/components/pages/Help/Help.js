@@ -19,6 +19,10 @@ export default class Help extends Component {
 		});
 	}
 
+	componentWillUnmount() {
+		
+	}
+
 	render() {
 		let { isLoading } = this.state;
 		

@@ -38,6 +38,14 @@ export default class Evaluations extends Component{
 
 	}
 
+	componentDidUpdate() {
+
+	}
+
+	componentWillUnmount() {
+		
+	}
+
 	render() {
 		let { displayForm } = this.state;
 

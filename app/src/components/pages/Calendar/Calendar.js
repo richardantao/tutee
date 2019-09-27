@@ -31,6 +31,10 @@ export default class Calendar extends Component {
 		});
 	}
 
+	componentWillUnmount() {
+		
+	}
+
 	render() {
 		return (
 			<Fragment>

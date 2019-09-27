@@ -39,6 +39,10 @@ export default class Tasks extends Component {
 
 	}
 
+	componentWillUnmount() {
+		
+	}
+
 	render() {
 		let { displayForm } = this.state;
 

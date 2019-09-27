@@ -36,6 +36,14 @@ export default class Search extends Component {
 		});
 	}
 
+	componentDidUpdate() {
+
+	}
+
+	componentWillUnmount() {
+		
+	}
+
 	render() {
 		let { isLoading } = this.state;
 

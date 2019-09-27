@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import LoadingColumn from "../../molecules/LoadingColumn";
+import { Col, Row } from "react-bootstrap";
 
 export default class Integration extends Component {
     constructor(props) {
@@ -31,15 +32,23 @@ export default class Integration extends Component {
         });
     }
 
+    componentWillUnmount() {
+        
+    }
+
     render() {
         let { isLoading, integrations } = this.state;
         if(isLoading) {
             return <LoadingColumn/>;
         } else {
             return(
-                <div>
-    
-                </div>
+                <form method="PUT" action="" role="form">
+                    <Row>
+                        <Col>
+                        
+                        </Col>    
+                    </Row>>
+                </form>
             )
         }
     }

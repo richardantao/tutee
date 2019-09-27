@@ -31,6 +31,10 @@ export default class Profile extends Component {
 			});
 		});
 	}
+
+	componentWillUnmount() {
+		
+	}
 	
 	render() {
 		let { isLoading } = this.state;
@@ -42,11 +46,11 @@ export default class Profile extends Component {
 					<Row>
 						<Col>
 							<label for="firstName">First Name</label>
-							<input name="firstName" type="text"/>
+							<input name="firstName" type="text" value=""/>
 						</Col>
 						<Col>
 							<label for="lastName">Last Name</label>
-							<input name="lastName" type="text"/>
+							<input name="lastName" type="text" value=""/>
 						</Col>
 					</Row>
 					<Row>
@@ -58,21 +62,21 @@ export default class Profile extends Component {
 					<Row>
 						<Col>
 							<label for="country">Country</label>
-							<input name="country" type="text"/>
+							<SelectReact name="country" value=""/>
 						</Col>
 						<Col>
 							<label for="region">Province/State</label>				
-							<input name="region" type="text"/>
+							<SelectReact name="region" value=""/>
 						</Col>
 					</Row>
 					<Row>
 						<Col>
 							<label for="institution">Institution</label>
-							<SelectReact name="institution"/>
+							<SelectReact name="institution" value=""/>
 						</Col>
 						<Col>
 							<label for="school">School</label>
-							<SelectReact name="school"/>
+							<SelectReact name="school" value=""/>
 						</Col>
 					</Row>
 					<Row>

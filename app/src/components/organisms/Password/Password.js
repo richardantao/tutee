@@ -34,6 +34,10 @@ export default class Password extends Component {
         });
     }
     
+    componentWillUnmount() {
+
+    }
+
     render() {
         let { isLoading } = this.state;
 
@@ -44,26 +48,20 @@ export default class Password extends Component {
                 <form method="PUT" action="/password/update" role="form">
                     <Row>
                         <Col>
-                            <label for="currentPassword">Current Password</label>
-                        </Col>
-                        <Col>
-                            <input name="currentPassword" type="password"/>
+                            <label for="current">Current Password</label>
+                            <input name="current" type="password"/>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <label for="newPassword"></label>
-                        </Col>
-                        <Col>
-                            <input name="newPassword" type="password"/>
+                            <label for="new"></label>
+                            <input name="new" type="password"/>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <label for="confirmPassword"></label>
-                        </Col>
-                        <Col>
-                            <input name="confirmPassword" type="password"/>
+                            <label for="confirm"></label>
+                            <input name="confirm" type="password"/>
                         </Col>
                     </Row>
                     <Row>

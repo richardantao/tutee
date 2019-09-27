@@ -33,13 +33,22 @@ export default class Preference extends Component {
         });
     }
     
+    componentWillUnmount() {
+        
+    }
+
     render() {
         let { isLoading } = this.state;     
         if (isLoading) {
             return <LoadingColumn/>
         } else {
             return(
-                <form method="PUT" action="/:UserId/settings/preferences/FILLME">
+                <form method="PUT" action="/" role="form">
+                    <Row>
+                        <Col>
+                        
+                        </Col>
+                    </Row>
                     <Row>
                         <Col>
                         

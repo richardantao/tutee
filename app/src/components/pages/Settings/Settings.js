@@ -2,7 +2,10 @@ import React, { Component, Fragment } from "react";
 import axios from "axios";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
-import SettingsForm from "../../organisms/SettingsForm";
+import Profile from "../../organisms/Profile";
+import Password from "../../organisms/Preference";
+import Preference from "../../organisms/Preference";
+import Integration from "../../organisms/Integration";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import { Container, Row, Col} from "reactstrap";
 import { Button } from "react-bootstrap";
@@ -14,9 +17,7 @@ import "./Settings.scss";
 export default class Settings extends Component {
 	constructor(props) {
 		super(props);
-		
-		this.activeForm = this.activeForm.bind(this);
-		
+				
 		this.state = {
 			isLoading: true,
 			visibleForm: [true, false, false, false],
@@ -73,7 +74,7 @@ export default class Settings extends Component {
 	}
 
 	render() {
-		let { isLoading } = this.state;
+		let { isLoading, activeForm } = this.state;
 		
 		if(isLoading) {
 			return <LoadingColumn/>;
@@ -92,15 +93,15 @@ export default class Settings extends Component {
 						</Row>
 						<Row>
 							<Col className="settings-nav">
-								<Button href="/settings/profile" onClick={this.state.activeForm = "profile"} block>Profile</Button>
-								<Button href="/settings/password" onClick={this.state.activeForm = "password"} block>Password</Button>	
-								<Button href="/settings/preferences" onClick={this.state.activeForm = "preferences"} block>Preferences</Button>
-								<Button href="/settings/integrations" onClick={this.state.activeForm = "integrations"} block>Integrations</Button>
+								<Button href="/settings/profile" onClick={this.showProfile} block>Profile</Button>
+								<Button href="/settings/password" onClick={this.showPassword} block>Password</Button>	
+								<Button href="/settings/preferences" onClick={this.showPreferences} block>Preferences</Button>
+								<Button href="/settings/integrations" onClick={this.showIntegrations} block>Integrations</Button>
 							</Col>
 						</Row>
 						<Row className="body settings-body">
 							<Col>
-								<SettingsForm/>
+								<Profile/>
 							</Col>		
 						</Row>
 						<Row className="footer settings-footer">
@@ -118,7 +119,7 @@ export default class Settings extends Component {
 					</Container>
 				</Fragment>
 			)
-		}	
+		} 
 	}
 }
 

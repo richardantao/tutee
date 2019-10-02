@@ -61,6 +61,7 @@ h1 {
         display: grid;
             grid-template-columns: 33% 33% 33%;
             grid-template-rows: 475px 475px;
+            grid-gap: 5px;
     }
     
 }

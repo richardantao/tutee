@@ -22,23 +22,24 @@ h1 {
     display: grid;
         grid-template-columns: 100%;
         grid-template-rows: 400px 400px 400px;
-    height: 500px;
 }
 
 .blog-thumbnail {
     height: auto;
+    object-fit: cover;
     width: 100%;
 }
 
 .card {
     margin-bottom: 5%;
+    min-height: 400px;
     width: 100%;
 }
 
 @media (min-width:576px) {
     #posts {
         grid-template-columns: 50% 50%;
-            grid-template-rows: 350px;
+            grid-template-rows: 475px 475px;
     }
 }
 
@@ -59,11 +60,17 @@ h1 {
     #posts {
         display: grid;
             grid-template-columns: 33% 33% 33%;
-            grid-template-rows: 350px;
+            grid-template-rows: 475px 475px;
     }
     
 }
 
 @media (min-width:1200px) {
-    
+    #posts {
+        height: 1000px;
+    }   
+
+    .blog-thumbnail {
+        min-height: 250px;
+    }
 }

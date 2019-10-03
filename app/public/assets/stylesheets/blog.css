@@ -60,7 +60,7 @@ h1 {
     #posts {
         display: grid;
             grid-template-columns: 33% 33% 33%;
-            grid-template-rows: 475px 475px;
+            grid-template-rows: 475px 475px 475px;
             grid-gap: 5px;
     }
     
@@ -68,7 +68,7 @@ h1 {
 
 @media (min-width:1200px) {
     #posts {
-        height: 1000px;
+        height: 1500px;
     }   
 
     .blog-thumbnail {

@@ -9,12 +9,13 @@ main h1, main div {
 }
 
 h1 {
-    font-size: 2em;
+    font-size: 32px;
 }
 
 #pitch {
     font-size: 1em;
     font-weight: 400;
+    margin-bottom: 2.5%;
     width: 95%;
 }
 
@@ -25,7 +26,7 @@ h1 {
 }
 
 .blog-thumbnail {
-    height: auto;
+    height: 250px;
     object-fit: cover;
     width: 100%;
 }
@@ -44,12 +45,16 @@ h1 {
 }
 
 @media (min-width:768px) {
+    #pitch {
+        font-size: 1.25em;
+    }
+
     h1 {
         font-size: 2.5em;
     }
 
-    #pitch {
-        font-size: 1.25em;
+    h2 {
+        font-size: 28px;
     }
 }
 
@@ -63,15 +68,14 @@ h1 {
             grid-template-rows: 475px 475px 475px;
             grid-gap: 5px;
     }
-    
+
+    h2 {
+        font-size: 28px;
+    }
 }
 
 @media (min-width:1200px) {
     #posts {
         height: 1500px;
     }   
-
-    .blog-thumbnail {
-        min-height: 250px;
-    }
 }

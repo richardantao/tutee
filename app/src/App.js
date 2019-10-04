@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
+import ReactGA from 'react-ga';
 
 import Dashboard from "./components/pages/Dashboard";
 import Calendar from "./components/pages/Calendar";

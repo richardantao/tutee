@@ -20,9 +20,9 @@
   "author": "Richard Antao",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/richardantao/dev/issues"
+    "url": "https://github.com/richardantao/tutee/issues"
   },
-  "homepage": "https://github.com/richardantao/dev#readme",
+  "homepage": "https://github.com/richardantao/tutee#readme",
   "dependencies": {
     "concurrently": "^4.1.2"
   },

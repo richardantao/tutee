@@ -1,2 +1,0 @@
-INSERT INTO Terms (User_ID, Year_ID, Term_Title, Term_Start, Term_End, Term_Rotation) VALUES (1, 1, "Fall 2019", '2019-09-05', '2019-12-10', "Weekly");
-INSERT INTO Terms (User_ID, Year_ID, Term_Title, Term_Start, Term_End, Term_Rotation) VALUES (1, 1, "Spring 2020", '2020-01-07', '2020-04-10', "Weekly");

@@ -1,6 +1,6 @@
 {
   "name": "tutee-server",
-  "version": "0.2.0",
+  "version": "0.1.0",
   "description": "tutee's server npm",
   "main": "app.js",
   "scripts": {
@@ -40,14 +40,5 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "uuid": "^3.3.3"
-  },
-  "devDependencies": {
-    "chai": "^4.2.0",
-    "eslint": "^6.4.0",
-    "mocha": "^6.2.0",
-    "nodemon": "^1.19.1",
-    "request": "^2.88.0",
-    "sinon": "^7.4.1",
-    "supertest": "^4.0.2"
   }
 }

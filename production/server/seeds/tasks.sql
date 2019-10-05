@@ -1,3 +1,0 @@
-INSERT INTO Tasks (User_ID, Module_ID, Task_Title, Task_Type, Task_Deadline) VALUES (1, 1, "Chapter 2 Notes", "Homework", '2019-09-19');
-INSERT INTO Tasks (User_ID, Module_ID, Task_Title, Task_Type, Task_Deadline) VALUES (1, 2, "Chapter 1 Quiz Review", "Homework", '2019-09-22');
-INSERT INTO Tasks (User_ID, Module_ID, Task_Title, Task_Type, Task_Deadline) VALUES (1, 3, "Lab 1 Prelab", "Homework", '2019-09-24');

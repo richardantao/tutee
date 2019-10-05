@@ -1,0 +1,3 @@
+INSERT INTO Courses (User_ID, Term_ID, Course_Code, Course_Name, Course_Theme) VALUES (1, 1, "ES 4480", "Leadership and Corporate Entreprenuership", "Purple");
+INSERT INTO Courses (User_ID, Term_ID, Course_Code, Course_Name, Course_Theme) VALUES (1, 1, "ES 4499", "Integrated Engineering Capstone Design", "Blue");
+INSERT INTO Courses (User_ID, Term_ID, Course_Code, Course_Name, Course_Theme) VALUES (1, 1, "CBE 3322", "Heat Transfer Operations", "Red");

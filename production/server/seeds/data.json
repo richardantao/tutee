@@ -1,0 +1,461 @@
+{
+	"institution": [
+		{
+			"name": "Acadia University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "NS"
+		},{
+			"name": "Algoma University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "Athabasca University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "AB"
+		},{
+			"name": "Bishop's University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QU"
+		},{
+			"name": "Brock University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "Cape Breton University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "NS"
+		},{
+			"name": "Capilano University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "BC"
+		},{
+			"name": "Carleton University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "Concordia University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Dalhousie University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "NS"
+		},{
+			"name": "Dominican University College",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "École de technologie supérieure",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "École nationale d'administration publique",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "École Polytechnique de Montréal",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Emily Carr University of Art and Design",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "BC"
+		},{
+			"name": "First Nations University of Canada",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "SK"
+		},{
+			"name": "HEC Montréal",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Institut national de la recherche scientifique",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Kwantlen Polytechnic University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "BC"
+		},{
+			"name": "Lakehead University",
+			"abbr": "",
+			"level": "",
+			"country": "",
+			"region": ""
+		},{
+			"name": "Laurentian University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "MacEwan University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "AB"
+		},{
+			"name": "McMaster University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "Memorial University of Newfoundland",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "NL"
+		},{
+			"name": "Mount Allison University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "NB"
+		},{
+			"name": "Mount Royal University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "AB"
+		},{
+			"name": "Mount Saint Vincent University",
+			"abbr": "",
+			"level": "Uniervsity",
+			"country": "CA",
+			"region": "NS"
+		},{
+			"name": "Nipissing University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "NSCAD University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "NS"
+		},{
+			"name": "OCAD University",
+			"abbr": "ocad",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "Queen's University",
+			"abbr": "qu",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "Royal Military College of Canada",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "Royal Roads University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "BC"
+		},{
+			"name": "Ryerson University",
+			"abbr": "ryu",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "Saint Francis Xavier University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "NS"
+		},{
+			"name": "Saint Mary's University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "NS"
+		},{
+			"name": "Saint Paul University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "Simon Fraser University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "BC"
+		},{
+			"name": "St. Thomas University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "NB"
+		},{
+			"name": "Thompson Rivers University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "BC"
+		},{
+			"name": "Trent University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "Université de Moncton",
+			"abbr": "",
+			"level": "University",
+			"country": "",
+			"region": ""
+		},{
+			"name": "Université de Montréal",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Université de Saint-Boniface",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Université de Sherbrooke",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Université du Québec en Abitibi-Témiscamingue",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Universitê du Québec en Outaouais",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Université du Québec à Chicoutimi",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Université du Québec à Montréal",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Université du Québec à Romouski",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Université du Québec à Trois-Riviéres",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Université Laval",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "Université Sainte-Anne",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "QC"
+		},{
+			"name": "University of Alberta",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "AB"
+		},{
+			"name": "University of British Columbia",
+			"abbr": "ubc",
+			"level": "University",
+			"country": "CA",
+			"region": "BC"
+		},{
+			"name": "University of Calgary",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "AB"
+		},{
+			"name": "Univeristy of Fraser Valley",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "BC"
+		},{
+			"name": "University of Guelph",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "University of Lethbridge",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "AB"
+		},{
+			"name": "University of New Brunswick",
+			"abbr": "unb",
+			"level": "University",
+			"country": "CA",
+			"region": "NB"
+		},{
+			"name": "University of Northern British Columbia",
+			"abbr": "unbc",
+			"level": "University",
+			"country": "CA",
+			"region": "BC"
+		},{
+			"name": "University of Prince Edward Island",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "PE"
+		},{
+			"name": "University of Regina",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "SK"
+		},{
+			"name": "University of Saskatchewan",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "SK"
+		},{
+			"name": "University of Manitoba",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "MB"
+		},{
+			"name": "University of Ontario Institute of Technology",
+			"abbr": "uoit",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "University of Ottawa",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "University of Toronto",
+			"abbr": "uoft",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "University of Victoria",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "BC"
+		},{
+			"name": "University of Waterloo",
+			"abbr": "uw",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "University of Western Ontario",
+			"abbr": "uwo",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "University of Windsor",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "University of Winnipeg",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "MB"
+		},{
+			"name": "Vancouver Island University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "BC"
+		},{
+			"name": "Wilfred Laurier University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		},{
+			"name": "York University",
+			"abbr": "",
+			"level": "University",
+			"country": "CA",
+			"region": "ON"
+		}
+	]	
+}

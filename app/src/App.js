@@ -28,6 +28,11 @@ export default class App extends Component {
 		});
 	}
 
+	initializeReactGA() {
+		ReactGA.initialize('UA-000000-01'); // check tracking id
+		ReactGA.pageview(window.location.pathname + window.location.search);
+	}
+
 	render() {
 		let { isLoading } = this.state;
 

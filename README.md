@@ -1,6 +1,6 @@
 # Tutee
 
-This repository holds all of Tutee's application dev files.
+This repository holds all of Tutee's files.
 
 ## Application Structure
 

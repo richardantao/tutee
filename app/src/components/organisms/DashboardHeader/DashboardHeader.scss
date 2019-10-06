@@ -16,10 +16,14 @@
     top: 50%;
 }
 
+.dashboard-header h4 {
+    margin: 0;
+}
+
 figure {
     position: absolute;
-        right: 5%;
-        top: 20%;
+        right: 0;
+        top: 50%;
 }
 
 @media (min-width: 576px) {

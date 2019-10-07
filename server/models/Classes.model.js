@@ -43,8 +43,8 @@ const ClassSchema = new Schema({
     occurence: {type: String, enum: ["Does not repeat", "Daily", "Weekdays", "Weekly", "Biweekly"]},
     note: String,
     meta: {
-	    createdAt: {type: moment().format("MMMM Do YYYY, hh:mm a"), default: moment().format("MMMM Do YYYY, hh:mm a").startOf("date")},
-        updatedAt: {type: moment().format("MMMM Do YYYY, hh:mm a"), default: moment().format("MMMM Do YYYY, hh:mm a").startOf("date")}
+	    createdAt: {type: moment().format("MMMM Do YYYY, hh:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, hh:mm a")},
+        updatedAt: {type: moment().format("MMMM Do YYYY, hh:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, hh:mm a")}
     }
 });
 

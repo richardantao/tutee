@@ -18,6 +18,6 @@ export default class Logo extends Component {
 	}
 
 	render() {
-		return <img src={logo} alt="Tutee logo and mascot" className="logo"/>
+		return <a href="/dashboard"><img src={logo} alt="Tutee logo and mascot" className="logo"/></a>
 	}
 }

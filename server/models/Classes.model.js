@@ -19,13 +19,13 @@ const ClassSchema = new Schema({
 		}      
     },
     location: String,
-    date: {
-        start: {type: Date, required: true},
-        end: {type: Date, required: true}
+    start: {
+        date: {type: Date, required: true},
+        time: {type: String, required: true}
     },
-    time: {
-        start: {type: String, required: true},
-        end: {type: String, required: true}
+    end: {
+        date: {type: Date, required: true},
+        time: {type: String, required: true}
     },
     repeat: {
         Monday: {type: Boolean, default: false},

@@ -1,6 +1,7 @@
-import React, {Component, Fragment} from "react";
+import React, { Component, Fragment } from "react";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
+import Accordion from "../../molecules/Accordion";
 import { Col, Row } from "reactstrap";
 import "./Help.scss";
 
@@ -43,7 +44,10 @@ export default class Help extends Component {
 						</Row>
 						<Row className="body">
 							<Col>
-							
+								<div>
+									<h2>Frequently Asked Questions</h2>
+									<Accordion/>
+								</div>
 							</Col>
 						</Row>
 					</div>

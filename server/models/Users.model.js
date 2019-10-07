@@ -11,7 +11,7 @@ const UserSchema = new Schema({
             last: {type: String, required: true}
         },
         email: {
-            address: {type: String, required: true},
+            address: {type: String, required: true, unique: true},
             verified: {type: Boolean, default: false}
         },
         password: {type: String, required: true, minlength: 6}
@@ -30,8 +30,7 @@ const UserSchema = new Schema({
         onEmailList: {type: Boolean, default: true}
     },
     meta: {
-        isBeta: Boolean,
-        membership: {type: String, default: "Basic", enum: ["Basic", "Premium", "Beta"]},
+        membership: {type: String, default: "Basic", enum: ["Admin", "Basic", "Beta", "Premium"]},
         sessions: {type: Number, default: 0, min: 0},
         lastActiveAt: {type: Date, default: null},
         createdAt: {type: Date, default: Date.now()},

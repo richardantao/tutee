@@ -1,8 +1,8 @@
 import React from "react";
-import { Col, Row} from "react-bootstrap";
-import "./SessionRecord.scss";
+import { Col, Row } from "react-bootstrap";
+import "./ClassRecord.scss";
 
-const SessionRecord = ({module, course, time, location}) => {
+const ClassRecord = ({module, course, time, location}) => {
 	return (
 		<Row class="session-record">
 			<Col>
@@ -25,4 +25,4 @@ const SessionRecord = ({module, course, time, location}) => {
 	);
 }
 
-export default SessionRecord;
+export default ClassRecord;

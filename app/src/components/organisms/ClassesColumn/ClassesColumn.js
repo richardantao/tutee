@@ -3,12 +3,12 @@ import axios from "axios";
 // import { Col } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
 import Empty from "../../molecules/Empty";
-import SessionRecord from "../../molecules/SessionRecord";
-import "./SessionsColumn.scss";
+import ClassRecord from "../../molecules/ClassRecord";
+import "./ClassesColumn.scss";
 
 
 
-export default class SessionColumn extends Component {
+export default class ClassesColumn extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -46,7 +46,7 @@ export default class SessionColumn extends Component {
 			sessions.map(session => {	
 				let { id, title, course, time, location } = session;
 				return(
-					<SessionRecord 
+					<ClassRecord 
 						key={id}
 						module={title} 
 						course={course} 

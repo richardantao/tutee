@@ -3,7 +3,7 @@ import axios from "axios";
 import { Container, Row, Col} from "reactstrap";
 import Nav from "../../organisms/Nav";
 import DashboardHeader from "../../organisms/DashboardHeader";
-import SessionsColumn from "../../organisms/SessionsColumn";
+import ClassesColumn from "../../organisms/ClassesColumn";
 import TasksColumn from "../../organisms/TasksColumn";
 import EvalusColumn from "../../organisms/EvalusColumn";
 import LoadingColumn from "../../molecules/LoadingColumn";
@@ -27,19 +27,14 @@ export default class Dashboard extends Component {
 			isLoading: false
 		});
 
-		axios.get("http://localhost:3000/dashboard/")
+		axios.get("http://localhost:3000/dashboard")
 		.then(res => {
-			let user = res.data.users;
-			let classes = res.data.classes;
-			let tasks = res.data.tasks;
-			let evalus = res.data.evalus;
-
 			this.setState({
 				isLoading: false,
-				user: user,
-				classes: classes,
-				tasks: tasks,
-				evalus: evalus
+				user: res.id,
+				classes: res.classes,
+				tasks: res.tasks,
+				evals: res.evals
 			});
 		})
 		.catch(err => {
@@ -73,7 +68,7 @@ export default class Dashboard extends Component {
 						</Row>
 						<Row id="dashboard-columns" className="body">
 							<Col id="sessions-column">
-								<SessionsColumn/>
+								<ClassesColumn/>
 							</Col>
 							<Col id="tasks-column">
 								<TasksColumn/>

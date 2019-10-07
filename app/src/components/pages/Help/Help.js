@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from "react";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
-import { Container, Row, Col} from "reactstrap";
+import { Col, Row } from "reactstrap";
 import "./Help.scss";
 
 export default class Help extends Component {
@@ -32,7 +32,7 @@ export default class Help extends Component {
 			return (
 				<Fragment>
 					<Nav />
-					<Container id="help">
+					<div id="help">
 						<Row className="header">
 							<Col>
 								<Header header="Help"/> 
@@ -46,7 +46,7 @@ export default class Help extends Component {
 							
 							</Col>
 						</Row>
-					</Container>
+					</div>
 				</Fragment>
 			)
 		}

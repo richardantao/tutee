@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
-import { Container, Row, Col} from "reactstrap";
+import { Col, Row} from "reactstrap";
 import { Button } from "react-bootstrap";
 import "./Courses.scss";
 import TermsColumn from "../../organisms/TermsColumn/TermsColumn";
@@ -12,7 +12,7 @@ import CourseColumn from "../../organisms/CourseColumn/CourseColumn";
 import CourseRecord from "../../molecules/CourseRecord";
 import axios from "axios";
 
-// Course componentr
+// Course component
 export default class Courses extends Component {
 	constructor(props) {
 		super(props);
@@ -46,7 +46,7 @@ export default class Courses extends Component {
 		return (
 			<Fragment>
 				<Nav />
-				<Container id="courses">
+				<div id="courses">
 					<Row className="header">
 						<Col>
 							<Header header="Courses"/>
@@ -98,7 +98,7 @@ export default class Courses extends Component {
 
 						</Col>
 					</Row>
-				</Container>
+				</div>
 			</Fragment>
 		)
 	}

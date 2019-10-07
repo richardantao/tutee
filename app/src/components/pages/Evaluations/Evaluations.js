@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
-import { Container, Row, Col} from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Nav from "../../organisms/Nav";
@@ -53,7 +53,7 @@ export default class Evaluations extends Component{
 			return (
 				<Fragment>
 					<Nav />
-					<Container id="evaluations">
+					<div id="evaluations">
 						<Row className="header">
 							<Col>
 								<Header 
@@ -73,14 +73,14 @@ export default class Evaluations extends Component{
 								<Button href="/evaluations/past" className="past">Past</Button>
 							</Col>	
 						</Row>
-					</Container>
+					</div>
 				</Fragment>
 			)
 		} else {
 			return (
 				<Fragment>
 					<Nav />
-					<Container id="evaluations">
+					<div id="evaluations">
 						<Row className="header">
 							<Col>
 								<Header 
@@ -116,7 +116,7 @@ export default class Evaluations extends Component{
 								/>
 							</Col>
 						</Row>
-					</Container>
+					</div>
 				</Fragment>
 			)
 		}

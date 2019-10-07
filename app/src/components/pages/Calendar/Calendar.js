@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
-import { Container, Row, Col} from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { Button } from "react-bootstrap"
 import "./Calendar.scss";
 
@@ -36,10 +36,12 @@ export default class Calendar extends Component {
 	}
 
 	render() {
+	let { isLoading } = this.state;
+
 		return (
 			<Fragment>
 				<Nav />
-				<Container id="calendar">
+				<div id="calendar">
 					<Row className="header">
 						<Col>
 							<Header header="Calendar"/> 
@@ -62,7 +64,7 @@ export default class Calendar extends Component {
 						
 						</Col>
 					</Row>
-				</Container>
+				</div>
 			</Fragment>
 		)
 	}

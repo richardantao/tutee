@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
-import { Container, Row, Col} from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import Nav from "../../organisms/Nav";
@@ -50,7 +50,7 @@ export default class Tasks extends Component {
 			return (
 				<Fragment>
 					<Nav />
-					<Container id="tasks">
+					<div id="tasks">
 						<Row className="header">
 							<Col>
 								<Header header="Tasks"/>
@@ -68,7 +68,7 @@ export default class Tasks extends Component {
 								<Button href="/tasks/past" className="past">Past</Button>
 							</Col>
 						</Row>
-					</Container>
+					</div>
 					<Modal active={this.state.active} onClick={this.toggleDisplay}/>
 				</Fragment>
 			)
@@ -76,7 +76,7 @@ export default class Tasks extends Component {
 			return (
 				<Fragment>
 					<Nav />
-					<Container id="tasks">
+					<div id="tasks">
 						<Row className="header">
 							<Col>
 								<Header header="Tasks"/>
@@ -110,7 +110,7 @@ export default class Tasks extends Component {
 								/>
 							</Col>
 						</Row>
-					</Container>
+					</div>
 				</Fragment>
 			)
 		}

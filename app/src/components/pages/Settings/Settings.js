@@ -1,5 +1,9 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
+import { Col, Row } from "reactstrap";
+import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebookSquare, faLinkedin, faInstagram, faTwitterSquare } from "@fortawesome/free-brands-svg-icons";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
 import Profile from "../../organisms/Profile";
@@ -7,10 +11,6 @@ import Password from "../../organisms/Preference";
 import Preference from "../../organisms/Preference";
 import Integration from "../../organisms/Integration";
 import LoadingColumn from "../../molecules/LoadingColumn";
-import { Container, Row, Col} from "reactstrap";
-import { Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookSquare, faLinkedin, faInstagram, faTwitterSquare } from "@fortawesome/free-brands-svg-icons";
 import "./Settings.scss";
 
 
@@ -82,7 +82,7 @@ export default class Settings extends Component {
 			return (
 				<Fragment>
 					<Nav />
-					<Container id="settings">
+					<div id="settings">
 						<Row className="header">
 							<Col>
 								<Header header="Settings"/> 
@@ -116,7 +116,7 @@ export default class Settings extends Component {
 								<a href="https://tutee.ca/changelog" target="_blank">{version}</a>
 							</Col>
 						</Row>
-					</Container>
+					</div>
 				</Fragment>
 			)
 		} 

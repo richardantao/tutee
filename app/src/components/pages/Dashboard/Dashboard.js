@@ -1,6 +1,6 @@
 import React, { Component, Fragment }from "react";
 import axios from "axios";
-import { Container, Row, Col} from "reactstrap";
+import { Col, Row } from "reactstrap";
 import Nav from "../../organisms/Nav";
 import DashboardHeader from "../../organisms/DashboardHeader";
 import ClassesColumn from "../../organisms/ClassesColumn";
@@ -62,22 +62,22 @@ export default class Dashboard extends Component {
 			return (
 				<Fragment>
 					<Nav />
-					<Container id="dashboard">
+					<div id="dashboard">
 						<Row>
 							<DashboardHeader/>
 						</Row>
 						<Row id="dashboard-columns" className="body">
-							<Col id="sessions-column">
+							<Col id="classes-column">
 								<ClassesColumn/>
 							</Col>
 							<Col id="tasks-column">
 								<TasksColumn/>
 							</Col>
-							<Col id="evalus-column">
+							<Col id="evals-column">
 								<EvalusColumn/>
 							</Col>
 						</Row>
-					</Container>
+					</div>
 				</Fragment>
 			)
 		}

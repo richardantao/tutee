@@ -12,20 +12,24 @@ const ClassSchema = new Schema({
 				first: {type: String, required: true},
 				last: {type: String, required: true}
 			}
-		},
+        },
+        course: {
+            id: {type: Schema.Types.ObjectId, required: true},
+            title: {type: String, required: true}
+        },
 		module: {
 			id: {type: Schema.Types.ObjectId, required: true},
-			type: {type: String, required: true}
+            type: {type: String, required: true}
 		}      
     },
     location: String,
     start: {
-        date: {type: Date, required: true},
-        time: {type: String, required: true}
+        date: {type: moment().format("MMMM Do YYYY"), required: true},
+        time: {type: moment().format("hh:mm"), required: true}
     },
     end: {
-        date: {type: Date, required: true},
-        time: {type: String, required: true}
+        date: {type: moment().format("MMMM Do YYYY"), required: true},
+        time: {type: moment().format("hh:mm"), required: true}
     },
     repeat: {
         Monday: {type: Boolean, default: false},
@@ -39,8 +43,8 @@ const ClassSchema = new Schema({
     occurence: {type: String, enum: ["Does not repeat", "Daily", "Weekdays", "Weekly", "Biweekly"]},
     note: String,
     meta: {
-	    createdAt: {type: Date, default: Date.now()},
-        updatedAt: {type: Date, default: Date.now()}
+	    createdAt: {type: moment().format("MMMM Do YYYY, hh:mm a"), default: moment().format("MMMM Do YYYY, hh:mm a").startOf("date")},
+        updatedAt: {type: moment().format("MMMM Do YYYY, hh:mm a"), default: moment().format("MMMM Do YYYY, hh:mm a").startOf("date")}
     }
 });
 

@@ -1,4 +1,5 @@
 const async = require("async");
+const moment = require("moment");
 
 // import models
 const Classes = require("../models/Classes.model");
@@ -13,7 +14,12 @@ controller.index = (req, res) => {
 	async.parallel({
 		classes: (callback) => {
 			// find classes where date equals today's date
-			Classes.find()
+			Classes.find({
+				"parents.user.id": req.params.id,
+				"start.date": {
+					$eq: moment().format("MMMM Do YYYY, hh:mm a ").startOf('date')
+				}
+			})
 			.then(selectedClasses => {
 				if(!selectedClasses) {
 					return res.status(404).json({

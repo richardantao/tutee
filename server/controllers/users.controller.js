@@ -4,11 +4,21 @@ const Users = require("../models/Users.model");
 // instantiate controller
 const controller = [];
 
+controller.index = (req, res) => {
+    Users.find()
+    .then(users => {
+        return res.json(users);
+    })
+    .catch(err => {
+        return res.json(err);
+    });
+}
+
 controller.edit = (req, res) => {
     Users.findById(req.params.id)
     .then(userInfo => {
         if(!userInfo) {
-            res.status(404).json({
+            return res.status(404).json({
                 message: "User profile was not found with the id " + req.params.id
             });
         } else {
@@ -17,11 +27,11 @@ controller.edit = (req, res) => {
     })
     .catch(err => {
         if(err.kind === 'ObjectId') {
-            res.status(404).send({
+            return res.status(404).send({
                 message: "User profile was not found with the id " + req.params.id
             });
         } else {
-            res.status(500).json({
+            return res.status(500).json({
                 message: "Error retrieving user profile with id " + req.params.id
             });
         }

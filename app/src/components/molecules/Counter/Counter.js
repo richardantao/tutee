@@ -21,7 +21,7 @@ export default class Counter extends Component {
 	render() {
 		let { amount } = this.state;
 
-		if(amount == 1) {
+		if(amount === 1) {
 			return(
 				<figure>
 

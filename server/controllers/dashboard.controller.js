@@ -17,7 +17,7 @@ controller.index = (req, res) => {
 			Classes.find({
 				"parents.user.id": req.params.id,
 				"start.date": {
-					$eq: moment().format("MMMM Do YYYY, hh:mm a ").startOf('date')
+					$eq: moment().startOf("date").format("MMMM Do YYYY, hh:mm a ")
 				}
 			})
 			.then(selectedClasses => {
@@ -138,12 +138,12 @@ controller.taskEdit = (req, res) => {
 }
 
 //
-controller.taskCreateGet = (req, res) => {
+controller.taskNew = (req, res) => {
 
 }
 
 //
-controller.taskCreatePost = (req, res) => {
+controller.taskCreate = (req, res) => {
 	const task = new Tasks({
 		title: req.body.title,
 		type: req.body.type,

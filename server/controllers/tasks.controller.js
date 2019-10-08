@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 // import model
 const Tasks = require("../models/Tasks.model");
 const Courses = require("../models/Courses.model");
@@ -9,7 +11,9 @@ const controller = [];
 controller.index = (req, res) => {
 	Tasks.find({
 		id: req.params.id, //userid
-		deadline: "$gte Date.now()"
+		deadline: {
+			$gt: moment().startOf("date").format("MMMM Do YYYY")
+		}
 	})
     .then(tasks => {
 		if(!tasks) {
@@ -35,7 +39,9 @@ controller.index = (req, res) => {
 controller.past = (req, res) => {
 	Tasks.find({
 		id: req.params.id, // user id
-		deadline: "$lte Date.now()"
+		deadline: {
+			$lt: moment().startOf("date").format("MMMM Do YYYY")
+		}
 	})
 	.then(pastTasks => {
 		if(!pastTasks) {

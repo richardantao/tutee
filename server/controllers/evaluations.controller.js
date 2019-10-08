@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 // import model
 const Evals = require("../models/Evaluations.model")
 
@@ -6,7 +8,9 @@ const controller = [];
 controller.index = (req, res) => {
 	Evals.find({
 		id: req.params.id, // user id
-		date: "$gte Date.now()"
+		date: {
+			$gte: moment().startOf("date").format("MMMM Do YYYY")
+		}
 	})
 	.then(evals => {
 		return res.json(evals);
@@ -21,7 +25,9 @@ controller.index = (req, res) => {
 controller.past = (req, res) => {
 	Evals.find({
 		id: req.params.id, // user id
-		date: "$lte Date.now()"
+		date: {
+			$lt: moment().startOf("date").format("MMMM Do YYYY")
+		}
 	})
 	.then(pastEvaluations => {
 		if(!pastEvaluations) {

@@ -37,7 +37,13 @@ controller.index = (req, res) => {
 		},
 		tasks: (callback) => {
 			// find tasks where due date is within 7 days
-			Tasks.find()
+			Tasks.find({
+				"parents.user.id": req.params.id,
+				deadline: {
+					$gte: moment().startOf("date").format("MMMM Do YYYY"), // date is later than today
+					$lte: moment().startOf("date").format("MMMM Do YYYY") + 1000*60*60*24*7 // date is less than 7 days from now
+				}
+			})
 			.then(selectedTasks => {
 				return res.json(selectedTasks);
 			})
@@ -49,7 +55,13 @@ controller.index = (req, res) => {
 		},
 		evaluations: (callback) => {
 			// find evaluations where dude date is within 10 days
-			Evals.find()
+			Evals.find({
+				"parents.user.id": req.params.id,
+				date: {
+					$gte: moment().startOf("date").format("MMMM Do YYYY"), // date is later than today
+					$lte: moment().startOf("date").format("MMMM Do YYYY") + 1000*60*60*24*7 // date is less than 7 days from now
+				}
+			})
 			.then(selectedEvals => {
 				return res.json(selectedEvals);
 			})

@@ -33,8 +33,8 @@ const UserSchema = new Schema({
         membership: {type: String, default: "Basic", enum: ["Admin", "Basic", "Beta", "Premium"]},
         sessions: {type: Number, default: 0, min: 0},
         lastActiveAt: {type: Date, default: null},
-        createdAt: {type: Date, default: Date.now()},
-		updatedAt: {type: Date, default: Date.now()}
+        createdAt: {type: Date, default: () => moment().startOf("minute").format("MMMM Do YYYY, HH:mm a")},
+		updatedAt: {type: Date, default: () => moment().startOf("minute").format("MMMM Do YYYY, HH:mm a")}
 	}
 });
 

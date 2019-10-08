@@ -25,8 +25,8 @@ const ModuleSchema = new Schema({
 	},
 	instructor: String,
 	meta: {
-		createdAt: {type: Date, default: () => moment().startOf("date").format("MMMM Do YYYY, HH:mm a")},
-		updatedAt: {type: Date, default: () => moment().startOf("date").format("MMMM Do YYYY, HH:mm a")}
+		createdAt: {type: Date, default: () => moment().startOf("minute").format("MMMM Do YYYY, HH:mm a")},
+		updatedAt: {type: Date, default: () => moment().startOf("minute").format("MMMM Do YYYY, HH:mm a")}
 	} 
 });
 

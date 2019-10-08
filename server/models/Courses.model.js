@@ -26,8 +26,8 @@ const CourseSchema = new Schema({
 	},
 	theme: {type: String, default: "#00BBFF"}, 
 	meta: {
-		createdAt: {type: Date, default: () => moment().startOf("date").format("MMMM Do YYYY, HH:mm a")},
-		updatedAt: {type: Date, default: () => moment().startOf("date").format("MMMM Do YYYY, HH:mm a")}
+		createdAt: {type: Date, default: () => moment().startOf("minute").format("MMMM Do YYYY, HH:mm a")},
+		updatedAt: {type: Date, default: () => moment().startOf("minute").format("MMMM Do YYYY, HH:mm a")}
 	}
 });
 

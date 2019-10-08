@@ -7,8 +7,8 @@ const SessionSchema = new Schema({
     id: Schema.Types.ObjectId,
     
     meta: {
-        createdAt: {type: Date, default: moment().startOf("date").format("MMMM Do YYYY, HH:mm a")},
-        updated: {type: Date, default: moment().startOf("date").format("MMMM Do YYYY, HH:mm a")}
+        createdAt: {type: Date, default: moment().startOf("minute").format("MMMM Do YYYY, HH:mm a")},
+        updated: {type: Date, default: moment().startOf("minute").format("MMMM Do YYYY, HH:mm a")}
     }
 });
 

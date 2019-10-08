@@ -20,13 +20,13 @@ const TermSchema = new Schema({
 	},
 	title: {type: String, required: true},
   	date: {
-		start: {type: moment().format("MMMM Do YYYY"), required: true},
-		end: {type: moment().format("MMMM Do YYYY"), required: true}
+		start: {type: Date, required: true},
+		end: {type: Date, required: true}
 	},
 	rotation: {type: String, required: true}, // required ?
 	meta: {
-		createdAt: {type: moment().format("MMMM Do YYYY, HH:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, HH:mm a")},
-		updatedAt: {type: moment().format("MMMM Do YYYY, HH:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, HH:mm a")}
+		createdAt: {type: Date, default: () => moment().startOf("date").format("MMMM Do YYYY, HH:mm a")},
+		updatedAt: {type: Date, default: () => moment().startOf("date").format("MMMM Do YYYY, HH:mm a")}
 	}
 });
 

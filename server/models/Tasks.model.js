@@ -20,12 +20,12 @@ const TaskSchema = new Schema({
 	},
 	title: {type: String, required: true},
 	type: {type: String, required: true},
-	deadline: {type: moment().format("MMMM Do YYYY"), required: true},
+	deadline: {type: Date, required: true},
 	completion: {type: Number, default: 0, min: [0, "Task completion cannot be less than 0"], max: [100, "Task completion cannot be greater than 100%"]},
 	note: String,
 	meta: {
-		createdAt: {type: moment().format("MMMM Do YYYY, HH:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, HH:mm a")},
-		updatedAt: {type: moment().format("MMMM Do YYYY, HH:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, HH:mm a")}
+		createdAt: {type: Date, default: () => moment().startOf("date").format("MMMM Do YYYY, HH:mm a")},
+		updatedAt: {type: Date, default: () => moment().startOf("date").format("MMMM Do YYYY, HH:mm a")}
 	}
 });
 

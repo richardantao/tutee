@@ -24,12 +24,12 @@ const ClassSchema = new Schema({
     },
     location: String,
     start: {
-        date: {type: moment().format("MMMM Do YYYY"), required: true},
-        time: {type: moment().format("hh:mm"), required: true}
+        date: {type: Date, required: true},
+        time: {type: String, required: true}
     },
     end: {
-        date: {type: moment().format("MMMM Do YYYY"), required: true},
-        time: {type: moment().format("hh:mm"), required: true}
+        date: {type: Date, required: true},
+        time: {type: String, required: true}
     },
     repeat: {
         Monday: {type: Boolean, default: false},
@@ -43,9 +43,9 @@ const ClassSchema = new Schema({
     occurence: {type: String, enum: ["Does not repeat", "Daily", "Weekdays", "Weekly", "Biweekly"]},
     note: String,
     meta: {
-	    createdAt: {type: moment().format("MMMM Do YYYY, hh:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, hh:mm a")},
-        updatedAt: {type: moment().format("MMMM Do YYYY, hh:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, hh:mm a")}
+	    createdAt: {type: Date, default: () => moment().startOf("date").format("MMMM Do YYYY, hh:mm a")},
+        updatedAt: {type: Date, default: () => moment().startOf("date").format("MMMM Do YYYY, hh:mm a")}
     }
 });
 
-module.exports = model("Classes", ClassSchema);
+module.exports = model("Classes", ClassSchema);8

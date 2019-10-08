@@ -35,12 +35,6 @@ app.use("/search", require("./routes/search.route"));
 app.use("/settings", require("./routes/settings.route"));
 // app.use("/", require("./routes/email.route");
 
-// Test route
-app.get("/", (req, res) => {
-	res.send("Hello World");
-});
-
-// Bootup 
 app.listen(port, () => {
 	console.log(`Your ${env} server is up and running on port ` + port);
 });

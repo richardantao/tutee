@@ -1,12 +1,14 @@
 const Schema = require("mongoose").Schema;
 const model = require("mongoose").model;
 
+const moment = require("moment");
+
 const SessionSchema = new Schema({
     id: Schema.Types.ObjectId,
     
     meta: {
-        createdAt: {type: Date, default: Date.now()},
-        updated: {type: Date, default: Date.now()}
+        createdAt: {type: moment().format("MMMM Do YYYY, HH:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, HH:mm a")},
+        updated: {type: moment().format("MMMM Do YYYY, HH:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, HH:mm a")}
     }
 });
 

@@ -8,9 +8,10 @@ const IntegrationSchema = new Schema({
     parent: {
         user: {type: Schema.Types.ObjectId, required: true}
     },
+    service: {type: String, required: true},
     meta: {
-        createdAt: {type: Date, default: Date.now()},
-		updatedAt: {type: Date, default: Date.now()}
+        createdAt: {type: moment().format("MMMM Do YYYY, HH:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, HH:mm a")},
+		updatedAt: {type: moment().format("MMMM Do YYYY, HH:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, HH:mm a")}
     }
 });
 

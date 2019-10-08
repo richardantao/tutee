@@ -19,8 +19,8 @@ const BetaSchema = new Schema({
         email: {type: String, required: true} 
     },
     meta: {
-	    createdAt: {type: Date, default: Date.now()},
-        updatedAt: {type: Date, default: Date.now()}
+	    createdAt: {type: moment().format("MMMM Do YYYY, HH:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, HH:mm a")},
+        updatedAt: {type: moment().format("MMMM Do YYYY, HH:mm a"), default: moment().startOf("date").format("MMMM Do YYYY, HH:mm a")}
     }
 });
 

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from "./tutee.jpg"
+import logo from "./tutee-min.jpg"
 import "./Logo.scss";
 
 export default class Logo extends Component {

@@ -41,7 +41,7 @@ const ClassSchema = new Schema({
         Sunday: {type: Boolean, default: false},
     },
     occurence: {type: String, enum: ["Does not repeat", "Daily", "Weekdays", "Weekly", "Biweekly"]},
-    note: String,
+    description: String,
     meta: {
 	    createdAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")},
         updatedAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")}

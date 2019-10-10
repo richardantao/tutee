@@ -10,7 +10,7 @@ const ModuleSchema = require("./Modules.model").Schema;
 const ClassSchema = require("./Classes.model").Schema;
 const EvaluationSchema = require("./Evaluations.model").Schema;
 const TaskSchema = require("./Tasks.model").Schema;
-const IntergrationSchema = require("./Integrations.model").Schema;
+const IntegrationSchema = require("./Integrations.model").Schema;
 
 const UserSchema = new Schema({
 	id: Schema.Types.ObjectId,
@@ -43,7 +43,7 @@ const UserSchema = new Schema({
         defaultCalendar: {type: String, default: "Week", enum: ["Month", "Week", "Day", "Agenda"]},
         onEmailList: {type: Boolean, default: true}
     },
-    integrations: [],
+    integrations: [IntegrationSchema],
     meta: {
         membership: {type: String, default: "Basic", enum: ["Admin", "Basic", "Beta", "Premium"]},
         sessions: {type: Number, default: 0, min: 0},
@@ -59,10 +59,3 @@ UserSchema.virtual("/dashboard/class/:id")
 });
 
 module.exports = model('Users', UserSchema);
-
-/*
-db.users.find({
-    _id: req.params.id,
-
-}).pretty()
-*/

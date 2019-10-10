@@ -4,7 +4,7 @@ const model = require("mongoose").model;
 const moment = require("moment");
 
 const TaskSchema = new Schema({
-	id: Schema.Types.ObjectId,
+	_id: Schema.Types.ObjectId,
 	userId: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
 	moduleId: {type: Schema.Types.ObjectId, required: true, ref: "Modules"},
 	title: {type: String, required: true},
@@ -19,6 +19,6 @@ const TaskSchema = new Schema({
 });
 
 module.exports = {
-	Model: model("Tasks", TaskSchema),
-	Schema: TaskSchema
+	Schema: TaskSchema,
+	Model: model("Tasks", TaskSchema)
 }

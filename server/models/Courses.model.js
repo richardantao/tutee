@@ -4,7 +4,7 @@ const model = require("mongoose").model;
 const moment = require("moment");
 
 const CourseSchema = new Schema({
-	id: Schema.Types.ObjectId,
+	_id: Schema.Types.ObjectId,
 	userId: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
 	yearId: {type: Schema.Types.ObjectId, required: true, ref: "Years"},
 	code: {type: String, required: true},
@@ -21,6 +21,6 @@ const CourseSchema = new Schema({
 });
 
 module.exports = {
-	Model: model("Courses", CourseSchema),
-	Schema: CourseSchema
+	Schema: CourseSchema,
+	Model: model("Courses", CourseSchema)
 }

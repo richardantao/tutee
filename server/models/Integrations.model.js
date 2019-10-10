@@ -4,7 +4,7 @@ const model = require("mongoose").model;
 const moment = require("moment");
 
 const IntegrationSchema = new Schema({
-    id: Schema.Types.ObjectId,
+    _id: Schema.Types.ObjectId,
     userId: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
     service: {type: String, required: true},
     meta: {
@@ -14,6 +14,6 @@ const IntegrationSchema = new Schema({
 });
 
 module.exports = {
-    Model: model("Integrations", IntegrationSchema),
-    Schema: IntegrationSchema
+    Schema: IntegrationSchema,
+    Model: model("Integrations", IntegrationSchema)
 }

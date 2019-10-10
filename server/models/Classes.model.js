@@ -4,9 +4,16 @@ const model = require("mongoose").model;
 const moment = require("moment");
 
 const ClassSchema = new Schema({
-    id: Schema.Types.ObjectId,
-    userId: {type: Schema.Types.ObjectId, required: true, ref: "Users"},		
-	moduleId: {type: Schema.Types.ObjectId, required: true, ref: "Modules"},		
+    _id: Schema.Types.ObjectId,
+    userId: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
+    course: {
+        id: {type: Schema.Types.ObjectId, required: true, ref: "Courses"},
+        title: {type: String, required: true}
+    },	
+	module: {
+        id: {type: Schema.Types.ObjectId, required: true, ref: "Modules"},
+        title: {type: String, required: true}
+    },
     location: String,
     start: {
         date: {type: Date, required: true},
@@ -34,6 +41,6 @@ const ClassSchema = new Schema({
 });
 
 module.exports = {
-    Model: model("Classes", ClassSchema),
-    Schema: ClassSchema
+    Schema: ClassSchema,
+    Model: model("Classes", ClassSchema)
 }

@@ -12,4 +12,7 @@ const SessionSchema = new Schema({
     }
 });
 
-module.exports = model("Sessions", SessionSchema);
+module.exports = {
+    Schema: SessionSchema,
+    Model: model("Sessions", SessionSchema)
+}

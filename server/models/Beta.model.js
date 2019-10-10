@@ -4,7 +4,7 @@ const model = require("mongoose").model;
 const moment = require("moment");
 
 const BetaSchema = new Schema({
-    id: Schema.Types.ObjectId,
+    _id: Schema.Types.ObjectId,
     userId: {type: Schema.Types.ObjectId, required: true, ref: "Users"},		
     profile: {
         name: {type: String, required: true},
@@ -17,6 +17,6 @@ const BetaSchema = new Schema({
 });
 
 module.exports = {
-    Model: model("Beta", BetaSchema),
-    Schema: BetaSchema
+    Schema: BetaSchema,
+    Model: model("Beta", BetaSchema)
 }

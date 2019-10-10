@@ -1,4 +1,4 @@
-import React, { Component, Fragment }from "react";
+import React, { Component, Fragment } from "react";
 import axios from "axios";
 import { Col, Row } from "reactstrap";
 import Nav from "../../organisms/Nav";

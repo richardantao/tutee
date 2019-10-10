@@ -1,7 +1,8 @@
+const async = require("async");
+const moment = require("moment");
+
 // import model
 const Beta = require("../models/Beta.model");
-
-const async = require("async");
 
 // instantiate controller
 const controller = [];
@@ -33,7 +34,7 @@ controller.edit = (req, res) => {
 controller.create = (req, res) => {
     async.series({
         user: (callback) => {
-        
+        exec(callback)
         },
         beta: (callback) => {
             const beta = new Beta({
@@ -59,6 +60,7 @@ controller.create = (req, res) => {
             .then(newBeta => {
                 return res.json(newBeta);
             })
+            .exec(callback)
             .catch(err => {
                 return res.status(500).json({
                     message: err.message || "An error occured while creating your Beta account" 
@@ -69,7 +71,10 @@ controller.create = (req, res) => {
 }
 
 controller.update = (req, res) => {
-    Beta.findByIdAndUpdate(req.params.id, {
+    Beta.findByIdAndUpdate({
+        "_id": req.params._id
+    }, 
+    {
         
     })
     .then(updatedBeta => {
@@ -95,7 +100,9 @@ controller.update = (req, res) => {
 }
 
 controller.delete = (req, res) => {
-    Beta.findByIdAndDelete(req.params.id)
+    Beta.findByIdAndDelete({
+        "_id": req.params._id
+    })
     .then(deletedBeta => {
         if(!deletedBeta) {
             return res.status(404).json({

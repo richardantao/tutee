@@ -1,11 +1,13 @@
 const async = require("async");
+const moment = require("moment");
 
-const Users = require("../models/Users.model")
+// import model
+const Users = require("../models/Users.model");
 
 // instantiate controller
 const controller = [];
 
-controller.index = (req, res) => {
+controller.index = (req, res, next) => {
 	async.parallel({
 		profile: (callback) => {
 			Users.findById({
@@ -24,6 +26,7 @@ controller.index = (req, res) => {
 					return res.json(selectedProfile);
 				}
 			})
+			.exec(callback)
 			.catch(err => {
 				if(err.kind === "ObjectId") {
 					return res.status(404).json({
@@ -51,6 +54,7 @@ controller.index = (req, res) => {
 					return res.json(selectedPassword);
 				}
 			})
+			.exec(callback)
 			.catch(err => {
 				if(err.kind === "ObjectId") {
 					return res.status(404).json({
@@ -78,6 +82,7 @@ controller.index = (req, res) => {
 					return res.json(selectedPreferences);
 				}
 			})
+			.exec(callback)
 			.catch(err => {
 				if(err.kind === "ObjectId") {
 					return res.status(404).json({
@@ -92,7 +97,7 @@ controller.index = (req, res) => {
 		},  
 		integrations: (callback) => {
 			Users.find({
-				"id": req.params.id
+				"_id": req.params._id
 			}, {
 				"integrations": 1
 			})
@@ -105,6 +110,7 @@ controller.index = (req, res) => {
 					return res.json(selectedIntegrations);
 				}
 			})
+			.exec(callback)
 			.catch(err => {
 				if(err.kind === "ObjectId") {
 					return res.status(404).json({
@@ -120,12 +126,8 @@ controller.index = (req, res) => {
 	});
 }
 
-controller.profileCreateGet = (req, res) => {
-
-}
-
 // POST request to create initial profile settings | redundant?
-controller.profileCreatePost = (req, res) => {
+controller.profileCreate = (req, res, next) => {
 	const user = new Users({
 		name: {
 			first: req.body.firstName,
@@ -146,8 +148,11 @@ controller.profileCreatePost = (req, res) => {
 	});
 };
 
-controller.profileUpdate = (req, res) => {
-	Users.findByIdAndUpdate(req.params.id, {
+controller.profileUpdate = (req, res, next) => {
+	Users.findByIdAndUpdate({
+		"_id": req.params._id
+	}, 
+	{
 		$set: {
 			profile: {
 				name: {
@@ -189,8 +194,10 @@ controller.profileUpdate = (req, res) => {
 	});
 };
 
-controller.profileDelete = (req, res) => {
-	Users.findByIdAndDelete(req.params.id)
+controller.profileDelete = (req, res, next) => {
+	Users.findByIdAndDelete({
+		"_id": req.params._id
+	})
 	.then(deletedUser => {
 		if(!deletedUser) {
 			return res.status(404).json({
@@ -214,13 +221,16 @@ controller.profileDelete = (req, res) => {
 };
 
 // GET request to retrieve user's password in settings page
-controller.passwordEdit = (req, res) => {
+controller.passwordEdit = (req, res, next) => {
 	
 };
 
 // PUT request to update database with user's new password
 controller.passwordUpdate = (req, res) => {
-	Users.findById(req.params.id, {
+	Users.findById({
+		"_id": req.params._id
+	}, 
+	{
 		$set: {
 			profile: {
 				password: req.body.password
@@ -250,8 +260,10 @@ controller.passwordUpdate = (req, res) => {
 };
 
 // GET request to retrieve user's preferences 
-controller.preferencesEdit = (req, res) => {
-	Users.findById(req.params.id)
+controller.preferencesEdit = (req, res, next) => {
+	Users.findById({
+		"_id": req.params._id
+	})
 	.then(selectedPreferences => {
 		if(!selectedPreferences) {
 			return res.status(404).json({
@@ -275,8 +287,11 @@ controller.preferencesEdit = (req, res) => {
 };
 
 // POST request to update user's personal app preferences
-controller.preferencesUpdate = (req, res) => {
-	Users.findByIdAndUpdate(req.params.id, {
+controller.preferencesUpdate = (req, res, next) => {
+	Users.findByIdAndUpdate({
+		"_id": req.params._id
+	}, 
+	{
 		$set: {
 			preferences: {
 				startDay: req.body.startDay,
@@ -312,26 +327,26 @@ controller.preferencesUpdate = (req, res) => {
 /* Future routes */
 
 // GET request to retrieve user's third party integrations
-controller.integrationsEdit = (req, res) => {
+controller.integrationsEdit = (req, res, next) => {
 	
-};
+}
 
-controller.integrationsCreateGet = (req, res) => {
+controller.integrationsNew = (req, res, next) => {
 	
 }
 
 // POST request to create third party integration connections
-controller.integrationsCreatePost = (req, res) => {
+controller.integrationsCreate = (req, res, next) => {
 	
 };
 
 // PUT request to update user's third party integrations
-controller.integrationsUpdate = (req, res) => {
+controller.integrationsUpdate = (req, res, next) => {
 	
 };
 
 // DELETE request to delete user's third party integrations
-controller.integrationsDelete = (req, res) => {
+controller.integrationsDelete = (req, res, next) => {
 	
 }
 

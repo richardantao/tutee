@@ -1,32 +1,34 @@
 const async = require("async");
 const moment = require("moment");
 
-// import models
-const Classes = require("../models/Classes.model");
-const Tasks = require("../models/Tasks.model");
-const Evals = require("../models/Evaluations.model");
+// import model
+const Users = require("../models/Users.model").Model;
+const Classes = require("../models/Classes.model").Schema;
+const Tasks = require("../models/Tasks.model").Schema;
+const Evaluations = require("../models/Evaluations.model").Schema;
 
 // instantiate models
 const controller = [];
 
 // GET dashboard data
-controller.index = (req, res) => {
+controller.index = (req, res, next) => {
 	async.parallel({
 		classes: (callback) => {
 			// find classes where date equals today's date
-			Classes.find({
-				"_id": req.params.id,
-				"start.date": {
+			Users.find({ // find the user's: 
+				"_id": req.params._id,	// where the user id equals
+				"classes.start.date": { // where the classes start date is today
 					$eq: moment().startOf("date").format("MMMM Do YYYY, hh:mm a ")
 				}
-			},{
-				"course.title": 1,
-				"module.title": 1,
-				"location": 1,
-				"start.date": 1,
-				"start.time": 1,
-				"end.date": 1,
-				"end.time": 1
+			},{ // retrieve these documents
+				"classes.course.title": 1,
+				"classes.module.title": 1,
+				"classes.location": 1,
+				"classes.start.date": 1,
+				"clasess.start.time": 1,
+				"classes.end.date": 1,
+				"classes.end.time": 1,
+				"classes.description": 1
 			})
 			.then(selectedClasses => {
 				if(!selectedClasses) {
@@ -46,9 +48,9 @@ controller.index = (req, res) => {
 		},
 		tasks: (callback) => {
 			// find tasks where due date is within 7 days
-			Tasks.find({
-				"parents.user.id": req.params.id,
-				deadline: {
+			Users.find({
+				"_id": req.params._id,
+				"tasks.deadline": {
 					$gte: moment().startOf("date").format("MMMM Do YYYY"), // date is later than today
 					$lte: moment().startOf("date").format("MMMM Do YYYY") + 1000*60*60*24*7 // date is less than 7 days from now
 				}
@@ -64,12 +66,11 @@ controller.index = (req, res) => {
 			});
 		},
 		evaluations: (callback) => {
-			// find evaluations where dude date is within 10 days
-			Evals.find({
-				"parents.user.id": req.params.id,
-				date: {
-					$gte: moment().startOf("date").format("MMMM Do YYYY"), // date is later than today
-					$lte: moment().startOf("date").format("MMMM Do YYYY") + 1000*60*60*24*7 // date is less than 7 days from now
+			Users.find({
+				"_id": req.params.id,
+				"evaluations.date": {
+					$gte: moment().startOf("date").format("MMMM Do YYYY"),
+					$lte: moment().startOf("date").format("MMMM Do YYYY") + 1000*60*60*24*7 
 				}
 			})
 			.then(selectedEvals => {
@@ -86,12 +87,17 @@ controller.index = (req, res) => {
 }
 
 // GET display class editor for specific class
-controller.classEdit = (req, res) => {
+controller.classEdit = (req, res, next) => {
 	Classes.findById({
 		_id: req.params._id,
-		"classes._id": req.params.classes._id
 	},{
-
+		"course.title": 1,
+		"module.id": 1,
+		"location": 1,
+		"start.date": 1,
+		"start.time": 1,
+		"end.date": 1,
+		"end.time": 1
 	})
 	.then(selectedClass => {
 		if(!selectedClass) {
@@ -115,9 +121,15 @@ controller.classEdit = (req, res) => {
 	});
 };
 
+controller.classUpdate = (req, res, next) => {
+
+}
+
 // DELETE class
 controller.classDelete = (req, res) => {
-	Classes.findByIdAndDelete(req.params.id)
+	Classes.findByIdAndDelete({
+		"_id": req.params._id
+	})
 	.then(deletedClass => {
 		if(!deletedClass) {
 			return res.status(400).json({
@@ -128,7 +140,7 @@ controller.classDelete = (req, res) => {
 		}
 	})
 	.catch(err => {
-		if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+		if(err.kind === "ObjectId" || err.name === "NotFound") {
 			return res.status(404).json({
 				message: "The class you are trying to delete was not successfully found"
 			})
@@ -141,8 +153,10 @@ controller.classDelete = (req, res) => {
 }
 
 //
-controller.taskEdit = (req, res) => {
-	Tasks.findById(req.params.id)
+controller.taskEdit = (req, res, next) => {
+	Tasks.findById({
+		"_id": req.params.id
+	})
 	.then(selectedTask => {
 		if(!selectedTask) {
 			return res.status(404).json({
@@ -153,7 +167,7 @@ controller.taskEdit = (req, res) => {
 		}
 	})
 	.catch(err => {
-		if(err.kind === 'ObjectId') {
+		if(err.kind === "ObjectId") {
 			return res.status(404).json({
 				message: "The task you selected was not successfully found"
 			});
@@ -166,21 +180,50 @@ controller.taskEdit = (req, res) => {
 }
 
 //
-controller.taskNew = (req, res) => {
-
+controller.taskNew = (req, res, next) => {
+	Users.find({
+		"_id": req.params._id,
+	},
+	{
+		"modules.id": 1,
+		"modules.title": 1
+	})
+	.then(taskProps => {
+		if(!taskProps) {
+			return res.status(404).json({
+				message: "The server was unable to successfully find the resources needed for your request" 
+			});
+		} else {
+			return res.status(200).json(taskProps);
+		}
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The server was unable to successfully find the resources needed for your request" 
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occurred while processing your request"
+			});
+		}
+	});
 }
 
 //
-controller.taskCreate = (req, res) => {
+controller.taskCreate = (req, res, next) => {
 	const task = new Tasks({
-		title: req.body.title,
-		type: req.body.type,
-		deadline: req.body.deadline,
-		completion: req.body.completion,
-		note: req.body.note,
-		meta: {
-			createdAt: Date.now(),
-			updatedAt: Date.now()
+		"userId": req.params._id,
+		"module.id": req.params.moduleId,
+		"module.title": req.params.moduleTitle,
+		"title": req.body.title,
+		"type": req.body.type,
+		"deadline": req.body.deadline,
+		"completion": req.body.completion,
+		"note": req.body.note,
+		"meta": {
+			createdAt: moment().startOf("minute").format("MMMM Do YYYY, hh:mm"),
+			updatedAt: moment().startOf("minute").format("MMMM Do YYYY, hh:mm")
 		}
 	});
 
@@ -196,17 +239,18 @@ controller.taskCreate = (req, res) => {
 }
 
 //
-controller.taskUpdate = (req, res) => {
-	// define updated attributes
-	// use set to only update the following attributes
-	Tasks.findByIdAndUpdate(req.params.id, {
+controller.taskUpdate = (req, res, next) => {
+	Tasks.findByIdAndUpdate({
+		"_id": req.params.tasks._id
+	}, 
+	{
 		$set: {
-			title: req.body.title,
-			type: req.body.type,
-			deadline: req.body.deadline,
-			completion: req.body.completion,
-			note: req.body.note,
-			meta: {
+			"title": req.body.title,
+			"type": req.body.type,
+			"deadline": req.body.deadline,
+			"completion": req.body.completion,
+			"note": req.body.note,
+			"meta": {
 				updatedAt: Date.now()
 			}
 		}
@@ -233,8 +277,10 @@ controller.taskUpdate = (req, res) => {
 	});
 }
 
-controller.taskDelete = (req, res) => {
-	Tasks.findByIdAndDelete(req.params.id)
+controller.taskDelete = (req, res, next) => {
+	Tasks.findByIdAndDelete({
+		"_id": req.params._id
+	})
 	.then(deletedTask => {
 		if(!deletedTask) {
 			return res.status(400).json({
@@ -257,8 +303,10 @@ controller.taskDelete = (req, res) => {
 	});
 }
 
-controller.evalEdit = (req, res) => {
-	Evals.findById(req.params.id)
+controller.evalEdit = (req, res, next) => {
+	Evals.findById({
+		"_id": req.params._id
+	})
 	.then(selectedEval => {
 		if(!selectedEval) {
 			return res.status(404).json({
@@ -281,9 +329,12 @@ controller.evalEdit = (req, res) => {
 	});
 }
 
-controller.evalUpdate = (req, res) => {
+controller.evalUpdate = (req, res, next) => {
 	// define updated attributes
-	Evals.findByIdAndUpdate(req.params.id, {
+	Evals.findByIdAndUpdate({
+		"_id": req.params._id
+	}, 
+	{
 
 	})
 	.then(updatedEval => {
@@ -308,8 +359,10 @@ controller.evalUpdate = (req, res) => {
 	});
 }
 
-controller.evalDelete = (req, res) => {
-	Evals.findByIdAndDelete(req.params.id)
+controller.evalDelete = (req, res, next) => {
+	Evals.findByIdAndDelete({
+		"_id": req.params._id
+	})
 	.then(deletedEval => {
 		if(!deletedEval) {
 			return res.status(400).json({

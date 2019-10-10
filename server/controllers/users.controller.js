@@ -1,10 +1,13 @@
+const async = require("async");
+const moment = require("moment");
+
 // import model
-const Users = require("../models/Users.model");
+const Users = require("../models/Users.model").Model;
 
 // instantiate controller
 const controller = [];
 
-controller.index = (req, res) => {
+controller.index = (req, res, next) => {
     Users.find()
     .then(users => {
         return res.json(users);
@@ -14,8 +17,10 @@ controller.index = (req, res) => {
     });
 }
 
-controller.edit = (req, res) => {
-    Users.findById(req.params.id)
+controller.edit = (req, res, next) => {
+    Users.findById({
+        "_id": req.params._id
+    })
     .then(userInfo => {
         if(!userInfo) {
             return res.status(404).json({
@@ -38,7 +43,7 @@ controller.edit = (req, res) => {
     });
 }
 
-controller.create = (req, res) => {
+controller.create = (req, res, next) => {
     const user = new Users({
         profile: {
             name: {
@@ -68,11 +73,11 @@ controller.create = (req, res) => {
     });
 }
 
-/*
-Confirm data entries
-*/
-controller.update = (req, res) => {
-    Users.findByIdAndUpdate(req.params.id, {
+controller.update = (req, res, next) => {
+    Users.findByIdAndUpdate({
+        "_id": req.params._id
+    }, 
+    {
         $set: {
             profile: {
                 name: {
@@ -110,8 +115,10 @@ controller.update = (req, res) => {
     })
 }
 
-controller.delete = (req, res) => {
-    Users.findByIdAndDelete(req.params.id)
+controller.delete = (req, res, next) => {
+    Users.findByIdAndDelete({
+        "_id": req.params._id
+    })
     .then(deletedUser => {
         if(!deletedUser) {
             return res.status(404).json({

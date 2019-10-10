@@ -1,3 +1,4 @@
+const async = require("async");
 const moment = require("moment");
 
 // import models
@@ -6,19 +7,17 @@ const Terms = require("../models/Terms.model");
 const Courses = require("../models/Courses.model");
 const Modules = require("../models/Modules.model");
 
-const async = require("async");
-
 // instantiate controller
 const controller = [];
 
-// resolved .then()
-controller.index = (req, res) => {
+controller.index = (req, res, next) => {
 	async.parallel({
 		years: (callback) => {
 			Years.find()
 			.then(years => {
 				return res.json(years);	
 			})
+			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
 					message: "An error occured while retrieving the academic years"
@@ -30,6 +29,7 @@ controller.index = (req, res) => {
 			.then(terms => {
 				return res.json(terms);
 			})
+			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
 					message: "An error occured while retrieving your terms"
@@ -41,6 +41,7 @@ controller.index = (req, res) => {
 			.then(courses => {
 				return res.json(courses);
 			})
+			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
 					message: "An error occured while retrieving your courses"
@@ -52,9 +53,10 @@ controller.index = (req, res) => {
 			.then(modules => {
 				return res.json(modules);
 			})
+			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
-					message: "An error occured while retrieving your modules"
+					message: err.message || "An error occured while retrieving your modules"
 				});
 			});
 		}
@@ -62,7 +64,7 @@ controller.index = (req, res) => {
 }
 
 // GET request when user tries to edit a specific year
-controller.yearsEdit = (req, res) => {
+controller.yearsEdit = (req, res, next) => {
 	Years.findById(req.params.id)
 	.then(selectedYear => {
 		if(!selectedYear) {
@@ -87,12 +89,12 @@ controller.yearsEdit = (req, res) => {
 };
 	
 // check to see if can combine with route above
-controller.yearsCreateGet = (req, res) => {
+controller.yearsNew = (req, res, next) => {
 	
 }
 
 // POST request after user SUBMITS the "New Academic Year" form
-controller.yearsCreatePost = function(req, res) {
+controller.yearsCreate = function(req, res, next) {
 	const year = new Years({
 		parents: {
 			user: req.body.user
@@ -155,7 +157,7 @@ controller.yearsUpdate = (req, res, next) => {
 	})
 }
 
-controller.yearsDelete = (req, res) => {
+controller.yearsDelete = (req, res, next) => {
 	Years.findByIdAndDelete(req.params.id)
 	.then(deletedYear => {
 		if(!deletedYear) {
@@ -179,7 +181,7 @@ controller.yearsDelete = (req, res) => {
 	});
 }
 
-controller.termsEdit = (req, res) => {
+controller.termsEdit = (req, res, next) => {
 	Terms.findById(req.params.id)
 	.then(selectedTerm => {
 		if(!selectedTerm) {
@@ -203,11 +205,11 @@ controller.termsEdit = (req, res) => {
 	});
 }
 
-controller.termsCreateGet = (req, res) => {
+controller.termsNew = (req, res) => {
 
 }	
 	
-controller.termsCreatePost = (req, res) => {
+controller.termsCreate = (req, res) => {
 	const term = new Terms({
 		parent: {
 			user: req.body.id,
@@ -236,8 +238,11 @@ controller.termsCreatePost = (req, res) => {
 	})
 }
 
-controller.termsUpdate = (req, res) => {
-	Terms.findByIdAndUpdate(req.params.id, {
+controller.termsUpdate = (req, res, next) => {
+	Terms.findByIdAndUpdate({
+		"_id": req.params._id
+	}, 
+	{
 		$set: {
 			title: req.body.title,
 			date: {
@@ -272,8 +277,10 @@ controller.termsUpdate = (req, res) => {
 	});
 }
 
-controller.termsDelete = (req, res) => {
-	Terms.findByIdAndDelete(req.params.id)
+controller.termsDelete = (req, res, next) => {
+	Terms.findByIdAndDelete({
+		"_id": req.params._id
+	})
 	.then(deletedTerm => {
 		if(!deletedTerm) {
 			return res.status(404).json({
@@ -296,8 +303,10 @@ controller.termsDelete = (req, res) => {
 	});
 }
 
-controller.coursesEdit = (req, res) => {
-	Courses.findById(req.params.id)
+controller.coursesEdit = (req, res, next) => {
+	Courses.findById({
+		"_id": req.params.id
+	})
 	.then(selectedCourse => {
 		if(!selectedCourse) {
 			return res.status(404).json({
@@ -320,11 +329,11 @@ controller.coursesEdit = (req, res) => {
 	});
 }
 
-controller.coursesCreateGet = (req, res) => {
+controller.coursesNew = (req, res, next) => {
 
 }
 	
-controller.coursesCreatePost = (req, res) => {
+controller.coursesCreate = (req, res) => {
 	const course = new Courses({
 		parents: {
 			user: req.body.user,
@@ -354,8 +363,11 @@ controller.coursesCreatePost = (req, res) => {
 	});
 }
 
-controller.coursesUpdate = (req, res) => {
-	Courses.findByIdAndUpdate(req.params.id, {
+controller.coursesUpdate = (req, res, next) => {
+	Courses.findByIdAndUpdate({
+		"_id": req.params.id
+	}, 
+	{
 		$set: {
 			code: req.body.code,
 			title: req.body.title,
@@ -387,8 +399,10 @@ controller.coursesUpdate = (req, res) => {
 	});
 }
 
-controller.coursesDelete = (req, res) => {
-	Courses.findByIdAndDelete(req.params.id)
+controller.coursesDelete = (req, res, next) => {
+	Courses.findByIdAndDelete({
+		"_id": req.params.id
+	})
 	.then(deletedCourse => {
 		if(!deletedCourse) {
 			return res.status(404).json({
@@ -411,8 +425,10 @@ controller.coursesDelete = (req, res) => {
 	});
 }
 
-controller.modulesEdit = (req, res) => {
-	Modules.findById(req.params.id)
+controller.modulesEdit = (req, res, next) => {
+	Modules.findById({
+		"_id": req.params.id
+	})
 	.then(selectedModule => {
 		if(!selectedModule) {
 			return res.status(404).json({
@@ -435,11 +451,11 @@ controller.modulesEdit = (req, res) => {
 	});
 }
 
-controller.modulesCreateGet = (req, res) => {
+controller.modulesNew = (req, res, next) => {
 
 }	
 	
-controller.modulesCreatePost = (req, res) => {
+controller.modulesCreate = (req, res, next) => {
 	const modules = new Modules({
 		parents: {
 			user: req.body.user,
@@ -504,8 +520,10 @@ controller.modulesUpdate = (req, res, next) => {
 	});
 }
 
-controller.modulesDelete = (req, res) => {
-	Modules.findByIdAndDelete(req.params.id)
+controller.modulesDelete = (req, res, next) => {
+	Modules.findByIdAndDelete({
+		"_id": req.params._id
+	})
 	.then(deletedModule => {
 		if(!deletedModule) {
 			return res.status(404).json({

@@ -1,10 +1,12 @@
+const async = require("async")
+
 // import model
 const Email = require("../models/Email.model");
 
 // instantiate controller
 const controller = [];
 
-controller.beta = (req, res) => {
+controller.beta = (req, res, next) => {
     Email.betaReq()
     .then(email => {    
         return res.redirect(301, "https:localhost:3000/home.html");
@@ -16,7 +18,7 @@ controller.beta = (req, res) => {
     });
 }
 
-controller.contact = (req, res) => {
+controller.contact = (req, res, next) => {
 
 }
 

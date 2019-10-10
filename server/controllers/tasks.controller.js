@@ -1,3 +1,4 @@
+const async = require("async");
 const moment = require("moment");
 
 // import model
@@ -8,10 +9,10 @@ const Modules = require("../models/Modules.model");
 // instantiate controller
 const controller = [];
 
-controller.index = (req, res) => {
+controller.index = (req, res, next) => {
 	Tasks.find({
-		id: req.params.id, //userid
-		deadline: {
+		"_id": req.params._id, 
+		"deadline": {
 			$gt: moment().startOf("date").format("MMMM Do YYYY")
 		}
 	})
@@ -36,10 +37,10 @@ controller.index = (req, res) => {
     });
 }
 
-controller.past = (req, res) => {
+controller.past = (req, res, next) => {
 	Tasks.find({
-		id: req.params.id, // user id
-		deadline: {
+		"_id": req.params._id, 
+		"deadline": {
 			$lt: moment().startOf("date").format("MMMM Do YYYY")
 		}
 	})
@@ -66,7 +67,9 @@ controller.past = (req, res) => {
 }
 
 controller.edit = (req, res) => {
-	Tasks.findById(req.params.id)
+	Tasks.findById({
+		"_id": req.params._id
+	})
 	.then(selectedTask => {
 		if(!selectedTask) {
 			return res.status(404).json({
@@ -89,7 +92,7 @@ controller.edit = (req, res) => {
 	});
 }
 
-controller.new = (req, res) => {
+controller.new = (req, res, next) => {
 	const today = new Date();
 	
 	Courses.find({
@@ -100,7 +103,7 @@ controller.new = (req, res) => {
 		"title": 1
 	})
 	.then(Modules.find({
-			"parents.user": req.params.id,
+			"parents.user": req.params._id,
 			"parents.course": "" // define the id | change name of id suffixes or other method
 		}, {
 			"title": 1
@@ -128,7 +131,7 @@ controller.new = (req, res) => {
 	});
 }
 
-controller.create = (req, res) => {
+controller.create = (req, res, next) => {
 	const task = new Tasks({
 		parents: {
 			user: {
@@ -164,8 +167,10 @@ controller.create = (req, res) => {
 }
 
 controller.update = (req, res, next) => {
-	// set attributes to prevent total override
-	Tasks.findByIdAndUpdate(req.params.id, {
+	Tasks.findByIdAndUpdate({
+		"_id": req.params._id
+	}, 
+	{
 		$set: {
 			title: req.body.title,
 			type: req.body.type,
@@ -199,8 +204,10 @@ controller.update = (req, res, next) => {
 	})
 }	
 
-controller.delete = (req, res) => {
-	Tasks.findByIdAndDelete(req.params.id)
+controller.delete = (req, res, next) => {
+	Tasks.findByIdAndDelete({
+		"_id": req.params._id
+	})
 	.then(deletedTask => {
 		if(!deletedTask) {
 			return res.status(400).json({
@@ -211,7 +218,7 @@ controller.delete = (req, res) => {
 		}
 	})
 	.catch(err => {
-		if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+		if(err.kind === "ObjectId" || err.name === "NotFound") {
 			return res.status(404).json({
 				message: "This task was not successfully found"
 			});

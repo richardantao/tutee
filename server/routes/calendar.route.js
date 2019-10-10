@@ -11,4 +11,12 @@ router.get("/day", controller.day);
 
 router.get("/agenda", controller.agenda);
 
+router.get("/classes/new", controller.classNew);
+
+router.post("/classes/create", controller.classCreate);
+
+router.put("/classes/update", controller.classUpdate);
+
+router.delete("/classes/delete", controller.classDelete);
+
 module.exports = router;

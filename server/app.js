@@ -5,7 +5,7 @@ const cors = require("cors");
 // const session = require("express-session");
 const uuid = require("uuid");
 // const cookieParser = require("cookie-parser");
-// const dotenv = require('dotenv').config();
+const dotenv = require('dotenv').config();
 
 // Configurations
 const app = express();

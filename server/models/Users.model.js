@@ -58,4 +58,7 @@ UserSchema.virtual("/dashboard/class/:id")
     return '/dashboard/class/' + this._id;
 });
 
-module.exports = model('Users', UserSchema);
+module.exports = {
+    Schema: UserSchema,
+    Model: model("Users", UserSchema)
+}

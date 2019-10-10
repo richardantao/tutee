@@ -15,10 +15,18 @@ controller.index = (req, res) => {
 		classes: (callback) => {
 			// find classes where date equals today's date
 			Classes.find({
-				"parents.user.id": req.params.id,
+				"_id": req.params.id,
 				"start.date": {
 					$eq: moment().startOf("date").format("MMMM Do YYYY, hh:mm a ")
 				}
+			},{
+				"course.title": 1,
+				"module.title": 1,
+				"location": 1,
+				"start.date": 1,
+				"start.time": 1,
+				"end.date": 1,
+				"end.time": 1
 			})
 			.then(selectedClasses => {
 				if(!selectedClasses) {
@@ -29,6 +37,7 @@ controller.index = (req, res) => {
 					return res.json(selectedClasses);
 				}
 			})
+			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
 					message: err.message || "An error occured while retrieving your classes"
@@ -47,6 +56,7 @@ controller.index = (req, res) => {
 			.then(selectedTasks => {
 				return res.json(selectedTasks);
 			})
+			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
 					message: err.message || "An error occured while retrieving your tasks"
@@ -65,6 +75,7 @@ controller.index = (req, res) => {
 			.then(selectedEvals => {
 				return res.json(selectedEvals);
 			})
+			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
 					message: err.message || "An error occured while retrieving your evaluations"
@@ -76,7 +87,12 @@ controller.index = (req, res) => {
 
 // GET display class editor for specific class
 controller.classEdit = (req, res) => {
-	Classes.findById(req.params.id)
+	Classes.findById({
+		_id: req.params._id,
+		"classes._id": req.params.classes._id
+	},{
+
+	})
 	.then(selectedClass => {
 		if(!selectedClass) {
 			return res.status(404).json({

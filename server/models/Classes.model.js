@@ -48,4 +48,7 @@ const ClassSchema = new Schema({
     }
 });
 
-module.exports = model("Classes", ClassSchema);8
+module.exports = {
+    Model: model("Classes", ClassSchema),
+    Schema: ClassSchema
+}

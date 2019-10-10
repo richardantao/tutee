@@ -30,4 +30,7 @@ const ModuleSchema = new Schema({
 	} 
 });
 
-module.exports = model("Modules", ModuleSchema);
+module.exports = {
+	Model: model("Modules", ModuleSchema),
+	Schema: ModuleSchema
+}

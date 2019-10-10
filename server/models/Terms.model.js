@@ -30,4 +30,7 @@ const TermSchema = new Schema({
 	}
 });
 
-module.exports = model('Terms', TermSchema);
+module.exports = {
+	Model: model('Terms', TermSchema),
+	Schema: TermSchema
+}

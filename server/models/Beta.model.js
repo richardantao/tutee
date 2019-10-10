@@ -14,7 +14,7 @@ const BetaSchema = new Schema({
 			}
 		}
     },
-    personal: {
+    profile: {
         name: {type: String, required: true},
         email: {type: String, required: true} 
     },
@@ -24,4 +24,7 @@ const BetaSchema = new Schema({
     }
 });
 
-module.exports = model("Beta", BetaSchema);
+module.exports = {
+    Model: model("Beta", BetaSchema),
+    Schema: BetaSchema
+}

@@ -15,4 +15,7 @@ const IntegrationSchema = new Schema({
     }
 });
 
-module.exports = model("Integrations", IntegrationSchema);
+module.exports = {
+    Model: model("Integrations", IntegrationSchema),
+    Schema: IntegrationSchema
+}

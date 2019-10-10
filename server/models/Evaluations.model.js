@@ -34,4 +34,7 @@ const EvaluationSchema = new Schema({
 	}
 });
 
-module.exports = model("Evaluations", EvaluationSchema);
+module.exports = {
+	Model: model("Evaluations", EvaluationSchema),
+	Schema: EvaluationSchema
+}

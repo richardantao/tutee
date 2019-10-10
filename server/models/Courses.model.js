@@ -6,13 +6,7 @@ const moment = require("moment");
 const CourseSchema = new Schema({
 	id: Schema.Types.ObjectId,
 	parents: {
-		user: {
-			id: {type: Schema.Types.ObjectId, required: true},
-			name: {
-				first: {type: String, required: true},
-				last: {type: String, required: true}
-			}
-		},
+		userId: {type: Schema.Types.ObjectId, required: true},
 		year: {
 			id: {type: Schema.Types.ObjectId, required: true},
 			title: {type: String, required: true}
@@ -31,4 +25,7 @@ const CourseSchema = new Schema({
 	}
 });
 
-module.exports = model("Courses", CourseSchema);
+module.exports = {
+	Model: model("Courses", CourseSchema),
+	Schema: CourseSchema
+}

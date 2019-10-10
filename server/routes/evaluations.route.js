@@ -7,9 +7,9 @@ router.get("/past", controller.past);
 
 router.get("/:EvalId/edit", controller.edit);
 
-router.get("/new", controller.createGet)
+router.get("/new", controller.new);
 
-router.post("/create", controller.createPost);
+router.post("/create", controller.create);
 
 router.put("/:EvalId/update", controller.update);
 

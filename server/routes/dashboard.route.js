@@ -5,11 +5,13 @@ router.get("/", controller.index);
 
 router.get("classes/:classId/edit", controller.classEdit); // routed in react
 
+router.put("classes/:classId/update", controller.classUpdate);
+
 router.delete("/classes/:classId/delete", controller.classDelete); 
 
 router.get("/tasks/:taskId/edit", controller.taskEdit); // routed in react
 
-router.get("/tasks/create", controller.taskNew); // routed in react
+router.get("/tasks/new", controller.taskNew); // routed in react
 
 router.post("/tasks/create", controller.taskCreate); // routed in react
 

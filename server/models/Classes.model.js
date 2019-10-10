@@ -5,23 +5,8 @@ const moment = require("moment");
 
 const ClassSchema = new Schema({
     id: Schema.Types.ObjectId,
-    parents: {
-        user: {
-			id: {type: Schema.Types.ObjectId, required: true},
-			name: {
-				first: {type: String, required: true},
-				last: {type: String, required: true}
-			}
-        },
-        course: {
-            id: {type: Schema.Types.ObjectId, required: true},
-            title: {type: String, required: true}
-        },
-		module: {
-			id: {type: Schema.Types.ObjectId, required: true},
-            type: {type: String, required: true}
-		}      
-    },
+    userId: {type: Schema.Types.ObjectId, required: true, ref: "Users"},		
+	moduleId: {type: Schema.Types.ObjectId, required: true, ref: "Modules"},		
     location: String,
     start: {
         date: {type: Date, required: true},

@@ -5,19 +5,8 @@ const moment = require("moment");
 
 const TermSchema = new Schema({
 	id: Schema.Types.ObjectId,
-	parent: {
-		user: {
-			id: {type: Schema.Types.ObjectId, required: true},
-			name: {
-				first: {type: String, required: true},
-				last: {type: String, required: true}
-			}
-		},
-		year: {
-			id: {type: Schema.Types.ObjectId, required: true},
-			title: {type: String, required: true}
-		}
-	},
+	userId: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
+	yearId: {type: Schema.Types.ObjectId, required: true, ref: "Years"},
 	title: {type: String, required: true},
   	date: {
 		start: {type: Date, required: true},

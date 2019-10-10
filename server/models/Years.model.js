@@ -5,7 +5,7 @@ const moment = require("moment");
 
 const YearSchema = new Schema({
 	id: Schema.Types.ObjectId,
-	userId: {type: Schema.Types.ObjectId, required: true},
+	userId: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
 	title: {type: String, required: true},
 	date: {
 		start: {type: Date, required: true},

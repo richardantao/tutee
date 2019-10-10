@@ -5,9 +5,7 @@ const moment = require("moment");
 
 const IntegrationSchema = new Schema({
     id: Schema.Types.ObjectId,
-    parent: {
-        user: {type: Schema.Types.ObjectId, required: true}
-    },
+    userId: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
     service: {type: String, required: true},
     meta: {
         createdAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")},

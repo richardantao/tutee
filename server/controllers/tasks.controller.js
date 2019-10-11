@@ -50,7 +50,7 @@ controller.past = (req, res, next) => {
 				message: "The server was unable to successfully find your past tasks"
 			});
 		} else {
-			return res.json(pastTasks);
+			return res.status(200).json(pastTasks);
 		}
 	})
 	.catch(err => {
@@ -132,38 +132,78 @@ controller.new = (req, res, next) => {
 }
 
 controller.create = (req, res, next) => {
-	const task = new Tasks({
-		parents: {
-			user: {
-				id: req.body.userId,
-				name: {
-					first: req.body.fname,
-					last: req.body.lname
-				}
-			},
-			module: {
-				id: req.body.moduleId,
-				type: req.body.moduleType
-			}
-		},
-		title: req.body.title,
-		type: req.body.type,
-		deadline: req.body.deadline,
-		meta: {
-			createdAt: Date.now(),
-			updatedAt: Date.now()
+	async.waterfall([
+		create,
+		associate
+	],(err, results) => {
+		if(err) {
+			throw err;
+		} else {
+			console.log("The results have arrived: " + results)
 		}
 	});
 
-	task.save()
-	.then(newTask => {
-		return res.json(newTask);
-	})
-	.catch(err => {
-		return res.status(500).json({
-			message: err.message || "An error occured while creating this task"
+	const create = (callback) => {
+		const task = new Tasks({
+			userId: req.body.userId,
+			module: {
+				id: req.body.moduleId,
+				title: req.body.moduleTitle
+			},
+			title: req.body.title,
+			type: req.body.type,
+			deadline: req.body.deadline,
+			meta: {
+				createdAt: Date.now(),
+				updatedAt: Date.now()
+			}
 		});
-	});
+	
+		task.save()
+		.then(newTask => {
+			return res.json(newTask);
+		})
+		.exec(callback)
+		.catch(err => {
+			return res.status(500).json({
+				message: err.message || "An error occured while creating this task"
+			});
+		});
+	}
+
+	const associate = (callback) => {
+		Tasks.findByIdAndUpdate({
+			"_id": req.params._id
+		},
+		{
+			$set: {
+
+			}
+		})
+		.then(associatedTask => {
+			if(!associatedTask) {
+				return res.status(404).json({
+					message: "The server was unable to find the resources to process your request"
+				});
+			} else {
+				return res.status(200).json(associatedTask);
+			}
+		})
+		.exec(callback)
+		.catch(err => {
+			if(err.kind === "ObjectId") {
+				return res.status(404).json({
+					message: "The server was unable to find the resources to process your request"
+				});
+			} else {
+				return res.status(500).json({
+					message: err.message || "An error occured while processing your request"
+				});
+			}
+		});
+	}
+
+	next();	
 }
 
 controller.update = (req, res, next) => {

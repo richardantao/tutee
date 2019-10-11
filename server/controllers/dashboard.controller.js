@@ -14,13 +14,12 @@ const controller = [];
 controller.index = (req, res, next) => {
 	async.parallel({
 		classes: (callback) => {
-			// find classes where date equals today's date
 			Users.find({ // find the user's: 
-				"_id": req.params._id,	// where the user id equals
-				"classes.start.date": { // where the classes start date is today
+				"_id": req.params._id,	
+				"classes.start.date": { 
 					$eq: moment().startOf("date").format("MMMM Do YYYY, hh:mm a ")
 				}
-			},{ // retrieve these documents
+			},{ 
 				"classes.course.title": 1,
 				"classes.module.title": 1,
 				"classes.location": 1,
@@ -47,7 +46,6 @@ controller.index = (req, res, next) => {
 			});
 		},
 		tasks: (callback) => {
-			// find tasks where due date is within 7 days
 			Users.find({
 				"_id": req.params._id,
 				"tasks.deadline": {
@@ -83,6 +81,12 @@ controller.index = (req, res, next) => {
 				});
 			});
 		}		
+	}, (err, results) => {
+		if(err) {
+			throw err;
+		} else {
+		console.log("All the columns have been populated: " + results);
+		}
 	});
 }
 
@@ -109,7 +113,7 @@ controller.classEdit = (req, res, next) => {
 		}
 	})
 	.catch(err => {
-		if(err.kind === 'ObjectId') {
+		if(err.kind === "ObjectId") {
 			return res.status(404).json({
 				message: "The class you selected was not successfully found"
 			});
@@ -122,7 +126,13 @@ controller.classEdit = (req, res, next) => {
 };
 
 controller.classUpdate = (req, res, next) => {
-
+	Classes.findByIdAndUpdate({
+		"_id": req.params._id
+	},
+	{
+		"": 1,
+		"": 1
+	})
 }
 
 // DELETE class
@@ -212,30 +222,76 @@ controller.taskNew = (req, res, next) => {
 
 //
 controller.taskCreate = (req, res, next) => {
-	const task = new Tasks({
-		"userId": req.params._id,
-		"module.id": req.params.moduleId,
-		"module.title": req.params.moduleTitle,
-		"title": req.body.title,
-		"type": req.body.type,
-		"deadline": req.body.deadline,
-		"completion": req.body.completion,
-		"note": req.body.note,
-		"meta": {
-			createdAt: moment().startOf("minute").format("MMMM Do YYYY, hh:mm"),
-			updatedAt: moment().startOf("minute").format("MMMM Do YYYY, hh:mm")
+	async.waterfall([
+		create,
+		associate
+	], (err, results) => {
+		if(err) {
+			throw err;
+		} else {
+			console.log("The sequence of requests has completed: " + results)
 		}
 	});
 
-	task.save()
-	.then(newTask => {
-		return res.json(newTask);
-	})
-	.catch(err => {
-		return res.status(500).json({
-			message: err.message || "An error occured while creating this task"
+	const create = (callback) => {
+		const task = new Tasks({
+			"userId": req.params._id,
+			"module.title": req.params.moduleTitle,
+			"title": req.body.title,
+			"type": req.body.type,
+			"deadline": req.body.deadline,
+			"completion": req.body.completion,
+			"note": req.body.note,
+			"meta": {
+				createdAt: moment().startOf("minute").format("MMMM Do YYYY, hh:mm"),
+				updatedAt: moment().startOf("minute").format("MMMM Do YYYY, hh:mm")
+			}
+		});
+	
+		task.save()
+		.then(newTask => {
+			return res.json(newTask);
 		})
-	});
+		.exec(callback)
+		.catch(err => {
+			return res.status(500).json({
+				message: err.message || "An error occured while creating this task"
+			})
+		});
+	}
+
+	const associate = (pendingTask, callback) => {
+		Users.findByIdAndUpdate({
+			"_id": req.params._id
+		},
+		{
+			$set: {
+				"module.id": req.params.moduleId,
+				"module.title": req.params.moduleTitle,
+			}
+		})
+		.then(associatedTask => {
+			if(!associatedTask) {
+				return res.status(404).json({
+					message: "The server was unable find the resources to process your request"
+				});
+			} else {
+				return res.status(200).json(associatedTask);
+			}
+		})
+		.exec(callback)
+		.catch(err => {
+			if(err.kind === "ObjectId") {
+				return res.status(404).json({
+					message: "The server was unable find the resources to process your request"
+				});
+			} else {
+				return res.status(500).json({
+					message: err.message || "An error occured while processing your request"
+				});
+			}
+		});
+	}
 }
 
 //

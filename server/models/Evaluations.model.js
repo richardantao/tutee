@@ -5,7 +5,7 @@ const moment = require("moment");
 
 const EvaluationSchema = new Schema({
 	id: Schema.Types.ObjectId,
-	userId: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
+	uuid: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
 	course: {
 		id: {type: Schema.Types.ObjectId, required: true, ref: "Courses"},
 		title: {type: String, required: true}

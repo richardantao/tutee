@@ -5,7 +5,7 @@ const moment = require("moment");
 
 const BetaSchema = new Schema({
     _id: Schema.Types.ObjectId,
-    userId: {type: Schema.Types.ObjectId, required: true, ref: "Users"},		
+    uuid: {type: Schema.Types.ObjectId, required: true, ref: "Users"},		
     profile: {
         name: {type: String, required: true},
         email: {type: String, required: true} 

@@ -5,7 +5,7 @@ const moment = require("moment");
 
 const TaskSchema = new Schema({
 	_id: Schema.Types.ObjectId,
-	userId: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
+	uuid: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
 	module: {
 		id: {type: Schema.Types.ObjectId, required: true, ref: "Modules"},
 		title: {type: String, required: true}

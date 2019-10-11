@@ -1,20 +1,22 @@
 const async = require("async");
 const moment = require("moment");
 
-// import model
-const Tasks = require("../models/Tasks.model");
-const Courses = require("../models/Courses.model");
-const Modules = require("../models/Modules.model");
+// import models
+const Users = require("../models/Users.model").Model;
+const Tasks = require("../models/Tasks.model").Schema;
 
 // instantiate controller
 const controller = [];
 
 controller.index = (req, res, next) => {
-	Tasks.find({
+	Users.find({
 		"_id": req.params._id, 
-		"deadline": {
-			$gt: moment().startOf("date").format("MMMM Do YYYY")
+		"tasks.deadline": {
+			$gte: moment().startOf("date").format("MMMM Do YYYY")
 		}
+	}, 
+	{
+		"tasks": 1
 	})
     .then(tasks => {
 		if(!tasks) {
@@ -22,7 +24,7 @@ controller.index = (req, res, next) => {
 				message: "The server was unable to successfully find your tasks"
 			});
 		} else {
-			return res.json(tasks);
+			return res.status(200).json(tasks);
 		}
     }).catch(err => {
 		if(err.kind === "ObjectId") {
@@ -38,16 +40,19 @@ controller.index = (req, res, next) => {
 }
 
 controller.past = (req, res, next) => {
-	Tasks.find({
+	Users.find({
 		"_id": req.params._id, 
-		"deadline": {
+		"tasks.deadline": {
 			$lt: moment().startOf("date").format("MMMM Do YYYY")
 		}
+	}, 
+	{
+		"tasks": 1
 	})
 	.then(pastTasks => {
 		if(!pastTasks) {
 			return res.status(404).json({
-				message: "The server was unable to successfully find your past tasks"
+				message: "The server was unable to find the resources to complete your request"
 			});
 		} else {
 			return res.status(200).json(pastTasks);
@@ -92,30 +97,20 @@ controller.edit = (req, res) => {
 	});
 }
 
-controller.new = (req, res, next) => {
-	const today = new Date();
-	
-	Courses.find({
-		"parents.user": req.params.id, 
-		"date.start": "$lte new Date()", 
-		"date.end": "$gte new Date()"
-	}, {
-		"title": 1
+controller.new = (req, res, next) => {	
+	Users.find({
+		"_id": req.params._id
+	}, 
+	{
+		"module.title": 1
 	})
-	.then(Modules.find({
-			"parents.user": req.params._id,
-			"parents.course": "" // define the id | change name of id suffixes or other method
-		}, {
-			"title": 1
-		})
-	)
-	.then(selectedParents => {
-		if(!selectedParents) {
+	.then(selectedModules => {
+		if(!selectedModules) {
 			return res.status(404).json({
 				message: "The server was unable to successfully find your courses"
 			});
 		} else {
-			return res.json(selectedParents);
+			return res.status(200).json(selectedModules);
 		}
 	})
 	.catch(err => {

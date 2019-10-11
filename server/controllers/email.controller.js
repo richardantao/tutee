@@ -1,4 +1,4 @@
-const async = require("async")
+const async = require("async");s
 
 // import model
 const Email = require("../models/Email.model");

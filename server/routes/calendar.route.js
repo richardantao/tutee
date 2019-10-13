@@ -15,8 +15,8 @@ router.get("/classes/new", controller.classNew);
 
 router.post("/classes/create", controller.classCreate);
 
-router.put("/classes/update", controller.classUpdate);
+router.put("/classes/:classes._id/update", controller.classUpdate);
 
-router.delete("/classes/delete", controller.classDelete);
+router.delete("/classes/:classes._id/delete", controller.classDelete);
 
 module.exports = router;

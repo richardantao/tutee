@@ -9,9 +9,9 @@ const controller = [];
 
 controller.index = (req, res, next) => {
 	Evals.find({
-		"_id": req.params.id, // user id
+		"_id": req.params._id,
 		"date": {
-			$gte: moment().startOf("date").format("MMMM Do YYYY")
+			$gte: moment().startOf("date").format("MMMM DD YYYY")
 		}
 	})
 	.then(evals => {
@@ -28,7 +28,7 @@ controller.past = (req, res, next) => {
 	Evals.find({
 		"_id": req.params._id,
 		"date": {
-			$lt: moment().startOf("date").format("MMMM Do YYYY")
+			$lt: moment().startOf("date").format("MMMM DD YYYY")
 		}
 	})
 	.then(pastEvaluations => {

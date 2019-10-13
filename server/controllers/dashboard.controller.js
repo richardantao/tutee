@@ -17,7 +17,7 @@ controller.index = (req, res, next) => {
 			Users.find({ // find the user's: 
 				"_id": req.params._id,	
 				"classes.start.date": { 
-					$eq: moment().startOf("date").format("MMMM Do YYYY, hh:mm a ")
+					$eq: moment().startOf("date").format("MMMM DD YYYY, hh:mm a ")
 				}
 			},{ 
 				"classes.course.title": 1,
@@ -49,8 +49,8 @@ controller.index = (req, res, next) => {
 			Users.find({
 				"_id": req.params._id,
 				"tasks.deadline": {
-					$gte: moment().startOf("date").format("MMMM Do YYYY"), // date is later than today
-					$lte: moment().startOf("date").format("MMMM Do YYYY") + 1000*60*60*24*7 // date is less than 7 days from now
+					$gte: moment().startOf("date").format("MMMM DD YYYY"), // date is later than today
+					$lte: moment().startOf("date").format("MMMM DD YYYY") + 1000*60*60*24*7 // date is less than 7 days from now
 				}
 			})
 			.then(selectedTasks => {
@@ -67,8 +67,8 @@ controller.index = (req, res, next) => {
 			Users.find({
 				"_id": req.params.id,
 				"evaluations.date": {
-					$gte: moment().startOf("date").format("MMMM Do YYYY"),
-					$lte: moment().startOf("date").format("MMMM Do YYYY") + 1000*60*60*24*7 
+					$gte: moment().startOf("date").format("MMMM DD YYYY"),
+					$lte: moment().startOf("date").format("MMMM DD YYYY") + 1000*60*60*24*7 
 				}
 			})
 			.then(selectedEvals => {
@@ -243,8 +243,8 @@ controller.taskCreate = (req, res, next) => {
 			"completion": req.body.completion,
 			"note": req.body.note,
 			"meta": {
-				createdAt: moment().startOf("minute").format("MMMM Do YYYY, hh:mm"),
-				updatedAt: moment().startOf("minute").format("MMMM Do YYYY, hh:mm")
+				createdAt: moment().startOf("minute").format("MMMM DD YYYY, hh:mm"),
+				updatedAt: moment().startOf("minute").format("MMMM DD YYYY, hh:mm")
 			}
 		});
 	

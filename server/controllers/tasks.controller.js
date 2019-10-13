@@ -12,7 +12,7 @@ controller.index = (req, res, next) => {
 	Users.find({
 		"_id": req.params._id, 
 		"tasks.deadline": {
-			$gte: moment().startOf("date").format("MMMM Do YYYY")
+			$gte: moment().startOf("date").format("MMMM DD YYYY")
 		}
 	}, 
 	{
@@ -43,7 +43,7 @@ controller.past = (req, res, next) => {
 	Users.find({
 		"_id": req.params._id, 
 		"tasks.deadline": {
-			$lt: moment().startOf("date").format("MMMM Do YYYY")
+			$lt: moment().startOf("date").format("MMMM DD YYYY")
 		}
 	}, 
 	{

@@ -112,6 +112,8 @@ footer a {
 
 #copyright {
     font-size: 0.75em;
+    position: relative;
+        top: 8px;
 }
 
 .social {

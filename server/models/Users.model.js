@@ -13,7 +13,7 @@ const TaskSchema = require("./Tasks.model").Schema;
 const IntegrationSchema = require("./Integrations.model").Schema;
 
 const UserSchema = new Schema({
-	id: Schema.Types.ObjectId,
+	_id: Schema.Types.ObjectId,
     name: {
         first: {type: String, required: true},
         last: {type: String, required: true}
@@ -23,13 +23,13 @@ const UserSchema = new Schema({
         verified: {type: Boolean, default: false}
     },
     password: {type: String, required: true, minlength: 6},
-    years: [YearSchema],
-    terms: [TermSchema],
-    courses: [CourseSchema],
-    modules: [ModuleSchema],
-    classes: [ClassSchema],
-    evaluations: [EvaluationSchema],
-    tasks: [TaskSchema],
+    year: [YearSchema],
+    term: [TermSchema],
+    course: [CourseSchema],
+    module: [ModuleSchema],
+    classe: [ClassSchema],
+    evaluation: [EvaluationSchema],
+    task: [TaskSchema],
     location: {
     	country: String,
         region: String,
@@ -60,5 +60,5 @@ UserSchema.virtual("/dashboard/class/:id")
 
 module.exports = {
     Schema: UserSchema,
-    Model: model("Users", UserSchema)
+    Model: model("User", UserSchema)
 }

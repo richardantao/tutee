@@ -22,5 +22,5 @@ const CourseSchema = new Schema({
 
 module.exports = {
 	Schema: CourseSchema,
-	Model: model("Courses", CourseSchema)
+	Model: model("Course", CourseSchema)
 }

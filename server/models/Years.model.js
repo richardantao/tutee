@@ -19,5 +19,5 @@ const YearSchema = new Schema({
 
 module.exports = {
 	Schema: YearSchema,
-	Model: model("Years", YearSchema)
+	Model: model("Year", YearSchema)
 }

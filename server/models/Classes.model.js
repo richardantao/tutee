@@ -42,5 +42,5 @@ const ClassSchema = new Schema({
 
 module.exports = {
     Schema: ClassSchema,
-    Model: model("Classes", ClassSchema)
+    Model: model("Class", ClassSchema)
 }

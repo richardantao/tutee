@@ -28,5 +28,5 @@ const EvaluationSchema = new Schema({
 
 module.exports = {
 	Schema: EvaluationSchema,
-	Model: model("Evaluations", EvaluationSchema)
+	Model: model("Evaluation", EvaluationSchema)
 }

@@ -21,5 +21,5 @@ const TermSchema = new Schema({
 
 module.exports = {
 	Schema: TermSchema,
-	Model: model('Terms', TermSchema)
+	Model: model("Term", TermSchema)
 }

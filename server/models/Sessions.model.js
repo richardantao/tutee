@@ -14,5 +14,5 @@ const SessionSchema = new Schema({
 
 module.exports = {
     Schema: SessionSchema,
-    Model: model("Sessions", SessionSchema)
+    Model: model("Session", SessionSchema)
 }

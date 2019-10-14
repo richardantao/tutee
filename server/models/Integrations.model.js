@@ -15,5 +15,5 @@ const IntegrationSchema = new Schema({
 
 module.exports = {
     Schema: IntegrationSchema,
-    Model: model("Integrations", IntegrationSchema)
+    Model: model("Integration", IntegrationSchema)
 }

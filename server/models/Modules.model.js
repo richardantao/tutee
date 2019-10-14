@@ -21,5 +21,5 @@ const ModuleSchema = new Schema({
 
 module.exports = {
 	Schema: ModuleSchema,
-	Model: model("Modules", ModuleSchema)
+	Model: model("Module", ModuleSchema)
 }

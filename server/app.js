@@ -25,7 +25,7 @@ app.use(cors());
 // Routes middleware
 app.use("/", require("./routes/sessions.route"));
 app.use("/beta/:_id", require("./routes/beta.route"));
-app.use("/user", require("./routes/users.route"));
+app.use("/users", require("./routes/users.route"));
 app.use("/dashboard/:_id", require("./routes/dashboard.route"));
 app.use("/calendar/:_id", require("./routes/calendar.route"));
 app.use("/tasks/:_id", require("./routes/tasks.route"));

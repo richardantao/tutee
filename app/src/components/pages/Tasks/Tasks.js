@@ -23,7 +23,7 @@ export default class Tasks extends Component {
 
 	componentDidMount() {
 
-		axios.get("http://localhost:3000/tasks")
+		axios.get("/tasks")
 		.then(res => {
 			this.setState({
 				isLoading: false,

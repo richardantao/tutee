@@ -22,7 +22,7 @@ export default class Calendar extends Component {
 			isLoading: false
 		});
 
-		axios.get("http://localhost:3000/calendar/")
+		axios.get("/calendar")
 		.then(res => {
 
 		})

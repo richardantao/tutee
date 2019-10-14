@@ -27,7 +27,7 @@ export default class Courses extends Component {
 	}
 
 	componentDidMount() {
-		axios.get("http://localhost:3000/courses")
+		axios.get("/courses")
 		.then(res => {
 			this.setState({
 				isLoading: false

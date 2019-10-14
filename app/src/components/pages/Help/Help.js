@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import axios from "axios";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
 import Accordion from "../../molecules/Accordion";
@@ -18,6 +19,19 @@ export default class Help extends Component {
 		this.setState({
 			isLoading: false
 		});
+
+		axios.get("/help")
+		.then(res => {
+			this.setState({
+				isLoading: false
+			})
+		})
+		.catch(err => {
+			this.setState({
+				isLoading: false,
+				error: err
+			});
+		})
 	}
 
 	componentWillUnmount() {

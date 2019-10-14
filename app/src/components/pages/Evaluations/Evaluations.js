@@ -22,10 +22,7 @@ export default class Evaluations extends Component{
 	}
 	
 	componentDidMount() {
-		axios({
-			method: "GET",
-			url: "/evaluations"
-		})
+		axios.get("/evaluations")
 		.then(res => {
 			const evals = res.evals;
 			this.setState({

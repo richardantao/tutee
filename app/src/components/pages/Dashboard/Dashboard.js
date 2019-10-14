@@ -27,7 +27,7 @@ export default class Dashboard extends Component {
 			isLoading: false
 		});
 
-		axios.get("http://localhost:3000/dashboard")
+		axios.get("/dashboard")
 		.then(res => {
 			this.setState({
 				isLoading: false,

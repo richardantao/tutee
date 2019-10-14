@@ -16,6 +16,7 @@ export default class NotFound extends Component {
         this.setState({
             isLoading: false
         });
+
     }
     
     componentWillUnmount() {

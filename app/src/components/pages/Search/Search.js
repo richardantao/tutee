@@ -22,7 +22,7 @@ export default class Search extends Component {
 		this.setState({
 			isLoading: false
 		});
-		axios.get("http://localhost:3000/search/")
+		axios.get("/search")
 		.then(res => {
 			this.setState({
 				isLoading: false

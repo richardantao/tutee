@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import { Provider } from "react-redux";
 import ReactGA from 'react-ga';
+
+import { Provider } from "react-redux";
+import store from "./store";
 
 import Dashboard from "./components/pages/Dashboard";
 import Calendar from "./components/pages/Calendar";
@@ -41,7 +43,7 @@ export default class App extends Component {
 			return null;
 		} else {
 			return (
-				// <Provider>
+				<Provider store={store}>
 					<Switch>
 						<Route name="dashboard" path="/dashboard" component={Dashboard}/>
 						<Route name="calendar" path="/calendar" component={Calendar}/>
@@ -52,7 +54,7 @@ export default class App extends Component {
 						<Route name="settings" path="/settings" component={Settings}/>
 						<Route name="help" path="/help" component={Help}/>
 					</Switch>
-				// </Provider>
+				</Provider>
 			)
 		}	
 	}

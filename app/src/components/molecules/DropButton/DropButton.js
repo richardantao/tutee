@@ -1,12 +1,31 @@
-import React/*, { Component }*/ from "react";
-import { render } from 'react-dom';
+import React, { Component } from "react";
+import "./DropButton.scss"
 
-const Dropdown = () => {
-	return(
-		<div></div>
-	)
+export default class Dropbutton extends Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			isLoading: true
+		}
+	}
+	
+	componentDidMount() {
+		this.setState({
+			isLoading: false
+		});
+	}
+
+	render() {
+		let { isLoading } = this.state;
+		if(isLoading) {
+			return null;
+		} else {	
+			return (
+				<div>
+
+				</div>
+			)
+		}
+	}
 }
-
-render(<Dropdown />, document.querySelectorAll(""));
-
-export default Dropdown;

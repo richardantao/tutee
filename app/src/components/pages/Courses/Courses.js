@@ -1,41 +1,26 @@
 import React, { Component, Fragment } from "react";
+
+import { connect } from "react-redux";
+import { fetchCourses, editCourse, createCourse, updateCourse, deleteCourse } from "../../../actions/courses.action";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
-import Nav from "../../organisms/Nav";
-import Header from "../../organisms/Header";
 import { Col, Row} from "reactstrap";
 import { Button } from "react-bootstrap";
-import "./Courses.scss";
+
+import Nav from "../../organisms/Nav";
+import Header from "../../organisms/Header";
+
 import TermsColumn from "../../organisms/TermsColumn/TermsColumn";
 import TermRecord from "../../molecules/TermRecord";
 import CourseColumn from "../../organisms/CourseColumn/CourseColumn";
 import CourseRecord from "../../molecules/CourseRecord";
-import axios from "axios";
 
-// Course component
-export default class Courses extends Component {
-	constructor(props) {
-		super(props);
+import "./Courses.scss";
 
-		this.state ={
-			isLoading: true,
-			years: [],
-			terms: [],
-			courses: [],
-			modules: []
-		}
-	}
-
+class Courses extends Component {
 	componentDidMount() {
-		axios.get("/courses")
-		.then(res => {
-			this.setState({
-				isLoading: false
-			});
-		})
-		.catch(err => {
-			throw err;
-		});
+		
 	}
 
 	componentWillUnmount() {
@@ -103,3 +88,5 @@ export default class Courses extends Component {
 		)
 	}
 }
+
+export default connect(null, { fetchCourses, editCourse, createCourse, updateCourse, deleteCourse })(Courses);

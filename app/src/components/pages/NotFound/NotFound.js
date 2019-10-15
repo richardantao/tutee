@@ -1,22 +1,13 @@
 import React, { Component } from "react";
+
+import { connect } from "react-redux";
+
 import LoadingColumn from "../../molecules/LoadingColumn";
 import "./NotFound.scss";
 
-
-export default class NotFound extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            isLoading: true
-        }
-    }
-
+class NotFound extends Component {
     componentDidMount() {
-        this.setState({
-            isLoading: false
-        });
-
+    
     }
     
     componentWillUnmount() {
@@ -24,16 +15,12 @@ export default class NotFound extends Component {
     }
 
     render() {
-        let { isLoading } = this.state;
+        return (
+            <div>
 
-        if (isLoading) {
-            return <LoadingColumn/>;
-        } else {
-            return (
-                <div>
-
-                </div>
-            )
-        }
+            </div>
+        )
     }
 }
+
+export default connect(null, {})(NotFound);

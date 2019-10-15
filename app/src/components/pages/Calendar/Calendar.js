@@ -1,34 +1,20 @@
 import React, { Component, Fragment } from "react";
-import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import Nav from "../../organisms/Nav";
-import Header from "../../organisms/Header";
+
+import { connect } from "react-redux";
+
 import { Col, Row } from "reactstrap";
 import { Button } from "react-bootstrap"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+
+import Nav from "../../organisms/Nav";
+import Header from "../../organisms/Header";
+
 import "./Calendar.scss";
 
-export default class Calendar extends Component {
-	constructor(props) {
-		super(props);
-		
-		this.state = {
-			isLoading: true
-		}
-	}
-
+class Calendar extends Component {
 	componentDidMount() {
-		this.setState({
-			isLoading: false
-		});
-
-		axios.get("/calendar")
-		.then(res => {
-
-		})
-		.catch(err => {
-
-		});
+		
 	}
 
 	componentWillUnmount() {
@@ -36,8 +22,6 @@ export default class Calendar extends Component {
 	}
 
 	render() {
-	let { isLoading } = this.state;
-
 		return (
 			<Fragment>
 				<Nav />
@@ -69,3 +53,5 @@ export default class Calendar extends Component {
 		)
 	}
 }
+
+export default connect(null, {})(Calendar);

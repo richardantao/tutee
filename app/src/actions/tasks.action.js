@@ -10,7 +10,7 @@ export const fetchTasks = () => dispatch => {
         dispatch({
             type: FETCH_TASKS, 
             payload: tasks
-        })
+        });
     })
     .catch(err => {
         throw err;
@@ -20,29 +20,54 @@ export const fetchTasks = () => dispatch => {
 export const editTask = () => dispatch => {
     axios.get("/tasks/:userId/edit/:taskId")
     .then()
-    .then()
-    .catch()
+    .then(task => {
+        dispatch({
+            type: EDIT_TASK,
+            payload: task
+        });
+    })
+    .catch(err => {
+        throw err;
+    });
 }
 
 export const createTask = (taskData) => dispatch => {
     axios.post("/tasks/:userId/create")
     .then()
+    .then(task => {
+        dispatch({
+            type: CREATE_TASK,
+            payload: task
+        });
+    })
     .catch()  
 }
 
 export const updateTask = () => dispatch => {
     axios.put("/tasks/:userId/update/taskId")
     .then()
-    .then()
-    .catch()
+    .then(task => {
+        dispatch({
+            type: UPDATE_TASK,
+            payload: task
+        });
+    })
+    .catch(err => {
+        throw err;
+    });
 }
 
 export const deleteTask = () => dispatch => {
     axios.delete("/tasks/:userId/delete/taskId")
     .then()
-    .then()
+    .then(task => {
+        dispatch({
+            type: DELETE_TASK,
+            payload: task
+        });
+    })
     .catch(err => {
-        console.log(err);
+        throw err;
     });
 }
 

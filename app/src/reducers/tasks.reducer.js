@@ -1,4 +1,4 @@
-import { FETCH_TASKS, EDIT_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK } from "../actions/types";
+import { FETCH_TASKS, EDIT_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK, EDIT_CLASS } from "../actions/types";
 
 const initialState = {
     tasks: [],
@@ -12,11 +12,23 @@ export default (state = initialState, action) => {
                 ...state,
                 records: action.payload
             }
+        case EDIT_TASK:
+            return {
+                ...state
+            }
         case CREATE_TASK:
             return {
-                ...state,
+                ...state
             }
+        case UPDATE_TASK:
+            return {
+                ...state
+            }
+        case DELETE_TASK:
+            return {
+                ...state
+            } 
         default: 
-            return state;
+            return state
     }
 }

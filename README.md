@@ -1,5 +1,5 @@
 # Tutee
-This branch holds all of Tutee's staging files. This branch is receives files passed from the `dev` branch, and optimizes and conducts final tests on the application before shipping the product to production in the `master` branch.
+This branch holds all of Tutee's staging files. This branch receives files passed from the `dev` branch, and optimizes the files and conducts final tests on the application before shipping the product to production in the `master` branch.
 
 ## Application Structure
 

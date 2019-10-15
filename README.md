@@ -1,5 +1,5 @@
 # Tutee
-This branch holds all of Tutee's staging files. This branch receives files passed from the `dev` branch, and optimizes the files and conducts final tests on the application before shipping the product to production in the `master` branch.
+This branch holds all of Tutee's production files. This branch receives files passed from the `staging` branch, after optimization and final testing have been completed.
 
 ## Application Structure
 
@@ -17,10 +17,6 @@ The backend is built with Node, which is hosted inside the `server/` folder. The
 
 From `tutee/`
 
-`npm run dev` - runs the react app and node server concurrently, using a proxy between ports 3000 and 3001, respectively.
-
-From `server/`
-
-`npm test` - runs tests using mocha.
+`npm run deploy` - conncurrently deploys the react app and node server to Google Cloud Platform.
 
 

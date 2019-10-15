@@ -1,5 +1,5 @@
 # Tutee
-This branch holds all of Tutee's development files. This branch is for development and testing prior to integrating into the stagin branch.
+This branch holds all of Tutee's development files. This branch is for development and testing prior to integrating into the staging branch.
 
 ## Application Structure
 

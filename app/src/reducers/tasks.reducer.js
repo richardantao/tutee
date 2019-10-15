@@ -14,19 +14,23 @@ export default (state = initialState, action) => {
             }
         case EDIT_TASK:
             return {
-                ...state
+                ...state,
+                record: action.payload
             }
         case CREATE_TASK:
             return {
-                ...state
+                ...state,
+                record: action.payload
             }
         case UPDATE_TASK:
             return {
-                ...state
+                ...state,
+                record: action.payload
             }
         case DELETE_TASK:
             return {
-                ...state
+                ...state,
+                record: action.payload
             } 
         default: 
             return state

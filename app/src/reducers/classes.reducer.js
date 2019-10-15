@@ -14,19 +14,23 @@ export default (state = initialState, action) => {
             }
         case EDIT_CLASS:
             return {
-                ...state
+                ...state,
+                record: action.payload
             }
         case CREATE_CLASS:
             return {
-                ...state
+                ...state,
+                record: action.payload
             }
         case UPDATE_CLASS:
         return {
-            
+            ...state,
+            record: action.payload
         }
         case DELETE_CLASS:
         return {
-            ...state
+            ...state,
+            record: action.payload
         }
         default: 
             return state;

@@ -14,19 +14,23 @@ export default (state = initialState, action) => {
             }
         case EDIT_YEAR:
             return {
-                ...state
+                ...state,
+                record: action.payload
             }
         case CREATE_YEAR:
             return {
-                ...state
+                ...state,
+                record: action.payload
             }
         case UPDATE_YEAR:
             return {
-                ...state
+                ...state,
+                record: action.payload
             }
         case DELETE_YEAR:
             return {
-                ...state
+                ...state,
+                record: action.payload
             } 
         default: 
             return state

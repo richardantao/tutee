@@ -9,24 +9,29 @@ export default (state = initialState, action) => {
     switch(action.type) {
         case FETCH_MODULES:
             return {
-                ...state
+                ...state,
+                record: action.payload
                 
             }
         case EDIT_MODULE:
             return {
-                ...state
+                ...state,
+                record: action.payload
             }
         case CREATE_MODULE:
             return {
-                ...state
+                ...state,
+                record: action.payload
             }
         case UPDATE_MODULE:
         return {
-            ...state
+            ...state,
+            record: action.payload
         }
         case DELETE_MODULE:
         return {
-            ...state
+            ...state,
+            record: action.payload
         }
         default: 
             return state;

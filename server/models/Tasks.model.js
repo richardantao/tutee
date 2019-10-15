@@ -4,19 +4,11 @@ const model = require("mongoose").model;
 const moment = require("moment");
 
 const TaskSchema = new Schema({
-	id: Schema.Types.ObjectId,
-	parents: {
-		user: {
-			id: {type: Schema.Types.ObjectId, required: true},
-			name: {
-				first: {type: String, required: true},
-				last: {type: String, required: true}
-			}
-		},
-		module: {
-			id: {type: Schema.Types.ObjectId, required: true},
-			type: {type: String, required: true}
-		}
+	_id: Schema.Types.ObjectId,
+	uuid: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
+	module: {
+		id: {type: Schema.Types.ObjectId, required: true, ref: "Modules"},
+		title: {type: String, required: true}
 	},
 	title: {type: String, required: true},
 	type: {type: String, required: true},
@@ -24,9 +16,12 @@ const TaskSchema = new Schema({
 	completion: {type: Number, default: 0, min: [0, "Task completion cannot be less than 0"], max: [100, "Task completion cannot be greater than 100%"]},
 	note: String,
 	meta: {
-		createdAt: {type: Date, default: Date.now()},
-		updatedAt: {type: Date, default: Date.now()}
+		createdAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")},
+		updatedAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")}
 	}
 });
 
-module.exports = model("Tasks", TaskSchema);
+module.exports = {
+	Schema: TaskSchema,
+	Model: model("Task", TaskSchema)
+}

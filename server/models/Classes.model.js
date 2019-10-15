@@ -4,28 +4,24 @@ const model = require("mongoose").model;
 const moment = require("moment");
 
 const ClassSchema = new Schema({
-    id: Schema.Types.ObjectId,
-    parents: {
-        user: {
-			id: {type: Schema.Types.ObjectId, required: true},
-			name: {
-				first: {type: String, required: true},
-				last: {type: String, required: true}
-			}
-		},
-		module: {
-			id: {type: Schema.Types.ObjectId, required: true},
-			type: {type: String, required: true}
-		}      
+    _id: Schema.Types.ObjectId,
+    uuid: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
+    course: {
+        id: {type: Schema.Types.ObjectId, required: true, ref: "Courses"},
+        title: {type: String, required: true}
+    },	
+	module: {
+        id: {type: Schema.Types.ObjectId, required: true, ref: "Modules"},
+        title: {type: String, required: true}
     },
     location: String,
-    date: {
-        start: {type: Date, required: true},
-        end: {type: Date, required: true}
+    start: {
+        date: {type: Date, required: true},
+        time: {type: String, required: true}
     },
-    time: {
-        start: {type: String, required: true},
-        end: {type: String, required: true}
+    end: {
+        date: {type: Date, required: true},
+        time: {type: String, required: true}
     },
     repeat: {
         Monday: {type: Boolean, default: false},
@@ -37,11 +33,14 @@ const ClassSchema = new Schema({
         Sunday: {type: Boolean, default: false},
     },
     occurence: {type: String, enum: ["Does not repeat", "Daily", "Weekdays", "Weekly", "Biweekly"]},
-    note: String,
+    description: String,
     meta: {
-	    createdAt: {type: Date, default: Date.now()},
-        updatedAt: {type: Date, default: Date.now()}
+	    createdAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")},
+        updatedAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")}
     }
 });
 
-module.exports = model("Classes", ClassSchema);
+module.exports = {
+    Schema: ClassSchema,
+    Model: model("Class", ClassSchema)
+}

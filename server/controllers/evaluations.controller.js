@@ -1,12 +1,18 @@
-// import model
+const async = require("async");
+const moment = require("moment");
+
+// import models
+const Users = require("../models/Users.model");
 const Evals = require("../models/Evaluations.model")
 
 const controller = [];
 
-controller.index = (req, res) => {
+controller.index = (req, res, next) => {
 	Evals.find({
-		id: req.params.id, // user id
-		date: "$gte Date.now()"
+		"_id": req.params._id,
+		"date": {
+			$gte: moment().startOf("date").format("MMMM DD YYYY")
+		}
 	})
 	.then(evals => {
 		return res.json(evals);
@@ -18,10 +24,12 @@ controller.index = (req, res) => {
 	});
 }
 
-controller.past = (req, res) => {
+controller.past = (req, res, next) => {
 	Evals.find({
-		id: req.params.id, // user id
-		date: "$lte Date.now()"
+		"_id": req.params._id,
+		"date": {
+			$lt: moment().startOf("date").format("MMMM DD YYYY")
+		}
 	})
 	.then(pastEvaluations => {
 		if(!pastEvaluations) {
@@ -45,7 +53,7 @@ controller.past = (req, res) => {
 	});
 }
 
-controller.edit = (req, res) => {
+controller.edit = (req, res, next) => {
 	Evals.findById(req.params.id)
 	.then(selectedEval => {
 		if(!selectedEval) {
@@ -69,24 +77,43 @@ controller.edit = (req, res) => {
 	});
 };
 
-controller.createGet = (req, res) => {
-	
+controller.new = (req, res, next) => {
+	Users.find({
+		"_id": req.params._id
+	},
+	{
+		"": 1,
+		"": 1,
+		"": 1
+	})
+	.then(evalProps => {
+		if(!evalProps) {
+			return res.status(404).json({
+				message: "The server was unable to find the resources needed to complete your request"
+			});
+		} else {
+			return res.status(200).json(evalProps);	
+		}
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The server was unable to find the resources needed to complete your request"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occured while processing your request"
+			});
+		}
+	})
 }
 
-controller.createPost = (req, res) => {
+controller.create = (req, res) => {
 	const eval = new Evals({
-		parents: {
-			user: {
-				id: req.body.userId,
-				name: {
-					first: req.body.fname,
-					last: req.body.lname
-				}
-			},
-			course: {
-				id: req.body.courseId,
-				title: req.body.courseTitle
-			}
+		userId: req.body.userId,
+		course: {
+			id: req.body.courseId,
+			title: req.body.courseTitle
 		},
 		title: req.body.title,
 		type: req.body.type,
@@ -110,8 +137,11 @@ controller.createPost = (req, res) => {
 	});
 }
 
-controller.update = (req, res) => {
-	Evals.findByIdAndUpdate(req.params.id, {
+controller.update = (req, res, next) => {
+	Evals.findByIdAndUpdate({
+		"_id": req.params.id
+	}, 
+	{
 		$set: {
 			title: req.body.title,
 			type: req.body.type,
@@ -150,8 +180,10 @@ controller.update = (req, res) => {
 	});
 }	
 
-controller.delete = (req, res) => {
-	Evals.findByIdAndDelete(req.params.id)
+controller.delete = (req, res, next) => {
+	Evals.findByIdAndDelete({
+		"_id": req.params._id
+	})
 	.then(deletedEval => {
 		if(!deletedEval) {
 			return res.status(404).json({

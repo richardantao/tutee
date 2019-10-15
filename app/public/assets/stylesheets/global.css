@@ -10,11 +10,17 @@ a {
 
 nav {
     font-size: 1.25em;
+    position: relative;
 }
 
 #nav a {
     float: right;
-    margin: 1.75%;
+    margin: 0;
+    padding: 18px;
+}
+
+#nav a:hover {
+    text-decoration: none;
 }
 
 #side-nav {
@@ -35,6 +41,10 @@ nav {
     margin: 5%;
 }
 
+#side-nav a:hover {
+    text-decoration: none;
+}
+
 #logo {
     height: 40px;
     margin: 0.5%;
@@ -47,7 +57,7 @@ form {
 }
 
 .active-page {
-    text-decoration: underline;
+    border-bottom: #00BBFF solid 5px;
 }
 
 .form-reset {
@@ -102,6 +112,8 @@ footer a {
 
 #copyright {
     font-size: 0.75em;
+    position: relative;
+        top: 8px;
 }
 
 .social {

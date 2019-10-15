@@ -5,19 +5,8 @@ const moment = require("moment");
 
 const TermSchema = new Schema({
 	id: Schema.Types.ObjectId,
-	parent: {
-		user: {
-			id: {type: Schema.Types.ObjectId, required: true},
-			name: {
-				first: {type: String, required: true},
-				last: {type: String, required: true}
-			}
-		},
-		year: {
-			id: {type: Schema.Types.ObjectId, required: true},
-			title: {type: String, required: true}
-		}
-	},
+	uuid: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
+	yearId: {type: Schema.Types.ObjectId, required: true, ref: "Years"},
 	title: {type: String, required: true},
   	date: {
 		start: {type: Date, required: true},
@@ -25,9 +14,12 @@ const TermSchema = new Schema({
 	},
 	rotation: {type: String, required: true}, // required ?
 	meta: {
-		createdAt: {type: Date, default: Date.now()},
-		updatedAt: {type: Date, default: Date.now()}
+		createdAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")},
+		updatedAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")}
 	}
 });
 
-module.exports = model('Terms', TermSchema);
+module.exports = {
+	Schema: TermSchema,
+	Model: model("Term", TermSchema)
+}

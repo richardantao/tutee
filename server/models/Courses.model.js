@@ -4,20 +4,9 @@ const model = require("mongoose").model;
 const moment = require("moment");
 
 const CourseSchema = new Schema({
-	id: Schema.Types.ObjectId,
-	parents: {
-		user: {
-			id: {type: Schema.Types.ObjectId, required: true},
-			name: {
-				first: {type: String, required: true},
-				last: {type: String, required: true}
-			}
-		},
-		year: {
-			id: {type: Schema.Types.ObjectId, required: true},
-			title: {type: String, required: true}
-		}
-	},
+	_id: Schema.Types.ObjectId,
+	uuid: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
+	yearId: {type: Schema.Types.ObjectId, required: true, ref: "Years"},
 	code: {type: String, required: true},
 	title: {type: String, required: true},
 	date: {
@@ -26,9 +15,12 @@ const CourseSchema = new Schema({
 	},
 	theme: {type: String, default: "#00BBFF"}, 
 	meta: {
-		createdAt: {type: Date, default: Date.now()},
-		updatedAt: {type: Date, default: Date.now()}
+		createdAt: {type: Date, default: () => moment().startOf("minute").format("MMMM Do YYYY, HH:mm a")},
+		updatedAt: {type: Date, default: () => moment().startOf("minute").format("MMMM Do YYYY, HH:mm a")}
 	}
 });
 
-module.exports = model("Courses", CourseSchema);
+module.exports = {
+	Schema: CourseSchema,
+	Model: model("Course", CourseSchema)
+}

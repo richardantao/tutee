@@ -5,14 +5,14 @@ router.get("/", controller.index);
 
 router.get("/past", controller.past); // handle logic on frontend?
 
-router.get("/:taskId/edit", controller.edit);
+router.get("/:tasks._id/edit", controller.edit);
 
 router.get("/new", controller.new); 
 
 router.post("/create", controller.create);
 
-router.put("/:taskId/update", controller.update);
+router.put("/:tasks._id/update", controller.update);
 
-router.delete("/:taskId/delete", controller.delete);
+router.delete("/:tasks._id/delete", controller.delete);
 
 module.exports = router;

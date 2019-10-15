@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from "./tutee.jpg"
+import logo from "./tutee-min.jpg"
 import "./Logo.scss";
 
 export default class Logo extends Component {
@@ -18,6 +18,6 @@ export default class Logo extends Component {
 	}
 
 	render() {
-		return <img src={logo} alt="Tutee logo and mascot" className="logo"/>
+		return <a href="/dashboard"><img src={logo} alt="Tutee logo and mascot" className="logo"/></a>
 	}
 }

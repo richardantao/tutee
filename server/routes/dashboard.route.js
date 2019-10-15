@@ -3,25 +3,27 @@ const controller = require("../controllers/dashboard.controller");
 
 router.get("/", controller.index);
 
-router.get("classes/:classId/edit", controller.classEdit); // routed in react
+router.get("classes/:classes._id/edit", controller.classEdit);
 
-router.delete("/classes/:classId/delete", controller.classDelete); 
+router.put("classes/:classes._id/update", controller.classUpdate);
 
-router.get("/tasks/:taskId/edit", controller.taskEdit); // routed in react
+router.delete("/classes/:classes._id/delete", controller.classDelete); 
 
-router.get("/tasks/create", controller.taskCreateGet); // routed in react
+router.get("/tasks/:tasks._id/edit", controller.taskEdit);
 
-router.post("/tasks/create", controller.taskCreatePost); // routed in react
+router.get("/tasks/new", controller.taskNew);
 
-router.put("/tasks/:taskId/update", controller.taskUpdate);
+router.post("/tasks/create", controller.taskCreate);
 
-router.delete("/tasks/:taskId/delete", controller.taskDelete);
+router.put("/tasks/:tasks._id/update", controller.taskUpdate);
 
-router.get("/evals/:evalId/edit", controller.evalEdit); // routed in react
+router.delete("/tasks/:tasks._id/delete", controller.taskDelete);
 
-router.put("/evals/:evalId/update", controller.evalUpdate);
+router.get("/evals/:evaluations._id/edit", controller.evalEdit);
 
-router.delete("/evals/:evalId/delete", controller.evalDelete);
+router.put("/evals/:evaluations._id/update", controller.evalUpdate);
+
+router.delete("/evals/:evaluations._id/delete", controller.evalDelete);
 
 module.exports = router;
 

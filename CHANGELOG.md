@@ -4,65 +4,20 @@
 * File storage
 * Pomodero
 * Feedback forum
-* Apple watch integration
+* Smart watch integration
 * Autocomplete fields
 
-## v0.4.0 - Unreleased
-
-### Added
-* Cached sessions to improve app performance
-* Cookies
-
-## v0.3.0 - Unreleased 
-
-### Added
-* Home website is now live
-* User authentification
-* Email verification
+## v0.1.1 - xx-10-2019 
 
 ### Changed
-
-### Deprecated
+* Dashboard counter aesthetic
 
 ### Fixed
+* Page view width
+* Dashboard counters
 
-### Removed
 
-## v0.2.0 - Unreleased
-
-### Added
-* `server/config`
-* `server/migrations`
-* `server/seeds`
-* Conditional configurations in `server/config/config.js`
-* SSR with initial page loadup, and CSR after first load
-* Promisified database queries
-* User Settings
-* test folder for mocha
-* Static front-end prior to authentication
-
-### Changed
-* Moved `server/config.js` to `server/config/config.js`
-* Moved index routes and view renders from `server/controllers` to `client/components/organisms/{data}Column` 
-* `Evals` to `Evalus` and `Classes` to `Sessions` to avoid confusion with JS keywords
-* Changed stack; now using Mongo instead of MySQL
-* `.css` to `.scss`
-
-### Fixed 
-* `models/` configurations to the database  
-
-### Removed
-* Folder stucture in `README.md` 
-* Sequelize, and all Sequelize related code and dependencies
-
-## v0.1.0 - 04-08-2019
-
-### Added
-* Project to Github
-* .env files
-* Version control
-* Changelog to README.md
-* Proxy for Node backend and React frontend
-
-### Changed
-* Moved configurations to .env files
+## v0.1.0 - 04-10-2019
+* Inital dev version
+* Coming Soon page active on GCP
+* Structure of app has been created 

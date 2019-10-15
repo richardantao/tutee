@@ -5,14 +5,14 @@ router.get("/", controller.index);
 
 router.get("/past", controller.past);
 
-router.get("/:EvalId/edit", controller.edit);
+router.get("/:evaluations._id/edit", controller.edit);
 
-router.get("/new", controller.createGet)
+router.get("/new", controller.new);
 
-router.post("/create", controller.createPost);
+router.post("/create", controller.create);
 
-router.put("/:EvalId/update", controller.update);
+router.put("/:evaluations._id/update", controller.update);
 
-router.delete("/:EvalId/delete", controller.delete);
+router.delete("/:evaluations._id/delete", controller.delete);
 
 module.exports = router;

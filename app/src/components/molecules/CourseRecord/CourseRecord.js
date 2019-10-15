@@ -10,7 +10,7 @@ const CourseRecord = ({ course, modules }) => {
 				</div>
 			</Col>
 			<Col>
-				<div class="task-record-modules">
+				<div class="course-record-modules">
 					<h6>{modules}</h6>
 				</div>
 			</Col>

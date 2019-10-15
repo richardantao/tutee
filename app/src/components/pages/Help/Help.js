@@ -1,22 +1,16 @@
-import React, {Component, Fragment} from "react";
+import React, { Component, Fragment } from "react";
+
+import { Col, Row } from "reactstrap";
+
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
-import { Container, Row, Col} from "reactstrap";
+import Accordion from "../../molecules/Accordion";
+
 import "./Help.scss";
 
 export default class Help extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state= {
-			isLoading: true
-		}
-	}
-
 	componentDidMount() {
-		this.setState({
-			isLoading: false
-		});
+		
 	}
 
 	componentWillUnmount() {
@@ -24,31 +18,28 @@ export default class Help extends Component {
 	}
 
 	render() {
-		let { isLoading } = this.state;
-		
-		if(isLoading) {
-			return null;
-		} else {
-			return (
-				<Fragment>
-					<Nav />
-					<Container id="help">
-						<Row className="header">
-							<Col>
-								<Header header="Help"/> 
-							</Col>
-							<Col>
-								
-							</Col>
-						</Row>
-						<Row className="body">
-							<Col>
+		return (
+			<Fragment>
+				<Nav />
+				<div id="help">
+					<Row className="header">
+						<Col>
+							<Header header="Help"/> 
+						</Col>
+						<Col>
 							
-							</Col>
-						</Row>
-					</Container>
-				</Fragment>
-			)
-		}
+						</Col>
+					</Row>
+					<Row className="body">
+						<Col>
+							<div>
+								<h2>Frequently Asked Questions</h2>
+								<Accordion/>
+							</div>
+						</Col>
+					</Row>
+				</div>
+			</Fragment>
+		)
 	}
 }

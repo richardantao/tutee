@@ -4,14 +4,16 @@ const model = require("mongoose").model;
 const moment = require("moment");
 
 const IntegrationSchema = new Schema({
-    id: Schema.Types.ObjectId,
-    parent: {
-        user: {type: Schema.Types.ObjectId, required: true}
-    },
+    _id: Schema.Types.ObjectId,
+    uuid: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
+    service: {type: String, required: true},
     meta: {
-        createdAt: {type: Date, default: Date.now()},
-		updatedAt: {type: Date, default: Date.now()}
+        createdAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")},
+		updatedAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")}
     }
 });
 
-module.exports = model("Integrations", IntegrationSchema);
+module.exports = {
+    Schema: IntegrationSchema,
+    Model: model("Integration", IntegrationSchema)
+}

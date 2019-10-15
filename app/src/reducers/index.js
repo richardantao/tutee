@@ -8,12 +8,4 @@ import classes from "./classes.reducer";
 import evaluations from "./evaluations.reducer";
 import tasks from "./tasks.reducer";
 
-export default combineReducers({
-    years, 
-    terms,
-    courses,
-    modules, 
-    classes, 
-    evaluations,
-    tasks
-});
+export default combineReducers({ years, terms, courses, modules, classes, evaluations, tasks });

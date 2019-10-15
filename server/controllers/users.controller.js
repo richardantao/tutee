@@ -18,9 +18,7 @@ controller.index = (req, res, next) => {
 }
 
 controller.edit = (req, res, next) => {
-    Users.findById({
-        "_id": req.params._id
-    })
+    Users.findById(req.params.id)
     .then(userInfo => {
         if(!userInfo) {
             return res.status(404).json({

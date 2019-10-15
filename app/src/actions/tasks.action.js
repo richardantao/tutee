@@ -3,9 +3,9 @@ import axios from "axios";
 
 export const fetchTasks = () => dispatch => {
     axios.get("/tasks/:userId")
-    .then(res => {
-        res.json();
-    })
+    // .then(res => {
+    //     res.json();
+    // })
     .then(tasks => {
         dispatch({
             type: FETCH_TASKS, 

@@ -8,19 +8,25 @@ export const fetchEvaluations = () => dispatch => {
 }
 
 export const editEvaluation = () => dispatch => {
-    axios.get("/evaluations/:userId/edit/:taskId")
+    axios.get("/evaluations/:userId/edit/:evaluationId")
     .then()
     .catch()
 }
 
 export const createEvaluation = () => dispatch => {
-
+    axios.post("/evaluations/:userId/create")
+    .then()
+    .catch()
 }
 
 export const updateEvaluation = () => dispatch => {
-
+    axios.put("/evaluations/:userId/update/:evaluationId")
+    .then()
+    .catch()
 }
 
 export const deleteEvaluation = () => dispatch => {
-
+    axios.delete("/evaluations/:userId/delete/:evaluationId")
+    .then()
+    .catch()
 }

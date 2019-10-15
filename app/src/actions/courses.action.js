@@ -1,22 +1,22 @@
 import { FETCH_COURSES, EDIT_COURSE, CREATE_COURSE, UPDATE_COURSE, DELETE_COURSE } from "./types";
 import axios from "axios";
 
-const fetchCourses = () => dispatch => {
+export const fetchCourses = () => dispatch => {
 
 }
 
-const editCourse = () => dispatch => {
+export const editCourse = () => dispatch => {
     
 }
 
-const createCourse = () => dispatch => {
+export const createCourse = () => dispatch => {
     
 }
 
-const updateCourse = () => dispatch => {
+export const updateCourse = () => dispatch => {
     
 }
 
-const deleteCourse = () => dispatch => {
+export const deleteCourse = () => dispatch => {
     
 }

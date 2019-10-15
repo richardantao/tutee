@@ -4,8 +4,10 @@ mongoose.Promise = global.Promise;
 const mongoDB = "mongodb://localhost/TuteeDev";
 
 mongoose.connect(mongoDB, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+
 })
 .then(() =>  {
   console.log("Sucessfully connected to mongo!");

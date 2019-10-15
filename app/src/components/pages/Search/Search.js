@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 import axios from "axios";
-import { Container, Row, Col} from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { Button, InputGroup, FormControl } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
@@ -22,7 +22,7 @@ export default class Search extends Component {
 		this.setState({
 			isLoading: false
 		});
-		axios.get("http://localhost:3000/search/")
+		axios.get("/search")
 		.then(res => {
 			this.setState({
 				isLoading: false
@@ -53,7 +53,7 @@ export default class Search extends Component {
 			return (
 				<Fragment>
 					<Nav />
-					<Container id="search">
+					<div id="search">
 						<Row className="header">
 							<Col>
 								<Header header="Search"/>
@@ -87,7 +87,7 @@ export default class Search extends Component {
 							
 							</Col>
 						</Row>
-					</Container>
+					</div>
 				</Fragment>
 			)
 		}

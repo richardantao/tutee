@@ -1,2 +1,2 @@
-import EvaluRecord from "./EvaluRecord";
-export default EvaluRecord;
+import EvalRecord from "./EvalRecord";
+export default EvalRecord;

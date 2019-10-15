@@ -43,7 +43,7 @@ export default class Preference extends Component {
             return <LoadingColumn/>
         } else {
             return(
-                <form method="PUT" action="/" role="form">
+                <form method="PUT" action="/">
                     <Row>
                         <Col>
                         

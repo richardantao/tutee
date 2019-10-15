@@ -42,7 +42,7 @@ export default class Integration extends Component {
             return <LoadingColumn/>;
         } else {
             return(
-                <form method="PUT" action="" role="form">
+                <form method="PUT" action="">
                     <Row>
                         <Col>
                         

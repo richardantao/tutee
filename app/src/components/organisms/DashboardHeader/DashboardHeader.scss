@@ -11,15 +11,23 @@
     border-right: #F2F2F2 1px solid;
 }
 
+.dashboard-header h3 {
+    margin-top: 5%;
+}
+
 .dashboard-header a {
     left: 5%;
     top: 50%;
 }
 
+.dashboard-header h4 {
+    margin: 0;
+}
+
 figure {
     position: absolute;
-        right: 5%;
-        top: 20%;
+        right: 0;
+        top: 50%;
 }
 
 @media (min-width: 576px) {

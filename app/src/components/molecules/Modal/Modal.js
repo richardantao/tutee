@@ -30,7 +30,7 @@ export default class Modal extends Component {
         let { isLoading, active } = this.state;
 
         return(
-            <form method="" action="" className="modal" role="form">
+            <form method="" action="" className="modal">
                 <div className="modal-header">
                     <h3>{this.props.header}</h3>
                 </div>

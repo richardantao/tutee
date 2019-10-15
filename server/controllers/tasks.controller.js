@@ -1,15 +1,22 @@
-// import model
-const Tasks = require("../models/Tasks.model");
-const Courses = require("../models/Courses.model");
-const Modules = require("../models/Modules.model");
+const async = require("async");
+const moment = require("moment");
+
+// import models
+const Users = require("../models/Users.model").Model;
+const Tasks = require("../models/Tasks.model").Schema;
 
 // instantiate controller
 const controller = [];
 
-controller.index = (req, res) => {
-	Tasks.find({
-		id: req.params.id, //userid
-		deadline: "$gte Date.now()"
+controller.index = (req, res, next) => {
+	Users.find({
+		"_id": req.params._id, 
+		"tasks.deadline": {
+			$gte: moment().startOf("date").format("MMMM DD YYYY")
+		}
+	}, 
+	{
+		"tasks": 1
 	})
     .then(tasks => {
 		if(!tasks) {
@@ -17,7 +24,7 @@ controller.index = (req, res) => {
 				message: "The server was unable to successfully find your tasks"
 			});
 		} else {
-			return res.json(tasks);
+			return res.status(200).json(tasks);
 		}
     }).catch(err => {
 		if(err.kind === "ObjectId") {
@@ -32,18 +39,23 @@ controller.index = (req, res) => {
     });
 }
 
-controller.past = (req, res) => {
-	Tasks.find({
-		id: req.params.id, // user id
-		deadline: "$lte Date.now()"
+controller.past = (req, res, next) => {
+	Users.find({
+		"_id": req.params._id, 
+		"tasks.deadline": {
+			$lt: moment().startOf("date").format("MMMM DD YYYY")
+		}
+	}, 
+	{
+		"tasks": 1
 	})
 	.then(pastTasks => {
 		if(!pastTasks) {
 			return res.status(404).json({
-				message: "The server was unable to successfully find your past tasks"
+				message: "The server was unable to find the resources to complete your request"
 			});
 		} else {
-			return res.json(pastTasks);
+			return res.status(200).json(pastTasks);
 		}
 	})
 	.catch(err => {
@@ -60,7 +72,9 @@ controller.past = (req, res) => {
 }
 
 controller.edit = (req, res) => {
-	Tasks.findById(req.params.id)
+	Tasks.findById({
+		"_id": req.params._id
+	})
 	.then(selectedTask => {
 		if(!selectedTask) {
 			return res.status(404).json({
@@ -83,30 +97,20 @@ controller.edit = (req, res) => {
 	});
 }
 
-controller.new = (req, res) => {
-	const today = new Date();
-	
-	Courses.find({
-		"parents.user": req.params.id, 
-		"date.start": "$lte new Date()", 
-		"date.end": "$gte new Date()"
-	}, {
-		"title": 1
+controller.new = (req, res, next) => {	
+	Users.find({
+		"_id": req.params._id
+	}, 
+	{
+		"module.title": 1
 	})
-	.then(Modules.find({
-			"parents.user": req.params.id,
-			"parents.course": "" // define the id | change name of id suffixes or other method
-		}, {
-			"title": 1
-		})
-	)
-	.then(selectedParents => {
-		if(!selectedParents) {
+	.then(selectedModules => {
+		if(!selectedModules) {
 			return res.status(404).json({
 				message: "The server was unable to successfully find your courses"
 			});
 		} else {
-			return res.json(selectedParents);
+			return res.status(200).json(selectedModules);
 		}
 	})
 	.catch(err => {
@@ -122,44 +126,86 @@ controller.new = (req, res) => {
 	});
 }
 
-controller.create = (req, res) => {
-	const task = new Tasks({
-		parents: {
-			user: {
-				id: req.body.userId,
-				name: {
-					first: req.body.fname,
-					last: req.body.lname
-				}
-			},
-			module: {
-				id: req.body.moduleId,
-				type: req.body.moduleType
-			}
-		},
-		title: req.body.title,
-		type: req.body.type,
-		deadline: req.body.deadline,
-		meta: {
-			createdAt: Date.now(),
-			updatedAt: Date.now()
+controller.create = (req, res, next) => {
+	async.waterfall([
+		create,
+		associate
+	],(err, results) => {
+		if(err) {
+			throw err;
+		} else {
+			console.log("The results have arrived: " + results)
 		}
 	});
 
-	task.save()
-	.then(newTask => {
-		return res.json(newTask);
-	})
-	.catch(err => {
-		return res.status(500).json({
-			message: err.message || "An error occured while creating this task"
+	const create = (callback) => {
+		const task = new Tasks({
+			userId: req.body.userId,
+			module: {
+				id: req.body.moduleId,
+				title: req.body.moduleTitle
+			},
+			title: req.body.title,
+			type: req.body.type,
+			deadline: req.body.deadline,
+			meta: {
+				createdAt: Date.now(),
+				updatedAt: Date.now()
+			}
 		});
-	});
+	
+		task.save()
+		.then(newTask => {
+			return res.json(newTask);
+		})
+		.exec(callback)
+		.catch(err => {
+			return res.status(500).json({
+				message: err.message || "An error occured while creating this task"
+			});
+		});
+	}
+
+	const associate = (callback) => {
+		Tasks.findByIdAndUpdate({
+			"_id": req.params._id
+		},
+		{
+			$set: {
+
+			}
+		})
+		.then(associatedTask => {
+			if(!associatedTask) {
+				return res.status(404).json({
+					message: "The server was unable to find the resources to process your request"
+				});
+			} else {
+				return res.status(200).json(associatedTask);
+			}
+		})
+		.exec(callback)
+		.catch(err => {
+			if(err.kind === "ObjectId") {
+				return res.status(404).json({
+					message: "The server was unable to find the resources to process your request"
+				});
+			} else {
+				return res.status(500).json({
+					message: err.message || "An error occured while processing your request"
+				});
+			}
+		});
+	}
+
+	next();	
 }
 
 controller.update = (req, res, next) => {
-	// set attributes to prevent total override
-	Tasks.findByIdAndUpdate(req.params.id, {
+	Tasks.findByIdAndUpdate({
+		"_id": req.params._id
+	}, 
+	{
 		$set: {
 			title: req.body.title,
 			type: req.body.type,
@@ -193,8 +239,10 @@ controller.update = (req, res, next) => {
 	})
 }	
 
-controller.delete = (req, res) => {
-	Tasks.findByIdAndDelete(req.params.id)
+controller.delete = (req, res, next) => {
+	Tasks.findByIdAndDelete({
+		"_id": req.params._id
+	})
 	.then(deletedTask => {
 		if(!deletedTask) {
 			return res.status(400).json({
@@ -205,7 +253,7 @@ controller.delete = (req, res) => {
 		}
 	})
 	.catch(err => {
-		if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+		if(err.kind === "ObjectId" || err.name === "NotFound") {
 			return res.status(404).json({
 				message: "This task was not successfully found"
 			});

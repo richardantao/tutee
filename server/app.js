@@ -5,7 +5,7 @@ const cors = require("cors");
 // const session = require("express-session");
 const uuid = require("uuid");
 // const cookieParser = require("cookie-parser");
-// const dotenv = require('dotenv').config();
+// const dotenv = require("cdotenv").config();
 
 // Configurations
 const app = express();
@@ -24,23 +24,17 @@ app.use(cors());
 
 // Routes middleware
 app.use("/", require("./routes/sessions.route"));
-app.use("/beta", require("./routes/beta.route"));
-app.use("/user", require("./routes/users.route"));
-app.use("/dashboard", require("./routes/dashboard.route"));
-app.use("/calendar", require("./routes/calendar.route"));
-app.use("/tasks", require("./routes/tasks.route"));
-app.use("/evaluations", require("./routes/evaluations.route"));
-app.use("/courses", require("./routes/courses.route"));
-app.use("/search", require("./routes/search.route"));
-app.use("/settings", require("./routes/settings.route"));
+app.use("/beta/:_id", require("./routes/beta.route"));
+app.use("/users", require("./routes/users.route"));
+app.use("/dashboard/:_id", require("./routes/dashboard.route"));
+app.use("/calendar/:_id", require("./routes/calendar.route"));
+app.use("/tasks/:_id", require("./routes/tasks.route"));
+app.use("/evaluations/:_id", require("./routes/evaluations.route"));
+app.use("/courses/:_id", require("./routes/courses.route"));
+app.use("/search/:_id", require("./routes/search.route"));
+app.use("/settings/:_id", require("./routes/settings.route"));
 // app.use("/", require("./routes/email.route");
 
-// Test route
-app.get("/", (req, res) => {
-	res.send("Hello World");
-});
-
-// Bootup 
 app.listen(port, () => {
 	console.log(`Your ${env} server is up and running on port ` + port);
 });

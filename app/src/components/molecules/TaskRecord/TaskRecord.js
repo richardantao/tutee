@@ -1,5 +1,5 @@
 import React from "react";
-import {Row, Col} from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import "./TaskRecord.scss";
 
 const TaskRecord = ({ title, course, type, deadline }) => {

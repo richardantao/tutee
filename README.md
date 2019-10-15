@@ -4,7 +4,7 @@ This branch holds all of Tutee's development files. This branch is for developme
 ## Application Structure
 
 ### Frontend 
-The frontend is built with React, which are hosted inside te `/app` folder. The `/components` are organized using atomic design, which are broken down into atoms, molecules, organisms, and pages.
+The frontend is built with React, which are hosted inside the `/app` folder. The `/components` are organized using atomic design, which are broken down into atoms, molecules, organisms, and pages.
 
 Redux is implemented into the frontend as a state manager, and is stored in the `/actions` and `/reducers` folders.
 

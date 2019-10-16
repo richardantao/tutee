@@ -1,5 +1,8 @@
-const async = require("async");
-const moment = require("moment");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+// import Auth secret
+const secret = process.env.AUTH_SECRET
 
 // import model
 const User = require("../models/Users.model").Model;
@@ -8,20 +11,33 @@ const User = require("../models/Users.model").Model;
 const controller = [];
 
 controller.signup = (req, res, next) => {
+    const hashedPassword = bcrypt.hashSync(req.body.password, 10)
+
     const user = new User({
         "name.first": req.body.fname,
         "name.last": req.body.lname,
         "email.address": req.body.email,
-        "password": req.body.password
+        "password": hashedPassword
     });
 
     user.save()
     .then(newUser => {
+        const token = jwt.sign({ id: userId }, secret, {
+            expiresIn: 86400 // one day
+        });
+
         return res.status(201).json({
-            message: "Your profile was successfully created"
+            auth: true, 
+            token,
+            newUser
         });
     })
-    .catch();
+    .catch(err => {
+        return res.status(500).json({
+            auth: false,
+            message: err.message || "An error occured while processing your request"
+        });
+    });
 }
 
 controller.signin = (req, res, next) => {

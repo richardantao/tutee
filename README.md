@@ -43,5 +43,5 @@ The careers portal for interested applicants to apply for open positions. This s
 This subdomain hosts all supporting documents for Tutee, including but not limited to Terms of Service, What is Tutee, and the Changelog.
 
 ### team.tutee.ca
-This subdomain is a future application specifically for the Tutee team. This subdomain will host the interface for team planning, KPIs, and general communication.
+This subdomain is a future application specifically for the Tutee team. Certain modules within the service will have limited access, exclusive to execs and team leads. This subdomain will host the interface for team planning, KPIs, and general communication.
 

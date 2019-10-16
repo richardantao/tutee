@@ -1,9 +1,11 @@
 const router = require("express").Router();
 const controller = require("../controllers/auth.controller");
 
+router.post("/apply", controller.application);
+
 router.post("/contact", controller.contact);
 
-router.post("/invite", )
+router.post("/invite", controller.invite)
 
 router.post("/register", controller.register);
 

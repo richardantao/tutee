@@ -30,11 +30,17 @@ The root domain is held in `app/public/`, and contains all the static pages that
 ### app.tutee.ca
 This subdomain hosts the application, and is only accessible to registered/authenticated users.
 
+### beta.tutee.ca
+This subdomain is the beta version of the application. This service is to always be one step ahead of `app.tutee.ca` and will test new features with the users within the beta grop. This service is only accessible to users who are registerd beta testers.
+
 ### blog.tutee.ca
 This subdomain is accessed through `blog.html` on the root domain. This subdomain is accessible to everyone, and holds all of Tutee's blog posts.
 
+### careers.tutee.ca
+The careers portal for interested applicants to apply for open positions. This subdomain is to be amalgamated with `team.tutee.ca` in a later version.
+
 ### docs.tutee.ca
-This subdomain is hosts all supporting documents for Tutee, including but not limited to Terms of Service, What is Tutee, and the Changelog.
+This subdomain hosts all supporting documents for Tutee, including but not limited to Terms of Service, What is Tutee, and the Changelog.
 
 ### team.tutee.ca
 This subdomain is a future application specifically for the Tutee team. This subdomain will host the interface for team planning, KPIs, and general communication.

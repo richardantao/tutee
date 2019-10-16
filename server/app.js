@@ -31,7 +31,6 @@ app.use("/evaluations/:userId", require("./routes/evaluations.route"));
 app.use("/courses/:userId", require("./routes/courses.route"));
 app.use("/search/:userId", require("./routes/search.route"));
 app.use("/settings/:userId", require("./routes/settings.route"));
-// app.use("/", require("./routes/email.route");
 
 app.listen(port, () => {
 	console.log(`Your ${env} server is up and running on port ` + port);

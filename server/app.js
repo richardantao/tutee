@@ -23,16 +23,16 @@ app.use(cors());
 // app.use(session({secret: "shhh"}));
 
 // Routes middleware
-app.use("/", require("./routes/sessions.route"));
-app.use("/beta/:_id", require("./routes/beta.route"));
+app.use("/", require("./routes/auth.route"));
+app.use("/beta/:userId", require("./routes/beta.route"));
 app.use("/users", require("./routes/users.route"));
-app.use("/dashboard/:_id", require("./routes/dashboard.route"));
-app.use("/calendar/:_id", require("./routes/calendar.route"));
-app.use("/tasks/:_id", require("./routes/tasks.route"));
-app.use("/evaluations/:_id", require("./routes/evaluations.route"));
-app.use("/courses/:_id", require("./routes/courses.route"));
-app.use("/search/:_id", require("./routes/search.route"));
-app.use("/settings/:_id", require("./routes/settings.route"));
+app.use("/dashboard/:userId", require("./routes/dashboard.route"));
+app.use("/calendar/:userId", require("./routes/calendar.route"));
+app.use("/tasks/:userId", require("./routes/tasks.route"));
+app.use("/evaluations/:userId", require("./routes/evaluations.route"));
+app.use("/courses/:userId", require("./routes/courses.route"));
+app.use("/search/:userId", require("./routes/search.route"));
+app.use("/settings/:userId", require("./routes/settings.route"));
 // app.use("/", require("./routes/email.route");
 
 app.listen(port, () => {

@@ -26,11 +26,13 @@ controller.signup = (req, res, next) => {
             expiresIn: 86400 // one day
         });
 
-        return res.status(201).json({
+        res.status(201).json({
             auth: true, 
             token,
             newUser
         });
+
+        next();
     })
     .catch(err => {
         return res.status(500).json({
@@ -41,20 +43,54 @@ controller.signup = (req, res, next) => {
 }
 
 controller.signin = (req, res, next) => {
-    if(!req.header('x-auth-token')) {
-        return res.status(400).json({
-            message: "There is no token for user authentication"
-        });
-    } else {
-        res.status(201).json({
-            message: "Login sucessful"
-        });
-    }
-    next();
+    // if(!req.header("x-auth-token")) {
+    //     return res.status(400).json({
+    //         message: "There is no token for user authentication"
+    //     });
+    // } else {
+    //     res.status(201).json({
+    //         message: "Login sucessful"
+    //     });
+    // }
+    // next(); BradTraversy
+
+    User.findOne({ "email.address": req.body.email })
+    .then(user => {
+        if(!user) {
+            return res.status(404).json({
+                auth: false,
+                message: "This user wasn't found"
+            })
+        } else {
+            const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
+            if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
+
+            const token = jwt.sign({ id: user._id }, secret, {
+                expiresIn: 86400 // expires in 24 hours
+            });
+
+            res.status(200).json({
+                auth: true, 
+                token,
+                user
+            });
+
+            next();
+        }
+    })
+    .catch(err => {
+        return res.status(500).json({
+            message: err.message || "An error occurred while processing your request"
+        })
+    });
 }
 
 controller.signout = (req, res, next) => {
-    
+    return res.status(200).json({
+        auth: false,
+        message: "You have successfully logged out",
+        token: null
+    });  
 }
 
 module.exports = controller;

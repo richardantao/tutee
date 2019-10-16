@@ -5,6 +5,6 @@ router.post("/signup", controller.signup);
 
 router.post("/signin", controller.signin);
 
-router.delete("/signout", controller.signout);
+router.post("/signout", controller.signout);
 
 module.exports = router;

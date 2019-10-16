@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const cors = require("cors");
-// const session = require("express-session");
 const uuid = require("uuid");
 // const cookieParser = require("cookie-parser");
 // const dotenv = require("cdotenv").config();
@@ -20,7 +19,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(logger("dev"));
 app.use(cors());
 // app.use(cookieParser());
-// app.use(session({secret: "shhh"}));
 
 // Routes middleware
 app.use("/", require("./routes/auth.route"));

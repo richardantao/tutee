@@ -1,16 +1,124 @@
-const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+// import dependencies
+const express = require("express");
+const app = express();
 
-// import Auth secret
-const secret = process.env.AUTH_SECRET
+const bcrypt = require("bcrypt");
+const bodyParser = require("body-parser");
+const { google } = require("googleapis");
+const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const OAuth2 = google.auth.OAuth2;
+const path = require("path");
+
+// import env variables
+const authUser = process.env.EMAIL_AUTH_USER;
+const authPass = process.env.EMAIL_AUTH_PASSWORD;
+const authEmail = process.env.EMAIL_AUTH_EMAIL;
+const authClient = process.env.CLIENT_ID;
+const authClientSecret = process.env.CLIENT_SECRET;
+const authRedirect = process.env.REDIRECT_URL;
+const authRefresh = process.env.REFRESH_TOKEN;
+const authSecret = process.env.AUTH_SECRET;
+
+// middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+const oauth2Client = new OAuth2(
+    authClient, 
+    authClientSecret,
+    authRedirect
+);
+
+oauth2Client.setCredentials({
+    refresh_token: authRefresh
+});
 
 // import model
 const User = require("../models/Users.model").Model;
 
-// instantiate model
+// instantiate controller
 const controller = [];
 
-controller.signup = (req, res, next) => {
+controller.contact = (req, res, next) => {
+    const transporter = nodemailer.createTransport({
+        host: "Gmail",
+        port: 587,
+        auth: {
+            type: "OAuth2",
+            user: authEmail, 
+            clientId: authClient,
+            clientSecret: authClientSecret,
+            refreshToken: authRefresh,
+            accessToken: accessToken
+        }
+    });
+            
+    const mailOptions = {
+        from: "<" + req.body.email + ">",
+        to: authEmail,
+        subject: req.body.name + " has sent you a message!",
+        text: req.body.message
+    };
+            
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            throw err;
+        } else {
+            console.log("Email sent: " + info.response);
+        }
+        transporter.close();
+    })
+    .then(info => {
+        return res.status(200).json(info);
+    })
+    .catch(err => {
+        return res.status(500).json({
+            message: err.message || "The server experienced an erorr while processing your request"
+        })
+    });
+}
+
+controller.invite = (req, res, next) => {
+    const transporter = nodemailer.createTransport({
+        host: "Gmail",
+        port: 587,
+        auth: {
+            type: "OAuth2",
+            user: authEmail, 
+            clientId: authClient,
+            clientSecret: authClientSecret,
+            refreshToken: authRefresh,
+            accessToken: accessToken
+        }
+    });
+            
+    const mailOptions = {
+        from: "<" + req.body.email + ">",
+        to: authEmail,
+        subject: req.body.fname + " " + req.body.lname + " has requested an invite to Tutee's beta test!",
+        text: "Your database should be populated with this user's information." 
+    };
+            
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            throw err;
+        } else {
+            console.log("Email sent: " + info.response);
+        }
+        transporter.close();
+    })
+    .then(info => {
+        return res.status(200).json(info);
+    })
+    .catch(err => {
+        return res.status(500).json({
+            message: err.message || "The server experienced an erorr while processing your request"
+        })
+    });
+}
+
+controller.register = (req, res, next) => {
     const hashedPassword = bcrypt.hashSync(req.body.password, 10)
 
     const user = new User({
@@ -22,7 +130,7 @@ controller.signup = (req, res, next) => {
 
     user.save()
     .then(newUser => {
-        const token = jwt.sign({ id: userId }, secret, {
+        const token = jwt.sign({ id: userId }, authSecret, {
             expiresIn: 86400 // one day
         });
 
@@ -65,7 +173,7 @@ controller.signin = (req, res, next) => {
             const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
             if (!passwordIsValid) return res.status(401).send({ auth: false, token: null });
 
-            const token = jwt.sign({ id: user._id }, secret, {
+            const token = jwt.sign({ id: user._id }, authSecret, {
                 expiresIn: 86400 // expires in 24 hours
             });
 

@@ -2,10 +2,27 @@ const async = require("async");
 const moment = require("moment");
 
 // import model
-const Users = require("../models/Users.model").Model;
+const User = require("../models/Users.model").Model;
 
 // instantiate model
 const controller = [];
+
+controller.signup = (req, res, next) => {
+    const user = new User({
+        "name.first": req.body.fname,
+        "name.last": req.body.lname,
+        "email.address": req.body.email,
+        "password": req.body.password
+    });
+
+    user.save()
+    .then(newUser => {
+        return res.status(201).json({
+            message: "Your profile was successfully created"
+        });
+    })
+    .catch();
+}
 
 controller.signin = (req, res, next) => {
     if(!req.header('x-auth-token')) {

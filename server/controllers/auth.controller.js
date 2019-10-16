@@ -43,44 +43,44 @@ const User = require("../models/Users.model").Model;
 const controller = [];
 
 controller.application = (req, res, next) => {
-//     const transporter = nodemailer.createTransport({
-//         host: "Gmail",
-//         port: 587,
-//         auth: {
-//             type: "OAuth2",
-//             user: authEmail, 
-//             clientId: authClient,
-//             clientSecret: authClientSecret,
-//             refreshToken: authRefresh//,
-//             // accessToken: accessToken
-//         }
-//     });
+     const transporter = nodemailer.createTransport({
+         host: "Gmail",
+         port: 587,
+         auth: {
+             type: "OAuth2",
+             user: authEmail, 
+             clientId: authClient,
+             clientSecret: authClientSecret,
+             refreshToken: authRefresh//,
+             // accessToken: accessToken
+         }
+     });
             
-//     const mailOptions = {
-//         from: req.body.fname + " " + req.body.lname + " <" + req.body.email +">",
-//         to: authEmail,
-//         attachments: [
-//             {
-//                 path: ABSPATH + ""
-//             }
-//         ]
-//     };
+    const mailOptions = {
+        from: req.body.fname + " " + req.body.lname + " <" + req.body.email +">",
+        to: authEmail,
+        attachments: [
+            {
+                path: ABSPATH + ""
+            }
+        ]
+    };
             
-//     transporter.sendMail(mailOptions, (err, info) => {
-//         if (err) {
-//             throw err;
-//         } else {
-//             console.log("Email sent: " + info.response);
-//         }
-//     })
-//     .then(info => {
-//         return res.status(200).json(info);
-//     })
-//     .catch(err => {
-//         return res.status(500).json({
-//             message: err.message || "The server experienced an erorr while processing your request"
-//         })
-//     });
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            throw err;
+        } else {
+            console.log("Email sent: " + info.response);
+        }
+    })
+    .then(info => {
+        return res.status(200).json(info);
+    })
+    .catch(err => {
+        return res.status(500).json({
+            message: err.message || "The server experienced an erorr while processing your request"
+        })
+    });
 }
 
 controller.contact = (req, res, next) => {

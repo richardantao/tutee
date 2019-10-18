@@ -11,7 +11,7 @@ function auth(req, res, next) {
         });
     } else {
         // pass secret here
-        const decoded = jwt.verify(token, null);
+        const decoded = jwt.verify(token, secret);
 
         req.user = decoded;
         next();

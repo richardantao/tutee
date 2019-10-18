@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const logger = require("morgan");
 const cors = require("cors");
-const uuid = require("uuid");
+const path = require("path");
 // const cookieParser = require("cookie-parser");
 // const dotenv = require("cdotenv").config();
 
@@ -31,6 +31,16 @@ app.use("/evaluations/:userId", require("./routes/evaluations.route"));
 app.use("/courses/:userId", require("./routes/courses.route"));
 app.use("/search/:userId", require("./routes/search.route"));
 app.use("/settings/:userId", require("./routes/settings.route"));
+
+if(process.env.NODE_ENV === "production") {
+	
+	
+	app.get("*", (req, res) => {
+
+	}) 
+} else {
+
+}
 
 app.listen(port, () => {
 	console.log(`Your ${env} server is up and running on port ` + port);

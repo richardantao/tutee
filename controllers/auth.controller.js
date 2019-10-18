@@ -20,6 +20,7 @@ const authRefresh = process.env.REFRESH_TOKEN;
 const authSecret = process.env.AUTH_SECRET;
 
 // middleware
+const auth = require("../middleware/auth.middleware");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

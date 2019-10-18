@@ -1,22 +1,23 @@
 const router = require("express").Router();
 const controller = require("../controllers/calendar.controller");
+const auth = require("../middleware/auth.middleware");
 
-router.get("/", controller.index);
+router.get("/", auth, controller.index);
 
-router.get("/month", controller.month);
+router.get("/month", auth, controller.month);
 
-router.get("/week", controller.week);
+router.get("/week", auth, controller.week);
 
-router.get("/day", controller.day);
+router.get("/day", auth, controller.day);
 
-router.get("/agenda", controller.agenda);
+router.get("/agenda", auth, controller.agenda);
 
-router.get("/classes/new", controller.classNew);
+router.get("/classes/new", auth, controller.classNew);
 
-router.post("/classes/create", controller.classCreate);
+router.post("/classes/create", auth, controller.classCreate);
 
-router.put("/classes/:classes._id/update", controller.classUpdate);
+router.put("/classes/:classes._id/update", auth, controller.classUpdate);
 
-router.delete("/classes/:classes._id/delete", controller.classDelete);
+router.delete("/classes/:classes._id/delete", auth, controller.classDelete);
 
 module.exports = router;

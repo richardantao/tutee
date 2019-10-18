@@ -1,29 +1,29 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const controller = require("../controllers/settings.controller");
+const auth = require("../middleware/auth.middleware");
 
-router.post("/profile/create", controller.profileCreate);
+router.post("/profile/create", auth, controller.profileCreate);
 
-router.put("/profile/update", controller.profileUpdate);
+router.put("/profile/update", auth, controller.profileUpdate);
 
-router.delete("/profile/delete", controller.profileDelete); 
+router.delete("/profile/delete", auth, controller.profileDelete); 
 
-router.get("/password/edit", controller.passwordEdit);
+router.get("/password/edit", auth, controller.passwordEdit);
 
-router.put("/password/update", controller.passwordUpdate);
+router.put("/password/update", auth, controller.passwordUpdate);
 
-router.get("/preferences/edit", controller.preferencesEdit);
+router.get("/preferences/edit", auth, controller.preferencesEdit);
 
-router.put("/preferences/update", controller.preferencesUpdate);
+router.put("/preferences/update", auth, controller.preferencesUpdate);
 
-router.get("/integrations/edit", controller.integrationsEdit);
+router.get("/integrations/edit", auth, controller.integrationsEdit);
 
-router.get("/integrations/new", controller.integrationsNew);
+router.get("/integrations/new", auth, controller.integrationsNew);
 
-router.post("/integrations/create", controller.integrationsCreate);
+router.post("/integrations/create", auth, controller.integrationsCreate);
 
-router.put("/integrations/update", controller.integrationsUpdate);
+router.put("/integrations/update", auth, controller.integrationsUpdate);
 
-router.delete("/integrations/delete", controller.integrationsDelete);
+router.delete("/integrations/delete", auth, controller.integrationsDelete);
 
 module.exports = router;

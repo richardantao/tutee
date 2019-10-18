@@ -1,18 +1,19 @@
 const router = require("express").Router();
 const controller = require("../controllers/tasks.controller");
+const auth = require("../middleware/auth.middleware");
 
-router.get("/", controller.index);
+router.get("/", auth, controller.index);
 
-router.get("/past", controller.past); // handle logic on frontend?
+router.get("/past", auth, controller.past); // handle logic on frontend?
 
-router.get("/:tasks._id/edit", controller.edit);
+router.get("/:tasks._id/edit", auth, controller.edit);
 
-router.get("/new", controller.new); 
+router.get("/new", auth, controller.new); 
 
-router.post("/create", controller.create);
+router.post("/create", auth, controller.create);
 
-router.put("/:tasks._id/update", controller.update);
+router.put("/:tasks._id/update", auth, controller.update);
 
-router.delete("/:tasks._id/delete", controller.delete);
+router.delete("/:tasks._id/delete", auth, controller.delete);
 
 module.exports = router;

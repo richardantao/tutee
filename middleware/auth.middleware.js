@@ -10,12 +10,19 @@ function auth(req, res, next) {
             message: "No token, authorization denied"
         });
     } else {
-        // pass secret here
+        try {
         const decoded = jwt.verify(token, secret);
-
+        
         req.user = decoded;
+        
         next();
-    }
+        } catch (e) {
+            res.status(400).json({ 
+                success: false, 
+                message: "Token is not valid" 
+            });
+        }
+    }    
 }
 
 module.exports = auth;

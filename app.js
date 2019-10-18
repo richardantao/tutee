@@ -4,6 +4,10 @@ const cors = require("cors");
 const path = require("path");
 // const dotenv = require("dotenv").config();
 
+/* NOTE
+	add googleapis and @google-cloud/storage to production package.json
+ */
+
 // Configurations
 const app = express();
 const port = process.env.PORT || 3001;

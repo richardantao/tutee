@@ -1,6 +1,12 @@
 const router = require("express").Router();
 const controller = require("../controllers/courses.controller");
+
+// middleware
 const auth = require("../middleware/auth.middleware");
+const validateYear = require("../middleware/validation/years.validation");
+const validateTerm = require("../middleware/validation/terms.validation");
+const validateCourse = require("../middleware/validation/courses.validation");
+const validateModule = require("../middleware/validation/modules.validation");
 
 // @route /courses/
 // @desc render all models within the courses view
@@ -22,17 +28,17 @@ router.get("/years/new", auth, controller.yearsNew);
 // @route /courses/years/create
 // @desc create new year
 // @access PRIVATE
-router.post("/years/create", auth, controller.yearsCreate);
+router.post("/years/create", auth, validateYear.create, controller.yearsCreate);
 
 // @route /courses/years/update/:yearId
 // @desc update year instance
 // @access PRIVATE
-router.put("/years/update/:yearId", auth, controller.yearsUpdate);
+router.put("/years/update/:yearId", auth, validateYear.update, controller.yearsUpdate);
 
 // @route /courses/years/delete/:yearId
 // @desc delete year instance
 // @access PRIVATE
-router.delete("/years/delete/:yearId", auth, controller.yearsDelete);
+router.delete("/years/delete/:yearId", auth, validateYear.delete, controller.yearsDelete);
 
 /* Terms */
 
@@ -49,17 +55,17 @@ router.get("/terms/new", auth, controller.termsNew);
 // @route /courses/terms/create
 // @desc create new term
 // @access PRIVATE
-router.post("/terms/create", auth, controller.termsCreate);
+router.post("/terms/create", auth, validateTerm.create, controller.termsCreate);
 
 // @route /courses/terms/update/:termId
 // @desc update term instance
 // @access PRIVATE
-router.put("/terms/update/:termId", auth, controller.termsUpdate);
+router.put("/terms/update/:termId", auth, validateTerm.update, controller.termsUpdate);
 
 // @route /courses/terms/delete/:termId
 // @desc edit year instance
 // @access PRIVATE
-router.delete("/terms/delete/:termId", auth, controller.termsDelete);
+router.delete("/terms/delete/:termId", auth, validateTerm.delete, controller.termsDelete);
 
 // courses
 
@@ -76,17 +82,17 @@ router.get("/new", auth, controller.coursesNew);
 // @route /courses/create
 // @desc create new course
 // @access PRIVATE
-router.post("/create", auth, controller.coursesCreate);
+router.post("/create", auth, validateCourse.create, controller.coursesCreate);
 
 // @route /courses/update/:courseId
 // @desc update course instance
 // @access PRIVATE
-router.put("/update/:courseId", auth, controller.coursesUpdate);
+router.put("/update/:courseId", auth, validateCourse.update, controller.coursesUpdate);
 
 // @route /courses/delete/:courseId
 // @desc delete course instance
 // @access PRIVATE
-router.delete("/delete/:courseId", auth, controller.coursesDelete);
+router.delete("/delete/:courseId", auth, validateCourse.delete, controller.coursesDelete);
 
 // modules
 
@@ -103,16 +109,16 @@ router.get("/modules/new", auth, controller.modulesNew);
 // @route /courses/modules/create
 // @desc create new module
 // @access PRIVATE
-router.post("/modules/create", auth, controller.modulesCreate);
+router.post("/modules/create", auth, validateModule.create, controller.modulesCreate);
 
 // @route /courses/modules/update/:moduleId
 // @desc update module instance
 // @access PRIVATE
-router.put("/modules/update/:moduleId", auth, controller.modulesUpdate);
+router.put("/modules/update/:moduleId", auth, validateModule.update, controller.modulesUpdate);
 
 // @route /courses/modules/delete/:moduleId
 // @desc delete module instance
 // @access PRIVATE
-router.delete("/modules/delete/:moduleId", auth, controller.modulesDelete);
+router.delete("/modules/delete/:moduleId", auth, validateModule.delete, controller.modulesDelete);
 
 module.exports = router; 

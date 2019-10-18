@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const controller = require("../controllers/evaluations.controller");
+
+// middleware 
 const auth = require("../middleware/auth.middleware");
+const validate = require("../middleware/validation/evaluations.validation");
 
 // @route /evaluations/
 // @desc render all evaluations 
@@ -25,16 +28,16 @@ router.get("/new", auth, controller.new);
 // @route /evaluations/create
 // @desc add new evaluation
 // @access PRIVATE
-router.post("/create", auth, controller.create);
+router.post("/create", auth, validate.create, controller.create);
 
 // @route /evaluations/update/:evaluationId
 // @desc update evaluation instance
 // @access PRIVATE
-router.put("/update/:evaluationId", auth, controller.update);
+router.put("/update/:evaluationId", auth, validate.update, controller.update);
 
 // @route /evaluations/delete/:evaluationId
 // @desc delete evaluation instance
 // @access PRIVATE
-router.delete("/delete/:evaluationId", auth, controller.delete);
+router.delete("/delete/:evaluationId", auth, validate.delete, controller.delete);
 
 module.exports = router;

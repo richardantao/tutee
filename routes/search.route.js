@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const controller = require("../controllers/search.controller");
+
+// middleware
 const auth = require("../middleware/auth.middleware");
 
 // @route /search/

@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const controller = require("../controllers/calendar.controller");
 const auth = require("../middleware/auth.middleware");
+const validate = require("../middleware/validation/classes.validation");
 
 // @route /calendar/
 // @desc display default calendar view
@@ -40,16 +41,16 @@ router.get("/classes/new", auth, controller.classNew);
 // @route /calendar/classes/create
 // @desc create new class in calendar page
 // @ access PRIVATE
-router.post("/classes/create", auth, controller.classCreate);
+router.post("/classes/create", auth, validate.create, controller.classCreate);
 
 // @route /calendar/classes/update/classId
 // @desc display default calendar view
 // @ access PRIVATE
-router.put("/classes/update/:classId", auth, controller.classUpdate);
+router.put("/classes/update/:classId", auth, validate.update, controller.classUpdate);
 
 // @route /calendar/classes/delete/classId
 // @desc display default calendar view
 // @ access PRIVATE
-router.delete("/classes/delete/:classid", auth, controller.classDelete);
+router.delete("/classes/delete/:classid", auth, validate.delete, controller.classDelete);
 
 module.exports = router;

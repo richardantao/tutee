@@ -1,4 +1,4 @@
-import { FETCH_YEARS, EDIT_YEAR, CREATE_YEAR, UPDATE_YEAR, DELETE_YEAR } from "./types";
+import { LOADING_YEARS, FETCH_YEARS, EDIT_YEAR, CREATE_YEAR, UPDATE_YEAR, DELETE_YEAR } from "./types";
 import axios from "axios";
 
 export const fetchYears = () => dispatch => {
@@ -19,7 +19,7 @@ export const createYear = () => dispatch => {
     .catch()
 }
 
-export const udpateYears = () => dispatch => {
+export const updateYears = () => dispatch => {
     axios.put("/courses/:userId/years/update/:yearId")
     .then()
     .catch()

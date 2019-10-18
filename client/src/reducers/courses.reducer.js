@@ -1,37 +1,47 @@
-import { FETCH_COURSES, EDIT_COURSE, CREATE_COURSE, UPDATE_COURSE, DELETE_COURSE } from "../actions/types";
+import { LOADING_COURSES, FETCH_COURSES, EDIT_COURSE, CREATE_COURSE, UPDATE_COURSE, DELETE_COURSE } from "../actions/types";
 
 const initialState = {
     course: {},
     courses: [],
-    isLoading: true
+    loading: false
 }
 
 export default (state = initialState, action) => {
     switch(action.type) {
+        case LOADING_COURSES:
+            return {
+                ...state,
+                loading: true
+            }
         case FETCH_COURSES:
             return {
                 ...state,
-                records: action.payload
+                courses: action.payload,
+                loading: false
             }
         case EDIT_COURSE:
             return {
                 ...state,
-                record: action.payload
+                course: action.payload,
+                loading: false
             }
         case CREATE_COURSE:
             return {
                 ...state,
-                record: action.payload
+                course: action.payload,
+                loading: false
             }
         case UPDATE_COURSE:
             return {
                 ...state,
-                    record: action.payload
+                course: action.payload,
+                loading: false
             }
         case DELETE_COURSE:
             return {
                 ...state,
-                record: action.payload
+                course: action.payload,
+                loading: false
             }
         default: 
             return state;

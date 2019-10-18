@@ -1,4 +1,4 @@
-import { FETCH_CLASSES, EDIT_CLASS, CREATE_CLASS, UPDATE_CLASS, DELETE_CLASS } from "./types";
+import { LOADING_CLASSES, FETCH_CLASSES, EDIT_CLASS, CREATE_CLASS, UPDATE_CLASS, DELETE_CLASS } from "./types";
 import axios from "axios";
 
 export const fetchClasses = () => dispatch => {

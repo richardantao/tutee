@@ -1,4 +1,4 @@
-import { FETCH_MODULES, EDIT_MODULE, CREATE_MODULE, UPDATE_MODULE, DELETE_MODULE } from "./types";
+import { LOADING_MODULES, FETCH_MODULES, EDIT_MODULE, CREATE_MODULE, UPDATE_MODULE, DELETE_MODULE } from "./types";
 import axios from "axios";
 
 export const fetchModules = () => dispatch => {

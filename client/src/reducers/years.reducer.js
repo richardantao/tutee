@@ -1,37 +1,47 @@
-import { FETCH_YEARS, EDIT_YEAR, CREATE_YEAR, UPDATE_YEAR, DELETE_YEAR } from "../actions/types";
+import { LOADING_YEARS, FETCH_YEARS, EDIT_YEAR, CREATE_YEAR, UPDATE_YEAR, DELETE_YEAR } from "../actions/types";
 
 const initialState = {
-    isLoading: true,
+    loading: false,
     year: {},
     years: []
 }
 
 export default (state = initialState, action) => {
     switch(action.type) {
+        case LOADING_YEARS: 
+            return {
+                ...state,
+                loading: true
+            }
         case FETCH_YEARS:
             return {
                 ...state,
-                records: action.payload
+                loading: false,
+                years: action.payload
             }
         case EDIT_YEAR:
             return {
                 ...state,
-                record: action.payload
+                loading: false,
+                year: action.payload
             }
         case CREATE_YEAR:
             return {
                 ...state,
-                record: action.payload
+                loading: false,
+                year: action.payload
             }
         case UPDATE_YEAR:
             return {
                 ...state,
-                record: action.payload
+                loading: false,
+                year: action.payload
             }
         case DELETE_YEAR:
             return {
                 ...state,
-                record: action.payload
+                loading: false,
+                year: action.payload
             } 
         default: 
             return state

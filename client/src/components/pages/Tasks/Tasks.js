@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
 import { fetchTasks, editTask, createTask, updateTask, deleteTask } from "../../../actions/tasks.action";
+import PropTypes from "prop-types";
 
 import { Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -17,14 +18,6 @@ import SelectReact from "../../atoms/Select";
 import "./Tasks.scss";
 
 class Tasks extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			isLoading: true,
-			tasks: []
-		}
-	}
-
 	componentDidMount() {
 		this.props.fetchTasks();
 	}
@@ -38,6 +31,8 @@ class Tasks extends Component {
 	}
 
 	render() {
+		const { tasks } = this.props.task;
+
 		const taskRecords = this.state.tasks.map(task => (
 			<Row key={task.id} className="task-record">
 				<Col>
@@ -92,8 +87,13 @@ class Tasks extends Component {
 	}
 }
 
+Tasks.propTypes = {
+	fetchTasks: PropTypes.func.isRequired,
+	tasks: PropTypes.object.isRequired
+}
+
 const mapStateToProps = state => ({
 	tasks: state.tasks.records
 });
 
-export default connect(mapStateToProps, { fetchTasks })(Tasks);
+export default connect(mapStateToProps, { fetchTasks, editTask, createTask, updateTask, deleteTask })(Tasks);

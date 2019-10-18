@@ -210,7 +210,7 @@ controller.signin = (req, res, next) => {
         if(!user) {
             return res.status(404).json({
                 auth: false,
-                message: "This user wasn't found"
+                message: "This email is not associated with a registered account"
             })
         } else {
             const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);

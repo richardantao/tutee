@@ -1,15 +1,20 @@
-import { FETCH_TASKS, EDIT_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK } from "./types";
+import { LOADING_TASKS, FETCH_TASKS, EDIT_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK } from "./types";
 import axios from "axios";
 
+export const setLoading = () => dispatch => {
+    return {
+        type: LOADING_TASKS
+    }
+}
+
 export const fetchTasks = () => dispatch => {
+    dispatch(setLoading());
+
     axios.get("/tasks/:userId")
-    // .then(res => {
-    //     res.json();
-    // })
-    .then(tasks => {
+    .then(res => {
         dispatch({
             type: FETCH_TASKS, 
-            payload: tasks
+            payload: res.data
         });
     })
     .catch(err => {
@@ -17,8 +22,8 @@ export const fetchTasks = () => dispatch => {
     });
 }
 
-export const editTask = () => dispatch => {
-    axios.get("/tasks/:userId/edit/:taskId")
+export const editTask = id => dispatch => {
+    axios.get(`/tasks/${id}/edit/:taskId`)
     .then()
     .then(task => {
         dispatch({
@@ -31,20 +36,19 @@ export const editTask = () => dispatch => {
     });
 }
 
-export const createTask = (taskData) => dispatch => {
-    axios.post("/tasks/:userId/create")
-    .then()
-    .then(task => {
+export const createTask = taskData => dispatch => {
+    axios.post("/tasks/:userId/create", taskData)
+    .then(res => {
         dispatch({
             type: CREATE_TASK,
-            payload: task
+            payload: res.data
         });
     })
     .catch()  
 }
 
-export const updateTask = () => dispatch => {
-    axios.put("/tasks/:userId/update/taskId")
+export const updateTask = id => dispatch => {
+    axios.put(`/tasks/${id}/update/taskId`)
     .then()
     .then(task => {
         dispatch({
@@ -57,13 +61,12 @@ export const updateTask = () => dispatch => {
     });
 }
 
-export const deleteTask = () => dispatch => {
-    axios.delete("/tasks/:userId/delete/taskId")
-    .then()
-    .then(task => {
+export const deleteTask = id => dispatch => {
+    axios.delete(`/tasks/${id}/delete/:taskId`)
+    .then(res => {
         dispatch({
             type: DELETE_TASK,
-            payload: task
+            payload: id
         });
     })
     .catch(err => {

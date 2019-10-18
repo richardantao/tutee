@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const logger = require("morgan");
 const cors = require("cors");
 const path = require("path");
-// const cookieParser = require("cookie-parser");
 // const dotenv = require("cdotenv").config();
 
 // Configurations
@@ -13,14 +12,11 @@ const env = process.env.NODE_ENV || "development";
 const db = require("./config/config");
 
 // Middleware - preprocessing 
-app.use(express.static("public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(logger("dev"));
 app.use(cors());
-// app.use(cookieParser());
 
-// Routes middleware
+// Routes
 app.use("/", require("./routes/auth.route"));
 app.use("/beta/:userId", require("./routes/beta.route"));
 app.use("/users", require("./routes/users.route"));
@@ -32,18 +28,20 @@ app.use("/courses/:userId", require("./routes/courses.route"));
 app.use("/search/:userId", require("./routes/search.route"));
 app.use("/settings/:userId", require("./routes/settings.route"));
 
-if(process.env.NODE_ENV === "production") {
-	
-	
+// Conditional environment routing
+if(env === "production") {
+	app.use(express.static("client/build"));
 	app.get("*", (req, res) => {
-
-	}) 
+		res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+	});
 } else {
-
+	app.use(express.static("public"));
+	app.use(logger("dev"));
 }
 
+// Bootup
 app.listen(port, () => {
-	console.log(`Your ${env} server is up and running on port ` + port);
+	console.log(`Your ${env} server is up and running on port ${port}`);
 });
 
 module.exports = app;

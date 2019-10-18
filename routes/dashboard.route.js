@@ -2,29 +2,65 @@ const router = require("express").Router();
 const controller = require("../controllers/dashboard.controller");
 const auth = require("../middleware/auth.middleware");
 
+// @route /dashboard/
+// @desc render all today's classes, and the tasks and evaluations due within 7 days
+// @access PRIVATE
 router.get("/", auth, controller.index);
 
-router.get("classes/:classes._id/edit", auth, controller.classEdit);
+// @route /dashboard/classes/edit/:classId
+// @desc edit class instance
+// @access PRIVATE
+router.get("classes/edit/:classeId", auth, controller.classEdit);
 
-router.put("classes/:classes._id/update", auth, controller.classUpdate);
+// @route /dashboard/classes/update/:classId
+// @desc update class instance
+// @access PRIVATE
+router.put("classes/update/:classId", auth, controller.classUpdate);
 
-router.delete("/classes/:classes._id/delete", auth, controller.classDelete); 
+// @route /dashboard/classes/delete/:classId
+// @desc delete class instance
+// @access PRIVATE
+router.delete("/classes/delete/:classId", auth, controller.classDelete); 
 
-router.get("/tasks/:tasks._id/edit", auth, controller.taskEdit);
+// @route /dashboard/tasks/edit/:taskId
+// @desc edit task instance
+// @access PRIVATE
+router.get("/tasks/edit/:taskId", auth, controller.taskEdit);
 
+// @route /dashboard/tasks/new
+// @desc get form to add new task through the dashboard
+// @access PRIVATE
 router.get("/tasks/new", auth, controller.taskNew);
 
+// @route /dashboard/tasks/create
+// @desc create new task
+// @access PRIVATE
 router.post("/tasks/create", auth, controller.taskCreate);
 
-router.put("/tasks/:tasks._id/update", auth, controller.taskUpdate);
+// @route /dashboard/tasks/create
+// @desc update task instances
+// @access PRIVATE
+router.put("/tasks/update/:taskId", auth, controller.taskUpdate);
 
-router.delete("/tasks/:tasks._id/delete", auth, controller.taskDelete);
+// @route /dashboard/tasks/delete/:taskId
+// @desc delete task instance
+// @access PRIVATE
+router.delete("/tasks/delete/:taskId", auth, controller.taskDelete);
 
-router.get("/evals/:evaluations._id/edit", auth, controller.evalEdit);
+// @route /dashboard/evaluations/edit/:evaluationId
+// @desc edit evaluation instance
+// @access PRIVATE
+router.get("/evaluations/edit/:evaluationId", auth, controller.evalEdit);
 
-router.put("/evals/:evaluations._id/update", auth, controller.evalUpdate);
+// @route /dashboard/tasks/update/:evaluationId
+// @desc update evaluation 
+// @access PRIVATE
+router.put("/evaluations/update/:evaluationId", auth, controller.evalUpdate);
 
-router.delete("/evals/:evaluations._id/delete", auth, controller.evalDelete);
+// @route /dashboard/evalations/delete/:evaluationId
+// @desc delete evaluation instance
+// @access PRIVATE
+router.delete("/evaluations/delete/:evaluationId", auth, controller.evalDelete);
 
 module.exports = router;
 

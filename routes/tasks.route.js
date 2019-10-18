@@ -2,18 +2,39 @@ const router = require("express").Router();
 const controller = require("../controllers/tasks.controller");
 const auth = require("../middleware/auth.middleware");
 
+// @route /tasks/
+// @desc render all current tasks
+// @access PRIVATE
 router.get("/", auth, controller.index);
 
+// @route /tasks/past
+// @desc render all past tasks
+// @access PRIVATE
 router.get("/past", auth, controller.past); // handle logic on frontend?
 
-router.get("/:tasks._id/edit", auth, controller.edit);
+// @route /tasks/edit/:taskId
+// @desc edit task instance
+// @access PRIVATE
+router.get("/edit/:taskId", auth, controller.edit);
 
+// @route /tasks/new
+// @desc get form to add new form
+// @access PRIVATE
 router.get("/new", auth, controller.new); 
 
+// @route /tasks/create
+// @desc add new task
+// @access PRIVATE
 router.post("/create", auth, controller.create);
 
-router.put("/:tasks._id/update", auth, controller.update);
+// @route /tasks/update/:taskId
+// @desc render all current tasks
+// @access PRIVATE
+router.put("/update/:taskId", auth, controller.update);
 
-router.delete("/:tasks._id/delete", auth, controller.delete);
+// @route /tasks/delete/:taskId
+// @desc render all current tasks
+// @access PRIVATE
+router.delete("/delete/:taskId", auth, controller.delete);
 
 module.exports = router;

@@ -2,50 +2,117 @@ const router = require("express").Router();
 const controller = require("../controllers/courses.controller");
 const auth = require("../middleware/auth.middleware");
 
+// @route /courses/
+// @desc render all models within the courses view
+// @access PRIVATE
 router.get("/", controller.index);
 
-// years
-router.get("/years/:years._id/edit", auth, controller.yearsEdit);
+/* Years */
 
+// @route /courses/years/edit/:yearId
+// @desc edit year instance
+// @access PRIVATE
+router.get("/years/edit/:yearId", auth, controller.yearsEdit);
+
+// @route /courses/years/new
+// @desc get form to add new year
+// @access PRIVATE
 router.get("/years/new", auth, controller.yearsNew);
 
+// @route /courses/years/create
+// @desc create new year
+// @access PRIVATE
 router.post("/years/create", auth, controller.yearsCreate);
 
-router.put("/years/:years._id/update", auth, controller.yearsUpdate);
+// @route /courses/years/update/:yearId
+// @desc update year instance
+// @access PRIVATE
+router.put("/years/update/:yearId", auth, controller.yearsUpdate);
 
-router.delete("/year/:years._id/delete", auth, controller.yearsDelete);
+// @route /courses/years/delete/:yearId
+// @desc delete year instance
+// @access PRIVATE
+router.delete("/years/delete/:yearId", auth, controller.yearsDelete);
 
-// terms
-router.get("/terms/:terms._id/edit", auth, controller.termsEdit);
+/* Terms */
 
+// @route /courses/terms/edit/:termId
+// @desc edit term instance
+// @access PRIVATE
+router.get("/terms/edit/:termId", auth, controller.termsEdit);
+
+// @route /courses/terms/new
+// @desc get form to add new term
+// @access PRIVATE
 router.get("/terms/new", auth, controller.termsNew);
 
+// @route /courses/terms/create
+// @desc create new term
+// @access PRIVATE
 router.post("/terms/create", auth, controller.termsCreate);
 
-router.put("/terms/:terms._id/update", auth, controller.termsUpdate);
+// @route /courses/terms/update/:termId
+// @desc update term instance
+// @access PRIVATE
+router.put("/terms/update/:termId", auth, controller.termsUpdate);
 
-router.delete("/terms/:terms._id/delete", auth, controller.termsDelete);
+// @route /courses/terms/delete/:termId
+// @desc edit year instance
+// @access PRIVATE
+router.delete("/terms/delete/:termId", auth, controller.termsDelete);
 
 // courses
-router.get("/:courses._id/edit", auth, controller.coursesEdit);
 
+// @route /courses/edit/:courseId
+// @desc edit course instace
+// @access PRIVATE
+router.get("/edit/:courseId", auth, controller.coursesEdit);
+
+// @route /courses/years/edit/:courseId
+// @desc get form to add new course
+// @access PRIVATE
 router.get("/new", auth, controller.coursesNew);
 
+// @route /courses/create
+// @desc create new course
+// @access PRIVATE
 router.post("/create", auth, controller.coursesCreate);
 
-router.put("/:courses._id/update", auth, controller.coursesUpdate);
+// @route /courses/update/:courseId
+// @desc update course instance
+// @access PRIVATE
+router.put("/update/:courseId", auth, controller.coursesUpdate);
 
-router.delete("/:courses._id/delete", auth, controller.coursesDelete);
+// @route /courses/delete/:courseId
+// @desc delete course instance
+// @access PRIVATE
+router.delete("/delete/:courseId", auth, controller.coursesDelete);
 
 // modules
-router.get("/modules/:modules._id/edit", auth, controller.modulesEdit);
 
+// @route /courses/modules/edit/:moduleId
+// @desc edit module instance
+// @access PRIVATE
+router.get("/modules/edit/:moduleId", auth, controller.modulesEdit);
+
+// @route /courses/modules/new
+// @desc get form to add new module
+// @access PRIVATE
 router.get("/modules/new", auth, controller.modulesNew);
 
+// @route /courses/modules/create
+// @desc create new module
+// @access PRIVATE
 router.post("/modules/create", auth, controller.modulesCreate);
 
-router.put("/modules/:modules._id/update", auth, controller.modulesUpdate);
+// @route /courses/modules/update/:moduleId
+// @desc update module instance
+// @access PRIVATE
+router.put("/modules/update/:moduleId", auth, controller.modulesUpdate);
 
-router.delete("/modules/:modules._id/delete", auth, controller.modulesDelete);
+// @route /courses/modules/delete/:moduleId
+// @desc delete module instance
+// @access PRIVATE
+router.delete("/modules/delete/:moduleId", auth, controller.modulesDelete);
 
 module.exports = router; 

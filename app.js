@@ -8,7 +8,7 @@ const dotenv = require("dotenv").config();
 const app = express();
 const port = process.env.PORT || 3001;
 const env = process.env.NODE_ENV || "development";
-const db = require("./config/config");
+const db = require("./config/db");
 
 // Middleware - preprocessing 
 app.use(express.json());

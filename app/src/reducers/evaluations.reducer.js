@@ -1,8 +1,9 @@
 import { FETCH_EVALUATIONS, EDIT_EVALUATION, CREATE_EVALUATION, UPDATE_EVALUATION, DELETE_EVALUATION } from "../actions/types";
 
 const initialState = {
+    evaluation: {},
     evaluations: [],
-    evaluation: {}
+    isLoading: true
 }
 
 export default (state = initialState, action) => {

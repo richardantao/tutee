@@ -1,8 +1,9 @@
 import { FETCH_MODULES, EDIT_MODULE, CREATE_MODULE, UPDATE_MODULE, DELETE_MODULE } from "../actions/types";
 
 const initialState = {
-    modules: [],
-    module: {}
+    isLoading: true,
+    module: {},
+    modules: []
 }
 
 export default (state = initialState, action) => {

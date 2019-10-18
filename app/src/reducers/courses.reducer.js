@@ -1,8 +1,9 @@
 import { FETCH_COURSES, EDIT_COURSE, CREATE_COURSE, UPDATE_COURSE, DELETE_COURSE } from "../actions/types";
 
 const initialState = {
+    course: {},
     courses: [],
-    course: {}
+    isLoading: true
 }
 
 export default (state = initialState, action) => {

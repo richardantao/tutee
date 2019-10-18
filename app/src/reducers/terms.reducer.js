@@ -1,8 +1,9 @@
 import { FETCH_TERMS, EDIT_TERM, CREATE_TERM, UPDATE_TERM, DELETE_TERM } from "../actions/types";
 
 const initialState = {
-    terms: [],
-    term: {}
+    isLoading: true,
+    term: {},
+    terms: []
 }
 
 export default (state = initialState, action) => {

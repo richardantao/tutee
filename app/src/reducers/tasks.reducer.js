@@ -2,7 +2,8 @@ import { FETCH_TASKS, EDIT_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK } from ".
 
 const initialState = {
     tasks: [],
-    task: {}
+    task: {},
+    isLoading: true
 }
 
 export default (state = initialState, action) => {

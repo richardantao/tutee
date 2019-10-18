@@ -7,7 +7,6 @@ const validateClass = require("../middleware/validation/classes.validation");
 const validateTask = require("../middleware/validation/tasks.validation");
 const validateEvaluation = require("../middleware/validation/evaluations.validation");
 
-
 // @route /dashboard/
 // @desc render all today's classes, and the tasks and evaluations due within 7 days
 // @access PRIVATE

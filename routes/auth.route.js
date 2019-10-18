@@ -1,5 +1,8 @@
 const router = require("express").Router();
 const controller = require("../controllers/auth.controller");
+
+// middleware
+const auth = require("../middleware/auth.middleware");
 const validate = require("../middleware/validation/auth.validation");
 
 // @route /apply
@@ -25,11 +28,11 @@ router.post("/register", validate.register, controller.register);
 // @route /signin
 // @desc creates user session to access application
 // @access PUBLIC
-router.post("/signin", validate.signin, controller.signin);
+router.post("/signin", auth, validate.signin, controller.signin);
 
 // @route /signout
 // @desc kills user's application session
 // @access PRIVATE
-router.delete("/signout", validate.signout, controller.signout);
+router.delete("/signout", auth, validate.signout, controller.signout);
 
 module.exports = router;

@@ -2,11 +2,7 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 const path = require("path");
-// const dotenv = require("dotenv").config();
-
-/* NOTE
-	add googleapis and @google-cloud/storage to production package.json
- */
+const dotenv = require("dotenv").config();
 
 // Configurations
 const app = express();

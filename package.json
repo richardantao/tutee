@@ -4,7 +4,54 @@
   "description": "tutee's server npm",
   "main": "app.js",
   "directories": {
-    "test": "test"
+    "bin": {
+      "www": "www"
+    },
+    "client": {
+
+    },
+    "config": {
+      "db": "db.js"
+    },
+    "controllers": {
+
+    },
+    "middleware": {
+      "auth.middleware": "auth.middleware.js",
+      "validation": {
+
+      }
+    },
+    "models": {
+
+    },
+    "public": {
+      "assets": {
+        "icons": {
+
+        },
+        "images": {
+
+        },
+        "scripts": {
+
+        },
+        "stylesheets": {
+
+        }
+      },
+      "index.html": "index.html"
+    },
+    "routes": {
+      
+    },
+    "test": {
+
+    },
+    "app.js": "app.js",
+    "app.yaml": "app.yaml",
+    "cron.yaml": "cron.yaml",
+    "dispatch.yaml": "dispatch.yaml"
   },
   "scripts": {
     "deploy": "concurrently \"gcloud app deploy\" \"cd client && npm deploy\"",
@@ -32,7 +79,6 @@
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-react-views": "^0.11.0",
     "express-validator": "^6.2.0",
     "googleapis": "^44.0.0",
     "jsonwebtoken": "^8.5.1",
@@ -41,9 +87,7 @@
     "mongodb": "^3.3.3",
     "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
-    "nodemailer": "^6.3.1",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2"
+    "nodemailer": "^6.3.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",

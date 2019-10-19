@@ -3,15 +3,14 @@ const express = require("express");
 const app = express();
 
 const bcrypt = require("bcrypt");
-const { google } = require("googleapis");
+const dotenv = require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const { google } = require("googleapis");
 const nodemailer = require("nodemailer");
 const OAuth2 = google.auth.OAuth2;
 const path = require("path");
 
 // import env variables
-const authUser = process.env.EMAIL_AUTH_USER;
-const authPass = process.env.EMAIL_AUTH_PASSWORD;
 const authEmail = process.env.EMAIL_AUTH_EMAIL;
 const authClient = process.env.CLIENT_ID;
 const authClientSecret = process.env.CLIENT_SECRET;

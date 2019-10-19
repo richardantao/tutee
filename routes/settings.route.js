@@ -5,6 +5,9 @@ const controller = require("../controllers/settings.controller");
 const auth = require("../middleware/auth.middleware");
 const validate = require("../middleware/validation/user.validation");
 
+// @route /settings/profile/update
+// @desc update user profile in the settings view
+// @access PRIVATE
 router.put("/profile/update", auth, validate.updateProfile, controller.profileUpdate);
 
 // @route /settings/profile/delete

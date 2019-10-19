@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "description": "tutee's server npm",
   "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
     "deploy": "concurrently \"gcloud app deploy\" \"cd client && npm deploy\"",
     "dev": "concurrently \"nodemon app.js\" \"cd client && npm start\"",
@@ -16,7 +19,10 @@
   },
   "author": "Richard Antao",
   "license": "UNLICENSED",
-  "private": true,
+  "bugs": {
+    "url": "https://github.com/richardantao/tutee/issues"
+  },
+  "homepage": "https://github.com/richardantao/tutee#readme",
   "dependencies": {
     "@google-cloud/storage": "^4.0.0",
     "async": "^3.1.0",
@@ -24,26 +30,25 @@
     "concurrently": "^5.0.0",
     "cors": "^2.8.5",
     "debug": "^4.1.1",
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-react-views": "^0.11.0",
     "express-validator": "^6.2.0",
     "googleapis": "^44.0.0",
-    "https-proxy-agent": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "migrate": "^1.6.2",
     "moment": "^2.24.0",
-    "mongodb": "^3.3.2",
-    "mongoose": "^5.7.1",
+    "mongodb": "^3.3.3",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
-    "nodemailer": "^6.3.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "nodemailer": "^6.3.1",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.2.1",
-    "nodemon": "^1.19.3",
+    "mocha": "^6.2.2",
+    "nodemon": "^1.19.4",
     "sinon": "^7.5.0",
     "supertest": "^4.0.2"
   }

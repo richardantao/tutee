@@ -30,6 +30,7 @@ yarn-error.log*
 
 # misc
 .DS_Store
+.icloud
 .vscode
 .env
 .env.local

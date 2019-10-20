@@ -3,9 +3,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import LoadingColumn from "../../molecules/LoadingColumn";
-import "./NotFound.scss";
+import "./Errors.scss";
 
-class NotFound extends Component {
+class Errors extends Component {
     componentDidMount() {
     
     }
@@ -23,4 +23,4 @@ class NotFound extends Component {
     }
 }
 
-export default connect(null, {})(NotFound);
+export default connect(null, {})(Errors);

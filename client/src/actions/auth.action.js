@@ -8,7 +8,7 @@ import axios from "axios";
 // check and load user
 export const loadUser = () => (dispatch, getState) => {
     // User loading
-    dispatch({ types: USER_LOADING });
+    dispatch({ type: USER_LOADING });
 
     axios.get("/", tokenConfig(getState))
     .then(res => {

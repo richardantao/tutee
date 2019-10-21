@@ -54,6 +54,9 @@ export const CREATE_TASK = "CREATE_TASK";
 export const UPDATE_TASK = "UPDATE_TASK";
 export const DELETE_TASK = "DELETE_TASK";
 
+// nav
+export const ACTIVE_VIEW = "ACTIVE_VIEW";
+
 // auth
 export const USER_LOADING = "USER_LOADING";
 export const USER_LOADED = "USER_LOADED";

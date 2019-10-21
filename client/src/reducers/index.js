@@ -7,7 +7,8 @@ import modules from "./modules.reducer";
 import classes from "./classes.reducer";
 import evaluations from "./evaluations.reducer";
 import tasks from "./tasks.reducer";
+import nav from "./nav.reducer";
 import auth from "./auth.reducer";
 import errors from "./errors.reducer";
 
-export default combineReducers({ years, terms, courses, modules, classes, evaluations, tasks, auth, errors });
+export default combineReducers({ years, terms, courses, modules, classes, evaluations, tasks, nav, auth, errors });

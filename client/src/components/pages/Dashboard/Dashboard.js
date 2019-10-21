@@ -16,7 +16,7 @@ import LoadingColumn from "../../molecules/LoadingColumn";
 
 import "./Dashboard.scss";
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
 	componentDidMount() {
 		
 	}
@@ -53,3 +53,9 @@ export default class Dashboard extends Component {
 		)
 	}
 }
+
+const mapStateToProps = state => {
+	
+}
+
+export default connect(mapStateToProps, {  })(Dashboard);

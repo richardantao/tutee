@@ -89,4 +89,8 @@ class Courses extends Component {
 	}
 }
 
-export default connect(null, { fetchCourses, editCourse, createCourse, updateCourse, deleteCourse })(Courses);
+const mapStateToProps = state => {
+	
+}
+
+export default connect(mapStateToProps, { fetchCourses, editCourse, createCourse, updateCourse, deleteCourse })(Courses);

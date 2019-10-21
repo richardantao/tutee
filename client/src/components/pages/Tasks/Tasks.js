@@ -12,7 +12,6 @@ import { Button } from "react-bootstrap";
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
 import Modal from "../../molecules/Modal";
-import Form from "../../molecules/Form";
 import SelectReact from "../../atoms/Select";
 
 import "./Tasks.scss";

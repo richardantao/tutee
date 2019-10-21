@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 
+import {} from "../../../actions";
 import { connect } from "react-redux";
 
 import { Col, Row } from "reactstrap";
@@ -18,6 +19,10 @@ import LoadingColumn from "../../molecules/LoadingColumn";
 import "./Settings.scss";
 
 class Settings extends Component {
+	state = {
+
+	}
+
 	componentDidMount() {
 		
 	}
@@ -77,4 +82,8 @@ class Settings extends Component {
 const year = new Date().getFullYear();
 const version = "Version 1.0.0";
 
-export default connect(null, {})(Settings);
+const mapStateToProps = state => {
+
+}
+
+export default connect(mapStateToProps, {  })(Settings);

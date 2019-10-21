@@ -1,36 +1,20 @@
 import React, { Component } from "react";
-import axios from "axios";
+
+import { connect } from "react-redux";
+
+
 import { Col, Row } from "react-bootstrap";
 import LoadingColumn from "../../molecules/LoadingColumn";
+
 import "./Preference.scss";
 
-export default class Preference extends Component {
-    constructor(props) {
-        super(props);
-        
-        this.state = {
-            isLoading: true,
-            preferences: []
-        };
+class Preference extends Component {
+    state = {
+
     }
 
     componentDidMount() {
-        this.setState({
-            isLoading: false
-        });
-        axios.get("https://localhost:3000/settings/preferences/")
-        .then(res => {
-            this.setState({
-                isLoading: false,
-                preferences: res.data.preferences
-            });
-        })
-        .catch(err => {
-            this.setState({
-                errors: err,
-                isLoading: false
-            });
-        });
+
     }
     
     componentWillUnmount() {
@@ -38,24 +22,25 @@ export default class Preference extends Component {
     }
 
     render() {
-        let { isLoading } = this.state;     
-        if (isLoading) {
-            return <LoadingColumn/>
-        } else {
-            return(
-                <form method="PUT" action="/">
-                    <Row>
-                        <Col>
-                        
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                        
-                        </Col>
-                    </Row>
-                </form>
-            )
-        }
+        return(
+            <form method="PUT" action="/">
+                <Row>
+                    <Col>
+                    
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                    
+                    </Col>
+                </Row>
+            </form>
+        )
     }
 }
+
+const mapStateToProps = state => {
+    
+}
+
+export default connect(mapStateToProps, { })(Preference);

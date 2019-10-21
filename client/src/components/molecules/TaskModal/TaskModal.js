@@ -1,16 +1,14 @@
-import React, { Component } from "react";
-// import axios from "axios";
+import React, { Component} from "react";
+
+
+import { connect } from "react-redux";
+
 import Button from "../../atoms/Button";
-import "./Modal.scss";
+import "./TaskModal.scss";
 
-export default class Modal extends Component {
-    constructor(props) {
-        super(props);
+class TaskModal extends Component {
+    state = {
 
-        this.state = {
-            isLoading: true,
-            active: false
-        }
     }
     
     componentDidMount() {
@@ -19,15 +17,7 @@ export default class Modal extends Component {
             active: false
         });
     }
-
-    // toggleDisplay = () => {
-    //     this.setState((prevState) => {
-    //         active: !prevState.active
-    //     });
-    // }
-
     render() {
-        let { isLoading, active } = this.state;
 
         return(
             <form method="" action="" className="modal">
@@ -48,3 +38,9 @@ export default class Modal extends Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+
+}
+
+export default connect(mapStateToProps, { })(TaskModal);

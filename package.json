@@ -4,9 +4,6 @@
   "description": "tutee's server npm",
   "main": "app.js",
   "directories": {
-    "bin": {
-      "www": "www"
-    },
     "client": {
 
     },
@@ -45,9 +42,7 @@
     "routes": {
       
     },
-    "test": {
-
-    },
+    "test": "test",
     "app.js": "app.js",
     "app.yaml": "app.yaml",
     "cron.yaml": "cron.yaml",

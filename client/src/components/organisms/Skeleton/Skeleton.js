@@ -10,7 +10,8 @@ const sideBar = ({button}) => {
         <navButton />
         <navButton />
         <br/> 
-        <navButton />  
+        <navButton />
+        <navButton />
     </div>
 }
 

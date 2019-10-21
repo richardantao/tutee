@@ -2,13 +2,13 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 const path = require("path");
-// const dotenv = require("dotenv").config();
+const dotenv = require("dotenv").config();
 
 // Configurations
 const app = express();
 const port = process.env.PORT || 3001;
 const env = process.env.NODE_ENV || "development";
-const db = require("./config/config");
+const db = require("./config/db");
 
 // Middleware - preprocessing 
 app.use(express.json());
@@ -17,15 +17,15 @@ app.use(cors());
 
 // Routes
 app.use("/", require("./routes/auth.route"));
-app.use("/beta/:userId", require("./routes/beta.route"));
+app.use("/beta", require("./routes/beta.route"));
 app.use("/users", require("./routes/users.route"));
-app.use("/dashboard/:userId", require("./routes/dashboard.route"));
-app.use("/calendar/:userId", require("./routes/calendar.route"));
-app.use("/tasks/:userId", require("./routes/tasks.route"));
-app.use("/evaluations/:userId", require("./routes/evaluations.route"));
-app.use("/courses/:userId", require("./routes/courses.route"));
-app.use("/search/:userId", require("./routes/search.route"));
-app.use("/settings/:userId", require("./routes/settings.route"));
+app.use("/dashboard", require("./routes/dashboard.route"));
+app.use("/calendar", require("./routes/calendar.route"));
+app.use("/tasks", require("./routes/tasks.route"));
+app.use("/evaluations", require("./routes/evaluations.route"));
+app.use("/courses", require("./routes/courses.route"));
+app.use("/search", require("./routes/search.route"));
+app.use("/settings", require("./routes/settings.route"));
 
 // Conditional environment routing
 if(env === "production") {

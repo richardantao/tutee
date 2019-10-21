@@ -1,29 +1,63 @@
-const express = require("express");
-const router = express.Router();
+const router = require("express").Router();
 const controller = require("../controllers/settings.controller");
 
-router.post("/profile/create", controller.profileCreate);
+// middleware
+const auth = require("../middleware/auth.middleware");
+const validate = require("../middleware/validation/user.validation");
 
-router.put("/profile/update", controller.profileUpdate);
+// @route /settings/profile/update
+// @desc update user profile in the settings view
+// @access PRIVATE
+router.put("/profile/update", auth, validate.updateProfile, controller.profileUpdate);
 
-router.delete("/profile/delete", controller.profileDelete); 
+// @route /settings/profile/delete
+// @desc delete user account
+// @access PRIVATE
+router.delete("/profile/delete", auth, validate.deleteProfile, controller.profileDelete); 
 
-router.get("/password/edit", controller.passwordEdit);
+// @route /settings/password/edit
+// @desc get user's password to compare to their input
+// @access PRIVATE
+router.get("/password/edit", auth, controller.passwordEdit);
 
-router.put("/password/update", controller.passwordUpdate);
+// @route /settings/password/update
+// @desc update user's password
+// @access PRIVATE
+router.put("/password/update", auth, validate.updatePassword, controller.passwordUpdate);
 
-router.get("/preferences/edit", controller.preferencesEdit);
+// @route /settings/preferences/edit
+// @desc get user's preferences
+// @access PRIVATE
+router.get("/preferences/edit", auth, controller.preferencesEdit);
 
-router.put("/preferences/update", controller.preferencesUpdate);
+// @route /settings/preferences/update
+// @desc update user's preferences
+// @access PRIVATE
+router.put("/preferences/update", auth, validate.updatePreferences, controller.preferencesUpdate);
 
-router.get("/integrations/edit", controller.integrationsEdit);
+// @route /settings/integrations/edit/:integrationId
+// @desc edit user's integration instance
+// @access PRIVATE
+router.get("/integrations/edit", auth, controller.integrationsEdit);
 
-router.get("/integrations/new", controller.integrationsNew);
+// @route /settings/integrations/new
+// @desc get form to add new integration
+// @access PRIVATE
+router.get("/integrations/new", auth, controller.integrationsNew);
 
-router.post("/integrations/create", controller.integrationsCreate);
+// @route /settings/integration/create
+// @desc add new user integration
+// @access PRIVATE
+router.post("/integrations/create", auth, validate.createIntegration, controller.integrationsCreate);
 
-router.put("/integrations/update", controller.integrationsUpdate);
+// @route /settings/integrations/update/:integrationId
+// @desc update user's integration instance
+// @access PRIVATE
+router.put("/integrations/update/:integrationId", auth, validate.updateIntegration, controller.integrationsUpdate);
 
-router.delete("/integrations/delete", controller.integrationsDelete);
+// @route /settings/integrations/delete/:integrationId
+// @desc delete user's integration
+// @access PRIVATE
+router.delete("/integrations/delete/:integrationId", auth, validate.deleteIntegration, controller.integrationsDelete);
 
 module.exports = router;

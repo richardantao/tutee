@@ -3,11 +3,61 @@
   "version": "0.1.0",
   "description": "tutee's server npm",
   "main": "app.js",
+  "directories": {
+    "bin": {
+      "www": "www"
+    },
+    "client": {
+
+    },
+    "config": {
+      "db": "db.js"
+    },
+    "controllers": {
+
+    },
+    "middleware": {
+      "auth.middleware": "auth.middleware.js",
+      "validation": {
+
+      }
+    },
+    "models": {
+
+    },
+    "public": {
+      "assets": {
+        "icons": {
+
+        },
+        "images": {
+
+        },
+        "scripts": {
+
+        },
+        "stylesheets": {
+
+        }
+      },
+      "index.html": "index.html"
+    },
+    "routes": {
+      
+    },
+    "test": {
+
+    },
+    "app.js": "app.js",
+    "app.yaml": "app.yaml",
+    "cron.yaml": "cron.yaml",
+    "dispatch.yaml": "dispatch.yaml"
+  },
   "scripts": {
-    "dev": "concurrently \"nodemon app.js\" \"cd client && npm start\"",
     "deploy": "concurrently \"gcloud app deploy\" \"cd client && npm deploy\"",
-    "prepare": "npm run gcp-build",
+    "dev": "concurrently \"nodemon app.js\" \"cd client && npm start\"",
     "start": "concurrently \"node app.js\" \"cd client && npm start\"",
+    "server": "nodemon app.js",
     "test": "mocha --timeout 5000"
   },
   "repository": {
@@ -16,35 +66,33 @@
   },
   "author": "Richard Antao",
   "license": "UNLICENSED",
-  "private": true,
+  "bugs": {
+    "url": "https://github.com/richardantao/tutee/issues"
+  },
+  "homepage": "https://github.com/richardantao/tutee#readme",
   "dependencies": {
-    "@google-cloud/storage": "^3.2.1",
+    "@google-cloud/storage": "^4.0.0",
     "async": "^3.1.0",
     "bcrypt": "^3.0.6",
     "concurrently": "^5.0.0",
     "cors": "^2.8.5",
     "debug": "^4.1.1",
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-react-views": "^0.11.0",
-    "googleapis": "^42.0.0",
+    "express-validator": "^6.2.0",
+    "googleapis": "^44.0.0",
     "jsonwebtoken": "^8.5.1",
     "migrate": "^1.6.2",
     "moment": "^2.24.0",
-    "mongodb": "^3.3.2",
-    "mongoose": "^5.7.1",
+    "mongodb": "^3.3.3",
+    "mongoose": "^5.7.5",
     "morgan": "^1.9.1",
-    "node-cache": "^4.2.1",
-    "nodemailer": "^6.3.0",
-    "passport": "^0.4.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "uuid": "^3.3.3"
+    "nodemailer": "^6.3.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.2.1",
-    "nodemon": "^1.19.3",
+    "mocha": "^6.2.2",
+    "nodemon": "^1.19.4",
     "sinon": "^7.5.0",
     "supertest": "^4.0.2"
   }

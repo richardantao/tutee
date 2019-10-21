@@ -3,16 +3,14 @@ const express = require("express");
 const app = express();
 
 const bcrypt = require("bcrypt");
-const bodyParser = require("body-parser");
-const { google } = require("googleapis");
+const dotenv = require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const { google } = require("googleapis");
 const nodemailer = require("nodemailer");
 const OAuth2 = google.auth.OAuth2;
 const path = require("path");
 
 // import env variables
-const authUser = process.env.EMAIL_AUTH_USER;
-const authPass = process.env.EMAIL_AUTH_PASSWORD;
 const authEmail = process.env.EMAIL_AUTH_EMAIL;
 const authClient = process.env.CLIENT_ID;
 const authClientSecret = process.env.CLIENT_SECRET;
@@ -21,8 +19,9 @@ const authRefresh = process.env.REFRESH_TOKEN;
 const authSecret = process.env.AUTH_SECRET;
 
 // middleware
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+const auth = require("../middleware/auth.middleware");
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 const oauth2Client = new OAuth2(
     authClient, 
@@ -161,36 +160,56 @@ controller.invite = (req, res, next) => {
     });
 }
 
+// validate user input
+// error handle if necessary
+// check database for existing account
+// hash password
+// save user to database
+// send email verification through nodemailer
+// 
+// generate a token
+
 controller.register = (req, res, next) => {
-    const hashedPassword = bcrypt.hashSync(req.body.password, 10)
+    const { fname, lname, email, password } = req.body;
+    const hashedPassword = bcrypt.hashSync(password, 10)
 
-    const user = new User({
-        "name.first": req.body.fname,
-        "name.last": req.body.lname,
-        "email.address": req.body.email,
-        "password": hashedPassword
-    });
+    // simple validation; replace with real prior to production
+    if(!email || !password) {
+        return res.status(400).json({
+            message: "Required fields not completed"
+        });
+    } else {
+        User.findOne({ email })
+        .then()
 
-    user.save()
-    .then(newUser => {
-        const token = jwt.sign({ id: userId }, authSecret, {
-            expiresIn: 86400 // one day
+        const user = new User({
+            "name.first": fname,
+            "name.last": lname,
+            "email.address": email,
+            "password": hashedPassword
         });
 
-        res.status(201).json({
-            auth: true, 
-            token,
-            newUser
-        });
+        user.save()
+        .then(newUser => {
+            const token = jwt.sign({ id: userId }, authSecret, {
+                expiresIn: 86400 // one day
+            });
 
-        next();
-    })
-    .catch(err => {
-        return res.status(500).json({
-            auth: false,
-            message: err.message || "An error occured while processing your request"
+            res.status(201).json({
+                auth: true, 
+                token,
+                newUser
+            });
+
+            next();
+        })
+        .catch(err => {
+            return res.status(500).json({
+                auth: false,
+                message: err.message || "An error occured while processing your request"
+            });
         });
-    });
+    }
 }
 
 controller.signin = (req, res, next) => {

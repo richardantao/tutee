@@ -8,7 +8,7 @@ const Tasks = require("../models/Tasks.model").Schema;
 // instantiate controller
 const controller = [];
 
-controller.index = (req, res, next) => {
+controller.index = (req, res) => {
 	Users.find({
 		"_id": req.params._id, 
 		"tasks.deadline": {
@@ -39,7 +39,7 @@ controller.index = (req, res, next) => {
     });
 }
 
-controller.past = (req, res, next) => {
+controller.past = (req, res) => {
 	Users.find({
 		"_id": req.params._id, 
 		"tasks.deadline": {
@@ -97,7 +97,7 @@ controller.edit = (req, res) => {
 	});
 }
 
-controller.new = (req, res, next) => {	
+controller.new = (req, res) => {	
 	Users.find({
 		"_id": req.params._id
 	}, 
@@ -126,7 +126,7 @@ controller.new = (req, res, next) => {
 	});
 }
 
-controller.create = (req, res, next) => {
+controller.create = (req, res) => {
 	async.waterfall([
 		create,
 		associate
@@ -201,7 +201,7 @@ controller.create = (req, res, next) => {
 	next();	
 }
 
-controller.update = (req, res, next) => {
+controller.update = (req, res) => {
 	Tasks.findByIdAndUpdate({
 		"_id": req.params._id
 	}, 
@@ -239,7 +239,7 @@ controller.update = (req, res, next) => {
 	})
 }	
 
-controller.delete = (req, res, next) => {
+controller.delete = (req, res) => {
 	Tasks.findByIdAndDelete({
 		"_id": req.params._id
 	})

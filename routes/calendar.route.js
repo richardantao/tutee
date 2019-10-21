@@ -1,22 +1,56 @@
 const router = require("express").Router();
 const controller = require("../controllers/calendar.controller");
+const auth = require("../middleware/auth.middleware");
+const validate = require("../middleware/validation/classes.validation");
 
-router.get("/", controller.index);
+// @route /calendar/
+// @desc display default calendar view
+// @ access PRIVATE
+router.get("/", auth, controller.index);
 
-router.get("/month", controller.month);
+// @route /calendar/month
+// @desc display month calendar view
+// @ access PRIVATE
+router.get("/month", auth, controller.month);
 
-router.get("/week", controller.week);
+// @route /calendar/week
+// @desc display week calendar view
+// @ access PRIVATE
+router.get("/week", auth, controller.week);
 
-router.get("/day", controller.day);
+// @route /calendar/day
+// @desc display day calendar view
+// @ access PRIVATE
+router.get("/day", auth, controller.day);
 
-router.get("/agenda", controller.agenda);
+// @route /calendar/agenda
+// @desc display user's agenda
+// @ access PRIVATE
+router.get("/agenda", auth, controller.agenda);
 
-router.get("/classes/new", controller.classNew);
+// @route /calendar/classes/edit/classId
+// @desc edit class instance
+// @access PRIVATE
+router.get("/classes/edit/", auth, controller.classEdit);
 
-router.post("/classes/create", controller.classCreate);
+// @route /calendar/classes/new
+// @desc get form to add new class
+// @access PRIVATE
+router.get("/classes/new", auth, controller.classNew);
 
-router.put("/classes/:classes._id/update", controller.classUpdate);
+// @route /calendar/classes/create
+// @desc create new class in calendar page
+// @ access PRIVATE
+router.post("/classes/create", auth, validate.create, controller.classCreate);
 
-router.delete("/classes/:classes._id/delete", controller.classDelete);
+// @route /calendar/classes/update/classId
+// @desc display default calendar view
+// @ access PRIVATE
+router.put("/classes/update/:classId", auth, validate.update, controller.classUpdate);
+
+// @route /calendar/classes/delete/classId
+// @desc display default calendar view
+// @ access PRIVATE
+router.delete("/classes/delete/:classid", auth, validate.delete, controller.classDelete);
 
 module.exports = router;

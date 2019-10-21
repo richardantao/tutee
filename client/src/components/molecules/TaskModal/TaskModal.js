@@ -1,4 +1,4 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 
 import { } from "../../../actions/tasks.action";
 import { connect } from "react-redux";
@@ -12,13 +12,9 @@ class TaskModal extends Component {
     }
     
     componentDidMount() {
-        this.setState({
-            isLoading: false,
-            active: false
-        });
+        
     }
     render() {
-
         return(
             <form method="" action="" className="modal">
                 <div className="modal-header">

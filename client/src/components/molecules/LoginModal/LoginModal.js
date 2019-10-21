@@ -1,87 +1,84 @@
 import React, { Component } from "react";
 
-import { register } from "../../../actions/auth.action";
+import { login } from "../../../actions/auth.action";
 import { clearErrors } from "../../../actions/errors.action";
-import { connect } from "react-redux"; 
-import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import PropTypes from "prop-types"; 
 
-import "./RegisterModal.scss";
+import "./LoginModal.scss";
 
-class RegisterModal extends Component {
+class LoginModal extends Component {
     state = {
         open: false,
-        firstName: "",
-        lastName: "",
         email: "",
-        password: ""
+        password: "",
+        message: null
     }
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
-        register: PropTypes.func.isRequired,
+        login: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired
     }
     
     componentDidUpdate(prevProps) {
         const { error, isAuthenticated } = this.props;
         if (error !== prevProps.error) {
-            // Check for register error
-            if (error.id === "REGISTER_FAILEL") {
+          // Check for register error
+            if (error.id === "LOGIN_FAILED") {
                 this.setState({ message: error.message.message });
             } else {
                 this.setState({ message: null });
             }
-        }   
-
+        }
+    
         // If authenticated, close modal
         if (this.state.open && isAuthenticated) {
             this.toggle();
         }
     }
-    
+
     toggle = () => {
         // Clear errors
         this.props.clearErrors();
         this.setState({
             open: !this.state.open
         });
-    };
+    }
 
     onChange = e => {
-        this.setState({
-            [e.target.name]: e.target.value
+        this.setState({ 
+            [e.target.name]: e.target.value 
         });
     }
 
     onSubmit = e => {
         e.preventDefault();
 
-        const { firstName, lastName, email, password } = this.state;
+        const { email, password } = this.state;
 
-        const newUser = {
-            firstName,
-            lastName,
+        const user = {
             email,
             password
         };
 
-        // Attempt to register user
-        this.props.register(newUser);
+         // Attempt to login
+        this.props.login(user);
     }
 
     render() {
         return (
-            <div>
+            <form>
                 
-            </div>
+            </form>
         )
     }
 }
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    error: state.error   
-})
+    error: state.error
+});
 
-export default connect(mapStateToProps, { register, clearErrors })(RegisterModal);
+export default connect(mapStateToProps, { login, clearErrors })(LoginModal);

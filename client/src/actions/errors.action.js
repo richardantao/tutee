@@ -5,10 +5,10 @@ export const returnErrors = (message, status, id = null) => {
         type: GET_ERRORS,
         payload: { message, status, id }
     };
-}
+};
 
-export const clearErrors = () => dispatch => {
+export const clearErrors = () => {
     return {
         type: CLEAR_ERRORS
     };
-}
+};

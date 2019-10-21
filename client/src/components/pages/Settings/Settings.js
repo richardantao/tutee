@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from "react";
 
-import {} from "../../../actions";
+// import {  } from "../../../actions";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import { Col, Row } from "reactstrap";
 import { Button } from "react-bootstrap";
@@ -21,7 +22,11 @@ import "./Settings.scss";
 class Settings extends Component {
 	state = {
 
-	}
+	};
+
+	static propTypes = {
+
+	};
 
 	componentDidMount() {
 		
@@ -75,15 +80,15 @@ class Settings extends Component {
 					</Row>
 				</div>
 			</Fragment>
-		)
-	}
-}
+		);
+	};
+};
 
 const year = new Date().getFullYear();
 const version = "Version 1.0.0";
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
 
-}
+});
 
 export default connect(mapStateToProps, {  })(Settings);

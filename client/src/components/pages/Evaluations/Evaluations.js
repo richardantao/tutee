@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
 import { fetchEvaluations, editEvaluation, createEvaluation, updateEvaluation, deleteEvaluation } from "../../../actions/evaluations.action";
+import PropTypes from "prop-types";
 
 import { Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,17 +16,25 @@ import { Button } from "react-bootstrap";
 import "./Evaluations.scss";
 
 class Evaluations extends Component{
+	state = {
+
+	};
+
+	static propTypes = {
+
+	};
+
 	componentDidMount() {
 	
-	}
+	};
 
 	componentDidUpdate() {
 
-	}
+	};
 
 	componentWillUnmount() {
 		
-	}
+	};
 
 	render() {
 		return (
@@ -53,8 +62,12 @@ class Evaluations extends Component{
 					</Row>
 				</div>
 			</Fragment>
-		)	
-	}
-}
+		);	
+	};
+};
 
-export default connect(null, { fetchEvaluations, editEvaluation, createEvaluation, updateEvaluation, deleteEvaluation })(Evaluations);
+const mapStateToProps = state => ({
+
+});
+
+export default connect(mapStateToProps, { fetchEvaluations, editEvaluation, createEvaluation, updateEvaluation, deleteEvaluation })(Evaluations);

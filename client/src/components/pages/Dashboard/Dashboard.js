@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
-import { fetchClasses, editClass, createClass, updateClass, deleteClass } from "../../../actions/classes.action";
+import PropTypes from "prop-types";
+import { fetchClasses, editClass, updateClass, deleteClass } from "../../../actions/classes.action";
 import { fetchTasks, editTask, createTask, updateTask, deleteTask } from "../../../actions/tasks.action";
-import { fetchEvaluations, editEvaluation, createEvaluation, updateEvaluation, deleteEvaluation } from "../../../actions/evaluations.action";
+import { fetchEvaluations, editEvaluation, updateEvaluation, deleteEvaluation } from "../../../actions/evaluations.action";
 
 import { Col, Row } from "reactstrap";
 
@@ -17,6 +18,14 @@ import LoadingColumn from "../../molecules/LoadingColumn";
 import "./Dashboard.scss";
 
 class Dashboard extends Component {
+	state = {
+
+	};
+
+	static propTypes = {
+
+	};
+
 	componentDidMount() {
 		
 	}
@@ -54,8 +63,12 @@ class Dashboard extends Component {
 	}
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
 	
-}
+});
 
-export default connect(mapStateToProps, {  })(Dashboard);
+export default connect(mapStateToProps, { 
+	fetchClasses, editClass, updateClass, deleteClass,
+	fetchTasks, editTask, createTask, updateTask, deleteTask,
+	fetchEvaluations, editEvaluation, updateEvaluation, deleteEvaluation
+})(Dashboard);

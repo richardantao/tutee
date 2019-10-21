@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 
+import { } from "../../../actions/classes.action";
 import { connect } from "react-redux";
+import Proptypes from "prop-types";
 
 import { Col, Row } from "reactstrap";
 import { Button } from "react-bootstrap"
@@ -13,13 +15,21 @@ import Header from "../../organisms/Header";
 import "./Calendar.scss";
 
 class Calendar extends Component {
+	state = {
+
+	};
+
+	static propTypes = {
+		
+	};
+
 	componentDidMount() {
 		
-	}
+	};
 
 	componentWillUnmount() {
 		
-	}
+	};
 
 	render() {
 		return (
@@ -50,12 +60,12 @@ class Calendar extends Component {
 					</Row>
 				</div>
 			</Fragment>
-		)
-	}
-}
+		);
+	};
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
 
-}
+});
 
 export default connect(mapStateToProps, { })(Calendar);

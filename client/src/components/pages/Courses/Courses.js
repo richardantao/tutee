@@ -2,10 +2,11 @@ import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
 import { fetchCourses, editCourse, createCourse, updateCourse, deleteCourse } from "../../../actions/courses.action";
+import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { Col, Row} from "reactstrap";
+import { Col, Row } from "reactstrap";
 import { Button } from "react-bootstrap";
 
 import Nav from "../../organisms/Nav";
@@ -19,13 +20,21 @@ import CourseRecord from "../../molecules/CourseRecord";
 import "./Courses.scss";
 
 class Courses extends Component {
+	state = {
+
+	};
+
+	static propTypes = {
+
+	};
+
 	componentDidMount() {
 		
-	}
+	};
 
 	componentWillUnmount() {
 		
-	}
+	};
 	
 	render() {
 		return (
@@ -85,12 +94,12 @@ class Courses extends Component {
 					</Row>
 				</div>
 			</Fragment>
-		)
-	}
-}
+		);
+	};
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
 	
-}
+});
 
 export default connect(mapStateToProps, { fetchCourses, editCourse, createCourse, updateCourse, deleteCourse })(Courses);

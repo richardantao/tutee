@@ -11,12 +11,20 @@ import { Button } from "react-bootstrap";
 
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
-import Modal from "../../molecules/Modal";
 import SelectReact from "../../atoms/Select";
 
 import "./Tasks.scss";
 
 class Tasks extends Component {
+	state = {
+
+	};
+
+	static propTypes = {
+		fetchTasks: PropTypes.func.isRequired,
+		tasks: PropTypes.object.isRequired
+	};
+	
 	componentDidMount() {
 		this.props.fetchTasks();
 	}
@@ -32,6 +40,7 @@ class Tasks extends Component {
 	render() {
 		const { tasks } = this.props.task;
 
+		// move to own component in /molecules
 		const taskRecords = this.state.tasks.map(task => (
 			<Row key={task.id} className="task-record">
 				<Col>
@@ -80,19 +89,13 @@ class Tasks extends Component {
 						</Col>
 					</Row>
 				</div>
-				<Modal active={this.state.active} onClick={this.toggleDisplay}/>
 			</Fragment>
-		)
-	}
-}
-
-Tasks.propTypes = {
-	fetchTasks: PropTypes.func.isRequired,
-	tasks: PropTypes.object.isRequired
-}
+		);
+	};
+};
 
 const mapStateToProps = state => ({
-	tasks: state.tasks.records
+	tasks: state.tasks
 });
 
 export default connect(mapStateToProps, { fetchTasks, editTask, createTask, updateTask, deleteTask })(Tasks);

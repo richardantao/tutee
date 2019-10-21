@@ -1,26 +1,40 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
+import {  } from "../../../actions/errors.action";
+import PropTypes from "prop-types";
 
-import LoadingColumn from "../../molecules/LoadingColumn";
+// import LoadingColumn from "../../molecules/LoadingColumn";
 import "./Errors.scss";
 
 class Errors extends Component {
+    state = {
+
+    };
+
+    static propTypes = {
+
+    };
+    
     componentDidMount() {
     
-    }
+    };
     
     componentWillUnmount() {
         
-    }
+    };
 
     render() {
         return (
             <div>
 
             </div>
-        )
-    }
-}
+        );
+    };
+};
 
-export default connect(null, {})(Errors);
+const mapStateToProps = state => ({
+
+});
+
+export default connect(mapStateToProps, {})(Errors);

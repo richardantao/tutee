@@ -40,6 +40,6 @@ export default class Help extends Component {
 					</Row>
 				</div>
 			</Fragment>
-		)
-	}
-}
+		);
+	};
+};

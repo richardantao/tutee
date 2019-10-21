@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
-import ReactGA from "react-ga";
+import ReactGA from 'react-ga';
 
 import { Provider } from "react-redux";
 import store from "./store";
-import { loadUser } from "./actions/auth.action";
 
 import Dashboard from "./components/pages/Dashboard";
 import Calendar from "./components/pages/Calendar";
@@ -19,12 +18,8 @@ import './App.scss';
 
 export default class App extends Component {
 	initializeReactGA() {
-		ReactGA.initialize("UA-000000-01"); // check tracking id
+		ReactGA.initialize('UA-000000-01'); // check tracking id
 		ReactGA.pageview(window.location.pathname + window.location.search);
-	}
-
-	componentDidMount() {
-		store.dispatch(loadUser());
 	}
 
 	render() {

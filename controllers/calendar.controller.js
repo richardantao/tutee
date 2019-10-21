@@ -1,4 +1,5 @@
 /* Possible to assimiliate into one route */
+
 const async = require("async");
 const moment = require("moment");
 
@@ -11,11 +12,11 @@ const Evals = require("../models/Evaluations.model");
 // instantiate constroller
 const controller = [];
 
-controller.index = (req, res) => {
+controller.index = (req, res, next) => {
     return res.direct(301, "/")
 }
 
-controller.month = (req, res) => {
+controller.month = (req, res, next) => {
 	async.parallel({
         classes: (callback) => {
             Classes.find()
@@ -56,7 +57,7 @@ controller.month = (req, res) => {
     });
 }
 
-controller.week = (req, res) => {
+controller.week = (req, res, next) => {
     async.parallel({
         classes: (callback) => {
             Classes.find()
@@ -97,7 +98,7 @@ controller.week = (req, res) => {
     });
 }
 
-controller.day = (req, res) => {
+controller.day = (req, res, next) => {
     async.parallel({
         classes: (callback) => {
             Classes.find()
@@ -138,7 +139,7 @@ controller.day = (req, res) => {
     });
 }
 	
-controller.agenda = (req, res) => {
+controller.agenda = (req, res, next) => {
     async.parallel({
         classes: (callback) => {
             Classes.find()
@@ -179,15 +180,11 @@ controller.agenda = (req, res) => {
     });
 }
 
-controller.classEdit = (req, res) => {
+controller.classNew = (req, res, next) => {
     
 }
 
-controller.classNew = (req, res) => {
-    
-}
-
-controller.classCreate = (req, res) => {
+controller.classCreate = (req, res, next) => {
     const newClass = new Classes();
 
 	newClass.save()
@@ -201,11 +198,11 @@ controller.classCreate = (req, res) => {
 	});
 }
 
-controller.classUpdate = (req, res) => {
+controller.classUpdate = (req, res, next) => {
     
 }
 
-controller.classDelete = (req, res) => {
+controller.classDelete = (req, res, next) => {
 
 }
 

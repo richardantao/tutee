@@ -1,124 +1,50 @@
 const router = require("express").Router();
 const controller = require("../controllers/courses.controller");
 
-// middleware
-const auth = require("../middleware/auth.middleware");
-const validateYear = require("../middleware/validation/years.validation");
-const validateTerm = require("../middleware/validation/terms.validation");
-const validateCourse = require("../middleware/validation/courses.validation");
-const validateModule = require("../middleware/validation/modules.validation");
-
-// @route /courses/
-// @desc render all models within the courses view
-// @access PRIVATE
 router.get("/", controller.index);
 
-/* Years */
+// years
+router.get("/years/:years._id/edit", controller.yearsEdit);
 
-// @route /courses/years/edit/:yearId
-// @desc edit year instance
-// @access PRIVATE
-router.get("/years/edit/:yearId", auth, controller.yearsEdit);
+router.get("/years/new", controller.yearsNew);
 
-// @route /courses/years/new
-// @desc get form to add new year
-// @access PRIVATE
-router.get("/years/new", auth, controller.yearsNew);
+router.post("/years/create", controller.yearsCreate);
 
-// @route /courses/years/create
-// @desc create new year
-// @access PRIVATE
-router.post("/years/create", auth, validateYear.create, controller.yearsCreate);
+router.put("/years/:years._id/update", controller.yearsUpdate);
 
-// @route /courses/years/update/:yearId
-// @desc update year instance
-// @access PRIVATE
-router.put("/years/update/:yearId", auth, validateYear.update, controller.yearsUpdate);
+router.delete("/year/:years._id/delete", controller.yearsDelete);
 
-// @route /courses/years/delete/:yearId
-// @desc delete year instance
-// @access PRIVATE
-router.delete("/years/delete/:yearId", auth, validateYear.delete, controller.yearsDelete);
+// terms
+router.get("/terms/:terms._id/edit", controller.termsEdit);
 
-/* Terms */
+router.get("/terms/new", controller.termsNew);
 
-// @route /courses/terms/edit/:termId
-// @desc edit term instance
-// @access PRIVATE
-router.get("/terms/edit/:termId", auth, controller.termsEdit);
+router.post("/terms/create", controller.termsCreate);
 
-// @route /courses/terms/new
-// @desc get form to add new term
-// @access PRIVATE
-router.get("/terms/new", auth, controller.termsNew);
+router.put("/terms/:terms._id/update", controller.termsUpdate);
 
-// @route /courses/terms/create
-// @desc create new term
-// @access PRIVATE
-router.post("/terms/create", auth, validateTerm.create, controller.termsCreate);
-
-// @route /courses/terms/update/:termId
-// @desc update term instance
-// @access PRIVATE
-router.put("/terms/update/:termId", auth, validateTerm.update, controller.termsUpdate);
-
-// @route /courses/terms/delete/:termId
-// @desc edit year instance
-// @access PRIVATE
-router.delete("/terms/delete/:termId", auth, validateTerm.delete, controller.termsDelete);
+router.delete("/terms/:terms._id/delete", controller.termsDelete);
 
 // courses
+router.get("/:courses._id/edit", controller.coursesEdit);
 
-// @route /courses/edit/:courseId
-// @desc edit course instace
-// @access PRIVATE
-router.get("/edit/:courseId", auth, controller.coursesEdit);
+router.get("/new", controller.coursesNew);
 
-// @route /courses/years/edit/:courseId
-// @desc get form to add new course
-// @access PRIVATE
-router.get("/new", auth, controller.coursesNew);
+router.post("/create", controller.coursesCreate);
 
-// @route /courses/create
-// @desc create new course
-// @access PRIVATE
-router.post("/create", auth, validateCourse.create, controller.coursesCreate);
+router.put("/:courses._id/update", controller.coursesUpdate);
 
-// @route /courses/update/:courseId
-// @desc update course instance
-// @access PRIVATE
-router.put("/update/:courseId", auth, validateCourse.update, controller.coursesUpdate);
-
-// @route /courses/delete/:courseId
-// @desc delete course instance
-// @access PRIVATE
-router.delete("/delete/:courseId", auth, validateCourse.delete, controller.coursesDelete);
+router.delete("/:courses._id/delete", controller.coursesDelete);
 
 // modules
+router.get("/modules/:modules._id/edit", controller.modulesEdit);
 
-// @route /courses/modules/edit/:moduleId
-// @desc edit module instance
-// @access PRIVATE
-router.get("/modules/edit/:moduleId", auth, controller.modulesEdit);
+router.get("/modules/new", controller.modulesNew);
 
-// @route /courses/modules/new
-// @desc get form to add new module
-// @access PRIVATE
-router.get("/modules/new", auth, controller.modulesNew);
+router.post("/modules/create", controller.modulesCreate);
 
-// @route /courses/modules/create
-// @desc create new module
-// @access PRIVATE
-router.post("/modules/create", auth, validateModule.create, controller.modulesCreate);
+router.put("/modules/:modules._id/update", controller.modulesUpdate);
 
-// @route /courses/modules/update/:moduleId
-// @desc update module instance
-// @access PRIVATE
-router.put("/modules/update/:moduleId", auth, validateModule.update, controller.modulesUpdate);
-
-// @route /courses/modules/delete/:moduleId
-// @desc delete module instance
-// @access PRIVATE
-router.delete("/modules/delete/:moduleId", auth, validateModule.delete, controller.modulesDelete);
+router.delete("/modules/:modules._id/delete", controller.modulesDelete);
 
 module.exports = router; 

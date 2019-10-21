@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-
+import { } from "../../../actions/modules.action";
 import { connect } from "react-redux";
 
 import "./ModuleModal.scss";

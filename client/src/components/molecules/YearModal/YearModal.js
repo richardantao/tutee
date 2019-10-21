@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-
+import { } from "../../../actions/years.action";
 import { connect } from "react-redux";
 
 import "./YearModal.scss";

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-
+import { } from "../../../actions/evaluations.action";
 import { connect } from "react-redux";
 
-import "./EvaluationModal.scss";
+import "./EvalModal.scss";
 
-class EvaluationModal extends Component {
+class EvalModal extends Component {
     state = {
 
     }
@@ -23,5 +23,5 @@ const mapStateToProps = state => {
 
 }
 
-export default connect(mapStateToProps, { })(EvaluationModal);
+export default connect(mapStateToProps, { })(EvalModal);
 

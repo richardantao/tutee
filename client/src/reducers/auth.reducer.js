@@ -8,7 +8,7 @@ const initialState = {
     isAuthenticated: null,
     isLoading: false,
     user: null
-}
+};
 
 export default (state = initialState, action) => {
     switch(action.type) {
@@ -46,6 +46,6 @@ export default (state = initialState, action) => {
                 isLoading: false
             };
         default:
-            return state
-    }
-}
+            return state;
+    };
+};

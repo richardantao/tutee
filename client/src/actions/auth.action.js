@@ -10,13 +10,12 @@ export const loadUser = () => (dispatch, getState) => {
     // User loading
     dispatch({ type: USER_LOADING });
 
+    // match url
     axios.get("/", tokenConfig(getState))
-    .then(res => {
-        dispatch({
+    .then(res => dispatch({
             type: USER_LOADED,
             payload: res.data
-        })
-    })
+    }))
     .catch(err => {
         dispatch(returnErrors(err.res.data, err.res.status));
         dispatch({
@@ -25,6 +24,66 @@ export const loadUser = () => (dispatch, getState) => {
     });
 }
 
+// Register User
+export const register = ({ firstName, lastName, email, password }) =>  dispatch => {
+    // Headers
+    const config = {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
+
+    // Request body
+    const body = JSON.stringify({ firstName, lastName, email, password });
+
+    axios.post("/", body, config)
+    .then(res => dispatch({
+       type: REGISTER_SUCCESS,
+       payload: res.data 
+    }))
+    .catch(err => {
+        dispatch(
+            returnErrors(err.res.data, err.res.status, "REGISTER_FAIL")
+        );
+        dispatch({
+            type: REGISTER_FAILED
+        });
+    });
+};
+
+// Login User
+export const login = ({ email, password }) => dispatch => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+
+    const body = JSON.stringify({ email, password });
+
+    axios.post("/", body, config)
+    .then(res => dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+    }))
+    .catch(err => {
+        dispatch(
+            returnErrors(err.res.data, err.res.status, "LOGIN_FAILED")
+        );
+        dispatch({
+            type: LOGIN_FAILED
+        });
+    });
+};
+
+// Logout User
+export const logout = () => {
+    return {
+        type: LOGOUT_SUCCESS
+    };
+};
+
+// Set config/headers and token
 export const tokenConfig = getState => {
     const token = getState().auth.token;
 
@@ -41,7 +100,7 @@ export const tokenConfig = getState => {
     }
 
     return config;
-}
+};
 
 
 

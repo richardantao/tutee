@@ -11,21 +11,21 @@ export const loadUser = () => (dispatch, getState) => {
     dispatch({ type: USER_LOADING });
 
     // match url
-    axios.get("/", tokenConfig(getState))
+    axios.get("/user", tokenConfig(getState))
     .then(res => dispatch({
             type: USER_LOADED,
             payload: res.data
     }))
     .catch(err => {
-        dispatch(returnErrors(err.res.data, err.res.status));
+        dispatch(returnErrors(err.message, err.status));
         dispatch({
             type: AUTH_ERROR
         });
     });
-}
+};
 
 // Register User
-export const register = ({ firstName, lastName, email, password }) =>  dispatch => {
+export const register = ({ firstName, lastName, email, password }) => dispatch => {
     // Headers
     const config = {
         headers: {
@@ -92,12 +92,12 @@ export const tokenConfig = getState => {
         headers: {
             "Content-type": "application/json" 
         }
-    }
+    };
 
     // If token, add to headers
     if(token) {
         config.headers["x-auth-token"] = token;
-    }
+    };
 
     return config;
 };

@@ -1,3 +1,21 @@
+/* AUTH */
+export const USER_LOADING = "USER_LOADING";
+export const USER_LOADED = "USER_LOADED";
+
+export const AUTH_ERROR = "AUTH_ERROR";
+
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILED = "LOGIN_FAILED";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAILED = "REGISTER_FAILED";
+
+export const GET_ERRORS = "GET_ERRORS";
+export const CLEAR_ERRORS = "CLEAR_ERRORS";
+
+/* DATA */
+
 // years
 export const LOADING_YEARS = "LOADING_YEARS";
 export const FETCH_YEARS = "FETCH_YEARS";
@@ -54,11 +72,13 @@ export const CREATE_TASK = "CREATE_TASK";
 export const UPDATE_TASK = "UPDATE_TASK";
 export const DELETE_TASK = "DELETE_TASK";
 
-//
+// settings
 export const GET_PROFILE = "GET_PROFILE";
 export const GET_PASSWORD = "GET_PASSWORD";
 export const GET_PREFERENCES = "GET_PREFERENCES";
 export const GET_INTEGRATIONS = "GET_INTEGRATIONS";
+
+/* ORGANISMS */
 
 // nav
 export const ACTIVATE_DASHBOARD = "ACTIVATE_DASHBOARD";
@@ -70,21 +90,5 @@ export const ACTIVATE_SEARCH = "ACTIVATE_SEARCH";
 export const ACTIVATE_SETTINGS = "ACTIVATE_SETTINGS";
 export const ACTIVATE_HELP = "ACTIVATE_HELP";
 
-// auth
-export const USER_LOADING = "USER_LOADING";
-export const USER_LOADED = "USER_LOADED";
-
-export const AUTH_ERROR = "AUTH_ERROR";
-
-export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const LOGIN_FAILED = "LOGIN_FAILED";
-export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
-
-export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
-export const REGISTER_FAILED = "REGISTER_FAILED";
-
-export const GET_ERRORS = "GET_ERRORS";
-export const CLEAR_ERRORS = "CLEAR_ERRORS";
-
-
-
+/* MOLECULES */
+export const COUNT_DATA = "COUNT_DATA";

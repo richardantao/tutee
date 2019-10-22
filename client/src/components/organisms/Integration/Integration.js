@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
-import {  } from "../../../actions";
+// import {  } from "../../../actions";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import LoadingColumn from "../../molecules/LoadingColumn";
 import { Col, Row } from "react-bootstrap";
@@ -9,7 +10,11 @@ import { Col, Row } from "react-bootstrap";
 class Integration extends Component {
     state = {
 
-    }
+    };
+
+    static propTypes = {
+
+    };
 
     componentDidMount() {
         
@@ -32,8 +37,8 @@ class Integration extends Component {
     }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
 
-}
+});
 
 export default connect(mapStateToProps, { })(Integration);

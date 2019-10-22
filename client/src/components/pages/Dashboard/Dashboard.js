@@ -2,9 +2,15 @@ import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { fetchClasses, editClass, updateClass, deleteClass } from "../../../actions/classes.action";
-import { fetchTasks, editTask, createTask, updateTask, deleteTask } from "../../../actions/tasks.action";
-import { fetchEvaluations, editEvaluation, updateEvaluation, deleteEvaluation } from "../../../actions/evaluations.action";
+import { 
+	fetchClasses, editClass, updateClass, deleteClass 
+} from "../../../actions/data/classes.action";
+import { 
+	fetchTasks, editTask, createTask, updateTask, deleteTask 
+} from "../../../actions/data/tasks.action";
+import { 
+	fetchEvaluations, editEvaluation, updateEvaluation, deleteEvaluation 
+} from "../../../actions/data/evaluations.action";
 
 import { Col, Row } from "reactstrap";
 

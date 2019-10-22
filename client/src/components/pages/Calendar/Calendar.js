@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from "react";
 
-import { } from "../../../actions/classes.action";
+import { } from "../../../actions/data/classes.action";
 import { connect } from "react-redux";
 import Proptypes from "prop-types";
 

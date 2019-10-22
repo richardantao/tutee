@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 
-import { } from "../../../actions/years.action";
+// import { } from "../../../actions/data/years.action";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import "./YearModal.scss";
 
 class YearModal extends Component {
     state = {
 
-    }
+    };
     
     componentDidMount() {
 
@@ -16,12 +17,12 @@ class YearModal extends Component {
 
     render() {
         
-    }
-}
+    };
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
 
-}
+});
 
 export default connect(mapStateToProps, { })(YearModal);
 

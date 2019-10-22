@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
-import { fetchEvaluations, editEvaluation, createEvaluation, updateEvaluation, deleteEvaluation } from "../../../actions/evaluations.action";
+import { 
+	fetchEvaluations, editEvaluation, createEvaluation, updateEvaluation, deleteEvaluation 
+} from "../../../actions/data/evaluations.action";
 import PropTypes from "prop-types";
 
 import { Col, Row } from "reactstrap";

@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 
-import { } from "../../../actions/evaluations.action";
+import { } from "../../../actions/data/evaluations.action";
 import { connect } from "react-redux";
+import Proptypes from "prop-types";
 
 import "./EvalModal.scss";
 
 class EvalModal extends Component {
     state = {
 
-    }
+    };
     
     componentDidMount() {
 
@@ -16,12 +17,12 @@ class EvalModal extends Component {
 
     render() {
         
-    }
+    };
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
 
-}
+});
 
 export default connect(mapStateToProps, { })(EvalModal);
 

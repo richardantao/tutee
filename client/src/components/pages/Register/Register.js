@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { register } from "../../../actions/auth.action";
-import { clearErrors } from "../../../actions/errors.action";
+import { register } from "../../../actions/auth/auth.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import RegisterModal from "../../molecules/RegisterModal";

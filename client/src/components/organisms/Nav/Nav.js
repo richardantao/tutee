@@ -1,7 +1,8 @@
-import React, { Component, Fragment }from "react";
+import React, { Component, Fragment } from "react";
 
-import {  } from "../../../actions";
+// import {  } from "../../../actions";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,17 +10,18 @@ import {
 	faUniversity, faSearch, faCog, faQuestionCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
-import "./Nav.scss";
 import Logo from "../../atoms/Logo";
+
+import "./Nav.scss";
 
 class Nav extends Component {
 	state = {
 
-	}
+	};
 	
-	componentDidMount() {
+	static propTypes = {
 
-	}
+	};
 	
 	render() {
 		return ( 
@@ -52,12 +54,12 @@ class Nav extends Component {
 					</Button>
 				</nav>
 			</Fragment>
-		)
-	}
-}
+		);
+	};
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
 
-}
+});
 
 export default connect(mapStateToProps, { })(Nav);

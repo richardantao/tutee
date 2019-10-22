@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { } from "../../../actions/terms.action";
+import { } from "../../../actions/data/terms.action";
 import { connect } from "react-redux";
 
 import "./TermModal.scss";

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import {  } from "../../../actions/errors.action";
+import { returnErrors, clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 // import LoadingColumn from "../../molecules/LoadingColumn";

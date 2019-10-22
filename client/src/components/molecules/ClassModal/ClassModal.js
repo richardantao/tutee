@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 
-import { } from "../../../actions/classes.action";
+import { } from "../../../actions/data/classes.action";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import "./ClassModal.scss";
 
 class ClassModal extends Component {
     state = {
 
-    }
+    };
     
     componentDidMount() {
 
@@ -16,12 +17,12 @@ class ClassModal extends Component {
 
     render() {
         
-    }
-}
+    };
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
 
-}
+});
 
 export default connect(mapStateToProps, { })(ClassModal);
 

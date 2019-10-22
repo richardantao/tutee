@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
-import { fetchTasks, editTask, createTask, updateTask, deleteTask } from "../../../actions/tasks.action";
+import { 
+	fetchTasks, editTask, createTask, updateTask, deleteTask 
+} from "../../../actions/data/tasks.action";
 import PropTypes from "prop-types";
 
 import { Col, Row } from "reactstrap";
@@ -11,7 +13,7 @@ import { Button } from "react-bootstrap";
 
 import Nav from "../../organisms/Nav";
 import Header from "../../organisms/Header";
-import SelectReact from "../../atoms/Select";
+import Select from "../../atoms/Select";
 
 import "./Tasks.scss";
 
@@ -76,7 +78,7 @@ class Tasks extends Component {
 					</Row>
 					<Row className="body tasks-body">	
 						<Col>
-							<SelectReact placeholder="Filter by Course.."/>
+							<Select placeholder="Filter by Course.."/>
 						</Col>
 						<Col>
 							<Button href="/tasks" className="current">Current</Button>

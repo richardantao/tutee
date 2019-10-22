@@ -19,11 +19,11 @@ import "./Search.scss";
 export default class Search extends Component {
 	state = {
 
-	}
+	};
 
 	static propTypes = {
 
-	}
+	};
 
 	componentDidMount() {
 		

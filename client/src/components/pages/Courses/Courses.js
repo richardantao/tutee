@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
-import { fetchCourses, editCourse, createCourse, updateCourse, deleteCourse } from "../../../actions/courses.action";
+import { 
+	fetchCourses, editCourse, createCourse, updateCourse, deleteCourse 
+} from "../../../actions/data/courses.action";
 import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

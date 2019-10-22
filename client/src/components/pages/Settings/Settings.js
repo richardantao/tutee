@@ -1,10 +1,12 @@
 import React, { Component, Fragment } from "react";
 
-// import {  } from "../../../actions";
+import { 
+	getProfile, getPassword, getPreferences, getIntegrations 
+} from "../../../actions/data/settings.action";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { Col, Row } from "reactstrap";
+import { Container, Col, Row } from "reactstrap";
 import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare, faLinkedin, faInstagram, faTwitterSquare } from "@fortawesome/free-brands-svg-icons";
@@ -15,13 +17,12 @@ import Profile from "../../organisms/Profile";
 import Password from "../../organisms/Preference";
 import Preference from "../../organisms/Preference";
 import Integration from "../../organisms/Integration";
-import LoadingColumn from "../../molecules/LoadingColumn";
 
 import "./Settings.scss";
 
 class Settings extends Component {
 	state = {
-
+		form: "profile"
 	};
 
 	static propTypes = {
@@ -55,17 +56,19 @@ class Settings extends Component {
 					</Row>
 					<Row>
 						<Col className="settings-nav">
-							<Button href="/settings/profile" onClick={this.showProfile} block>Profile</Button>
-							<Button href="/settings/password" onClick={this.showPassword} block>Password</Button>	
-							<Button href="/settings/preferences" onClick={this.showPreferences} block>Preferences</Button>
-							<Button href="/settings/integrations" onClick={this.showIntegrations} block>Integrations</Button>
+							<Button href="/settings/profile" block>Profile</Button>
+							<Button href="/settings/password" block>Password</Button>	
+							<Button href="/settings/preferences" block>Preferences</Button>
+							<Button href="/settings/integrations" block>Integrations</Button>
 						</Col>
 					</Row>
-					<Row className="body settings-body">
-						<Col>
-							<Profile/>
-						</Col>		
-					</Row>
+					<Container>
+						<Row className="body settings-body">
+							<Col>
+							
+							</Col>		
+						</Row>
+					</Container>
 					<Row className="footer settings-footer">
 						<Col>
 							<Button href="https://facebook.com" target="_blank" className="social"><FontAwesomeIcon icon={faFacebookSquare}/></Button>
@@ -91,4 +94,4 @@ const mapStateToProps = state => ({
 
 });
 
-export default connect(mapStateToProps, {  })(Settings);
+export default connect(mapStateToProps, { getProfile, getPassword, getPreferences, getIntegrations })(Settings);

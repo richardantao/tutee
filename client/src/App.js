@@ -4,7 +4,7 @@ import ReactGA from "react-ga";
 
 import { Provider } from "react-redux";
 import store from "./store";
-import { loadUser } from "./actions/auth.action";
+import { loadUser } from "./actions/auth/auth.action";
 
 import Register from "./components/pages/Register";
 import Login from "./components/pages/Login";

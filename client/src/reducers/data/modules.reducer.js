@@ -1,10 +1,11 @@
-import { LOADING_MODULES, FETCH_MODULES, EDIT_MODULE, CREATE_MODULE, UPDATE_MODULE, DELETE_MODULE } from "../../actions/types";
+import { 
+    LOADING_MODULES, FETCH_MODULES, EDIT_MODULE, CREATE_MODULE, UPDATE_MODULE, DELETE_MODULE 
+} from "../../actions/types";
 
 const initialState = {
-    loading: false,
-    module: {},
-    modules: []
-}
+    modules: [],
+    loading: false
+};
 
 export default (state = initialState, action) => {
     switch(action.type) {
@@ -12,39 +13,38 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: true
-            }
+            };
         case FETCH_MODULES:
             return {
                 ...state,
-                loading: false,
-                modules: action.payload
-                
-            }
+                modules: action.payload,
+                loading: false        
+            };
         case EDIT_MODULE:
             return {
                 ...state,
-                loading: false,
-                modules: action.payload
-            }
+                modules: action.payload,
+                loading: false
+            };
         case CREATE_MODULE:
             return {
                 ...state,
-                loading: false,
-                module: action.payload
-            }
+                modules: action.payload,
+                loading: false
+            };
         case UPDATE_MODULE:
-        return {
-            ...state,
-            loading: false,
-            module: action.payload
-        }
+            return {
+                ...state,
+                modules: action.payload,
+                loading: false
+            };
         case DELETE_MODULE:
-        return {
-            ...state,
-            loading: false,
-            module: action.payload
-        }
+            return {
+                ...state,
+                modules: action.payload,
+                loading: false
+            };
         default: 
             return state;
-    }
-}
+    };
+};

@@ -1,10 +1,11 @@
-import { LOADING_TERMS, FETCH_TERMS, EDIT_TERM, CREATE_TERM, UPDATE_TERM, DELETE_TERM } from "../../actions/types";
+import { 
+    LOADING_TERMS, FETCH_TERMS, EDIT_TERM, CREATE_TERM, UPDATE_TERM, DELETE_TERM 
+} from "../../actions/types";
 
 const initialState = {
-    loading: false,
-    term: {},
-    terms: []
-}
+    terms: [],
+    loading: false
+};
 
 export default (state = initialState, action) => {
     switch(action.type) {
@@ -12,38 +13,38 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: true
-            }
+            };
         case FETCH_TERMS:
             return {
                 ...state,
-                loading: false,
-                terms: action.payload
-            }
+                terms: action.payload,
+                loading: false
+            };
         case EDIT_TERM:
             return {
                 ...state,
-                loading: false,
-                term: action.payload
-            }
+                terms: action.payload,
+                loading: false
+            };
         case CREATE_TERM:
             return {
                 ...state,
-                loading: false,
-                term: action.payload
-            }
+                terms: action.payload,
+                loading: false
+            };
         case UPDATE_TERM:
             return {
                 ...state,
-                loading: false,
-                term: action.payload
-            }
+                terms: action.payload,
+                loading: false
+            };
         case DELETE_TERM:
             return {
                 ...state,
-                loading: false,
-                term: action.payload
-            } 
+                terms: action.payload,
+                loading: false
+            }; 
         default: 
-            return state
-    }
-}
+            return state;
+    };
+};

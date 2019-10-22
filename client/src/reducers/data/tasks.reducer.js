@@ -1,8 +1,10 @@
-import { LOADING_TASKS, FETCH_TASKS, EDIT_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK } from "../../actions/types";
+import {
+    LOADING_TASKS, FETCH_TASKS, EDIT_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK 
+} from "../../actions/types";
 
 const initialState = {
-    loading: false,
-    tasks: []
+    tasks: [],
+    loading: false
 };
 
 export default (state = initialState, action) => {
@@ -15,32 +17,32 @@ export default (state = initialState, action) => {
         case FETCH_TASKS:
             return {
                 ...state,
-                loading: false,
-                tasks: action.payload
+                tasks: action.payload,
+                loading: false
             };
         case EDIT_TASK:
             return {
                 ...state,
-                loading: false,
-                tasks: action.payload
+                tasks: action.payload,
+                loading: false
             };
         case CREATE_TASK:
             return {
                 ...state,
-                loading: false,
-                tasks: [action.payload, ...state.tasks]
+                tasks: [action.payload, ...state.tasks],
+                loading: false
             };
         case UPDATE_TASK:
             return {
                 ...state,
-                loading: false,
-                tasks: action.payload
+                tasks: action.payload,
+                loading: false
             };
         case DELETE_TASK:
             return {
                 ...state,
-                loading: false,
-                tasks: state.tasks.filter(task => task._id !== action.payload)
+                tasks: state.tasks.filter(task => task._id !== action.payload),
+                loading: false
             };
         default: 
             return state;

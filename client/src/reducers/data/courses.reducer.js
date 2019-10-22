@@ -1,10 +1,9 @@
 import { LOADING_COURSES, FETCH_COURSES, EDIT_COURSE, CREATE_COURSE, UPDATE_COURSE, DELETE_COURSE } from "../../actions/types";
 
 const initialState = {
-    course: {},
     courses: [],
     loading: false
-}
+};
 
 export default (state = initialState, action) => {
     switch(action.type) {
@@ -12,38 +11,38 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 loading: true
-            }
+            };
         case FETCH_COURSES:
             return {
                 ...state,
                 courses: action.payload,
                 loading: false
-            }
+            };
         case EDIT_COURSE:
             return {
                 ...state,
-                course: action.payload,
+                courses: action.payload,
                 loading: false
-            }
+            };
         case CREATE_COURSE:
             return {
                 ...state,
-                course: action.payload,
+                courses: action.payload,
                 loading: false
-            }
+            };
         case UPDATE_COURSE:
             return {
                 ...state,
-                course: action.payload,
+                courses: action.payload,
                 loading: false
-            }
+            };
         case DELETE_COURSE:
             return {
                 ...state,
-                course: action.payload,
+                courses: action.payload,
                 loading: false
-            }
+            };
         default: 
             return state;
-    }
-}
+    };
+};

@@ -5,7 +5,7 @@ import {
 
 const initialState = {
     active: ""
-}
+};
 
 export default (state = initialState, action) => {
     switch(action.type) {

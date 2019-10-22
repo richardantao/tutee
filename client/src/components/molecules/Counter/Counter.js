@@ -31,7 +31,7 @@ export default class Counter extends Component {
 			return(
 				<figure className="counter">
 					<svg width="100" height="100">
-						<circle className="" cx="50" cy="50" r="46" stroke-width="5"/>
+						<circle className="" cx="50" cy="50" r="46" strokeWidth="5"/>
 				<foreignObject width="100" height="100">
 					<div className="counter-index">
 						<h6>{this.props.count}</h6>

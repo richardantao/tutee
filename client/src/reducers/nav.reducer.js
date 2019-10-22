@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
         case ACTIVE_VIEW:
             return {
                 
-            }
+            };
         default: 
             return state;
     }

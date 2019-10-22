@@ -54,6 +54,12 @@ export const CREATE_TASK = "CREATE_TASK";
 export const UPDATE_TASK = "UPDATE_TASK";
 export const DELETE_TASK = "DELETE_TASK";
 
+//
+export const GET_PROFILE = "GET_PROFILE";
+export const GET_PASSWORD = "GET_PASSWORD";
+export const GET_PREFERENCES = "GET_PREFERENCES";
+export const GET_INTEGRATIONS = "GET_INTEGRATIONS";
+
 // nav
 export const ACTIVE_VIEW = "ACTIVE_VIEW";
 

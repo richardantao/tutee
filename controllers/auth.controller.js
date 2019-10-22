@@ -41,7 +41,20 @@ const User = require("../models/Users.model").Model;
 // instantiate controller
 const controller = [];
 
-controller.application = (req, res, next) => {
+controller.user = (req, res) => {
+    User.findById(req.user.id)
+    .select("-password")
+    .then(user => {
+        res.json(user);
+    })
+    .catch(err => {
+        return res.status(500).json({
+            message: err.message || "An error occured on the server while processing your request"
+        });
+    });
+}
+
+controller.application = (req, res) => {
      const transporter = nodemailer.createTransport({
          host: "Gmail",
          port: 587,
@@ -82,7 +95,7 @@ controller.application = (req, res, next) => {
     });
 }
 
-controller.contact = (req, res, next) => {
+controller.contact = (req, res) => {
     const transporter = nodemailer.createTransport({
         host: "Gmail",
         port: 587,
@@ -121,7 +134,7 @@ controller.contact = (req, res, next) => {
     });
 }
 
-controller.invite = (req, res, next) => {
+controller.invite = (req, res) => {
     const transporter = nodemailer.createTransport({
         host: "Gmail",
         port: 587,
@@ -212,17 +225,7 @@ controller.register = (req, res, next) => {
     }
 }
 
-controller.signin = (req, res, next) => {
-    // if(!req.header("x-auth-token")) {
-    //     return res.status(400).json({
-    //         message: "There is no token for user authentication"
-    //     });
-    // } else {
-    //     res.status(201).json({
-    //         message: "Login sucessful"
-    //     });
-    // }
-    // next(); BradTraversy
+controller.signin = (req, res) => {
 
     User.findOne({ "email.address": req.body.email })
     .then(user => {
@@ -245,7 +248,7 @@ controller.signin = (req, res, next) => {
                 user
             });
 
-            next();
+            res.redirect("301", "/dashboard");
         }
     })
     .catch(err => {

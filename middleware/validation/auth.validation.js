@@ -3,12 +3,27 @@ const { check, filter, validationResult } = require("express-validator");
 // instantiate validation 
 const validate = [];
 
+validate.user = (req, res, next) => {
+    const errors = validationResult(req);
+
+    if(!errors.isEmpty()) {
+        return res.status(401).json({
+            message: ""
+        });
+    } else {
+        res.status(200).json({
+            message: "Validation successful"
+        });
+        next();
+    };
+};
+
 validate.application = (req, res, next) => {
     const errors = validationResult(req);
 
-    check();
+    check("");
 
-    filter();
+    filter("");
 
     if(!errors.isEmpty()) {
         return res.status(400).json({
@@ -21,8 +36,8 @@ validate.application = (req, res, next) => {
             message: "Validation successful"
         })
         next();
-    }
-}
+    };
+};
 
 validate.contact = (req, res, next) => {
     const errors = validationResult(req);

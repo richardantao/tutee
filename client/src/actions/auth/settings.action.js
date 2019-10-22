@@ -1,4 +1,4 @@
-import { GET_PROFILE, GET_PREFERENCES, GET_PASSWORD, GET_INTEGRATIONS} from "./types";
+import { GET_PROFILE, GET_PREFERENCES, GET_PASSWORD, GET_INTEGRATIONS} from "../types";
 import axios from "axios";
 
 export const getProfile = () => dispatch => {

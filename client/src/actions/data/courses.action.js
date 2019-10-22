@@ -1,4 +1,4 @@
-import { LOADING_COURSES, FETCH_COURSES, EDIT_COURSE, CREATE_COURSE, UPDATE_COURSE, DELETE_COURSE } from "./types";
+import { LOADING_COURSES, FETCH_COURSES, EDIT_COURSE, CREATE_COURSE, UPDATE_COURSE, DELETE_COURSE } from "../types";
 import axios from "axios";
 
 export const fetchCourses = () => dispatch => {

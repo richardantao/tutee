@@ -1,47 +1,47 @@
-import { LOADING_TASKS, FETCH_TASKS, EDIT_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK } from "../actions/types";
+import { LOADING_YEARS, FETCH_YEARS, EDIT_YEAR, CREATE_YEAR, UPDATE_YEAR, DELETE_YEAR } from "../../actions/types";
 
 const initialState = {
-    tasks: [],
-    task: {},
-    loading: false
+    loading: false,
+    year: {},
+    years: []
 }
 
 export default (state = initialState, action) => {
     switch(action.type) {
-        case LOADING_TASKS:
+        case LOADING_YEARS: 
             return {
                 ...state,
                 loading: true
             }
-        case FETCH_TASKS:
+        case FETCH_YEARS:
             return {
                 ...state,
                 loading: false,
-                tasks: action.payload
+                years: action.payload
             }
-        case EDIT_TASK:
+        case EDIT_YEAR:
             return {
                 ...state,
                 loading: false,
-                task: action.payload
+                year: action.payload
             }
-        case CREATE_TASK:
+        case CREATE_YEAR:
             return {
                 ...state,
                 loading: false,
-                task: [action.payload, ...state.task]
+                year: action.payload
             }
-        case UPDATE_TASK:
+        case UPDATE_YEAR:
             return {
                 ...state,
                 loading: false,
-                task: action.payload
+                year: action.payload
             }
-        case DELETE_TASK:
+        case DELETE_YEAR:
             return {
                 ...state,
                 loading: false,
-                task: state.task.filter(task => task._id !== action.payload)
+                year: action.payload
             } 
         default: 
             return state

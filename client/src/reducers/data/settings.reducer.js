@@ -1,4 +1,4 @@
-import { GET_PROFILE, GET_PASSWORD, GET_PREFERENCES, GET_INTEGRATIONS } from "../actions/types";
+import { GET_PROFILE, GET_PASSWORD, GET_PREFERENCES, GET_INTEGRATIONS } from "../../actions/types";
 
 const initialState = {
     form: ""

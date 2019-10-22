@@ -1,4 +1,4 @@
-import { LOADING_TERMS, FETCH_TERMS, EDIT_TERM, CREATE_TERM, UPDATE_TERM, DELETE_TERM } from "../actions/types";
+import { LOADING_TERMS, FETCH_TERMS, EDIT_TERM, CREATE_TERM, UPDATE_TERM, DELETE_TERM } from "../../actions/types";
 
 const initialState = {
     loading: false,

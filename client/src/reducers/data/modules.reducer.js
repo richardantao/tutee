@@ -1,4 +1,4 @@
-import { LOADING_MODULES, FETCH_MODULES, EDIT_MODULE, CREATE_MODULE, UPDATE_MODULE, DELETE_MODULE } from "../actions/types";
+import { LOADING_MODULES, FETCH_MODULES, EDIT_MODULE, CREATE_MODULE, UPDATE_MODULE, DELETE_MODULE } from "../../actions/types";
 
 const initialState = {
     loading: false,

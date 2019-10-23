@@ -4,44 +4,26 @@
   "description": "tutee's server npm",
   "main": "app.js",
   "directories": {
-    "client": {
-
-    },
+    "client": {},
     "config": {
       "db": "db.js"
     },
-    "controllers": {
-
-    },
+    "controllers": {},
     "middleware": {
       "auth.middleware": "auth.middleware.js",
-      "validation": {
-
-      }
+      "validation": {}
     },
-    "models": {
-
-    },
+    "models": {},
     "public": {
       "assets": {
-        "icons": {
-
-        },
-        "images": {
-
-        },
-        "scripts": {
-
-        },
-        "stylesheets": {
-
-        }
+        "icons": {},
+        "images": {},
+        "scripts": {},
+        "stylesheets": {}
       },
       "index.html": "index.html"
     },
-    "routes": {
-      
-    },
+    "routes": {},
     "test": "test",
     "app.js": "app.js",
     "app.yaml": "app.yaml",
@@ -68,7 +50,7 @@
   "dependencies": {
     "@google-cloud/storage": "^4.0.0",
     "async": "^3.1.0",
-    "bcrypt": "^3.0.6",
+    "bcryptjs": "^2.4.3",
     "concurrently": "^5.0.0",
     "cors": "^2.8.5",
     "debug": "^4.1.1",

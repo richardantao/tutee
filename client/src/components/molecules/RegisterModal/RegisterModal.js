@@ -5,6 +5,8 @@ import { clearErrors } from "../../../actions/auth/errors.action";
 import { connect } from "react-redux"; 
 import PropTypes from "prop-types";
 
+import { Button, Container, Form } from "react-bootstrap";
+
 import "./RegisterModal.scss";
 
 class RegisterModal extends Component {
@@ -72,9 +74,29 @@ class RegisterModal extends Component {
 
     render() {
         return (
-            <div>
-                
-            </div>
+            <Container>
+                <div id="register">
+                    <Form action="/register" method="POST">
+                    <Form.Group>
+                        <Form.Label>First Name</Form.Label>
+                        <Form.Control type="text" name="fname"></Form.Control>
+                        <Form.Label>Last Name</Form.Label>
+                        <Form.Control type="text" name="lname"></Form.Control>
+                    </Form.Group>
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" name="email" placeholder="Enter email" />
+                    </Form.Group>
+                    <Form.Group controlId="">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" name="password" placeholder="Enter password" ></Form.Control>
+                    </Form.Group>
+                    <Form.Group>
+                        <Button type="submit" className="submit">Register</Button>
+                    </Form.Group>
+                    </Form>
+                </div>
+            </Container>
         )
     }
 }

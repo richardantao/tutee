@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 import { login } from "../../../actions/auth/auth.action";
 import { clearErrors } from "../../../actions/auth/errors.action";
 import { connect } from "react-redux";
 import PropTypes from "prop-types"; 
+
+import { Button, Container, Form } from "react-bootstrap";
 
 import "./LoginModal.scss";
 
@@ -69,9 +71,28 @@ class LoginModal extends Component {
 
     render() {
         return (
-            <form>
-                
-            </form>
+            <Container>
+                <div id="login">
+                    <Form action="/signin" method="POST">
+                    <Form.Group controlId="formBasicEmail">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" placeholder="Enter email" />
+                    </Form.Group>
+                    <Form.Group controlId="">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Enter password" ></Form.Control>
+                    </Form.Group>
+                    <Form.Group>
+                        <Button type="submit" className="submit">Sign In</Button>
+                        <a href="#" className="forgot">Forgot password?</a>
+                    </Form.Group>
+                    </Form>
+                    <div className="create">
+                        <span>Don't have an account?</span>
+                        <Button href="/register">Create</Button>
+                    </div>
+                </div>
+            </Container>
         )
     }
 }

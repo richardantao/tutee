@@ -15,8 +15,8 @@ validate.create = (req, res, next) => {
 
     if(!errors.isEmpty()) {
         return res.status().json({
-            message: "Validation failed. Please try again",
-            errors: errors
+            message: "Validation failed, please try again",
+            errors
         });
     } else {
         res.status(200).json({
@@ -39,8 +39,8 @@ validate.update = (req, res, next) => {
 
     if(!errors.isEmpty()) {
         return res.status().json({
-            message: "Validation failed. Please try again",
-            errors: errors
+            message: "Validation failed, please try again",
+            errors
         });
     } else {
         res.status(200).json({
@@ -63,8 +63,8 @@ validate.delete = (req, res, next) => {
 
     if(!errors.isEmpty()) {
         return res.status().json({
-            message: "Validation failed. Please try again",
-            errors: errors
+            message: "Validation failed, please try again",
+            errors
         });
     } else {
         res.status(200).json({

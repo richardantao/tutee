@@ -2,7 +2,7 @@ const async = require("async");
 const moment = require("moment");
 
 // import model
-const Users = require("../models/Users.model").Model;
+const User = require("../models/Users.model").Model;
 const Classes = require("../models/Classes.model").Schema;
 const Tasks = require("../models/Tasks.model").Schema;
 const Evaluations = require("../models/Evaluations.model").Schema;
@@ -14,20 +14,20 @@ const controller = [];
 controller.index = (req, res, next) => {
 	async.parallel({
 		classes: (callback) => {
-			Users.find({ // find the user's: 
+			User.find({ // find the user's: 
 				"_id": req.params._id,	
-				"classes.start.date": { 
+				"class.start.date": { 
 					$eq: moment().startOf("date").format("MMMM DD YYYY, hh:mm a ")
 				}
 			},{ 
-				"classes.course.title": 1,
-				"classes.module.title": 1,
-				"classes.location": 1,
-				"classes.start.date": 1,
-				"clasess.start.time": 1,
-				"classes.end.date": 1,
-				"classes.end.time": 1,
-				"classes.description": 1
+				"class.course.title": 1,
+				"class.module.title": 1,
+				"class.location": 1,
+				"class.start.date": 1,
+				"clase.start.time": 1,
+				"class.end.date": 1,
+				"class.end.time": 1,
+				"class.description": 1
 			})
 			.then(selectedClasses => {
 				if(!selectedClasses) {
@@ -46,7 +46,7 @@ controller.index = (req, res, next) => {
 			});
 		},
 		tasks: (callback) => {
-			Users.find({
+			User.find({
 				"_id": req.params._id,
 				"tasks.deadline": {
 					$gte: moment().startOf("date").format("MMMM DD YYYY"), // date is later than today
@@ -64,7 +64,7 @@ controller.index = (req, res, next) => {
 			});
 		},
 		evaluations: (callback) => {
-			Users.find({
+			User.find({
 				"_id": req.params.id,
 				"evaluations.date": {
 					$gte: moment().startOf("date").format("MMMM DD YYYY"),
@@ -191,7 +191,7 @@ controller.taskEdit = (req, res, next) => {
 
 //
 controller.taskNew = (req, res, next) => {
-	Users.find({
+	User.find({
 		"_id": req.params._id,
 	},
 	{
@@ -261,7 +261,7 @@ controller.taskCreate = (req, res, next) => {
 	}
 
 	const associate = (pendingTask, callback) => {
-		Users.findByIdAndUpdate({
+		User.findByIdAndUpdate({
 			"_id": req.params._id
 		},
 		{

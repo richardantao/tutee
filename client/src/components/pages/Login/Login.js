@@ -5,6 +5,7 @@ import { clearErrors } from "../../../actions/auth/errors.action";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
+import { Container } from "reactstrap";
 import LoginModal from "../../molecules/LoginModal";
 
 import "./Login.scss";
@@ -19,7 +20,11 @@ class Login extends Component {
     };
     
     render() {
-        return null
+       return(
+            <div>
+                <LoginModal/>
+            </div> 
+       )
     };
 };
 

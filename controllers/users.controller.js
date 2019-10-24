@@ -7,7 +7,7 @@ const Users = require("../models/Users.model").Model;
 // instantiate controller
 const controller = [];
 
-controller.index = (req, res, next) => {
+controller.index = (req, res) => {
     Users.find()
     .then(users => {
         return res.json(users);
@@ -17,12 +17,14 @@ controller.index = (req, res, next) => {
     });
 }
 
-controller.edit = (req, res, next) => {
-    Users.findById(req.params.id)
+controller.edit = (req, res) => {
+    const { id } = req.params; 
+
+    Users.findById(id)
     .then(userInfo => {
         if(!userInfo) {
             return res.status(404).json({
-                message: "User profile was not found with the id " + req.params.id
+                message: "User profile was not found with the id " + id
             });
         } else {
             return res.json(userInfo);
@@ -31,31 +33,29 @@ controller.edit = (req, res, next) => {
     .catch(err => {
         if(err.kind === 'ObjectId') {
             return res.status(404).send({
-                message: "User profile was not found with the id " + req.params.id
+                message: "User profile was not found with the id " + id
             });
         } else {
             return res.status(500).json({
-                message: "Error retrieving user profile with id " + req.params.id
+                message: "Error retrieving user profile with id " + id
             });
         }
     });
 }
 
-controller.create = (req, res, next) => {
+controller.create = (req, res) => {
+    const { firstName, lastName, email, password } = req.body;
+
     const user = new Users({
         profile: {
             name: {
-                first:req.body.firstName,
-                last: req.body.lastName
+                first: firstName,
+                last: lastName
             },
             email: {
-                address: req.body.email
+                address: email
             },
-            password: req.body.password,
-            meta: {
-                createdAt: Date.now(),
-                updatedAt: Date.now()
-            }
+            password: password
         }
     });
     
@@ -71,19 +71,22 @@ controller.create = (req, res, next) => {
     });
 }
 
-controller.update = (req, res, next) => {
+controller.update = (req, res) => {
+    const { id } = req.params;
+    const { firstName, lastName, email } = req.body;
+
     Users.findByIdAndUpdate({
-        "_id": req.params._id
+        "_id": id
     }, 
     {
         $set: {
             profile: {
                 name: {
-                    first: req.body.firstName,
-                    last: req.body.lastName
+                    first: firstName,
+                    last: lastName
                 },
                 email: {
-                    address: req.body.email
+                    address: email
                 }
             },
             meta: {
@@ -113,9 +116,11 @@ controller.update = (req, res, next) => {
     })
 }
 
-controller.delete = (req, res, next) => {
+controller.delete = (req, res) => {
+    const { id } = req.params;
+
     Users.findByIdAndDelete({
-        "_id": req.params._id
+        "_id": id
     })
     .then(deletedUser => {
         if(!deletedUser) {

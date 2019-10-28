@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -24,12 +25,16 @@ class Register extends Component {
         email: "",
         password: "",
         message: null
-    }
+    };
     
     static propTypes = {
         error: PropTypes.object.isRequired,
         register: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired
+    };
+
+    componentDidMount() {
+        this.props.clearErrors();
     };
 
     componentDidUpdate(prevProps) {
@@ -40,15 +45,15 @@ class Register extends Component {
                 this.setState({ message: error.message });
             } else {
                 this.setState({ message: null });
-            }
-        }   
-    }
+            };
+        };
+    };
 
     onChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         });
-    }
+    };
 
     onSubmit = e => {
         e.preventDefault();
@@ -66,65 +71,78 @@ class Register extends Component {
 
         // Attempt to register user
         this.props.register(newUser);
-    }
+    };
 
     render() {
         return(
-            <Container>
-                <div id="register">
-                        {
-                            this.message ? 
-                            <Alert className="form-message">{this.message}</Alert> 
-                            : null
-                        }
-                    <Form>
-                        <FormGroup>
-                            <Label for="fname">First Name</Label>
-                            <Input
-                                type="text"
-                                name="fname"
-                                id="fname"
-                                placeholder="Enter first name"
-                                className="mb-3"
-                                onChange={this.onChange}
-                            />
+            <Fragment>
+                <Helmet>
+                    <title>My Tutee | Register</title>
+                </Helmet>
+                <Container>
+                    <div id="register">
+                            {
+                                this.message ? 
+                                <Alert className="form-message">{this.message}</Alert> 
+                                : null
+                            }
+                        <Form>
+                            <FormGroup>
+                                <Label for="fname">First Name</Label>
+                                <Input
+                                    type="text"
+                                    name="fname"
+                                    id="fname"
+                                    placeholder="Enter first name"
+                                    className="mb-3"
+                                    onChange={this.onChange}
+                                />
 
-                            <Label for="lname">Last Name</Label>
-                            <Input
-                                type="text"
-                                name="lname"
-                                id="lname"
-                                placeholder="Enter last name"
-                                className="mb-3"
-                                onChange={this.onChange}
-                            />
+                                <Label for="lname">Last Name</Label>
+                                <Input
+                                    type="text"
+                                    name="lname"
+                                    id="lname"
+                                    placeholder="Enter last name"
+                                    className="mb-3"
+                                    onChange={this.onChange}
+                                />
 
-                            <Label for="email">Email</Label>
-                            <Input
-                                type="email"
-                                name="email"
-                                id="email"
-                                placeholder="Enter email"
-                                className="mb-3"
-                                onChange={this.onChange}
-                            />
+                                <Label for="email">Email</Label>
+                                <Input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    placeholder="Enter email"
+                                    className="mb-3"
+                                    onChange={this.onChange}
+                                />
 
-                            <Label for="password">Password</Label>
-                            <Input
-                                type="password"
-                                name="password"
-                                id="password"
-                                placeholder="Enter password"
-                                className= "mb-3"
-                                onChange={this.onChange}
-                            />
-                            <Button onSubmit={this.onSubmit} color="primary" style={{ marginTop: "2rem" }} block>
-                                Register
-                            </Button>
-                        </FormGroup>
-                    </Form>
-                </div>
-            </Container>
+                                <Label for="password">Password</Label>
+                                <Input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    placeholder="Enter password"
+                                    className= "mb-3"
+                                    onChange={this.onChange}
+                                />
+                                <Button onSubmit={this.onSubmit} color="primary" style={{ marginTop: "2rem" }} block>
+                                    Register
+                                </Button>
+                            </FormGroup>
+                            <FormGroup>
+                            <small id="emailHelp" class="form-text text-muted">
+                                We'll never share your email with anyone else. 
+                                By registering an account with Tutee you agree to 
+                                our <a href="terms.html" target="_blank">Terms of Service</a> and 
+                                <a href="privacy.html" target="_blank"> Privacy Policy</a>.
+                            </small>
+                            </FormGroup>
+                        </Form>
+                    </div>
+                </Container>
+            </Fragment>
         );
     };
 };

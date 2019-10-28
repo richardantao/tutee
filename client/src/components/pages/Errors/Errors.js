@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
+import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
 import { returnErrors, clearErrors } from "../../../actions/auth/errors.action";
@@ -26,9 +27,11 @@ class Errors extends Component {
 
     render() {
         return (
-            <div>
-
-            </div>
+            <Fragment>
+                <Helmet>
+					<title>My Tutee | Error</title>
+				</Helmet>
+            </Fragment>
         );
     };
 };

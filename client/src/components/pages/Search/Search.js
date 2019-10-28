@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
 // import { }
@@ -40,6 +41,9 @@ export default class Search extends Component {
 	render() {
 		return (
 			<Fragment>
+				<Helmet>
+					<title>My Tutee | Search</title>
+				</Helmet>
 				<Nav />
 				<div id="search">
 					<Row className="header">

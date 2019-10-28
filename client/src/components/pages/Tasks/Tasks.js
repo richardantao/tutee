@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
 import { 
@@ -66,6 +67,9 @@ class Tasks extends Component {
 		
 		return (
 			<Fragment>
+				<Helmet>
+					<title>My Tutee | Tasks</title>
+				</Helmet>
 				<Nav />
 				<div id="tasks">
 					<Row className="header">

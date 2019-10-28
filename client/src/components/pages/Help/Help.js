@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Helmet } from "react-helmet";
 
 import { Col, Row } from "reactstrap";
 
@@ -20,6 +21,9 @@ export default class Help extends Component {
 	render() {
 		return (
 			<Fragment>
+				<Helmet>
+					<title>My Tutee | Help</title>
+				</Helmet>
 				<Nav />
 				<div id="help">
 					<Row className="header">

@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -47,6 +48,9 @@ class Dashboard extends Component {
 	render() {
 		return (
 			<Fragment>
+				<Helmet>
+					<title>My Tutee | Dashboard</title>
+				</Helmet>
 				<Nav />
 				<div id="dashboard">
 					<Row>

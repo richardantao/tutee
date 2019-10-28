@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from "react";
+import { Helmet } from "react-helmet";
 
 import { 
 	getProfile, getPassword, getPreferences, getIntegrations 
@@ -44,6 +45,9 @@ class Settings extends Component {
 	render() {
 		return (
 			<Fragment>
+				<Helmet>
+					<title> My Tutee | Settings</title>
+				</Helmet>
 				<Nav />
 				<div id="settings">
 					<Row className="header">

@@ -26,8 +26,6 @@ export default class App extends Component {
 	};
 
 	render() {
-		const title = this.state;
-
 		return (
 			<Provider store={store}>
 				<Switch>

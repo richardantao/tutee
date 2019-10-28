@@ -29,9 +29,11 @@ export default class App extends Component {
 
 	componentDidMount() {
 		store.dispatch(loadUser());
-	}
+	};
 
 	render() {
+		const title = this.state;
+
 		return (
 			<Provider store={store}>
 				<Switch>

@@ -33,7 +33,7 @@ router.post("/register", validate.register, controller.register);
 // @route /signin
 // @desc Verifies user authentication and loads user dashboard
 // @access PUBLIC
-router.post("/signin", auth, validate.signin, controller.signin);
+router.post("/signin", validate.signin, controller.signin);
 
 // @route /signout
 // @desc kills user's application session

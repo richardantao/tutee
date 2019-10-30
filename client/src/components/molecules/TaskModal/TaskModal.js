@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
-import { createTask } from "../../../actions/data/tasks.action";
+import { editTask, createTask, updateTask, deleteTask } from "../../../actions/data/tasks.action";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import Button from "../../atoms/Button";
+import { Button } from "react-bootstrap";
 import "./TaskModal.scss";
 
 class TaskModal extends Component {
@@ -30,6 +30,10 @@ class TaskModal extends Component {
         });
     };
 
+    onCancel = e => {
+        
+    };
+
     onSubmit = e => {
         e.preventDefault();
 
@@ -47,7 +51,7 @@ class TaskModal extends Component {
     
     render() {
         return(
-            <form method="" action="" className="modal">
+            <form className="modal">
                 <div className="modal-header">
                     <h3>{this.props.header}</h3>
                 </div>
@@ -58,17 +62,21 @@ class TaskModal extends Component {
                     </div>
                 </div>
                 <div className="modal-action">
-                    <Button onClick="">Cancel</Button>
-                    <Button onClick="">{this.props.action}</Button>
+                    <Button onCancel={this.onCancel}>Cancel</Button>
+                    <Button onSubmit={this.onSubmit}>{this.props.action}</Button>
                 </div>
             </form>
-        )
-    }
-}
+        );
+    };
+};
 
 const mapStateToProps = state => ({
     tasks: state.tasks,
     isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { createTask })(TaskModal);
+export default connect(
+    mapStateToProps, 
+    { editTask, createTask, updateTask, deleteTask }
+)
+(TaskModal);

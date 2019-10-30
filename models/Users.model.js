@@ -13,7 +13,6 @@ const TaskSchema = require("./Tasks.model").Schema;
 const IntegrationSchema = require("./Integrations.model").Schema;
 
 const UserSchema = new Schema({
-	_id: Schema.Types.ObjectId,
     name: {
         first: {type: String, required: true},
         last: {type: String, required: true}
@@ -43,7 +42,7 @@ const UserSchema = new Schema({
         defaultCalendar: {type: String, default: "Week", enum: ["Month", "Week", "Day", "Agenda"]},
         onEmailList: {type: Boolean, default: true}
     },
-    integrations: [IntegrationSchema],
+    integration: [IntegrationSchema],
     meta: {
         membership: {type: String, default: "Basic", enum: ["Admin", "Basic", "Beta", "Premium"]},
         sessions: {type: Number, default: 0, min: 0},

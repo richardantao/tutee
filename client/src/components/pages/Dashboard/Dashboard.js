@@ -26,24 +26,26 @@ import "./Dashboard.scss";
 
 class Dashboard extends Component {
 	state = {
-
+		classes: [],
+		tasks: [],
+		evaluations: []
 	};
 
 	static propTypes = {
-
+		isAuthenticated: PropTypes.bool
 	};
 
 	componentDidMount() {
 		
-	}
+	};
 
 	componentDidUpdate() {
 
-	}
+	};
 
 	componentWillUnmount() {
 		
-	}
+	};
 
 	render() {
 		return (
@@ -69,16 +71,19 @@ class Dashboard extends Component {
 					</Row>
 				</div>
 			</Fragment>
-		)
-	}
-}
+		);
+	};
+};
 
 const mapStateToProps = state => ({
-	
+	isAuthenticated: state.isAuthenticated,
+	error: state.error
 });
 
-export default connect(mapStateToProps, { 
-	fetchClasses, editClass, updateClass, deleteClass,
-	fetchTasks, editTask, createTask, updateTask, deleteTask,
-	fetchEvaluations, editEvaluation, updateEvaluation, deleteEvaluation
-})(Dashboard);
+export default connect(
+	mapStateToProps, { 
+		fetchClasses, editClass, updateClass, deleteClass,
+		fetchTasks, editTask, createTask, updateTask, deleteTask,
+		fetchEvaluations, editEvaluation, updateEvaluation, deleteEvaluation
+	}
+)(Dashboard);

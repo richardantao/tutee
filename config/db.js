@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
-const mongoDB = "mongodb://localhost/TuteeDev";
+const mongoDB = "mongodb://localhost/tutee-dev";
 
 mongoose.connect(mongoDB, {
   useCreateIndex: true,

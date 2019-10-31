@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 
-// import {  } from "../../../actions";
 import { connect } from "react-redux";
+import { fetchIntegrations, editIntegration } from "../../../actions/data/settings.action";
 import PropTypes from "prop-types";
 
 import LoadingColumn from "../../molecules/LoadingColumn";
 import { Col, Row } from "react-bootstrap";
+import {
+    Form,
+    FormGroup,
+    Label,
+    Input
+} from "reactstrap";
 
 class Integration extends Component {
     state = {
@@ -13,32 +19,32 @@ class Integration extends Component {
     };
 
     static propTypes = {
-
+        isAuthenticated: PropTypes.bool,
+		error: PropTypes.object.isRequired
     };
 
     componentDidMount() {
         
-    }
+    };
 
-    componentWillUnmount() {
-        
-    }
+    handleSubmit = e => {
+        e.preventDefault();
+
+        this.props;
+    };
 
     render() {
         return(
-            <form method="PUT" action="/settings/integrations/:id">
-                <Row>
-                    <Col>
-                    
-                    </Col>    
-                </Row>>
-            </form>
-        )
-    }
-}
+            <Form onSubmit={this.handleSubmit}>
+                
+            </Form>
+        );
+    };
+};
 
 const mapStateToProps = state => ({
-
+    isAuthenticated: state.auth.isAuthenticated,
+    error: state.error
 });
 
-export default connect(mapStateToProps, { })(Integration);
+export default connect(mapStateToProps, { fetchIntegrations })(Integration);

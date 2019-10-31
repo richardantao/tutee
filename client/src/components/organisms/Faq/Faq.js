@@ -14,19 +14,13 @@ export default class Faq extends Component {
         this.setState({
             isLoading: false
         });
-    }
+    };
 
     render() {
-        let { isLoading } = this.state;
+        return(
+            <div id="faq">
 
-        if(isLoading) {
-            return null;
-        } else {
-            return(
-                <div id="faq">
-
-                </div>
-            )
-        }
-    }
-}
+            </div>
+        );
+    };
+};

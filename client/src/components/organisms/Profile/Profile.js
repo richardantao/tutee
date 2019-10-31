@@ -1,18 +1,32 @@
 import React, { Component } from "react";
+
+import { connect } from "react-redux";
+import { updateProfile } from "../../../actions/data/settings.action";
+import PropTypes from "prop-types";
+
 import { Col, Row } from "react-bootstrap"
 import LoadingColumn from "../../molecules/LoadingColumn";
 import ButtonReact from "../../atoms/Button";
 import SelectReact from "../../atoms/Select";
 import "./Profile.scss";
 
-export default class Profile extends Component {
+class Profile extends Component {
+	state = {
+
+	};
+
+	static propTypes = {
+		isAuthenticated: PropTypes.bool,
+		error: PropTypes.object.isRequired
+	};
+
 	componentDidMount() {
 		
-	}
+	};
 
-	componentWillUnmount() {
-		
-	}
+	componentWillUpdate() {
+
+	};
 	
 	render() {
 		return(
@@ -60,7 +74,14 @@ export default class Profile extends Component {
 					</Col>
 				</Row>
 			</form>
-		)
-	}
-}
+		);
+	};
+};
+
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated,
+	error: state.error
+});
+
+export default connect(mapStateToProps, { updateProfile })(Profile);
 

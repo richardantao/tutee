@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
-import {  } from "../../../actions";
 import { connect } from "react-redux";
+import { updatePassword } from "../../../actions/data/settings.action";
+import PropTypes from "prop-types";
 
 import { Col, Row } from "react-bootstrap";
 import ButtonReact from "../../atoms/Button";
@@ -10,20 +11,33 @@ import "./Password.scss";
 
 class Password extends Component {
     state = {
-        
-    }
+        current: "",
+        new: "",
+        confirm: ""
+    };
+
+    static propTypes = {
+        isAuthenticated: PropTypes.bool,
+        error: PropTypes.object.isRequired
+    };
 
     componentDidMount() {
 
-    }
-    
-    componentWillUnmount() {
+    };
 
-    }
+    handleChange = e => {
+        
+    };
+    
+    handleSubmit = e => {
+        e.preventDefault();
+        
+        this.props
+    };
 
     render() {
         return(
-            <form method="PUT" action="/password/update" role="form">
+            <form onSubmit={this.handleSubmit}>
                 <Row>
                     <Col>
                         <label for="current">Current Password</label>
@@ -49,12 +63,13 @@ class Password extends Component {
                     </Col>
                 </Row>
             </form>
-        )
-    }
-}
+        );
+    };
+};
 
-const mapStateToProps = state => {
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    error: state.error
+});
 
-}
-
-export default connect(mapStateToProps, {  })(Password);
+export default connect(mapStateToProps, { updatePassword })(Password);

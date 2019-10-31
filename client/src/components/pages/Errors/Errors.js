@@ -20,10 +20,6 @@ class Errors extends Component {
     componentDidMount() {
     
     };
-    
-    componentWillUnmount() {
-        
-    };
 
     render() {
         return (

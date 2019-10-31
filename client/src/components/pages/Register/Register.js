@@ -14,7 +14,7 @@ import {
     Label,
     Input,
     Alert
-  } from 'reactstrap';
+  } from "reactstrap";
 
 import "./Register.scss";
 
@@ -49,13 +49,13 @@ class Register extends Component {
         };
     };
 
-    onChange = e => {
+    handleChange = e => {
         this.setState({
             [e.target.name]: e.target.value
         });
     };
 
-    onSubmit = e => {
+    handleSubmit = e => {
         e.preventDefault();
 
         const { fname, lname, email, password } = this.state;
@@ -65,9 +65,14 @@ class Register extends Component {
                 first: fname,
                 last: lname
             },
-            email,
+            email: {
+                address: email
+            },
             password
         };
+
+        console.log("Sending new user to Register action...")
+        console.log(newUser);
 
         // Attempt to register user
         this.props.register(newUser);
@@ -81,12 +86,12 @@ class Register extends Component {
                 </Helmet>
                 <Container>
                     <div id="register">
-                            {
-                                this.message ? 
-                                <Alert className="form-message">{this.message}</Alert> 
-                                : null
-                            }
-                        <Form>
+                        {
+                            this.message ? 
+                            <Alert className="form-message">{this.message}</Alert> 
+                            : null
+                        }
+                        <Form onSubmit={this.handleSubmit}>
                             <FormGroup>
                                 <Label for="fname">First Name</Label>
                                 <Input
@@ -95,7 +100,7 @@ class Register extends Component {
                                     id="fname"
                                     placeholder="Enter first name"
                                     className="mb-3"
-                                    onChange={this.onChange}
+                                    onChange={this.handleChange}
                                 />
 
                                 <Label for="lname">Last Name</Label>
@@ -105,7 +110,7 @@ class Register extends Component {
                                     id="lname"
                                     placeholder="Enter last name"
                                     className="mb-3"
-                                    onChange={this.onChange}
+                                    onChange={this.handleChange}
                                 />
 
                                 <Label for="email">Email</Label>
@@ -115,7 +120,7 @@ class Register extends Component {
                                     id="email"
                                     placeholder="Enter email"
                                     className="mb-3"
-                                    onChange={this.onChange}
+                                    onChange={this.handleChange}
                                 />
 
                                 <Label for="password">Password</Label>
@@ -125,14 +130,14 @@ class Register extends Component {
                                     id="password"
                                     placeholder="Enter password"
                                     className= "mb-3"
-                                    onChange={this.onChange}
+                                    onChange={this.handleChange}
                                 />
-                                <Button onSubmit={this.onSubmit} color="primary" style={{ marginTop: "2rem" }} block>
+                                <Button type="submit" color="primary" style={{ marginTop: "2rem" }} block>
                                     Register
                                 </Button>
                             </FormGroup>
                             <FormGroup>
-                            <small id="emailHelp" class="form-text text-muted">
+                            <small id="emailHelp" className="form-text text-muted">
                                 We'll never share your email with anyone else. 
                                 By registering an account with Tutee you agree to 
                                 our <a href="terms.html" target="_blank">Terms of Service</a> and 

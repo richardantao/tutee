@@ -2,9 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
-import { 
-	fetchTasks, editTask, createTask, updateTask, deleteTask 
-} from "../../../actions/data/tasks.action";
+import { fetchTasks } from "../../../actions/data/tasks.action";
 import PropTypes from "prop-types";
 
 import { Col, Row } from "reactstrap";
@@ -20,47 +18,59 @@ import "./Tasks.scss";
 
 class Tasks extends Component {
 	state = {
-
+		tasks: []
 	};
 
 	static propTypes = {
-		fetchTasks: PropTypes.func.isRequired,
+		isAuthenticated: PropTypes.bool,
+		error: PropTypes.object.isRequired,
 		tasks: PropTypes.object.isRequired
 	};
 	
 	componentDidMount() {
-		this.props.fetchTasks();
-	}
+		this.props.handleFetchTasks();
+	};
 
 	componentDidUpdate() {
 
-	}
+	};
 
-	componentWillUnmount() {
-		
-	}
+	handleTasks() {
+		this.props.fetchTasks();
+	};
+
+	handlePastTasks() {
+		this.props.fetchPastTasks();
+	};
+
+	newTaskModal = () => {
+
+	};
+
+	editTaskModal = () => {
+
+	};
+
 
 	render() {
-		const { tasks } = this.props.task;
+		const { tasks } = this.props.tasks;
 
-		// move to own component in /molecules
-		const taskRecords = this.state.tasks.map(task => (
-			<Row key={task.id} className="task-record">
+		const taskRecords = tasks.map(({ _id, title, course, type, deadline }) => (
+			<Row key={_id} className="task-record">
 				<Col>
-					<div class="task-record-title">
-						<h5>{task.title}</h5>
-					</div>
-					<div class="task-record-course">
-						<h6>{task.course}</h6>
-					</div>
-				</Col>
-				<Col>
-					<div class="task-record-type">
-						<p>{task.type}</p>
-					</div>
-					<div class="task-record-deadline">
-						<p>{task.deadline}</p>
-					</div>
+					<Row>
+						<Col>
+							<h5>{title}</h5>
+							<p>{type}</p>
+						</Col>
+						<Col>
+							<h6>{course}</h6>
+							<p>{deadline}</p>
+						</Col>
+						<Col>
+							<Button onClick={this.editTask}></Button>
+						</Col>
+					</Row>
 				</Col>
 			</Row>
 		));
@@ -77,7 +87,7 @@ class Tasks extends Component {
 							<Header header="Tasks"/>
 						</Col>
 						<Col>
-							<Button href="/tasks/new"><FontAwesomeIcon icon={faPlus}/> New Task</Button>
+							<Button onClick={this.newTaskForm}><FontAwesomeIcon icon={faPlus}/> New Task</Button>
 						</Col>
 					</Row>
 					<Row className="body tasks-body">	
@@ -85,8 +95,8 @@ class Tasks extends Component {
 							<Select placeholder="Filter by Course.."/>
 						</Col>
 						<Col>
-							<Button href="/tasks" className="current">Current</Button>
-							<Button href="/tasks/past" className="past">Past</Button>
+							<Button onClick={this.handleTasks} className="current">Current</Button>
+							<Button onClick={this.handlePastTasks} className="past">Past</Button>
 						</Col>
 					</Row>
 					<Row>
@@ -101,7 +111,9 @@ class Tasks extends Component {
 };
 
 const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated,
+	error: state.error,
 	tasks: state.tasks
 });
 
-export default connect(mapStateToProps, { fetchTasks, editTask, createTask, updateTask, deleteTask })(Tasks);
+export default connect(mapStateToProps, { fetchTasks, fetchPastTasks })(Tasks);

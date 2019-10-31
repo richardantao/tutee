@@ -2,9 +2,18 @@ import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
+import {
+	fetchYears, editYear, createYear, updateYear, deleteYear
+} from "../../../actions/data/years.action";
+import {
+	fetchTerms, editTerm, createTerm, updateTerm, deleteTerm
+} from "../../../actions/data/terms.action";
 import { 
 	fetchCourses, editCourse, createCourse, updateCourse, deleteCourse 
 } from "../../../actions/data/courses.action";
+import {
+	fetchModules, editModule, createModule, updateModule, deleteModule
+} from "../../../actions/data/modules.action";
 import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -24,20 +33,27 @@ import "./Courses.scss";
 
 class Courses extends Component {
 	state = {
-
+		years: [],
+		terms: [],
+		courses: [],
+		modules: []
 	};
 
 	static propTypes = {
-
+		isAuthenticated: PropTypes.func,
+		error: PropTypes.object.isRequired
 	};
 
 	componentDidMount() {
-		
+
+		// fetch all data || in future release, fetch child data after selecting parent element
+		this.props.fetchYears();
+		this.props.fetchTerms();
+		this.props.fetchCourses();
+		this.props.fetchModules();
 	};
 
-	componentWillUnmount() {
-		
-	};
+	
 	
 	render() {
 		return (
@@ -52,8 +68,8 @@ class Courses extends Component {
 							<Header header="Courses"/>
 						</Col>
 						<Col>
-							<Button href="/courses/years/edit">Manage Academics</Button>
-							<Button href="/courses/years/new"><FontAwesomeIcon icon={faPlus}/> New Academic Year</Button>
+							<Button onClick={this}>Manage Academics</Button>
+							<Button onClick={this}><FontAwesomeIcon icon={faPlus}/> New Academic Year</Button>
 						</Col>
 					</Row>
 					<Row className="body courses-body">
@@ -63,8 +79,8 @@ class Courses extends Component {
 									<h4>Terms</h4>
 								</Col>
 								<Col>
-									<Button href="/courses/terms/new"><FontAwesomeIcon icon={faPlus} /></Button>
-									<Button href="/courses/terms/edit"><FontAwesomeIcon icon={faEdit} /></Button>
+									<Button onClick={this}><FontAwesomeIcon icon={faPlus} /></Button>
+									<Button onClick={this}><FontAwesomeIcon icon={faEdit} /></Button>
 								</Col>
 							</Row>
 						</Col>
@@ -74,8 +90,8 @@ class Courses extends Component {
 									<h4>Courses</h4>
 								</Col>
 								<Col>
-									<Button href="/courses/courses/new"><FontAwesomeIcon icon={faPlus} /></Button>
-									<Button href="/courses/courses/edit"><FontAwesomeIcon icon={faEdit} /></Button>
+									<Button onClick={this}><FontAwesomeIcon icon={faPlus} /></Button>
+									<Button onClick={this}><FontAwesomeIcon icon={faEdit} /></Button>
 								</Col>
 							</Row>
 						</Col>
@@ -85,8 +101,8 @@ class Courses extends Component {
 									<h4>Modules</h4>
 								</Col>
 								<Col>
-									<Button href="/courses/modules/new"><FontAwesomeIcon icon={faPlus} /></Button>
-									<Button href="/courses/modules/edit"><FontAwesomeIcon icon={faEdit} /></Button>
+									<Button onClick={this}><FontAwesomeIcon icon={faPlus} /></Button>
+									<Button onClick={this}><FontAwesomeIcon icon={faEdit} /></Button>
 								</Col>
 							</Row>
 						</Col>
@@ -105,7 +121,14 @@ class Courses extends Component {
 };
 
 const mapStateToProps = state => ({
-	
+	isAuthenticated: state.isAuthenticated,
+	error: state.error
 });
 
-export default connect(mapStateToProps, { fetchCourses, editCourse, createCourse, updateCourse, deleteCourse })(Courses);
+export default connect(mapStateToProps, { 
+	fetchYears, editYear, createYear, updateYear, deleteYear,
+	fetchTerms, editTerm, createTerm, updateTerm, deleteTerm,
+	fetchCourses, editCourse, createCourse, updateCourse, deleteCourse, 
+	fetchModules, editModule, createModule, updateModule, deleteModule
+})
+(Courses);

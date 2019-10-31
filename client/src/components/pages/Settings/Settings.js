@@ -1,10 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 
-import { 
-	getProfile, getPassword, getPreferences, getIntegrations 
-} from "../../../actions/data/settings.action";
 import { connect } from "react-redux";
+import { fetchProfile, fetchPassword, fetchPreferences, fetchIntegrations, editIntegration } from "../../../actions/data/settings.action";
+import { logout } from "../../../actions/auth/auth.action";
 import PropTypes from "prop-types";
 
 import { Container, Col, Row } from "reactstrap";
@@ -23,24 +22,44 @@ import "./Settings.scss";
 
 class Settings extends Component {
 	state = {
-		form: "profile"
+		form: Profile
 	};
 
 	static propTypes = {
-
+		error: PropTypes.object.isRequired,
+        logout: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
 	};
 
 	componentDidMount() {
 		
-	}
+	};
 
 	componentDidUpdate() {
 
-	}
+	};
 
-	componentWillUnmount() {
-		
-	}
+	handleProfile = () => {
+		this.props.fetchProfile();
+	};
+
+	handlePassword = () => {
+		this.props.fetchPassword();
+	};
+
+	handlePreferences = () => {
+		this.props.fetchPreferences();
+	};
+
+	handleIntegrations = () => {
+		this.props.fetchIntegrations();
+	};
+
+	handleLogout = () => {
+
+		// logout user
+		this.props.logout();
+	};
 
 	render() {
 		return (
@@ -55,21 +74,21 @@ class Settings extends Component {
 							<Header header="Settings"/> 
 						</Col>
 						<Col>
-							<Button href="/signout">Sign Out</Button>
+							<Button onClick={this.handleLogout}>Sign Out</Button>
 						</Col>
 					</Row>
 					<Row>
 						<Col className="settings-nav">
-							<Button href="/settings/profile" block>Profile</Button>
-							<Button href="/settings/password" block>Password</Button>	
-							<Button href="/settings/preferences" block>Preferences</Button>
-							<Button href="/settings/integrations" block>Integrations</Button>
+							<Button onClick={this.handleProfile} block>Profile</Button>
+							<Button onClick={this.handlePassword} block>Password</Button>	
+							<Button onClick={this.handlePreferences} block>Preferences</Button>
+							<Button onClick={this.handleIntegrations} block>Integrations</Button>
 						</Col>
 					</Row>
 					<Container>
 						<Row className="body settings-body">
 							<Col>
-							
+								{this.props.form}
 							</Col>		
 						</Row>
 					</Container>
@@ -95,7 +114,14 @@ const year = new Date().getFullYear();
 const version = "Version 1.0.0";
 
 const mapStateToProps = state => ({
-
+	error: state.error
 });
 
-export default connect(mapStateToProps, { getProfile, getPassword, getPreferences, getIntegrations })(Settings);
+export default connect(mapStateToProps, { 
+		logout, 
+		fetchProfile, 
+		fetchPassword,
+		fetchPreferences, 
+		fetchIntegrations, editIntegration
+	}
+)(Settings);

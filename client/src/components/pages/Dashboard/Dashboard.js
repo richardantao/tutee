@@ -36,15 +36,13 @@ class Dashboard extends Component {
 	};
 
 	componentDidMount() {
-		
+		this.props.fetchClasses();
+		this.props.fetchTasks();
+		this.props.fetchEvaluations();
 	};
 
 	componentDidUpdate() {
 
-	};
-
-	componentWillUnmount() {
-		
 	};
 
 	render() {

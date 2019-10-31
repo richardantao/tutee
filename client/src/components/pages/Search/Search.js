@@ -17,26 +17,27 @@ import SelectReact from "../../atoms/Select";
 
 import "./Search.scss";
 
-export default class Search extends Component {
+class Search extends Component {
 	state = {
 
 	};
 
 	static propTypes = {
-
+		isAuthenticated: PropTypes.bool,
+		error: PropTypes.object.isRequired
 	};
 
 	componentDidMount() {
 		
-	}
+	};
 
 	componentDidUpdate() {
 
-	}
+	};
 
-	componentWillUnmount() {
-		
-	}
+	handleChange = e => {
+
+	};
 
 	render() {
 		return (
@@ -84,4 +85,11 @@ export default class Search extends Component {
 		);
 	};
 };
+
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated,
+	error: state.error
+});
+
+export default connect(mapStateToProps, {  })(Search);
 

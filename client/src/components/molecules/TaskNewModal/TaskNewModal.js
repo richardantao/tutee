@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
-import { createTask } from "../../../actions/data/tasks.action";
 import { connect } from "react-redux";
+import { createTask } from "../../../actions/data/tasks.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import { Button } from "react-bootstrap";
@@ -19,8 +20,15 @@ class TaskNewModal extends Component {
     }
 
     static propTypes = {
+        error: PropTypes.object.isRequired,
         isAuthenticated: PropTypes.bool
     }
+
+    componentDidMount() {
+
+        // Get courses for selection upon rendering of modal
+        this.props.fetchCourses();
+    };
 
     toggle = () => {
         this.setState({

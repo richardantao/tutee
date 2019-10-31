@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import { updateTask, deleteTask } from "../../../actions/data/tasks.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import "./TaskEditModal.scss";
@@ -20,6 +21,14 @@ class TaskEditModal extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired
+    };
+
+    componentDidMount() {
+        this.fetchCourses();
+    };
+
+    componentDidUpdate() {
+
     };
 
     toggle = () => {
@@ -47,12 +56,24 @@ class TaskEditModal extends Component {
         this.toggle();
     };
 
+    handleCancel = () => {
+
+        // reset state and clear errors
+
+        // close modal
+        this.toggle();
+    };
+
     handleDelete = id => {
 
         this.props.deleteTask(id);
 
         // close modal onDelete
         this.props.toggle();
+    };
+
+    fetchCourses = () => {
+        
     };
 
     render() {
@@ -87,7 +108,7 @@ class TaskEditModal extends Component {
                     <textarea type="text" name="note" placeholder="Enter description"></textarea>
                 </div>
                 <div>
-                    <Button type="button" onClick={this.handleDelete}>Delete</Button>
+                    <Button type="button" onClick={this.handleDelete.bind(this, _id)}>Delete</Button>
                     <Button type="button" onClick={this.handleCancel}>Cancel</Button>
                     <Button type="submit">Update</Button>
                 </div>

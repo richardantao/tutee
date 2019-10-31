@@ -1,32 +1,75 @@
 import { LOADING_EVALUATIONS, FETCH_EVALUATIONS, EDIT_EVALUATION, CREATE_EVALUATION, UPDATE_EVALUATION, DELETE_EVALUATION } from "../types";
+import { tokenConfig } from "../auth/auth.action";
+import { returnErrors } from "../auth/errors.action";
 import axios from "axios";
 
+export const setLoading = () => {
+    return {
+        type: LOADING_EVALUATIONS
+    };
+};
+
 export const fetchEvaluations = () => dispatch => {
-    axios.get("/evaluations/:userId")
-    .then()
-    .catch()
-}
+    dispatch(setLoading());
+    
+    axios.get("/evaluations")
+    .then(res => dispatch({
+        type: FETCH_EVALUATIONS,
+        payload: res.data
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
 
-export const editEvaluation = () => dispatch => {
-    axios.get("/evaluations/:userId/edit/:evaluationId")
-    .then()
-    .catch()
-}
+export const editEvaluation = id => dispatch => {
+    dispatch(setLoading());
 
-export const createEvaluation = () => dispatch => {
-    axios.post("/evaluations/:userId/create")
-    .then()
-    .catch()
-}
+    axios.get(`/evaluations/edit/:${id}`)
+    .then(res => dispatch({
+        type: EDIT_EVALUATION,
+        payload
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
 
-export const updateEvaluation = () => dispatch => {
-    axios.put("/evaluations/:userId/update/:evaluationId")
-    .then()
-    .catch()
-}
+export const createEvaluation = newEvaluation => (dispatch, getState) => {
+    dispatch(setLoading());
 
-export const deleteEvaluation = () => dispatch => {
-    axios.delete("/evaluations/:userId/delete/:evaluationId")
-    .then()
-    .catch()
-}
+    axios.post("/evaluations/create", newEvaluation, tokenConfig(getState))
+    .then(res => dispatch({
+        type: CREATE_EVALUATION,
+        payload: newEvaluation
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
+
+export const updateEvaluation = id => dispatch => {
+    dispatch(setLoading());
+
+    axios.put(`/evaluations/update/:${id}`)
+    .then(res => dispatch({
+        type: UPDATE_EVALUATION,
+        payload
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
+
+export const deleteEvaluation = id => dispatch => {
+    dispatch(setLoading());
+
+    axios.delete(`/evaluations/delete/:${id}`)
+    .then(res => dispatch({
+        type: DELETE_EVALUATION,
+        payload
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};

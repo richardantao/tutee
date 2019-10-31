@@ -1,34 +1,75 @@
 import { LOADING_MODULES, FETCH_MODULES, EDIT_MODULE, CREATE_MODULE, UPDATE_MODULE, DELETE_MODULE } from "../types";
+import { tokenConfig } from "../auth/auth.action";
+import { returnErrors } from "../auth/errors.action";
 import axios from "axios";
 
+export const setLoading = () => {
+    return {
+        type: LOADING_MODULES
+    };
+};
+
 export const fetchModules = () => dispatch => {
-    axios.get("/courses/:userId")
-    .then()
-    .catch(err => {
-        
-    })
+    dispatch(setLoading());
+    
+    axios.get("/courses")
+    .then(res => dispatch({
+        type: FETCH_MODULES,
+        payload: res.data
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
+
+export const editModule = id => dispatch => {
+    dispatch(setLoading());
+    
+    axios.get(`/courses/modules/edit/:${id}`)
+    .then(res => dispatch({
+        type: EDIT_MODULES,
+        payload
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
 }
 
-export const editModule = () => dispatch => {
-    axios.get("/courses/:userId/modules/edit/:moduleId")
-    .then()
-    .catch()
+export const createModule = newModule => (dispatch, getState) => {
+    dispatch(setLoading());
+
+    axios.post("/courses/modules/create", newModule, tokenConfig(getState))
+    .then(res => dispatch({
+        type: CREATE_MODULES,
+        payload: newModule
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
 }
 
-export const createModule = () => dispatch => {
-    axios.post("/courses/:userId/modules/create")
-    .then()
-    .catch()
+export const updateModule = id => dispatch => {
+    dispatch(setLoading());
+
+    axios.get(`/courses/modules/update/:${id}`)
+    .then(res => dispatch({
+        type: UPDATE_MODULES,
+        payload
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
 }
 
-export const updateModule = () => dispatch => {
-    axios.get("/courses/:userId/modules/update/:moduleId")
-    .then()
-    .catch()
-}
+export const deleteModule = id => dispatch => {
+    dispatch(setLoading());
 
-export const deleteModule = () => dispatch => {
-    axios.get("/courses/:userId/modules/delete/:moduleId")
-    .then()
-    .catch()
-}
+    axios.get(`/courses/modules/delete/:${id}`)
+    .then(res => dispatch({
+        type: DELETE_MODULES,
+        payload: res.data
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};

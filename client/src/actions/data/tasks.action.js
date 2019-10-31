@@ -20,24 +20,28 @@ export const fetchTasks = () => dispatch => {
         });
     })
     .catch(err => dispatch(
-        returnErrors(err.res.data, err.res.status))
-    );
+        returnErrors(err.data, err.status)
+    ));
 };
 
-export const editTask = id => dispatch => {
-    axios.get(`/tasks/${id}/edit/:taskId`)
-    .then(task => {
+export const editTask = id => (dispatch, getState) => {
+    dispatch(setLoading());
+
+    axios.get(`/tasks/edit/${id}`)
+    .then(res => {
         dispatch({
             type: EDIT_TASK,
-            payload: task
+            payload: res.data
         });
     })
-    .catch(err => {
-        throw err;
-    });
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
 };
 
 export const createTask = task => (dispatch, getState) => {
+    dispatch(setLoading());
+
     axios.post("/tasks/create", task, tokenConfig(getState))
     .then(res => dispatch({
         type: CREATE_TASK,
@@ -49,17 +53,21 @@ export const createTask = task => (dispatch, getState) => {
 };
 
 export const updateTask = id => (dispatch, getState) => {
+    dispatch(setLoading());
+
     axios.put(`/tasks/update/${id}`, tokenConfig(getState))
     .then(res => dispatch({
         type: UPDATE_TASK,
-        payload: id
+        payload: res.data
     }))
     .catch(err => dispatch(
-        returnErrors(err.res.data, err.res.status))
+        returnErrors(err.data, err.status))
     );
 };
 
 export const deleteTask = id => (dispatch, getState) => {
+    dispatch(setLoading());
+
     axios.delete(`/tasks/delete/${id}`, tokenConfig(getState))
     .then(res => {
         dispatch({
@@ -68,7 +76,7 @@ export const deleteTask = id => (dispatch, getState) => {
         });
     })
     .catch(err => dispatch(
-        returnErrors(err.res.data, err.res.status))
-    );
+        returnErrors(err.res.data, err.res.status)
+    ));
 };
 

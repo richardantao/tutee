@@ -1,17 +1,21 @@
 import React, { Component } from "react";
 
-import { editTask, createTask, updateTask, deleteTask } from "../../../actions/data/tasks.action";
+import { createTask } from "../../../actions/data/tasks.action";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { Button } from "react-bootstrap";
 import "./TaskModal.scss";
 
-class TaskModal extends Component {
+class TaskNewModal extends Component {
     state = {
         open: false,
-        title: ""
-        // add rest of task inputs
+        title: "",
+        course: "",
+        type: "",
+        deadline: "",
+        completion: "",
+        note: ""
     }
 
     static propTypes = {
@@ -24,23 +28,22 @@ class TaskModal extends Component {
         });
     };
 
-    onChange = e => {
+    handleChange = e => {
         this.setState({ 
             [e.target.name]: e.target.value 
         });
     };
 
-    onCancel = e => {
+    handleCancel = e => {
         
     };
 
-    onSubmit = e => {
+    handleSubmit = e => {
         e.preventDefault();
 
-        const newTask = {
-            title: this.state.title,
-            // add task inputs
-        };
+        const { title, course, type, deadline, completion, note } = this.state;
+
+        const newTask = { title, course, type, deadline, completion, note };
       
         // Add item via createTask action
         this.props.createTask(newTask);
@@ -53,7 +56,7 @@ class TaskModal extends Component {
         return(
             <form className="modal">
                 <div className="modal-header">
-                    <h3>{this.props.header}</h3>
+                    <h3>New Task</h3>
                 </div>
                 <div className="modal-body">
                     <div>
@@ -62,8 +65,8 @@ class TaskModal extends Component {
                     </div>
                 </div>
                 <div className="modal-action">
-                    <Button onCancel={this.onCancel}>Cancel</Button>
-                    <Button onSubmit={this.onSubmit}>{this.props.action}</Button>
+                    <Button onCancel={this.handleCancel}>Cancel</Button>
+                    <Button onSubmit={this.handleSubmit}>{this.props.action}</Button>
                 </div>
             </form>
         );
@@ -72,11 +75,8 @@ class TaskModal extends Component {
 
 const mapStateToProps = state => ({
     tasks: state.tasks,
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    error: state.error
 });
 
-export default connect(
-    mapStateToProps, 
-    { editTask, createTask, updateTask, deleteTask }
-)
-(TaskModal);
+export default connect(mapStateToProps, { createTask })(TaskNewModal);

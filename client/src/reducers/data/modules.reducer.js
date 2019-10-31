@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
         case CREATE_MODULE:
             return {
                 ...state,
-                modules: action.payload,
+                modules: [action.payload, ...state.modules],
                 loading: false
             };
         case UPDATE_MODULE:
@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
         case DELETE_MODULE:
             return {
                 ...state,
-                modules: action.payload,
+                modules: state.modules.filter(mod => mod._id !== action.payload),
                 loading: false
             };
         default: 

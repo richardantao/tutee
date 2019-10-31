@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
         case CREATE_YEAR:
             return {
                 ...state,
-                years: action.payload,
+                years: [action.payload, ...state.years],
                 loading: false
             };
         case UPDATE_YEAR:
@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
         case DELETE_YEAR:
             return {
                 ...state,
-                years: action.payload,
+                years: state.years.filter(year => year._id !== action.payload),
                 loading: false   
             };
         default: 

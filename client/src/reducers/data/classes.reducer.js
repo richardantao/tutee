@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
         case CREATE_CLASS:
             return {
                 ...state,
-                classes: action.payload,
+                classes: [action.payload, ...state.classes],
                 loading: false
             };
         case UPDATE_CLASS:
@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
         case DELETE_CLASS:
             return {
                 ...state,
-                classes: action.payload,
+                classes: state.classes.filter(deletedClass => deletedClass._id !== action.payload),
                 loading: false
             };
         default: 

@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
         case CREATE_TERM:
             return {
                 ...state,
-                terms: action.payload,
+                terms: [action.payload, ...state.terms],
                 loading: false
             };
         case UPDATE_TERM:
@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
         case DELETE_TERM:
             return {
                 ...state,
-                terms: action.payload,
+                terms: state.terms.filter(term => term._id !== action.payload),
                 loading: false
             }; 
         default: 

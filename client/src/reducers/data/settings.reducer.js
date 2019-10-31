@@ -1,4 +1,4 @@
-import { GET_PROFILE, GET_PASSWORD, GET_PREFERENCES, GET_INTEGRATIONS } from "../../actions/types";
+import { LOADING_SETTINGS, GET_PROFILE, GET_PASSWORD, GET_PREFERENCES, GET_INTEGRATIONS } from "../../actions/types";
 
 const initialState = {
     form: ""
@@ -6,6 +6,10 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch(action.type) {
+        case LOADING_SETTINGS:
+            return {
+                form: ""
+            };
         case GET_PROFILE:
             return {
                 form: "profile"
@@ -24,5 +28,5 @@ export default (state = initialState, action) => {
             };
         default: 
             return state;
-    }
-}
+    };
+};

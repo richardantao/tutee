@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
         case CREATE_EVALUATION:
             return {
                 ...state,
-                evaluations: action.payload,
+                evaluations: [action.payload, ...state.evaluations],
                 loading: false
             };
         case UPDATE_EVALUATION:
@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
         case DELETE_EVALUATION:
             return {
                 ...state,
-                evaluations: action.payload,
+                evaluations: state.evaluations.filter(evaluation => evaluation._id !== action.payload),
                 loading: false
             };
         default: 

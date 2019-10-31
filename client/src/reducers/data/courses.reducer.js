@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
         case CREATE_COURSE:
             return {
                 ...state,
-                courses: action.payload,
+                courses: [action.payload, ...state.courses],
                 loading: false
             };
         case UPDATE_COURSE:
@@ -39,7 +39,7 @@ export default (state = initialState, action) => {
         case DELETE_COURSE:
             return {
                 ...state,
-                courses: action.payload,
+                courses: state.courses.filter(course => course.id !== action.payload),
                 loading: false
             };
         default: 

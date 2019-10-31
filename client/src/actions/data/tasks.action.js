@@ -27,11 +27,11 @@ export const fetchTasks = () => dispatch => {
 export const editTask = id => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.get(`/tasks/edit/${id}`)
+    axios.get(`/tasks/edit/${id}`, tokenConfig(getState))
     .then(res => {
         dispatch({
             type: EDIT_TASK,
-            payload: res.data
+            payload: id // verify
         });
     })
     .catch(err => dispatch(
@@ -39,16 +39,16 @@ export const editTask = id => (dispatch, getState) => {
     ));
 };
 
-export const createTask = task => (dispatch, getState) => {
+export const createTask = newTask => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.post("/tasks/create", task, tokenConfig(getState))
+    axios.post("/tasks/create", newTask, tokenConfig(getState))
     .then(res => dispatch({
         type: CREATE_TASK,
         payload: res.data
     }))
     .catch(err => dispatch(
-
+        returnErrors(err.data, err.status)
     ));
 };
 
@@ -58,7 +58,7 @@ export const updateTask = id => (dispatch, getState) => {
     axios.put(`/tasks/update/${id}`, tokenConfig(getState))
     .then(res => dispatch({
         type: UPDATE_TASK,
-        payload: res.data
+        payload: id // verify
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status))

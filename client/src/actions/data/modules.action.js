@@ -22,13 +22,13 @@ export const fetchModules = () => dispatch => {
     ));
 };
 
-export const editModule = id => dispatch => {
+export const editModule = id => (dispatch, getState) => {
     dispatch(setLoading());
     
-    axios.get(`/courses/modules/edit/:${id}`)
+    axios.get(`/courses/modules/edit/:${id}`, tokenConfig(getState))
     .then(res => dispatch({
-        type: EDIT_MODULES,
-        payload
+        type: EDIT_MODULE,
+        payload: id // verify
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)
@@ -40,34 +40,34 @@ export const createModule = newModule => (dispatch, getState) => {
 
     axios.post("/courses/modules/create", newModule, tokenConfig(getState))
     .then(res => dispatch({
-        type: CREATE_MODULES,
-        payload: newModule
-    }))
-    .catch(err => dispatch(
-        returnErrors(err.data, err.status)
-    ));
-}
-
-export const updateModule = id => dispatch => {
-    dispatch(setLoading());
-
-    axios.get(`/courses/modules/update/:${id}`)
-    .then(res => dispatch({
-        type: UPDATE_MODULES,
-        payload
-    }))
-    .catch(err => dispatch(
-        returnErrors(err.data, err.status)
-    ));
-}
-
-export const deleteModule = id => dispatch => {
-    dispatch(setLoading());
-
-    axios.get(`/courses/modules/delete/:${id}`)
-    .then(res => dispatch({
-        type: DELETE_MODULES,
+        type: CREATE_MODULE,
         payload: res.data
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+}
+
+export const updateModule = id => (dispatch, getState) => {
+    dispatch(setLoading());
+
+    axios.get(`/courses/modules/update/:${id}`, tokenConfig(getState))
+    .then(res => dispatch({
+        type: UPDATE_MODULE,
+        payload: id // verify
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+}
+
+export const deleteModule = id => (dispatch, getState) => {
+    dispatch(setLoading());
+
+    axios.get(`/courses/modules/delete/:${id}`, tokenConfig(getState))
+    .then(res => dispatch({
+        type: DELETE_MODULE,
+        payload: id
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)

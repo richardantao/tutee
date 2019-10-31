@@ -22,13 +22,13 @@ export const fetchCourses = () => dispatch => {
     ));
 };
 
-export const editCourse = id => dispatch => {
+export const editCourse = id => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.get(`/courses/edit/:${id}`)
+    axios.get(`/courses/edit/:${id}`, tokenConfig(getState))
     .then(res => dispatch({
         type: EDIT_COURSE,
-        payload
+        payload: res.data
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)
@@ -41,33 +41,33 @@ export const createCourse = course => (dispatch, getState) => {
     axios.post("/courses/create", course, tokenConfig(getState))
     .then(res => dispatch({
         type: CREATE_COURSE,
-        payload
+        payload: res.data
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)
     ));
 };
 
-export const updateCourse = () => dispatch => {
+export const updateCourse = id => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.put(`/courses/update/:${id}`)
+    axios.put(`/courses/update/:${id}`, tokenConfig(getState))
     .then(res => dispatch({
         type: UPDATE_COURSE,
-        payload
+        payload: id // id and/or update course?
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)
     ));
 };
 
-export const deleteCourse = id => dispatch => {
+export const deleteCourse = id => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.delete(`/courses/delete/:${id}`)
+    axios.delete(`/courses/delete/:${id}`, tokenConfig(getState))
     .then(res => dispatch({
         type: DELETE_COURSE,
-        payload
+        payload: id
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)

@@ -22,13 +22,13 @@ export const fetchTerms = () => dispatch => {
     ));
 };
 
-export const editTerm = id => dispatch => {
+export const editTerm = id => (dispatch, getState) => {
     dispatch(setLoading());
     
-    axios.get(`/courses/terms/edit/:${id}`)
+    axios.get(`/courses/terms/edit/:${id}`, tokenConfig(getState))
     .then(res => dispatch({
         type: EDIT_TERM,
-        payload
+        payload: id // verify
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)
@@ -41,33 +41,33 @@ export const createTerm = newTerm => (dispatch, getState) => {
     axios.post("/courses/terms/create", newTerm, tokenConfig(getState))
     .then(res => dispatch({
         type: CREATE_TERM,
-        payload: newTerm
+        payload: res.data
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)
     ));
 };
 
-export const updateTerm = id => dispatch => {
+export const updateTerm = id => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.put(`/courses/terms/update/:${id}`)
+    axios.put(`/courses/terms/update/:${id}`, tokenConfig(getState))
     .then(res => dispatch({
         type: UPDATE_TERM,
-        payload
+        payload: id // verify
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)
     ));
 };
 
-export const deleteTerm = id => dispatch => {
+export const deleteTerm = id => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.delete(`/courses/terms/delete/:${id}`)
+    axios.delete(`/courses/terms/delete/:${id}`, tokenConfig(getState))
     .then(res => dispatch({
         type: DELETE_TERM,
-        payload
+        payload: id
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)

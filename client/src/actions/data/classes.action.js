@@ -22,13 +22,13 @@ export const fetchClasses = () => dispatch => {
     ));
 };
 
-export const editClass = id => dispatch => {
+export const editClass = id => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.get(`/calendar/edit/:${id}`)
+    axios.get(`/calendar/edit/:${id}`, tokenConfig(getState))
     .then(res => dispatch({ 
         type: EDIT_CLASS,
-        payload
+        payload: id // or object ?
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)
@@ -41,33 +41,33 @@ export const createClass = newClass => (dispatch, getState) => {
     axios.post("/calendar/create", newClass, tokenConfig(getState))
     .then(res => dispatch({ 
         type: CREATE_CLASS,
-        payload: newClass
+        payload: res.data
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)
     ));
 };
 
-export const updateClass = id => dispatch => {
+export const updateClass = id => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.put(`/calendar/update/:${id}`)
+    axios.put(`/calendar/update/:${id}`, tokenConfig(getState))
     .then(res => dispatch({ 
         type: UPDATE_CLASS,
-        payload
+        payload: id // or update object?
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)
     ));
 };
 
-export const deleteClass = id => dispatch => {
+export const deleteClass = id => (dispatch, getState) => {
     dispatch(setLoading());
     
-    axios.delete(`/calendar/delete/:${id}`)
+    axios.delete(`/calendar/delete/:${id}`, tokenConfig(getState))
     .then(res => dispatch({ 
         type: DELETE_CLASS,
-        payload
+        payload: id
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)

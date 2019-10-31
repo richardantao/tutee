@@ -118,7 +118,7 @@ export const editIntegration = id => dispatch => {
     ));
 };
 
-export const createIntegrations = newIntegration => (dispatch, getState) => {
+export const createIntegration = newIntegration => (dispatch, getState) => {
     dispatch(setLoading());
 
     axios.post("/settings/integrations/create", newIntegration, tokenConfig(getState))

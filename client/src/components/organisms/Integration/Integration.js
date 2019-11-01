@@ -4,47 +4,58 @@ import { connect } from "react-redux";
 import { fetchIntegrations, editIntegration } from "../../../actions/data/settings.action";
 import PropTypes from "prop-types";
 
-import LoadingColumn from "../../molecules/LoadingColumn";
-import { Col, Row } from "react-bootstrap";
-import {
-    Form,
-    FormGroup,
-    Label,
-    Input
-} from "reactstrap";
+// import LoadingColumn from "../../molecules/LoadingColumn";
+import { Button, Col, Row } from "react-bootstrap";
 
 class Integration extends Component {
     state = {
-
+        open: false,
+        integrations: []
     };
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
-		error: PropTypes.object.isRequired
+        error: PropTypes.object.isRequired,
+        fetchIntegrations: PropTypes.func.isRequired,
+        editIntegration: PropTypes.func.isRequired
     };
 
     componentDidMount() {
-        
+        // get user's integrations
+        this.props.fetchIntegrations();
     };
 
-    handleSubmit = e => {
-        e.preventDefault();
+    toggle = () => {
 
-        this.props;
+    };
+
+    openEditModal = () => {
+        this.setState({
+            open: true
+        });
     };
 
     render() {
+        const integrationRecords = integrations.map(({ _id}) => {
+            <div key={_id}>
+            <Button onClick={this.openEditModal}></Button>
+            </div>
+        });
+
         return(
-            <Form onSubmit={this.handleSubmit}>
-                
-            </Form>
+            <Row>
+                <Col>
+                    {integrationRecords}
+                </Col>
+            </Row>
         );
     };
 };
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    error: state.error
+    error: state.error,
+    integrations: state.integrations
 });
 
-export default connect(mapStateToProps, { fetchIntegrations })(Integration);
+export default connect(mapStateToProps, { fetchIntegrations, editIntegration })(Integration);

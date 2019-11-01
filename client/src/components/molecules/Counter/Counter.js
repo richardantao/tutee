@@ -1,51 +1,53 @@
 import React, { Component } from "react";
+
+import { connect } from "react-redux";
+import { countData } from "../../../actions/molecules/counter.action";
+import PropTypes from "prop-types";
+
 import "./Counter.scss";
 
-export default class Counter extends Component {
-	constructor(props) {
-		super(props);
+class Counter extends Component {
+	state = {
+		count: 0 
+	};
 
-		this.state = {
-			isLoading: true,
-			amount: []
-		}
-	}
-	
+	static propTypes = {
+		isAuthenticated: PropTypes.bool,
+		error: PropTypes.object.isRequired,
+		countData: PropTypes.func.isRequired
+	};
+
 	componentDidMount() {
-		this.setState({
-			isLoading: false,
-			amount: []
-		});
-	}
+		
+		// count instances on loaded
+		this.props.countData();
+	};
 
 	render() {
-		let { amount } = this.state;
+		return(
+			<figure className="counter">
+				<svg width="100" height="100">
+					<circle className="" cx="50" cy="50" r="46" strokeWidth="5"/>
+			<foreignObject width="100" height="100">
+				<div className="counter-index">
+					<h6>{this.props.count}</h6>
+				</div>
+			</foreignObject>
+			<foreignObject width="100" height="100">
+				<div className="counter-type">
+					<h6>{this.props.type}</h6>
+				</div>
+			</foreignObject>
+				</svg>
+			</figure>
+		);
+	};
+};
 
-		if(amount === 1) {
-			return(
-				<figure>
+const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated,
+	error: state.error
+});
 
-				</figure>
-			)
-		} else {
-			return(
-				<figure className="counter">
-					<svg width="100" height="100">
-						<circle className="" cx="50" cy="50" r="46" strokeWidth="5"/>
-				<foreignObject width="100" height="100">
-					<div className="counter-index">
-						<h6>{this.props.count}</h6>
-					</div>
-				</foreignObject>
-				<foreignObject width="100" height="100">
-					<div className="counter-type">
-						<h6>{this.props.type}</h6>
-					</div>
-				</foreignObject>
-					</svg>
-				</figure>
-			)
-		}
-	}	
-}
+export default connect(mapStateToProps, { countData })(Counter);
 

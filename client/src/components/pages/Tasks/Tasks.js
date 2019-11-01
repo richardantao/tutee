@@ -40,7 +40,7 @@ class Tasks extends Component {
 	};
 
 	handlePastTasks() {
-		this.props.fetchPastTasks();
+		// this.props.fetchPastTasks();s
 	};
 
 	newTaskModal = () => {
@@ -116,4 +116,4 @@ const mapStateToProps = state => ({
 	tasks: state.tasks
 });
 
-export default connect(mapStateToProps, { fetchTasks, fetchPastTasks })(Tasks);
+export default connect(mapStateToProps, { fetchTasks/*, fetchPastTasks */ })(Tasks);

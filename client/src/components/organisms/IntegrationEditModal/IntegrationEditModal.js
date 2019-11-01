@@ -15,11 +15,13 @@ class IntegrationEditModal extends Component {
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
-        error: PropTypes.object.isRequired
+        error: PropTypes.object.isRequired,
+        updateIntegration: PropTypes.func.isRequired,
+        deleteIntegration: PropTypes.func.isRequired
     };
     
     componentDidMount() {
-
+        
     };
 
     componentDidUpdate() {
@@ -27,7 +29,9 @@ class IntegrationEditModal extends Component {
     };
 
     toggle = () => {
-
+        this.setState({
+            open: !this.state.open
+        });
     };
 
     handleChange = e => {
@@ -39,13 +43,34 @@ class IntegrationEditModal extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
+        // pull data from state
+        const { } = this.state;
 
+        // create instance of updated data
+        const updatedIntegration = {
+
+        };
+
+        // send updated data to /actions function
+        this.props.updateIntegration(updatedIntegration);
     };
+
+    handleCancel = () => {
+        
+    };
+
+    handleDelete = id => {
+
+        // pass id of integration to delete to the called action function
+        this.props.deleteIntegration(id);
+    }
     
     render() {
         return(
             <Form onSubmit={this.handleSubmit}>
-
+                <Button type="button" onClick={this.handleDelete.bind(this, _id)}>Delete</Button>
+                <Button type="button" onClick={this.handleCancel}>Cancel</Button>
+                <Button type="submit">Save</Button>
             </Form>
         );
     };

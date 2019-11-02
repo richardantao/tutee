@@ -16,6 +16,10 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 
 /* DATA */
 
+// dashboard 
+export const LOADING_DASHBOARD = "LOADING_DASHBOARD";
+export const FETCH_DASH_ITEMS = "FETCH_DASH_ITEMS";
+
 // years
 export const LOADING_YEARS = "LOADING_YEARS";
 export const FETCH_YEARS = "FETCH_YEARS";
@@ -59,6 +63,7 @@ export const DELETE_CLASS = "DELETE_CLASS";
 // evaluations
 export const LOADING_EVALUATIONS = "LOADING_EVALUATIONS";
 export const FETCH_EVALUATIONS = "FETCH_EVALUATIONS";
+export const FETCH_PAST_EVALUATIONS = "FETCH_PAST_EVALUATIONS";
 export const EDIT_EVALUATION = "EDIT_EVALUATION";
 export const CREATE_EVALUATION = "CREATE_EVALUATION";
 export const UPDATE_EVALUATION = "UPDATE_EVALUATION";
@@ -67,6 +72,7 @@ export const DELETE_EVALUATION = "DELETE_EVALUATION";
 // tasks
 export const LOADING_TASKS = "LOADING_TERMS";
 export const FETCH_TASKS = "FETCH_TASKS";
+export const FETCH_PAST_TASKS = "FETCH_PAST_TASKS";
 export const EDIT_TASK = "EDIT_TASK";
 export const CREATE_TASK = "CREATE_TASK";
 export const UPDATE_TASK = "UPDATE_TASK";

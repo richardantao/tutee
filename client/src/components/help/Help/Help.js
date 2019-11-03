@@ -1,22 +1,26 @@
 import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 
-import { Col, Row } from "reactstrap";
+import connect from "react-redux";
+// import { } from "";
+import PropTypes from "props-types";
 
-import Nav from "../../organisms/Nav";
-import Header from "../../organisms/Header";
-import Accordion from "../../molecules/Accordion";
+import { Button, Col, Row } from "reactstrap";
+
+import Nav from "../../global/Nav";
+import Header from "../../global/Header";
+import Accordion from "../../global/Accordion";
 
 import "./Help.scss";
 
 export default class Help extends Component {
 	componentDidMount() {
 		
-	}
+	};
 
-	componentWillUnmount() {
+	componentDidUpdate() {
 		
-	}
+	};
 
 	render() {
 		return (

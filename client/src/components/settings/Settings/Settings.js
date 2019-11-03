@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
+// change
 import { fetchProfile, fetchPassword, fetchPreferences, fetchIntegrations, editIntegration } from "../../../actions/data/settings.action";
 import { logout } from "../../../actions/auth/auth.action";
 import PropTypes from "prop-types";
@@ -11,21 +12,22 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare, faLinkedin, faInstagram, faTwitterSquare } from "@fortawesome/free-brands-svg-icons";
 
-import Nav from "../../organisms/Nav";
-import Header from "../../organisms/Header";
-import Profile from "../../organisms/Profile";
-import Password from "../../organisms/Preference";
-import Preference from "../../organisms/Preference";
-import Integration from "../../organisms/Integration";
+import Nav from "../../global/Nav";
+import Header from "../../global/Header";
+import Profile from "../Profile";
+import Password from "../Preference";
+import Preference from "../Preference";
+import Integration from "../Integration";
 
 import "./Settings.scss";
 
 class Settings extends Component {
 	state = {
-		form: Profile
+		
 	};
 
 	static propTypes = {
+		isAuthenticated: PropTypes.bool,
 		error: PropTypes.object.isRequired,
         logout: PropTypes.func.isRequired,
         clearErrors: PropTypes.func.isRequired
@@ -114,6 +116,7 @@ const year = new Date().getFullYear();
 const version = "Version 1.0.0";
 
 const mapStateToProps = state => ({
+	isAuthenticated: state.auth.isAuthenticated,
 	error: state.error
 });
 

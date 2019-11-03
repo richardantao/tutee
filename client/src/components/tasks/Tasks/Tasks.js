@@ -10,9 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
 
-import Nav from "../../organisms/Nav";
-import Header from "../../organisms/Header";
-import Select from "../../atoms/Select";
+import Nav from "../../global/Nav";
+import Header from "../../global/Header";
+import Select from "../../global/Select";
 
 import "./Tasks.scss";
 
@@ -38,7 +38,7 @@ class Tasks extends Component {
 	};
 
 	componentDidUpdate() {
-		const { error } = this.props;
+		const { error, isAuthenticated } = this.props;
 
 
 	};

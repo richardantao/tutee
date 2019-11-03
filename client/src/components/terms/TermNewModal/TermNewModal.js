@@ -1,46 +1,55 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { updatePreferences } from "../../../actions/data/settings.action";
+import { newTerm, createTerm } from "../../../actions/data/terms.action";
 import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "react-bootstrap";
 import { Form, FormGroup, Label, Input } from "reactstrap";
 
-import "./Preference.scss";
+import "./TermNewModal.scss";
 
-class Preference extends Component {
+class TermNewModal extends Component {
     state = {
-
+        open: false
     };
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
-        updatePreferences: PropTypes.func.isRequired
-    };
-
-    componentDidMount() {
-
+        newTerm: PropTypes.func.isRequired,
+        createTerm: PropTypes.func.isRequired
     };
     
+    componentDidMount() {
+
+        this.props.newTerm();
+    };
+
     componentDidUpdate() {
         const { error, isAuthenticated } = this.props;
 
         if(error) {
-            this.setState({
-                
-            });
-            if (!isAuthenticated) {
+            if(!isAuthenticated) {
                 this.setState({
-                    
+
+                });
+            } else {
+                this.setState({
+
                 });
             };
         } else {
             this.setState({
-                
+
             });
         };
+    };
+
+    toggle = () => {
+        this.setState({
+            open: !this.state.open
+        });
     };
 
     handleChange = e => {
@@ -54,21 +63,30 @@ class Preference extends Component {
 
         const { } = this.state;
 
-        const newPreferences = {
+        const newTerm = {
 
         };
 
-        this.props.updatePreferences(newPreferences);
+        this.props.createTerm(newTerm);
+    };
+
+    handleCancel = () => {
+
     };
 
     render() {
-        return(
+        return (
             <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
-
+                    <Label for=""></Label>
+                    <Input
+                    name=""
+                    onChange={this.handleChange}
+                    />
                 </FormGroup>
                 <FormGroup>
-                    <Button type="submit">Save</Button> 
+                    <Button type="button" onClick={this.handleCancel}>Cancel</Button>
+                    <Button type="submit">Add New Term</Button>
                 </FormGroup>
             </Form>
         );
@@ -76,8 +94,8 @@ class Preference extends Component {
 };
 
 const mapStateToProps = state => ({
-   isAuthenticated: state.auth.isAuthenticated,
-   error: state.error 
-})  
+    isAuthenticated: state.auth.isAuthenticated,
+    error: state.error
+});
 
-export default connect(mapStateToProps, { updatePreferences })(Preference);
+export default connect(mapStateToProps, { newTerm, createTerm })(TermNewModal);

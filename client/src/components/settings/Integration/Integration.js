@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { fetchIntegrations, editIntegration } from "../../../actions/data/settings.action";
 import PropTypes from "prop-types";
 
-// import LoadingColumn from "../../molecules/LoadingColumn";
 import { Button, Col, Row } from "react-bootstrap";
 
 class Integration extends Component {

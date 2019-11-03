@@ -4,10 +4,11 @@ import { connect } from "react-redux";
 import { updateProfile } from "../../../actions/data/settings.action";
 import PropTypes from "prop-types";
 
-import { Col, Row } from "react-bootstrap"
-import LoadingColumn from "../../molecules/LoadingColumn";
-import ButtonReact from "../../atoms/Button";
-import SelectReact from "../../atoms/Select";
+import { Col, Row } from "react-bootstrap";
+import { Form, FormGroup, Label, Input } from "reactstrap";
+
+import Button from "../../global/Button";
+import SelectReact from "../../global/Select";
 import "./Profile.scss";
 
 class Profile extends Component {
@@ -17,7 +18,8 @@ class Profile extends Component {
 
 	static propTypes = {
 		isAuthenticated: PropTypes.bool,
-		error: PropTypes.object.isRequired
+		error: PropTypes.object.isRequired,
+		updateProfile: PropTypes.func.isRequired
 	};
 
 	componentDidMount() {
@@ -28,9 +30,27 @@ class Profile extends Component {
 
 	};
 	
+	handleChange = e => {
+		this.setState({
+			[e.target.name]: [e.target.value]
+		});
+	};
+
+	handleSubmit = e => {
+		e.preventDefault();
+
+		const { } = this.state;
+
+		const updatedProfile = {
+
+		};
+
+		this.props.updateProfile(updatedProfile);
+	};
+
 	render() {
 		return(
-			<form method="PUT" action="">
+			<Form onSubmit={this.handleSubmit}>
 				<Row>
 					<Col>
 						<label for="firstName">First Name</label>
@@ -69,11 +89,11 @@ class Profile extends Component {
 				</Row>
 				<Row>
 					<Col>
-						<ButtonReact type="reset">Clear Changes</ButtonReact>
-						<ButtonReact type="submit">Save Changes</ButtonReact>
+						<Button type="reset">Clear Changes</Button>
+						<Button type="submit">Save Changes</Button>
 					</Col>
 				</Row>
-			</form>
+			</Form>
 		);
 	};
 };

@@ -1,46 +1,53 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { updatePreferences } from "../../../actions/data/settings.action";
+import { createYear } from "../../../actions/data/years.action";
 import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "react-bootstrap";
 import { Form, FormGroup, Label, Input } from "reactstrap";
 
-import "./Preference.scss";
+import "./YearNewModal.scss";
 
-class Preference extends Component {
+class YearNewModal extends Component {
     state = {
-
+        open: false
     };
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
-        updatePreferences: PropTypes.func.isRequired
-    };
-
-    componentDidMount() {
-
+        createYear: PropTypes.func.isRequired
     };
     
+    componentDidMount() {
+    
+    };
+
     componentDidUpdate() {
         const { error, isAuthenticated } = this.props;
 
         if(error) {
-            this.setState({
-                
-            });
-            if (!isAuthenticated) {
+            if(!isAuthenticated) {
                 this.setState({
-                    
+
+                });
+            } else {
+                this.setState({
+
                 });
             };
         } else {
             this.setState({
-                
+
             });
         };
+    };
+
+    toggle = () => {
+        this.setState({
+            open: !this.state.open
+        });
     };
 
     handleChange = e => {
@@ -54,21 +61,30 @@ class Preference extends Component {
 
         const { } = this.state;
 
-        const newPreferences = {
+        const newYear = {
 
         };
 
-        this.props.updatePreferences(newPreferences);
+        this.props.createYear(newYear);
+    };
+
+    handleCancel = () => {
+
     };
 
     render() {
-        return(
+        return (
             <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
-
+                    <Label for=""></Label>
+                    <Input
+                    name=""
+                    onChange={this.handleChange}
+                    />
                 </FormGroup>
                 <FormGroup>
-                    <Button type="submit">Save</Button> 
+                    <Button type="button" onClick={this.handleCancel}>Cancel</Button>
+                    <Button type="submit">Add New Year</Button>
                 </FormGroup>
             </Form>
         );
@@ -76,8 +92,8 @@ class Preference extends Component {
 };
 
 const mapStateToProps = state => ({
-   isAuthenticated: state.auth.isAuthenticated,
-   error: state.error 
-})  
+    isAuthenticated: state.auth.isAuthenticated,
+    error: state.error
+});
 
-export default connect(mapStateToProps, { updatePreferences })(Preference);
+export default connect(mapStateToProps, { createYear })(YearNewModal);

@@ -5,7 +5,8 @@ import { updatePassword } from "../../../actions/data/settings.action";
 import PropTypes from "prop-types";
 
 import { Col, Row } from "react-bootstrap";
-import ButtonReact from "../../atoms/Button";
+import { Form, FormGroup, Label, Input } from "reactstrap";
+import Button from "../../global/Button";
 
 import "./Password.scss";
 
@@ -18,7 +19,8 @@ class Password extends Component {
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
-        error: PropTypes.object.isRequired
+        error: PropTypes.object.isRequired,
+        updatePassword: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -32,12 +34,15 @@ class Password extends Component {
     handleSubmit = e => {
         e.preventDefault();
         
-        this.props
+        // if the new password is not empty and is equal to the confirmation password
+        if(this.state.new !== "" && this.state.new === this.state.confirm) {
+            this.props.updatePassword(newPassword);
+        };
     };
 
     render() {
         return(
-            <form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleSubmit}>
                 <Row>
                     <Col>
                         <label for="current">Current Password</label>
@@ -58,11 +63,11 @@ class Password extends Component {
                 </Row>
                 <Row>
                     <Col>
-                        <ButtonReact type="reset">Reset</ButtonReact>
-                        <ButtonReact type="submit">Save</ButtonReact>
+                        <Button type="reset">Reset</Button>
+                        <Button type="submit">Save</Button>
                     </Col>
                 </Row>
-            </form>
+            </Form>
         );
     };
 };

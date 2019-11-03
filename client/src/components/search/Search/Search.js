@@ -11,9 +11,9 @@ import { Button, InputGroup, FormControl } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
-import Nav from "../../organisms/Nav";
-import Header from "../../organisms/Header";
-import SelectReact from "../../atoms/Select";
+import Nav from "../../global/Nav";
+import Header from "../../global/Header";
+import SelectReact from "../../global/Select";
 
 import "./Search.scss";
 

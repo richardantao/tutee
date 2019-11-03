@@ -1,22 +1,33 @@
 import React, { Component } from "react";
 
-import { logout } from "../../../actions/auth.action";
+import { logout } from "../../../actions/auth/auth.action";
 import { connect } from "react-redux"; 
 import PropTypes from "prop-types";
 
-import ButtonReact from "../Button";
+import Button from "../Button";
 
 import "./LogoutButton.scss";
 
 class LogoutButton extends Component {
+    state = {
+
+    };
+    
     static propTypes = {
+        isAuthenticated: PropTypes.bool,
+        error: PropTypes.object.isRequired,
         logout: PropTypes.func.isRequired
     }
     
     render() {
-        return <ButtonReact href="#" onClick={this.props.logout}>Sign Out</ButtonReact>
-    }
-}
+        return <Button href="#" onClick={this.props.logout}>Sign Out</Button>
+    };
+};
 
-export default connect(null, { logout })(LogoutButton);
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated,
+    error: state.error
+});
+
+export default connect(mapStateToProps, { logout })(LogoutButton);
 

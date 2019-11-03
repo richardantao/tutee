@@ -11,7 +11,7 @@ import { Button } from "react-bootstrap";
 
 import NewModal from "../../tasks/TaskNewModal";
 import Counter from "../Counter";
-import DateDisplay from "../../global/Date";
+import DateDisplay from "../Date";
 
 import "./DashboardHeader.scss";
 

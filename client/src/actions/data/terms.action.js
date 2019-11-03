@@ -1,4 +1,9 @@
-import { LOADING_TERMS, FETCH_TERMS, EDIT_TERM, CREATE_TERM, UPDATE_TERM, DELETE_TERM } from "../types";
+import { 
+    LOADING_TERMS, 
+    FETCH_TERMS, EDIT_TERM, 
+    NEW_TERM, CREATE_TERM, 
+    UPDATE_TERM, DELETE_TERM 
+} from "../types";
 import { tokenConfig } from "../auth/auth.action";
 import { returnErrors } from "../auth/errors.action";
 import axios from "axios";
@@ -29,6 +34,19 @@ export const editTerm = id => (dispatch, getState) => {
     .then(res => dispatch({
         type: EDIT_TERM,
         payload: id // verify
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
+
+export const newTerm = years => (dispatch, getState) => {
+    dispatch(setLoading());
+
+    axios.get("/courses/terms/new", years, tokenConfig(getState))
+    .then(res => dispatch({
+        type: NEW_TERM,
+        payload: res.data // change to pass parent years as payload
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)

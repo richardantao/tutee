@@ -1,4 +1,8 @@
-import { LOADING_MODULES, FETCH_MODULES, EDIT_MODULE, CREATE_MODULE, UPDATE_MODULE, DELETE_MODULE } from "../types";
+import { LOADING_MODULES, 
+    FETCH_MODULES, EDIT_MODULE, 
+    NEW_MODULE, CREATE_MODULE, 
+    UPDATE_MODULE, DELETE_MODULE 
+} from "../types";
 import { tokenConfig } from "../auth/auth.action";
 import { returnErrors } from "../auth/errors.action";
 import axios from "axios";
@@ -33,7 +37,20 @@ export const editModule = id => (dispatch, getState) => {
     .catch(err => dispatch(
         returnErrors(err.data, err.status)
     ));
-}
+};
+
+export const newModule = courses => (dispatch, getState) => {
+    dispatch(setLoading());
+
+    axios.get("/courses/modules/new", courses, tokenConfig(getState))
+    .then(res => dispatch({
+        type: NEW_MODULE,
+        payload: res.data // change so that the payload is the parent courses 
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
 
 export const createModule = newModule => (dispatch, getState) => {
     dispatch(setLoading());

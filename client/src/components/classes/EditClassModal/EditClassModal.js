@@ -7,9 +7,9 @@ import PropTypes from "prop-types";
 import { Button } from "react-bootstrap";
 import { Form, FormGroup, Label, Input } from "reactstrap";
 
-import "./ClassModal.scss";
+import "./EditClassModal.scss";
 
-class ClassModal extends Component {
+class EditClassModal extends Component {
     state = {
         open: false
     };
@@ -82,5 +82,5 @@ const mapStateToProps = state => ({
     error: state.error,
 });
 
-export default connect(mapStateToProps, { updateClass, deleteClass })(ClassModal);
+export default connect(mapStateToProps, { updateClass, deleteClass })(EditClassModal);
 

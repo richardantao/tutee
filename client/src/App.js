@@ -5,17 +5,17 @@ import { Provider } from "react-redux";
 import store from "./store";
 import { loadUser } from "./actions/auth/auth.action";
 
-import Register from "./components/pages/Register";
-import Login from "./components/pages/Login";
-import Dashboard from "./components/pages/Dashboard";
-import Calendar from "./components/pages/Calendar";
-import Tasks from "./components/pages/Tasks";
-import Evaluations from "./components/pages/Evaluations";
-import Courses from "./components/pages/Courses";
-import Search from "./components/pages/Search";
-import Settings from "./components/pages/Settings";
-import Help from "./components/pages/Help";
-import Errors from "./components/pages/Errors";
+import Register from "./components/auth/Register";
+import Login from "./components/auth/Login";
+import Dashboard from "./components/dashboard/Dashboard";
+import Calendar from "./components/calendar/Calendar";
+import Tasks from "./components/tasks/Tasks";
+import Evaluations from "./components/evaluations/Evaluations";
+import Courses from "./components/courses/Courses";
+import Search from "./components/search/Search";
+import Settings from "./components/settings/Settings";
+import Help from "./components/help/Help";
+import Errors from "./components/global/Errors";
 
 import "./App";
 import './App.scss';

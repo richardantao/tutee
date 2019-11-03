@@ -2,15 +2,15 @@ const async = require("async");
 const moment = require("moment");
 
 // import model
-const Users = require("../models/Users.model");
+const User = require("../models/Users.model");
 
 // instantiate controller
 const controller = [];
 
-controller.index = (req, res, next) => {
+controller.index = (req, res) => {
 	async.parallel({
 		profile: (callback) => {
-			Users.findById({
+			User.findById({
 				"id": req.params.id
 			}, {
 				"profile.name": 1,
@@ -40,7 +40,7 @@ controller.index = (req, res, next) => {
 			});
 		},
 		password: (callback) => {
-			Users.findById({
+			User.findById({
 				"id": req.params.id
 			},{
 				"profile.password": 1 
@@ -68,7 +68,7 @@ controller.index = (req, res, next) => {
 			});
 		},
 		preferences: (callback) => {
-			Users.findById({
+			User.findById({
 				"id": req.params.id
 			}, {
 				"preferences": 1
@@ -96,7 +96,7 @@ controller.index = (req, res, next) => {
 			});
 		},  
 		integrations: (callback) => {
-			Users.find({
+			User.find({
 				"_id": req.params._id
 			}, {
 				"integrations": 1
@@ -126,30 +126,8 @@ controller.index = (req, res, next) => {
 	});
 }
 
-// POST request to create initial profile settings | redundant?
-controller.profileCreate = (req, res, next) => {
-	const user = new Users({
-		name: {
-			first: req.body.firstName,
-			last: req.body.lastName
-		},
-		email: req.body.email,
-		password: req.body.password
-	});
-
-	user.save()
-	.then(newUser => {
-		return res.json(newUser);
-	})
-	.catch(err => {
-		return res.status(500).json({
-			message: "An error occured while creating your new account"
-		});
-	});
-};
-
-controller.profileUpdate = (req, res, next) => {
-	Users.findByIdAndUpdate({
+controller.profileUpdate = (req, res) => {
+	User.findByIdAndUpdate({
 		"_id": req.params._id
 	}, 
 	{
@@ -194,8 +172,8 @@ controller.profileUpdate = (req, res, next) => {
 	});
 };
 
-controller.profileDelete = (req, res, next) => {
-	Users.findByIdAndDelete({
+controller.profileDelete = (req, res) => {
+	User.findByIdAndDelete({
 		"_id": req.params._id
 	})
 	.then(deletedUser => {
@@ -221,14 +199,26 @@ controller.profileDelete = (req, res, next) => {
 };
 
 // GET request to retrieve user's password in settings page
-controller.passwordEdit = (req, res, next) => {
-	
+controller.passwordEdit = (req, res) => {
+	User.find({
+		_id: req.params.id
+	},{
+		password: 1
+	})
+	.then(password => {
+		return res.status(200).json(password);
+	})
+	.catch(err => {
+		return res.status(500).json({
+			message:  err.message || "A error on the server occured while processing your request"
+		});
+	});
 };
 
 // PUT request to update database with user's new password
 controller.passwordUpdate = (req, res) => {
-	Users.findById({
-		"_id": req.params._id
+	User.findById({
+		_id: req.params.id
 	}, 
 	{
 		$set: {
@@ -260,8 +250,8 @@ controller.passwordUpdate = (req, res) => {
 };
 
 // GET request to retrieve user's preferences 
-controller.preferencesEdit = (req, res, next) => {
-	Users.findById({
+controller.preferencesEdit = (req, res) => {
+	User.findById({
 		"_id": req.params._id
 	})
 	.then(selectedPreferences => {
@@ -287,18 +277,18 @@ controller.preferencesEdit = (req, res, next) => {
 };
 
 // POST request to update user's personal app preferences
-controller.preferencesUpdate = (req, res, next) => {
-	Users.findByIdAndUpdate({
+controller.preferencesUpdate = (req, res) => {
+	User.findByIdAndUpdate({
 		"_id": req.params._id
 	}, 
 	{
 		$set: {
 			preferences: {
-				startDay: req.body.startDay,
-				startTime: req.body.startTime,
-				defaultDuration: req.body.defaultDuration,
-				defaultCalendar: req.body.defaultCalendar,
-				onEmailList: req.body.onEmailList
+				startDay: req.body.day,
+				startTime: req.body.time,
+				defaultDuration: req.body.duration,
+				defaultCalendar: req.body.calendar,
+				onEmailList: req.body.email
 			}
 		}
 	})
@@ -309,7 +299,7 @@ controller.preferencesUpdate = (req, res, next) => {
 			});
 		} else {
 			return res.json(updatedPreferences);
-		}
+		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId") {
@@ -320,34 +310,34 @@ controller.preferencesUpdate = (req, res, next) => {
 			return res.status(500).json({
 				message: "An error occured while updating your preferences"
 			});
-		}
+		};
 	});
 };
 
 /* Future routes */
 
 // GET request to retrieve user's third party integrations
-controller.integrationsEdit = (req, res, next) => {
+controller.integrationsEdit = (req, res) => {
 	
-}
+};
 
-controller.integrationsNew = (req, res, next) => {
+controller.integrationsNew = (req, res) => {
 	
-}
+};
 
 // POST request to create third party integration connections
-controller.integrationsCreate = (req, res, next) => {
+controller.integrationsCreate = (req, res) => {
 	
 };
 
 // PUT request to update user's third party integrations
-controller.integrationsUpdate = (req, res, next) => {
+controller.integrationsUpdate = (req, res) => {
 	
 };
 
 // DELETE request to delete user's third party integrations
-controller.integrationsDelete = (req, res, next) => {
+controller.integrationsDelete = (req, res) => {
 	
-}
+};
 
 module.exports = controller;

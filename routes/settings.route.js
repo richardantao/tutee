@@ -38,7 +38,7 @@ router.put("/preferences/update", auth, validate.updatePreferences, controller.p
 // @route /settings/integrations/edit/:integrationId
 // @desc edit user's integration instance
 // @access PRIVATE
-router.get("/integrations/edit", auth, controller.integrationsEdit);
+router.get("/integrations/edit/:_id", auth, controller.integrationsEdit);
 
 // @route /settings/integrations/new
 // @desc get form to add new integration
@@ -53,11 +53,11 @@ router.post("/integrations/create", auth, validate.createIntegration, controller
 // @route /settings/integrations/update/:integrationId
 // @desc update user's integration instance
 // @access PRIVATE
-router.put("/integrations/update/:integrationId", auth, validate.updateIntegration, controller.integrationsUpdate);
+router.put("/integrations/update/:_id", auth, validate.updateIntegration, controller.integrationsUpdate);
 
 // @route /settings/integrations/delete/:integrationId
 // @desc delete user's integration
 // @access PRIVATE
-router.delete("/integrations/delete/:integrationId", auth, validate.deleteIntegration, controller.integrationsDelete);
+router.delete("/integrations/delete/:_id", auth, validate.deleteIntegration, controller.integrationsDelete);
 
 module.exports = router;

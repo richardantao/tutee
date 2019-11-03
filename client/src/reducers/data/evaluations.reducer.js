@@ -1,5 +1,8 @@
 import { 
-    LOADING_EVALUATIONS, FETCH_EVALUATIONS, EDIT_EVALUATION, CREATE_EVALUATION, UPDATE_EVALUATION, DELETE_EVALUATION 
+    LOADING_EVALUATIONS, 
+    FETCH_EVALUATIONS, FETCH_PAST_EVALUATIONS,
+    EDIT_EVALUATION, CREATE_EVALUATION, 
+    UPDATE_EVALUATION, DELETE_EVALUATION 
 } from "../../actions/types";
 
 const initialState = {
@@ -15,6 +18,12 @@ export default (state = initialState, action) => {
                 loading: false
             };
         case FETCH_EVALUATIONS:
+            return {
+                ...state,
+                evaluations: action.payload,
+                loading: false
+            };
+        case FETCH_PAST_EVALUATIONS:
             return {
                 ...state,
                 evaluations: action.payload,

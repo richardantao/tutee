@@ -1,9 +1,9 @@
 import { LOADING_DASHBOARD, FETCH_DASH_ITEMS } from "../../actions/types";
 
 const initialState = {
-    classes: [],
-    tasks: [],
-    evauations: [],
+    dashClasses: [],
+    dashTasks: [],
+    dashEvaluations: [],
     loading: false
 };
 
@@ -17,9 +17,9 @@ export default (state = initialState, action) => {
         case FETCH_DASH_ITEMS:
             return {
                 ...state,
-                classes: action.payload.classes,
-                tasks: action.payload.tasks,
-                evaluations: action.payload.evaluations,
+                dashClasses: action.payload.classes,
+                dashTasks: action.payload.tasks,
+                dashEvaluations: action.payload.evaluations,
                 loading: false
             };
         default: 

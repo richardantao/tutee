@@ -1,5 +1,8 @@
 import {
-    LOADING_TASKS, FETCH_TASKS, EDIT_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK 
+    LOADING_TASKS, 
+    FETCH_TASKS, FETCH_PAST_TASKS,
+    EDIT_TASK, CREATE_TASK, 
+    UPDATE_TASK, DELETE_TASK 
 } from "../../actions/types";
 
 const initialState = {
@@ -19,6 +22,12 @@ export default (state = initialState, action) => {
                 ...state,
                 tasks: action.payload,
                 loading: false
+            };
+        case FETCH_PAST_TASKS:
+            return {
+                ...state,
+                tasks: action.payload,
+                loading: false  
             };
         case EDIT_TASK:
             return {

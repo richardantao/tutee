@@ -1,10 +1,7 @@
 import { 
-    LOADING_INTEGRATIONS, 
-    FETCH_INTEGRATIONS, 
-    EDIT_INTEGRATION, 
-    CREATE_INTEGRATION, 
-    UPDATE_INTEGRATION, 
-    DELETE_INTEGRATION 
+    LOADING_INTEGRATIONS, FETCH_INTEGRATIONS, 
+    EDIT_INTEGRATION, CREATE_INTEGRATION, 
+    UPDATE_INTEGRATION, DELETE_INTEGRATION 
 } from "../../actions/types";
 
 const initialState = {
@@ -32,7 +29,7 @@ export default (state = initialState, action) => {
         case CREATE_INTEGRATION:
             return {
                 ...state,
-                payload: action.payload,
+                integrations: action.payload,
                 loading: false
             };
         case UPDATE_INTEGRATION:
@@ -43,6 +40,7 @@ export default (state = initialState, action) => {
         case DELETE_INTEGRATION:
             return {
                 ...state,
+                integrations: state.integrations.filter(integration => integration._id !== action.payload),
                 loading: false
             };
         default: 

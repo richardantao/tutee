@@ -1,45 +1,49 @@
 import { 
-    ACTIVATE_DASHBOARD, ACTIVATE_CALENDAR, ACTIVATE_TASKS, ACTIVATE_EVALUATIONS,
-    ACTIVATE_COURSES, ACTIVATE_SEARCH, ACTIVATE_SETTINGS, ACTIVATE_HELP
+    LOADING_VIEW, RENDER_DASHBOARD, RENDER_CALENDAR, RENDER_TASKS, 
+    RENDER_EVALUATIONS, RENDER_COURSES, RENDER_SEARCH, RENDER_SETTINGS, RENDER_HELP
 } from "../../actions/types";
 
 const initialState = {
-    active: ""
+    view: []
 };
 
 export default (state = initialState, action) => {
     switch(action.type) {
-        case ACTIVATE_DASHBOARD:
+        case RENDER_DASHBOARD:
             return {
-            active: "dashboard"  
+                view: action.payload   
             };
-        case ACTIVATE_CALENDAR:
+        case RENDER_CALENDAR:
             return {
-                active: "calendar"
+                view: action.payload   
             };
-        case ACTIVATE_TASKS:
+        case RENDER_TASKS:
             return {
-                active: "tasks"
+                view: action.payload   
             };
-        case ACTIVATE_EVALUATIONS:
+        case RENDER_EVALUATIONS:
             return {
-                active: "evaluations"
+                view: action.payload   
             };
-        case ACTIVATE_COURSES:
+        case RENDER_COURSES:
             return {
-                active: "courses"
+                view: action.payload   
             };
-        case ACTIVATE_SEARCH:
+        case RENDER_EVALUATIONS:
             return {
-                active: "search"
+                view: action.payload   
             };
-        case ACTIVATE_SETTINGS:
+        case RENDER_SEARCH:
+                return {
+                    view: action.payload   
+                };
+        case RENDER_SETTINGS:
             return {
-                active: "settings"
+                view: action.payload   
             };
-        case ACTIVATE_HELP:
+        case RENDER_HELP:
             return {
-                active: "help"
+                view: action.payload   
             };
         default: 
             return state;

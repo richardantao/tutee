@@ -1,4 +1,4 @@
-import { LOADING_TASKS, FETCH_TASKS, EDIT_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK } from "../types";
+import { LOADING_TASKS, FETCH_TASKS, FETCH_PAST_TASKS, EDIT_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK } from "../types";
 import { tokenConfig } from "../auth/auth.action";
 import { returnErrors } from "../auth/errors.action";
 import axios from "axios";
@@ -13,12 +13,23 @@ export const fetchTasks = () => dispatch => {
     dispatch(setLoading());
 
     axios.get("/tasks")
-    .then(res => {
-        dispatch({
-            type: FETCH_TASKS, 
-            payload: res.data
-        });
-    })
+    .then(res => dispatch({
+        type: FETCH_TASKS, 
+        payload: res.data
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
+
+export const fetchPastTasks = () => dispatch => {
+    dispatch(setLoading());
+
+    axios.get("/tasks/past")
+    .then(res => dispatch({
+        type: FETCH_PAST_TASKS,
+        payload: res.data
+    }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)
     ));

@@ -1,4 +1,9 @@
-import { LOADING_EVALUATIONS, FETCH_EVALUATIONS, EDIT_EVALUATION, CREATE_EVALUATION, UPDATE_EVALUATION, DELETE_EVALUATION } from "../types";
+import { 
+    LOADING_EVALUATIONS, 
+    FETCH_EVALUATIONS, FETCH_PAST_EVALUATIONS,
+    EDIT_EVALUATION, CREATE_EVALUATION, 
+    UPDATE_EVALUATION, DELETE_EVALUATION 
+} from "../types";
 import { tokenConfig } from "../auth/auth.action";
 import { returnErrors } from "../auth/errors.action";
 import axios from "axios";
@@ -15,6 +20,19 @@ export const fetchEvaluations = () => dispatch => {
     axios.get("/evaluations")
     .then(res => dispatch({
         type: FETCH_EVALUATIONS,
+        payload: res.data
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
+
+export const fetchPastEvaluations = () => dispatch => {
+    dispatch(setLoading());
+
+    axios.get("/evaluations/past")
+    .then(res => dispatch({
+        type: FETCH_PAST_EVALUATIONS,
         payload: res.data
     }))
     .catch(err => dispatch(

@@ -10,7 +10,7 @@ import {
 	faUniversity, faSearch, faCog, faQuestionCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
-import Logo from "../../global/Logo";
+import Logo from "../Logo";
 
 import "./Nav.scss";
 

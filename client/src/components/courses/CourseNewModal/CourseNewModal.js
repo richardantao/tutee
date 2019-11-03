@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 
-import { createClass } from "../../../actions/data/classes.action";
 import { connect } from "react-redux";
+import { createCourse } from "../../../actions/data/courses.action";
 import PropTypes from "prop-types";
 
-import { Button } from "react-bootstrap";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import { Button } from "reactstrap";
+import { Form, FormGroup, Label, Input } from "react-bootstrap";
 
-import "./NewClassModal.scss";
+import "./CourseNewModal.scss";
 
-class NewClassModal extends Component {
+class CourseNewModal extends Component {
     state = {
         open: false
     };
@@ -17,13 +17,11 @@ class NewClassModal extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
-        createClass: PropTypes.func.isRequired,
+        createCourse: PropTypes.func.isRequired
     };
-    
+
     componentDidMount() {
-        
-        // load options for selecting parent
-        this.props.fetchParents();
+        this.props.getUserTerms();
     };
 
     componentDidUpdate() {
@@ -35,7 +33,7 @@ class NewClassModal extends Component {
             });
         } else {
             this.setState({
-
+                
             });
         };
     };
@@ -43,7 +41,7 @@ class NewClassModal extends Component {
     toggle = () => {
         this.setState({
             open: !this.state.open
-        }); 
+        });
     };
 
     handleChange = e => {
@@ -52,36 +50,31 @@ class NewClassModal extends Component {
         });
     };
 
+    handleCancel = () => {
+
+    };
+
     handleSubmit = e => {
-        e.preventDefault();
 
         const { } = this.state;
 
-        const newClass = {
-
+        const newCourse = {
+            
         };
 
-        this.props.createClass(newClass);
+        // attempt to create new course
+        this.props.createCourse(newCourse);
     };
-
-    handleCancel = e => {
-
-    };
-
+    
     render() {
-        return(
+        return (
             <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
-                    <Label for=""></Label>
-                    <Input 
-                        type="text"
-                        name=""
-                        onChange={this.handleChange}
-                    />
+
                 </FormGroup>
                 <FormGroup>
                     <Button type="button" onClick={this.handleCancel}>Cancel</Button>
-                    <Button type="submit">Save</Button>
+                    <Button type="submit">Add New Course</Button>
                 </FormGroup>
             </Form>
         );
@@ -90,7 +83,7 @@ class NewClassModal extends Component {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    error: state.error,
+    error: state.error
 });
 
-export default connect(mapStateToProps, { createClass })(NewClassModal);
+export default connect(mapStateToProps, { createCourse })(CourseNewModal);

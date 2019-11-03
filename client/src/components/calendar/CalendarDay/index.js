@@ -1,2 +1,2 @@
-import Day from "./Day";
-export default Day;
+import CalendarDay from "./CalendarDay";
+export default CalendarDay;

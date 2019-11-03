@@ -1,2 +1,2 @@
-import Month from "./Month";
-export default Month;
+import CalendarMonth from "./CalendarMonth";
+export default CalendarMonth;

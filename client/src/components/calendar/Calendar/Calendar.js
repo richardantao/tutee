@@ -1,17 +1,17 @@
 import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 
-import { } from "../../../actions/data/classes.action";
 import { connect } from "react-redux";
-import Proptypes from "prop-types";
+import { } from "../../../actions/data/classes.action";
+import PropTypes from "prop-types";
 
 import { Col, Row } from "reactstrap";
 import { Button } from "react-bootstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-import Nav from "../../organisms/Nav";
-import CalendarHeader from "../../organisms/CalendarHeader";
+import Nav from "../../global/Nav";
+import CalendarHeader from "../CalendarHeader";
 
 import "./Calendar.scss";
 
@@ -21,15 +21,16 @@ class Calendar extends Component {
 	};
 
 	static propTypes = {
-		
+		isAuthenticated: PropTypes.bool,
+		error: PropTypes.object.isRequired
 	};
 
 	componentDidMount() {
 		
 	};
 
-	componentWillUnmount() {
-		
+	componentDidUpdate() {
+
 	};
 
 	render() {
@@ -69,7 +70,8 @@ class Calendar extends Component {
 };
 
 const mapStateToProps = state => ({
-
+	isAuthenticated: state.auth.isAuthenticated,
+	error: state.error
 });
 
 export default connect(mapStateToProps, { })(Calendar);

@@ -6,9 +6,8 @@ import { clearErrors } from "../../../actions/auth/errors.action";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import {
-    Button,
     Form,
     FormGroup,
     Label,

@@ -1,2 +1,2 @@
-import Week from "./Week";
-export default Week;
+import CalendarWeek from "./CalendarWeek";
+export default CalendarWeek;

@@ -5,7 +5,6 @@ import { connect } from "react-redux";
 import { returnErrors, clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
-// import LoadingColumn from "../../molecules/LoadingColumn";
 import "./Errors.scss";
 
 class Errors extends Component {
@@ -14,11 +13,27 @@ class Errors extends Component {
     };
 
     static propTypes = {
-
+        isAuthenticated: PropTypes.bool,
+        error: PropTypes.object.isRequired,
+        returnErrors: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
     
     componentDidMount() {
-    
+        
+    };
+
+    componentDidUpdate() {
+        const { error, isAuthenticated } = this.props;
+        if(error) {
+            this.setState({
+                
+            });
+        } else {
+            this.setState({
+
+            });
+        };
     };
 
     render() {
@@ -33,7 +48,8 @@ class Errors extends Component {
 };
 
 const mapStateToProps = state => ({
-
+    isAuthenticated: state.auth.isAuthenticated,
+    error: state.error
 });
 
-export default connect(mapStateToProps, {})(Errors);
+export default connect(mapStateToProps, { returnErrors, clearErrors })(Errors);

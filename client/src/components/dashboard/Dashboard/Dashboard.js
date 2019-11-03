@@ -10,8 +10,8 @@ import { editEvaluation } from "../../../actions/data/evaluations.action";
 
 import { Button, Col, Row } from "reactstrap";
 
-import Nav from "../../organisms/Nav";
-import DashboardHeader from "../../organisms/DashboardHeader";
+import Nav from "../../global/Nav";
+import DashboardHeader from "../DashboardHeader";
 
 import "./Dashboard.scss";
 
@@ -58,7 +58,7 @@ class Dashboard extends Component {
 	};
 
 	evaluationModal = () => {
-		this
+		
 	};
 
 	render() {

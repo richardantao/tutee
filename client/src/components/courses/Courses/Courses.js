@@ -2,18 +2,10 @@ import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
-import {
-	fetchYears, editYear, createYear, updateYear, deleteYear
-} from "../../../actions/data/years.action";
-import {
-	fetchTerms, editTerm, createTerm, updateTerm, deleteTerm
-} from "../../../actions/data/terms.action";
-import { 
-	fetchCourses, editCourse, createCourse, updateCourse, deleteCourse 
-} from "../../../actions/data/courses.action";
-import {
-	fetchModules, editModule, createModule, updateModule, deleteModule
-} from "../../../actions/data/modules.action";
+import { fetchYears, editYear } from "../../../actions/data/years.action";
+import { fetchTerms, editTerm } from "../../../actions/data/terms.action";
+import { fetchCourses, editCourse } from "../../../actions/data/courses.action";
+import { fetchModules, editModule} from "../../../actions/data/modules.action";
 import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,13 +13,8 @@ import { faPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row } from "reactstrap";
 import { Button } from "react-bootstrap";
 
-import Nav from "../../organisms/Nav";
-import Header from "../../organisms/Header";
-
-import TermsColumn from "../../organisms/TermsColumn/TermsColumn";
-import TermRecord from "../../molecules/TermRecord";
-import CourseColumn from "../../organisms/CourseColumn/CourseColumn";
-import CourseRecord from "../../molecules/CourseRecord";
+import Nav from "../../global/Nav";
+import Header from "../../global/Header";
 
 import "./Courses.scss";
 

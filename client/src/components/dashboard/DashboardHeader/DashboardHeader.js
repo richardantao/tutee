@@ -8,8 +8,9 @@ import { Col } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
-import TaskNewModal from "../../molecules/TaskNewModal";
-import Counter from "../../molecules/Counter";
+
+import TaskNewModal from "../../tasks/TaskNewModal";
+import Counter from "../Counter";
 import DateDisplay from "../../global/Date";
 
 import "./DashboardHeader.scss";

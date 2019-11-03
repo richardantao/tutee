@@ -5,14 +5,13 @@ import { connect } from "react-redux";
 import { fetchEvaluations, fetchPastEvaluations, editEvaluation, } from "../../../actions/data/evaluations.action";
 import PropTypes from "prop-types";
 
-import { Col, Row } from "reactstrap";
+import { Button, Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
-import Nav from "../../organisms/Nav";
-import Header from "../../organisms/Header";
-import SelectReact from "../../atoms/Select";
-import { Button } from "react-bootstrap";
+import Nav from "../../global/Nav";
+import Header from "../../global/Header";
+import SelectReact from "../../global/Select";
 
 import "./Evaluations.scss";
 

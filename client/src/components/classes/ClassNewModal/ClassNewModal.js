@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 
-import { updateClass, deleteClass } from "../../../actions/data/classes.action";
+import { createClass } from "../../../actions/data/classes.action";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import { Button } from "react-bootstrap";
 import { Form, FormGroup, Label, Input } from "reactstrap";
 
-import "./EditClassModal.scss";
+import "./ClassNewModal.scss";
 
-class EditClassModal extends Component {
+class ClassNewModal extends Component {
     state = {
         open: false
     };
@@ -17,16 +17,27 @@ class EditClassModal extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
-        updateClass: PropTypes.func.isRequired,
-        deleteClass: PropTypes.func.isRequired
+        createClass: PropTypes.func.isRequired,
     };
     
     componentDidMount() {
-        this.loadOptions();
+        
+        // load options for selecting parent
+        this.props.fetchParents();
     };
 
     componentDidUpdate() {
         const { error } = this.props;
+
+        if(error) {
+            this.setState({
+
+            });
+        } else {
+            this.setState({
+
+            });
+        };
     };
 
     toggle = () => {
@@ -44,16 +55,17 @@ class EditClassModal extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        this.props.updateClass();
+        const { } = this.state;
+
+        const newClass = {
+
+        };
+
+        this.props.createClass(newClass);
     };
 
     handleCancel = e => {
 
-    };
-
-    handleDelete = e => {
-
-        this.props.deleteClass();
     };
 
     render() {
@@ -68,7 +80,6 @@ class EditClassModal extends Component {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Button type="button" onClick={this.handleDelete}>Delete</Button>
                     <Button type="button" onClick={this.handleCancel}>Cancel</Button>
                     <Button type="submit">Save</Button>
                 </FormGroup>
@@ -82,5 +93,4 @@ const mapStateToProps = state => ({
     error: state.error,
 });
 
-export default connect(mapStateToProps, { updateClass, deleteClass })(EditClassModal);
-
+export default connect(mapStateToProps, { createClass })(ClassNewModal);

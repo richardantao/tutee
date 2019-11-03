@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import { createTask } from "../../../actions/data/tasks.action";
@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
 
-import TaskNewModal from "../../tasks/TaskNewModal";
+import NewModal from "../../tasks/TaskNewModal";
 import Counter from "../Counter";
 import DateDisplay from "../../global/Date";
 
@@ -47,8 +47,10 @@ class DashboardHeader extends Component {
     };
 
     render() {
+        const { open } = this.state;
+
         return (
-            <Fragment>
+            <div>
                 <Col className="dashboard-header">
                     <h3>Today</h3>
                     <DateDisplay/>
@@ -63,12 +65,16 @@ class DashboardHeader extends Component {
                     <h3>Evaluations</h3>
                     <Counter type="Evaluations" count="2"/>
                 </Col>
-            </Fragment>
+
+                { open ? (
+                    <NewModal className="modal"/>
+                ): null }
+            </div>
         );
     };
 };
 
-const mapStateToProps = ({
+const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     error: state.error
 });

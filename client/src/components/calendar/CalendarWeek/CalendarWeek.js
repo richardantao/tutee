@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { Col } from "react-bootstrap";
+
 import "./CalendarWeek.scss";
 
 export default class CalendarWeek extends Component{
@@ -7,15 +9,15 @@ export default class CalendarWeek extends Component{
 		
 	};
 
-	componentDidUpdate() {
+	componentDidUpdate(prevProps) {
 
 	};
 
 	render() {
 		return (
-			<div id="calendar-week">
+			<Col id="calendar-week">
 
-			</div>
+			</Col>
 		);
 	};
 };

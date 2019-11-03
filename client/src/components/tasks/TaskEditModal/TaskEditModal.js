@@ -5,6 +5,9 @@ import { updateTask, deleteTask } from "../../../actions/data/tasks.action";
 import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
+import { Button, Col, Row, Form, FormGroup, Label, Input, FormText } from "reactstrap";
+import Select from "../../global/Select"; 
+
 import "./TaskEditModal.scss";
 
 class TaskEditModal extends Component {
@@ -77,42 +80,42 @@ class TaskEditModal extends Component {
     };
 
     render() {
-        const courses = courses.map(_id, course => {
+        const courses = courses.map(({ _id, course }) => (
             <option key={_id} value={course}>{course}</option>
-        });
+        ));
 
         return (
-            <form onSubmit={this.handleSubmit}>
-                <div>
+            <Form onSubmit={this.handleSubmit}>
+                <FormGroup>
                     <h3>Edit Task</h3>
-                </div>
-                <div>
-                    <label for=""></label>
-                    <input type="text" name="" placeholder=""/>
+                </FormGroup>
+                <FormGroup>
+                    <Label for="title">Title</Label>
+                    <Input type="text" name="title" placeholder="" value=""/>
 
-                    <label for="course"></label>
-                    <select>
+                    <Label for="course">Course</Label>
+                    <Select value="">
                         {courses}
-                    </select>
+                    </Select>
 
-                    <label for="type"></label>
-                    <input type="text" name="type" placeholder=""/>
+                    <Label for="type"></Label>
+                    <Input type="text" name="type" placeholder="Enter task type"/>
 
-                    <label for="deadline"></label>
-                    <input type="text" name="deadline" placeholder=""/>
+                    <Label for="deadline"></Label>
+                    <Input type="date" name="deadline" placeholder="Enter task deadline"/>
 
-                    <label for="completion"></label>
-                    <input type="text" name="completion" placeholder=""/>
+                    <Label for="completion">Completion</Label>
+                    <Input type="range" name="completion" value=""/>
 
-                    <label for="note"></label>
-                    <textarea type="text" name="note" placeholder="Enter description"></textarea>
-                </div>
-                <div>
-                    <Button type="button" onClick={this.handleDelete.bind(this, _id)}>Delete</Button>
+                    <Label for="note">Description</Label>
+                    <Input type="textarea" name="note" placeholder="Enter description" value=""/>
+                </FormGroup>
+                <FormGroup>
+                    <Button type="button" onClick={this.handleDelete.bind(this)}>Delete</Button>
                     <Button type="button" onClick={this.handleCancel}>Cancel</Button>
                     <Button type="submit">Update</Button>
-                </div>
-            </form>
+                </FormGroup>
+            </Form>
         );
     };
 };
@@ -122,6 +125,4 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-connect(mapStateToProps, { 
-    updateTask, deleteTask 
-})(TaskEditModal);
+export default connect(mapStateToProps, { updateTask, deleteTask })(TaskEditModal);

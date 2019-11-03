@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { Col } from "react-bootstrap";
+
 import "./CalendarMonth.scss";
 
 export default class CalendarMonth extends Component{
@@ -7,15 +9,15 @@ export default class CalendarMonth extends Component{
 		
 	};
 
-	componentDidUpdate() {
+	componentDidUpdate(prevProps) {
 
 	};
 
 	render() {
 		return (
-			<div id="calendar-month">
+			<Col id="calendar-month">
 
-			</div>
+			</Col>
 		);
 	};
 };

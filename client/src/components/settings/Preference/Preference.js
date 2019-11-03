@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { updatePreferences } from "../../../actions/data/settings.action";
+import { fetchPreferences, updatePreferences } from "../../../actions/data/settings.action";
 import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "react-bootstrap";
@@ -17,11 +17,12 @@ class Preference extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
+        fetchPreferences: PropTypes.func.isRequired,
         updatePreferences: PropTypes.func.isRequired
     };
 
     componentDidMount() {
-
+        this.props.fetchPreferences();
     };
     
     componentDidUpdate() {
@@ -80,4 +81,4 @@ const mapStateToProps = state => ({
    error: state.error 
 })  
 
-export default connect(mapStateToProps, { updatePreferences })(Preference);
+export default connect(mapStateToProps, { fetchPreferences, updatePreferences })(Preference);

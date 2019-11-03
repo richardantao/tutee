@@ -10,11 +10,18 @@ import PropTypes from "prop-types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { Col, Row } from "reactstrap";
-import { Button } from "react-bootstrap";
+import { Button, Col, Row } from "reactstrap";
 
 import Nav from "../../global/Nav";
 import Header from "../../global/Header";
+import YearEditModal from "../../years/YearEditModal";
+import YearNewModal from "../../years/YearNewModal";
+import TermEditModal from "../../terms/TermEditModal";
+import TermNewModal from "../../terms/TermNewModal";
+import CourseEditModal from "../../courses/CourseEditModal";
+import CourseNewModal from "../../courses/CourseNewModal";
+import ModuleEditModal from "../../modules/ModuleEditModal";
+import ModuleNewModal from "../../modules/ModuleNewModal";
 
 import "./Courses.scss";
 
@@ -23,26 +30,109 @@ class Courses extends Component {
 		years: [],
 		terms: [],
 		courses: [],
-		modules: []
+		modules: [],
+		openEditYear: false,
+		openNewYear: false,
+		openEditTerm: false,
+		openNewTerm: false,
+		openEditCourse: false,
+		openNewCourse: false,
+		openEditModule: false,
+		openNewModule: false,
 	};
 
 	static propTypes = {
 		isAuthenticated: PropTypes.func,
-		error: PropTypes.object.isRequired
+		error: PropTypes.object.isRequired,
+		fetchYears: PropTypes.func.isRequired,
+		editYear: PropTypes.func.isRequired,
+		fetchTerms: PropTypes.func.isRequired,
+		editTerm: PropTypes.func.isRequired,
+		fetchCourses: PropTypes.func.isRequired,
+		editCourse: PropTypes.func.isRequired,
+		fetchModules: PropTypes.func.isRequired,
+		editModule: PropTypes.func.isRequired
 	};
 
 	componentDidMount() {
-
-		// fetch all data || in future release, fetch child data after selecting parent element
 		this.props.fetchYears();
-		this.props.fetchTerms();
-		this.props.fetchCourses();
-		this.props.fetchModules();
+		// this.props.fetchTerms();
+		// this.props.fetchCourses();
+		// this.props.fetchModules();
+	};
+
+	componentDidUpdate(prevProps) {
+		const { error, isAuthenticated } = this.props;
+
+		if(error) {
+			if(!isAuthenticated) {
+				this.setState({
+
+				});
+			} else {
+				this.setState({
+
+				});
+			};
+		} else {
+			this.setState({
+
+			});
+		};
 	};
 
 	
 	
 	render() {
+		const { 
+			openEditYear, openNewYear, openEditTerm, openNewTerm, 
+			openEditCourse, openNewCourse, openEditModule, openNewModule
+		} = this.state;
+		const { years, terms, courses, modules } = this.props;
+
+		const yearRecords = years.map(({ _id, title }) => (
+			<option key={_id}>	
+				{title}
+			</option>
+		));
+
+		const termRecords = terms.map(({ _id, title, start, end }) => (
+            <Row key={_id}>
+                <Col>
+                    <h5>{title}</h5>
+                </Col>
+                <Col>
+                    <h6>{start}</h6>
+                    <h6>{end}</h6>
+                </Col>
+                <Col>
+                    <Button onClick={this.openEditModal}></Button>
+                </Col>
+            </Row>
+		));
+		
+		const courseRecords = courses.map(({ _id, title, start, end }) => (
+			<Row>
+				<Col>
+				
+				</Col>
+				<Col>
+				
+				</Col>
+			</Row>
+		));
+
+		const moduleRecords = modules.map(({ _id, title }) => (
+			<Row key={_id}>
+				<Col>
+
+				</Col>
+				<Col>
+				
+				</Col>
+			</Row>
+		));
+
 		return (
 			<Fragment>
 				<Helmet>
@@ -95,12 +185,41 @@ class Courses extends Component {
 						</Col>
 					</Row>
 					<Row>
-						<TermsColumn/>
-						<CourseColumn/>
+						<Col className="terms-column">
+							{termRecords}
+						</Col>
+						<Col className="courses-list">
+							{courseRecords}
+						</Col>
 						<Col className="course-details">
 
 						</Col>
 					</Row>
+
+					{ openEditYear ? (
+						<YearEditModal className="modal"/>
+					): null }
+					{ openNewYear ? (
+						<YearNewModal className="modal"/>
+					): null }
+					{ openEditTerm ? (
+						<TermEditModal className="modal"/>
+					): null }
+					{ openNewTerm ? (
+						<TermNewModal className="modal"/>
+					): null }
+					{ openEditCourse ? (
+						<CourseEditModal className="modal"/>
+					): null }
+					{ openNewCourse ? (
+						<CourseNewModal className="modal"/>
+					): null }
+					{ openEditModule ? (
+						<ModuleEditModal className="modal"/>
+					): null }
+					{ openNewModule ? (
+						<ModuleNewModal className="modal"/>
+					): null }
 				</div>
 			</Fragment>
 		);
@@ -113,9 +232,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, { 
-	fetchYears, editYear, createYear, updateYear, deleteYear,
-	fetchTerms, editTerm, createTerm, updateTerm, deleteTerm,
-	fetchCourses, editCourse, createCourse, updateCourse, deleteCourse, 
-	fetchModules, editModule, createModule, updateModule, deleteModule
-})
-(Courses);
+	fetchYears, editYear, fetchTerms, editTerm, 
+	fetchCourses, editCourse, fetchModules, editModule, 
+})(Courses);

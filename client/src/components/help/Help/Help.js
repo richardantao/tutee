@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 
-import connect from "react-redux";
-// import { } from "";
-import PropTypes from "props-types";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "reactstrap";
 
@@ -18,8 +17,8 @@ export default class Help extends Component {
 		
 	};
 
-	componentDidUpdate() {
-		
+	componentDidUpdate(prevProps) {
+
 	};
 
 	render() {

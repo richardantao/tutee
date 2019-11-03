@@ -5,13 +5,14 @@ import { connect } from "react-redux";
 import { fetchTasks, fetchPastTasks, editTask } from "../../../actions/data/tasks.action";
 import PropTypes from "prop-types";
 
-import { Col, Row } from "reactstrap";
+import { Button, Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "react-bootstrap";
 
 import Nav from "../../global/Nav";
 import Header from "../../global/Header";
+import EditModal from "../TaskEditModal";
+import NewModal from "../TaskNewModal";
 import Select from "../../global/Select";
 
 import "./Tasks.scss";
@@ -19,8 +20,8 @@ import "./Tasks.scss";
 class Tasks extends Component {
 	state = {
 		tasks: [],
-		edit: false,
-		new: false
+		editModal: false,
+		newModal: false
 	};
 
 	static propTypes = {
@@ -37,10 +38,24 @@ class Tasks extends Component {
 		this.props.handleTasks();
 	};
 
-	componentDidUpdate() {
+	componentDidUpdate(prevProps) {
 		const { error, isAuthenticated } = this.props;
 
+		if(error) {
+			if(!isAuthenticated) {
+				this.setState({
 
+				});
+			} else {
+				this.setState({
+
+				});
+			};
+		} else {
+			this.setState({
+
+			});
+		};
 	};
 
 	handleTasks() {
@@ -55,19 +70,19 @@ class Tasks extends Component {
 
 	newTaskModal = () => {
 		this.setState({
-			new: true
+			newModal: true
 		});
 	};
 
 	editTaskModal = () => {
 		this.setState({
-			edit: true
+			editModal: true
 		});
 	};
 
-
 	render() {
-		const { tasks } = this.props;
+		const { editModal, newModal } = this.state;
+		const { tasks, courses } = this.props; // have to define courses in state
 
 		const taskRecords = tasks.map(({ _id, title, course, type, deadline }) => (
 			<Row key={_id} className="task-record">
@@ -88,6 +103,12 @@ class Tasks extends Component {
 				</Col>
 			</Row>
 		));
+
+		const courseOptions = courses.map(({ _id, course}) => (
+			<option key={_id} className="" value={course}>
+				{course}
+			</option>
+		));
 		
 		return (
 			<Fragment>
@@ -107,7 +128,7 @@ class Tasks extends Component {
 					<Row className="body tasks-body">	
 						<Col>
 							<Select placeholder="Filter by Course..">
-								{this.props.courses}
+								{courseOptions}
 							</Select>
 						</Col>
 						<Col>
@@ -120,6 +141,13 @@ class Tasks extends Component {
 							{taskRecords}
 						</Col>
 					</Row>
+
+					{ editModal ? (
+						<EditModal className="modal"/>
+					): null }
+					{ newModal ? (
+						<NewModal className="modal"/>
+					): null }
 				</div>
 			</Fragment>
 		);

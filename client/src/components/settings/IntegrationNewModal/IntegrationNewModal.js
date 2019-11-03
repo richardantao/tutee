@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { createIntegration } from "../../../actions/data/settings.action";
 import PropTypes from "prop-types";
 
-import { Form, FormGroup, Label, Input } from "react-bootstrap";
+import { Button, Form, FormGroup, Label, Input } from "react-bootstrap";
 
 import "./IntegrationNewModal";
 

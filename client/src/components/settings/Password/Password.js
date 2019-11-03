@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { updatePassword } from "../../../actions/data/settings.action";
+import { fetchPassword, updatePassword } from "../../../actions/data/settings.action";
 import PropTypes from "prop-types";
 
-import { Col, Row } from "react-bootstrap";
-import { Form, FormGroup, Label, Input } from "reactstrap";
-import Button from "../../global/Button";
+import { Button, Col, Row, Form, FormGroup, Label, Input } from "reactstrap";
 
 import "./Password.scss";
 
@@ -20,15 +18,38 @@ class Password extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
+        fetchPassword: PropTypes.func.isRequired,
         updatePassword: PropTypes.func.isRequired
     };
 
     componentDidMount() {
-
+        this.props.fetchPassword();
     };
 
+    componentDidUpdate(prevProps) {
+		const { error, isAuthenticated } = this.props;
+
+		if(error) {
+			if(!isAuthenticated) {
+				this.setState({
+
+				});
+			} else {
+				this.setState({
+
+				});
+			};
+		} else {
+			this.setState({
+
+			});
+		};
+	};
+
     handleChange = e => {
-        
+        this.setState({
+            [e.target.name]: [e.target.value]
+        });
     };
     
     handleSubmit = e => {
@@ -45,25 +66,37 @@ class Password extends Component {
             <Form onSubmit={this.handleSubmit}>
                 <Row>
                     <Col>
-                        <label for="current">Current Password</label>
-                        <input name="current" type="password"/>
+                        <Label for="current">Current Password</Label>
+                        <Input 
+                        name="current" 
+                        type="password"
+                        onChange={this.handleChange}
+                        />
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <label for="new"></label>
-                        <input name="new" type="password"/>
+                        <Label for="new"></Label>
+                        <Input 
+                        name="new" 
+                        type="password"
+                        onChange={this.handleChange}
+                        />
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <label for="confirm"></label>
-                        <input name="confirm" type="password"/>
+                        <Label for="confirm"></Label>
+                        <Input 
+                        name="confirm" 
+                        type="password"
+                        onChange={this.handleChange}
+                        />
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <Button type="reset">Reset</Button>
+                        <Button type="reset" color="danger">Reset</Button>
                         <Button type="submit">Save</Button>
                     </Col>
                 </Row>
@@ -77,4 +110,4 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { updatePassword })(Password);
+export default connect(mapStateToProps, { fetchPassword, updatePassword })(Password);

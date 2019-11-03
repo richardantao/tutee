@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { Col } from "react-bootstrap";
+
 import "./CalendarDay.scss";
 
 export default class CalendarDay extends Component {	
@@ -13,9 +15,9 @@ export default class CalendarDay extends Component {
 
 	render() {
 		return (
-			<div id="calendar-day">
+			<Col id="calendar-day">
 
-			</div>
+			</Col>
 		);
 	};
 };

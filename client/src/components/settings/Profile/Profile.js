@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { updateProfile } from "../../../actions/data/settings.action";
+import { fetchProfile, updateProfile } from "../../../actions/data/settings.action";
 import PropTypes from "prop-types";
 
-import { Col, Row } from "react-bootstrap";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import { Col, Row, Form, FormGroup, Label, Input } from "reactstrap";
 
 import Button from "../../global/Button";
-import SelectReact from "../../global/Select";
+import Select from "../../global/Select";
 import "./Profile.scss";
 
 class Profile extends Component {
@@ -19,15 +18,32 @@ class Profile extends Component {
 	static propTypes = {
 		isAuthenticated: PropTypes.bool,
 		error: PropTypes.object.isRequired,
+		fetchProfile: PropTypes.func.isRequired,
 		updateProfile: PropTypes.func.isRequired
 	};
 
 	componentDidMount() {
-		
+		this.props.fetchProfile();	
 	};
 
-	componentWillUpdate() {
+	componentDidUpdate(prevProps) {
+		const { error, isAuthenticated } = this.props;
 
+		if(error) {
+			if(!isAuthenticated) {
+				this.setState({
+
+				});
+			} else {
+				this.setState({
+
+				});
+			};
+		} else {
+			this.setState({
+
+			});
+		};
 	};
 	
 	handleChange = e => {
@@ -49,47 +65,91 @@ class Profile extends Component {
 	};
 
 	render() {
+		const { countries, regions, institutions, schools } = this.state;
+
+		const countryOptions = countries.map(({_id, country}) => (
+			<option key={_id} value={country}>
+				{country}
+			</option>
+		));
+
+		const regionOptions = regions.map(({_id, region}) => (
+			<option key={_id} value={region}>
+				{region}
+			</option>
+		));
+		const institutionOptions = institutions.map(({_id, institution}) => (
+				<option key={_id} value={institution}>
+				{institution}
+			</option>
+		));
+
+		const schoolOptions = schools.map(({_id, school}) => (
+			<option key={_id} value={school}>
+				{school}
+			</option>
+		));
+
 		return(
 			<Form onSubmit={this.handleSubmit}>
 				<Row>
 					<Col>
-						<label for="firstName">First Name</label>
-						<input name="firstName" type="text" value=""/>
+						<Label for="fname">First Name</Label>
+						<Input 
+						name="fname" 
+						type="text" 
+						onChange={this.handleChange}
+						/>
 					</Col>
 					<Col>
-						<label for="lastName">Last Name</label>
-						<input name="lastName" type="text" value=""/>
-					</Col>
-				</Row>
-				<Row>
-					<Col>
-						<label>Email</label>
-						<input type="email" name="email" value=""/>
-					</Col>
-				</Row>
-				<Row>
-					<Col>
-						<label for="country">Country</label>
-						<SelectReact name="country" value=""/>
-					</Col>
-					<Col>
-						<label for="region">Province/State</label>				
-						<SelectReact name="region" value=""/>
+						<Label for="lname">Last Name</Label>
+						<Input 
+						name="lname" 
+						type="text" 
+						onChange={this.handleChange}
+						/>
 					</Col>
 				</Row>
 				<Row>
 					<Col>
-						<label for="institution">Institution</label>
-						<SelectReact name="institution" value=""/>
-					</Col>
-					<Col>
-						<label for="school">School</label>
-						<SelectReact name="school" value=""/>
+						<Label>Email</Label>
+						<Input 
+						type="email" 
+						name="email" 
+						onChange={this.handleChange}
+						/>
 					</Col>
 				</Row>
 				<Row>
 					<Col>
-						<Button type="reset">Clear Changes</Button>
+						<Label for="country">Country</Label>
+						<Select name="country" value="">
+							{countryOptions}
+						</Select>
+					</Col>
+					<Col>
+						<Label for="region">Province/State</Label>				
+						<Select name="region" value="">
+							{regionOptions}
+						</Select>
+					</Col>
+				</Row>
+				<Row>
+					<Col>
+						<Label for="institution">Institution</Label>
+						<Select name="institution" value="">
+							{institutionOptions}
+						</Select>
+					</Col>
+					<Col>
+						<Label for="school">School</Label>
+						<Select name="school" value="">
+							{schoolOptions}
+						</Select>
+					</Col>
+				</Row>
+				<Row>
+					<Col>
 						<Button type="submit">Save Changes</Button>
 					</Col>
 				</Row>
@@ -103,5 +163,5 @@ const mapStateToProps = state => ({
 	error: state.error
 });
 
-export default connect(mapStateToProps, { updateProfile })(Profile);
+export default connect(mapStateToProps, { fetchProfile, updateProfile })(Profile);
 

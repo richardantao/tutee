@@ -6,7 +6,7 @@ import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import { Button } from "react-bootstrap";
-import "./TaskModal.scss";
+import "./TaskNewModal.scss";
 
 class TaskNewModal extends Component {
     state = {

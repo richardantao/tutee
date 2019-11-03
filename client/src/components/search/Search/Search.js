@@ -5,15 +5,14 @@ import { connect } from "react-redux";
 // import { }
 import PropTypes from "prop-types";
 
-
-import { Col, Row } from "reactstrap";
-import { Button, InputGroup, FormControl } from "react-bootstrap";
+import { Button, Col, Row } from "react-bootstrap";
+import { Form, FormGroup, Label, Input, FormText } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 import Nav from "../../global/Nav";
 import Header from "../../global/Header";
-import SelectReact from "../../global/Select";
+import Select from "../../global/Select";
 
 import "./Search.scss";
 
@@ -36,7 +35,9 @@ class Search extends Component {
 	};
 
 	handleChange = e => {
-
+		this.setState({
+			[e.target.name]: [e.target.value]
+		});
 	};
 
 	render() {
@@ -57,22 +58,20 @@ class Search extends Component {
 					</Row>
 					<Row className="body">
 						<Col>
-							<InputGroup className="mb-3">
-								<FormControl
+							<FormGroup className="mb-3">
+								<Input
 								placeholder="Search for item.."
 								aria-label="Recipient's username"
 								aria-describedby="basic-addon2"
 								/>
-								<InputGroup.Append>
-								<InputGroup.Text id="basic-addon2"><FontAwesomeIcon icon={faSearch}/></InputGroup.Text>
-								</InputGroup.Append>
-							</InputGroup>
+								<Button id="basic-addon2"><FontAwesomeIcon icon={faSearch}/></Button>
+							</FormGroup>
 						</Col>
 						<Col>
-							<SelectReact placeholder="Filter by Course.."/>
+							<Select placeholder="Filter by Course.."/>
 						</Col>
 						<Col>
-							<SelectReact placeholder="Filter by Type.."/>
+							<Select placeholder="Filter by Type.."/>
 						</Col>
 					</Row>
 					<Row className="footer">

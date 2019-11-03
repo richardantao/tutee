@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { Col } from "react-bootstrap";
+
 import "./CalendarHeader.scss";
 
 export default class CalendarHeader extends Component {
@@ -9,9 +11,9 @@ export default class CalendarHeader extends Component {
     
     render() {
         return (
-            <div>
-                
-            </div>
+            <Col>
+            
+            </Col>
         );
     };
 };

@@ -6,10 +6,13 @@ import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "react-bootstrap";
 
+import IntegrationEditModal from "../IntegrationEditModal";
+import IntegrationNewModal from "../IntegrationNewModal";
+
 class Integration extends Component {
     state = {
-        edit: false,
-        new: false,
+        editModal: false,
+        newModal: false,
         integrations: []
     };
 
@@ -26,23 +29,20 @@ class Integration extends Component {
         this.props.fetchIntegrations();
     };
 
-    toggle = () => {
-
-    };
-
     openEditModal = () => {
         this.setState({
-            open: true
+            editModal: true
         });
     };
 
     openNewModal = () => {
         this.setState({
-            new: true
+            newModal: true
         });
     };
 
     render() {
+        const { editModal, newModal } = this.state;
         const { integrations } = this.props; 
 
         const integrationRecords = integrations.map(({ _id}) => (
@@ -51,12 +51,26 @@ class Integration extends Component {
             </div>
         ));
 
-        return(
-            <Row>
-                <Col>
-                    {integrationRecords}
-                </Col>
-            </Row>
+        return (
+            <div id="integrations">
+                <Row>
+                    <Col>
+                        <Button onClick={this.openNewModal}>Add New Integration</Button>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        {integrationRecords}
+                    </Col>
+                </Row>
+
+                { editModal ? (
+                    <IntegrationEditModal className="modal"/>                    
+                ): null }
+                { newModal ? (
+                    <IntegrationNewModal className="modal"/>
+                ): null }
+            </div>
         );
     };
 };

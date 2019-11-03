@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { updateCourse, deleteCourse } from "../../../actions/data/courses.action";
 import PropTypes from "prop-types";
 
-import { Form, FormGroup, Label, Input } from "react-bootstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 import "./CourseEditModal.scss";
 

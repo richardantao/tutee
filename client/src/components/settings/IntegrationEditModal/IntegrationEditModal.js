@@ -4,9 +4,9 @@ import { connect } from "react-redux";
 import { updateIntegration, deleteIntegration } from "../../../actions/data/settings.action";
 import PropTypes from "prop-types";
 
-import { Form, FormGroup, Label, Input } from "react-bootstrap";
+import { Button, Form, FormGroup, Label, Input } from "react-bootstrap";
 
-import "./IntegrationEditModal.scss"
+import "./IntegrationEditModal.scss";
 
 class IntegrationEditModal extends Component {
     state = {
@@ -56,7 +56,9 @@ class IntegrationEditModal extends Component {
     };
 
     handleCancel = () => {
-        
+
+
+        this.toggle();
     };
 
     handleDelete = id => {
@@ -66,9 +68,13 @@ class IntegrationEditModal extends Component {
     }
     
     render() {
-        return(
+        const { open } = this.state;
+
+        const { integration } = this.props;
+
+        return (
             <Form onSubmit={this.handleSubmit}>
-                <Button type="button" onClick={this.handleDelete.bind(this, _id)}>Delete</Button>
+                <Button type="button" onClick={this.handleDelete.bind(this)}>Delete</Button>
                 <Button type="button" onClick={this.handleCancel}>Cancel</Button>
                 <Button type="submit">Save</Button>
             </Form>

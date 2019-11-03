@@ -2,13 +2,10 @@ import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
-// change
-import { fetchProfile, fetchPassword, fetchPreferences, fetchIntegrations, editIntegration } from "../../../actions/data/settings.action";
 import { logout } from "../../../actions/auth/auth.action";
 import PropTypes from "prop-types";
 
-import { Container, Col, Row } from "reactstrap";
-import { Button } from "react-bootstrap";
+import { Button, Container, Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare, faLinkedin, faInstagram, faTwitterSquare } from "@fortawesome/free-brands-svg-icons";
 
@@ -23,7 +20,7 @@ import "./Settings.scss";
 
 class Settings extends Component {
 	state = {
-		
+		form: "profile"
 	};
 
 	static propTypes = {
@@ -37,23 +34,55 @@ class Settings extends Component {
 		
 	};
 
-	componentDidUpdate() {
+	componentDidUpdate(prevProps) {
+		const { error, isAuthenticated } = this.props;
 
+		if(error) {
+			if(!isAuthenticated) {
+				this.setState({
+
+				});
+			} else {
+				this.setState({
+
+				});
+			};
+		} else {
+			this.setState({
+
+			});
+		};
 	};
 
 	handleProfile = () => {
+		this.setState({
+			form: "profile"
+		});
+
 		this.props.fetchProfile();
 	};
 
 	handlePassword = () => {
+		this.setState({
+			form: "password"
+		});
+
 		this.props.fetchPassword();
 	};
 
 	handlePreferences = () => {
+		this.setState({
+			form: "preferences"
+		});
+
 		this.props.fetchPreferences();
 	};
 
 	handleIntegrations = () => {
+		this.setState({
+			form: "integration"
+		});
+
 		this.props.fetchIntegrations();
 	};
 
@@ -64,12 +93,14 @@ class Settings extends Component {
 	};
 
 	render() {
+		const { form } = this.state;
+
 		return (
 			<Fragment>
 				<Helmet>
 					<title> My Tutee | Settings</title>
 				</Helmet>
-				<Nav />
+				<Nav/>
 				<div id="settings">
 					<Row className="header">
 						<Col>
@@ -90,7 +121,18 @@ class Settings extends Component {
 					<Container>
 						<Row className="body settings-body">
 							<Col>
-								{this.props.form}
+								{ form === "profile" ? (
+									<Profile/>
+								): null }
+								{ form === "password" ? (
+									<Password/>
+								): null }
+								{ form === "preferences" ? (
+									<Preference/>
+								): null }
+								{ form === "integration" ? (
+									<Integration/>
+								): null }
 							</Col>		
 						</Row>
 					</Container>
@@ -120,11 +162,4 @@ const mapStateToProps = state => ({
 	error: state.error
 });
 
-export default connect(mapStateToProps, { 
-		logout, 
-		fetchProfile, 
-		fetchPassword,
-		fetchPreferences, 
-		fetchIntegrations, editIntegration
-	}
-)(Settings);
+export default connect(mapStateToProps, { logout })(Settings);

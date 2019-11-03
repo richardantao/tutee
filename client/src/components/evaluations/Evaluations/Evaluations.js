@@ -11,15 +11,17 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 import Nav from "../../global/Nav";
 import Header from "../../global/Header";
-import SelectReact from "../../global/Select";
+import EditModal from "../EvalEditModal";
+import NewModal from "../EvalNewModal";
+import Select from "../../global/Select";
 
 import "./Evaluations.scss";
 
 class Evaluations extends Component{
 	state = {
 		evaluations: [],
-		edit: false,
-		new: false
+		editModal: false,
+		newModal: false
 	};
 
 	static propTypes = {
@@ -32,13 +34,27 @@ class Evaluations extends Component{
 	};
 
 	componentDidMount() {
-
 		this.props.handleEvaluations();
 	};
 
-	componentDidUpdate() {
-		const { error } = this.props;
-	
+	componentDidUpdate(prevProps) {
+		const { error, isAuthenticated } = this.props;
+
+		if(error) {
+			if(!isAuthenticated) {
+				this.setState({
+
+				});
+			} else {
+				this.setState({
+
+				});
+			};
+		} else {
+			this.setState({
+
+			});
+		};
 	};
 
 	handleEvaluations = () => {
@@ -50,19 +66,20 @@ class Evaluations extends Component{
 		this.props.fetchPastEvaluations();
 	};
 
-	newEvaluationModal = () => {
+	editEvaluationModal = () => {
 		this.setState({
-			edit: true
+			editModal: true
 		});
 	};
 
-	editEvaluationModal = () => {
+	newEvaluationModal = () => {
 		this.setState({
-			new: true
+			newModal: true
 		});
 	};
 
 	render() {
+		const { editModal, newModal } = this.state;
 		const { evaluations } = this.props;
 
 		const evaluationRecords = evaluations.map(({ _id, title, course, date, time, location}) => (
@@ -75,6 +92,9 @@ class Evaluations extends Component{
 				<p>{date}</p>
 				<p>{time}</p>
 				<p>{location}</p>
+			</Col>
+			<Col>
+				<Button type="button" onClick={this.editEvaluationModal}></Button>
 			</Col>
 		</Row>
 		));
@@ -96,13 +116,25 @@ class Evaluations extends Component{
 					</Row>
 					<Row className="body evals-body">
 						<Col>
-							<SelectReact placeholder="Filter by Course.."/>
+							<Select placeholder="Filter by Course.."/>
 						</Col>
 						<Col>
 							<Button onClick={this.handleEvaluations} className="current">Current</Button>
 							<Button onClick={this.handlePastEvaluations} className="past">Past</Button>
 						</Col>	
 					</Row>
+					<Row>
+						<Col>
+							{evaluationRecords}
+						</Col>
+					</Row>
+
+					{ editModal ? (
+						<EditModal className="modal"/>
+					): null }
+					{ newModal ? (
+						<NewModal className="modal"/>
+					): null }
 				</div>
 			</Fragment>
 		);	

@@ -34,14 +34,14 @@ class Nav extends Component {
 					<Button href="/calendar">
 						<FontAwesomeIcon icon={faCalendarAlt}/>
 					</Button>
+					<Button href="/academics">
+						<FontAwesomeIcon icon={faUniversity}/>
+					</Button>
 					<Button href="/tasks">
 						<FontAwesomeIcon icon={faTasks}/>
 					</Button>
 					<Button href="/evaluations" className="adjust">
 						<FontAwesomeIcon icon={faGraduationCap}/>
-					</Button>
-					<Button href="/courses">
-						<FontAwesomeIcon icon={faUniversity}/>
 					</Button>
 					<Button href="/search">
 						<FontAwesomeIcon icon={faSearch}/>

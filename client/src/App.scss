@@ -1,7 +1,15 @@
-/* #0083B3 #FFC400*/
+/* Colour Palette - 
+	#0083B3 - 
+	#FFC400 - 
+	#00A6FF - 
+*/
+
+$primary-color: #00A6FF;
+$secondary-color: #0091FF;
+
 html {
     box-sizing: border-box;
-    background: #FFFFFF;
+    background: white;
     font-family: Georgia, "Times New Roman", Times, serif;
     overflow: hidden;
 } 
@@ -28,8 +36,8 @@ body {
 }
 
 .btn {
-	background-color: #00BBFF;
-	border-color: #00BBFF;
+	background-color: $primary-color;
+	border-color: $primary-color;
 }
 
 nav .btn {
@@ -38,7 +46,7 @@ nav .btn {
 }
 
 nav .btn:hover {
-	background-color: #00BBFF;
+	background-color: $primary-color;
 	border-color: transparent;
 }
 

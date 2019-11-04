@@ -1,19 +1,9 @@
 import React, { Component } from "react";
 import "./Empty.scss";
 
-export default class Empty extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            isLoading: true
-        }
-    }
-    
+export default class Empty extends Component {    
     componentDidMount() {
-        this.setState({
-            isLoading: false
-        });
+        
     }
 
     render() {
@@ -21,6 +11,6 @@ export default class Empty extends Component {
             <svg>
 
             </svg>
-        )
-    }
-}
+        );
+    };
+};

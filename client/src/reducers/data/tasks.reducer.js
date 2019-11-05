@@ -1,7 +1,8 @@
 import {
     LOADING_TASKS, 
     FETCH_TASKS, FETCH_PAST_TASKS,
-    EDIT_TASK, CREATE_TASK, 
+    EDIT_TASK, 
+    NEW_TASK, CREATE_TASK, 
     UPDATE_TASK, DELETE_TASK 
 } from "../../actions/types";
 
@@ -32,7 +33,13 @@ export default (state = initialState, action) => {
         case EDIT_TASK:
             return {
                 ...state,
-                tasks: action.payload,
+                tasks: state.tasks.map(task => task._id === action.payload.id ? (action.payload.data) : {...state}),
+                loading: false
+            };
+        case NEW_TASK:
+            return {
+                ...state,
+                courses: action.payload,
                 loading: false
             };
         case CREATE_TASK:
@@ -44,7 +51,7 @@ export default (state = initialState, action) => {
         case UPDATE_TASK:
             return {
                 ...state,
-                tasks: action.payload,
+                tasks: state.tasks.map(task => task._id === action.payload.id ? (action.payload.data) : {...state}),
                 loading: false
             };
         case DELETE_TASK:

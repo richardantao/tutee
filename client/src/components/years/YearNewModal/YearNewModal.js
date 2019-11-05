@@ -5,8 +5,12 @@ import { newYear, createYear } from "../../../actions/data/years.action";
 import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
-import { Button, Col, Row } from "react-bootstrap";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import { 
+    Col, Row,
+    Modal, ModalHeader, ModalBody,
+    Form, FormGroup, Label, Input,
+    Button
+} from "reactstrap";
 
 import "./YearNewModal.scss";
 
@@ -86,20 +90,28 @@ class YearNewModal extends Component {
     };
 
     render() {
+        const { open } = this.state;
+
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <FormGroup>
-                    <Label for=""></Label>
-                    <Input
-                    name=""
-                    onChange={this.handleChange}
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Button type="button" onClick={this.handleCancel}>Cancel</Button>
-                    <Button type="submit">Add New Year</Button>
-                </FormGroup>
-            </Form>
+            <Modal isOpen={open} toggle={this.toggle}>
+                <ModalHeader toggle={this.toggle}>New Year</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormGroup>
+                            <Label for=""></Label>
+                            <Input
+                            type=""
+                            name=""
+                            onChange={this.handleChange}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Button type="button" onClick={this.handleCancel}>Cancel</Button>
+                            <Button type="submit">Add New Year</Button>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+            </Modal>
         );
     };
 };

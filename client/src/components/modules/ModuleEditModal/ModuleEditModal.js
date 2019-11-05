@@ -5,8 +5,7 @@ import { editModule, updateModule, deleteModule } from "../../../actions/data/mo
 import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
-import { Button } from "react-bootstrap";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import {  Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 import "./ModuleEditModal.scss";
 
@@ -88,21 +87,28 @@ class ModuleEditModal extends Component {
     };
 
     render() {
+        const { open } = this.state;
+
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <FormGroup>
-                    <Label for=""></Label>
-                    <Input
-                        name=""
-                        onChange={this.handleChange}
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Button type="button" onClick={this.handleDelete.bind(this)}>Delete Module</Button>
-                    <Button type="button" onClick={this.handleCancel}>Cancel</Button>
-                    <Button type="submit">Save Module</Button>
-                </FormGroup>
-            </Form>
+            <Modal isOpen={open} toggle={this.toggle}>
+                <ModalHeader toggle={this.toggle}>Edit Module</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormGroup>
+                            <Label for=""></Label>
+                            <Input
+                                name=""
+                                onChange={this.handleChange}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Button type="button" onClick={this.handleDelete.bind(this)}>Delete Module</Button>
+                            <Button type="button" onClick={this.handleCancel}>Cancel</Button>
+                            <Button type="submit">Save Module</Button>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+            </Modal>    
         );
     };
 };

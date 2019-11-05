@@ -5,7 +5,12 @@ import { editCourse, updateCourse, deleteCourse } from "../../../actions/data/co
 import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import {  
+    Col, Row,
+    Modal, ModalHeader, ModalBody,
+    Form, FormGroup, Label, Input, 
+    Button 
+} from "reactstrap";
 
 import "./CourseEditModal.scss";
 
@@ -73,22 +78,29 @@ class CourseEditModal extends Component {
     };
 
     render() {
+        const { open } = this.state;
+
         return (
-            <Form onSubmit={this.handleSubmit} className="">
-                <FormGroup className="form-data">
-                    <Label for=""></Label>
-                    <Input
-                    type=""
-                    name=""
-                    onChange={this.handleChange}
-                    />
-                </FormGroup>
-                <FormGroup className="form-actions">
-                    <Button type="button" onClick={this.handleDelete.bind(this)}>Delete</Button>
-                    <Button type="button" onClick={this.handleCancel}>Cancel</Button>
-                    <Button type="submit">Save</Button>
-                </FormGroup>
-            </Form>
+            <Modal isOpen={open} toggle={this.toggle}>
+                <ModalHeader toggle={this.toggle}>Edit Course</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={this.handleSubmit} className="">
+                        <FormGroup className="form-data">
+                            <Label for=""></Label>
+                            <Input
+                            type=""
+                            name=""
+                            onChange={this.handleChange}
+                            />
+                        </FormGroup>
+                        <FormGroup className="form-actions">
+                            <Button type="button" onClick={this.handleDelete.bind(this)}>Delete</Button>
+                            <Button type="button" onClick={this.handleCancel}>Cancel</Button>
+                            <Button type="submit">Save</Button>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+            </Modal>    
         );
     };
 };

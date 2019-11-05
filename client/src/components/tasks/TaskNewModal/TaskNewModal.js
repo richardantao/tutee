@@ -5,7 +5,7 @@ import { newTask, createTask } from "../../../actions/data/tasks.action";
 import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 import "./TaskNewModal.scss";
 
@@ -67,24 +67,31 @@ class TaskNewModal extends Component {
     };
     
     render() {
+        const { open } = this.state;
+
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <FormGroup className="modal-header">
-                    <h3>New Task</h3>
-                </FormGroup>
-                <FormGroup className="modal-body">
-                    <Label for=""></Label>
-                    <Input 
-                    type="" 
-                    name=""
-                    onChange={this.handleChange}
-                    />
-                </FormGroup>
-                <FormGroup className="modal-action">
-                    <Button type="button" onCancel={this.handleCancel}>Cancel</Button>
-                    <Button type="submit">Add New Task</Button>
-                </FormGroup>
-            </Form>
+            <Modal isOpen={open} toggle={this.toggle}>
+                <ModalHeader toggle={this.toggle}>New Task</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormGroup className="modal-header">
+                            <h3>New Task</h3>
+                        </FormGroup>
+                        <FormGroup className="modal-body">
+                            <Label for=""></Label>
+                            <Input 
+                            type="" 
+                            name=""
+                            onChange={this.handleChange}
+                            />
+                        </FormGroup>
+                        <FormGroup className="modal-action">
+                            <Button type="button" onCancel={this.handleCancel}>Cancel</Button>
+                            <Button type="submit">Add New Task</Button>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+            </Modal>
         );
     };
 };

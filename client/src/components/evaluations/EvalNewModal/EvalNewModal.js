@@ -5,7 +5,7 @@ import { newEvaluation, createEvaluation } from "../../../actions/data/evaluatio
 import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 import "./EvalNewModal.scss";
 
@@ -71,21 +71,27 @@ class EvalNewModal extends Component {
     };  
 
     render() {
+        const { open } = this.state;
         return (
-            <Form onSubmit={this.hanleSubmit}>
-                <FormGroup>
-                    <Label for=""></Label>
-                    <Input
-                    type=""
-                    name=""
-                    onChange={this.handleChange}
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Button type="button" onClick={this.handleCancel}>Cancel</Button>
-                    <Button type="submit">Add New Evaluation</Button>
-                </FormGroup>
-            </Form>
+            <Modal isOpen={open} toggle={this.toggle}>
+                <ModalHeader toggle={this.toggle}>New Evaluation</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={this.hanleSubmit}>
+                        <FormGroup>
+                            <Label for=""></Label>
+                            <Input
+                            type=""
+                            name=""
+                            onChange={this.handleChange}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Button type="button" onClick={this.handleCancel}>Cancel</Button>
+                            <Button type="submit">Add New Evaluation</Button>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+            </Modal>
         );
     };
 };

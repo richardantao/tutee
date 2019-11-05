@@ -5,7 +5,7 @@ import { newIntegration, createIntegration } from "../../../actions/data/setting
 import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
-import { Button, Form, FormGroup, Label, Input } from "react-bootstrap";
+import { Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 import "./IntegrationNewModal";
 
@@ -71,16 +71,23 @@ class IntegrationNewModal extends Component {
     };
 
     render() {
-        return(
-            <Form onSubmit={this.handleSubmit}>
-                <FormGroup>
+        const { open } = this.state;
 
-                </FormGroup>
-                <FormGroup>
-                    <Button type="button" onClick={this.handleCancel}>Cancel</Button>
-                    <Button type="submit">Add New Integration</Button>
-                </FormGroup>
-            </Form>
+        return (
+            <Modal isOpen={open} toggle={this.toggle}>
+                <ModalHeader toggle={this.toggle}>New Integration</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormGroup>
+
+                        </FormGroup>
+                        <FormGroup>
+                            <Button type="button" onClick={this.handleCancel}>Cancel</Button>
+                            <Button type="submit">Add New Integration</Button>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+            </Modal>
         );
     };
 };

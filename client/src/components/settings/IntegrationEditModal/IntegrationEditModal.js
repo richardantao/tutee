@@ -5,7 +5,7 @@ import { editIntegration, updateIntegration, deleteIntegration } from "../../../
 import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
-import { Button, Form, FormGroup, Label, Input } from "react-bootstrap";
+import { Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input, Button } from "reactstrap";
 
 import "./IntegrationEditModal.scss";
 
@@ -78,25 +78,29 @@ class IntegrationEditModal extends Component {
     
     render() {
         const { open } = this.state;
-
         const { integration } = this.props;
 
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <FormGroup>
-                    <Label for=""></Label>
-                    <Input
-                    type=""
-                    name=""
-                    onChange={this.handleChange}
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Button type="button" onClick={this.handleDelete.bind(this)}>Delete</Button>
-                    <Button type="button" onClick={this.handleCancel}>Cancel</Button>
-                    <Button type="submit">Save</Button>
-                </FormGroup>
-            </Form>
+            <Modal isOpen={open} toggle={this.toggle}>
+                <ModalHeader toggle={this.toggle}>Edit Integration</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormGroup>
+                            <Label for=""></Label>
+                            <Input
+                            type=""
+                            name=""
+                            onChange={this.handleChange}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Button type="button" onClick={this.handleDelete.bind(this)}>Delete</Button>
+                            <Button type="button" onClick={this.handleCancel}>Cancel</Button>
+                            <Button type="submit">Save</Button>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+            </Modal>
         );
     };
 };

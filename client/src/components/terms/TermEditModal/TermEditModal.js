@@ -5,8 +5,12 @@ import { editTerm, updateTerm, deleteTerm } from "../../../actions/data/terms.ac
 import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
-import { Button, Col, Row } from "react-bootstrap";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import { 
+    Col, Row, 
+    Modal, ModalHeader, ModalBody, 
+    Form, FormGroup, Label, Input, 
+    Button 
+} from "reactstrap";
 
 import "./TermEditModal.scss";
 
@@ -73,30 +77,43 @@ class TermEditModal extends Component {
     };
 
     handleCancel = () => {
+        this.setState({
 
+        });
+
+        this.toggle();
     };
 
     handleDelete = id => {
         
         this.props.deleteTerm(id);
+
+        this.toggle();
     };
 
     render() {
+        const { open } = this.state;
+
         return (
-            <Form onSubmit={this.handleSubmit}>
-                <FormGroup>
-                    <Label for=""></Label>
-                    <Input
-                    name=""
-                    onChange={this.handleChange}
-                    />
-                </FormGroup>
-                <FormGroup>
-                    <Button type="button" onClick={this.handleDelete}>Delete Term</Button>
-                    <Button type="button" onClick={this.handleCancel}>Cancel</Button>
-                    <Button type="submit">Update Term</Button>
-                </FormGroup>
-            </Form>
+            <Modal isOpen={open} toggle={this.toggle}>
+                <ModalHeader toggle={this.toggle}>Edit Term</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={this.handleSubmit}>
+                        <FormGroup>
+                            <Label for=""></Label>
+                            <Input
+                            name=""
+                            onChange={this.handleChange}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <Button type="button" onClick={this.handleDelete}>Delete Term</Button>
+                            <Button type="button" onClick={this.handleCancel}>Cancel</Button>
+                            <Button type="submit">Update Term</Button>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+            </Modal>
         );
     };
 };

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
-import { fetchTasks, fetchPastTasks, editTask } from "../../../actions/data/tasks.action";
+import { fetchTasks, fetchPastTasks } from "../../../actions/data/tasks.action";
 import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "reactstrap";
@@ -29,8 +29,7 @@ class Tasks extends Component {
 		error: PropTypes.object.isRequired,
 		tasks: PropTypes.object.isRequired,
 		fetchTasks: PropTypes.func.isRequired,
-		fetchPastTasks: PropTypes.func.isRequired,
-		editTask: PropTypes.func.isRequired
+		fetchPastTasks: PropTypes.func.isRequired
 	};
 	
 	componentDidMount() {
@@ -160,4 +159,6 @@ const mapStateToProps = state => ({
 	tasks: state.tasks
 });
 
-export default connect(mapStateToProps, { fetchTasks, fetchPastTasks, editTask })(Tasks);
+const mapDispatchToProps = { fetchTasks, fetchPastTasks };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tasks);

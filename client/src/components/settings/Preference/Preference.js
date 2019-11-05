@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import { fetchPreferences, updatePreferences } from "../../../actions/data/settings.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "react-bootstrap";
@@ -18,7 +19,8 @@ class Preference extends Component {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
         fetchPreferences: PropTypes.func.isRequired,
-        updatePreferences: PropTypes.func.isRequired
+        updatePreferences: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -46,7 +48,7 @@ class Preference extends Component {
 
     handleChange = e => {
         this.setState({
-            [e.target.name]: [e.target.value]
+            [e.target.name]: e.target.value
         });
     };
 
@@ -55,18 +57,22 @@ class Preference extends Component {
 
         const { } = this.state;
 
-        const newPreferences = {
+        const revisedPreferences = {
 
         };
 
-        this.props.updatePreferences(newPreferences);
+        this.props.updatePreferences(revisedPreferences);
     };
 
     render() {
         return(
             <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
-
+                    <Label></Label>
+                    <Input
+                    
+                    onChange={this.handleChange}
+                    />
                 </FormGroup>
                 <FormGroup>
                     <Button type="submit">Save</Button> 
@@ -81,4 +87,6 @@ const mapStateToProps = state => ({
    error: state.error 
 })  
 
-export default connect(mapStateToProps, { fetchPreferences, updatePreferences })(Preference);
+const mapDispatchToProps = { fetchPreferences, updatePreferences, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Preference);

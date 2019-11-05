@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import { fetchPassword, updatePassword } from "../../../actions/data/settings.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import { Button, Col, Row, Form, FormGroup, Label, Input } from "reactstrap";
@@ -19,7 +20,8 @@ class Password extends Component {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
         fetchPassword: PropTypes.func.isRequired,
-        updatePassword: PropTypes.func.isRequired
+        updatePassword: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -59,6 +61,7 @@ class Password extends Component {
         if(this.state.new !== "" && this.state.new === this.state.confirm) {
             this.props.updatePassword(newPassword);
         };
+
     };
 
     render() {
@@ -110,4 +113,6 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { fetchPassword, updatePassword })(Password);
+const mapDispatchToProps = { fetchPassword, updatePassword, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Password);

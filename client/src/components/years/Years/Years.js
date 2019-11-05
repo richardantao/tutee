@@ -1,22 +1,21 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { fetchYears, editYear } from "../../../actions/data/years.action";
+import { fetchYears } from "../../../actions/data/years.action";
 import PropTypes from "prop-types";
 
 import "./Years.scss";
 
 class Years extends Component {
     state = {
-        editModal: false,
-        newModal: false,
         years: []
     };
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
-        years: PropTypes.object.isRequired
+        years: PropTypes.object.isRequired,
+        fetchYears: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -25,8 +24,24 @@ class Years extends Component {
     };
 
     componentDidUpdate(prevProps) {
+        const { error, isAuthenticated } = this.props;
 
-    };
+        if(error) {
+            if(!isAuthenticated) {
+                this.setState({
+
+                });
+            } else {
+                this.setState({
+
+                });
+            };
+        } else {
+            this.setState({
+
+            });
+        };
+    };  
 
     openEditModal = () => {
         this.setState({
@@ -60,4 +75,6 @@ const mapStateToProps = state => ({
     years: state.years
 });
 
-export default connect(mapStateToProps, { fetchYears, editYear })(Years);
+const mapDispatchToProps = { fetchYears };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Years);

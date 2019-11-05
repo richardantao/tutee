@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-import { updateClass, deleteClass } from "../../../actions/data/classes.action";
 import { connect } from "react-redux";
+import { editClass, updateClass, deleteClass } from "../../../actions/data/classes.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
-import { Button } from "react-bootstrap";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 import "./ClassEditModal.scss";
 
@@ -17,16 +17,23 @@ class ClassEditModal extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
+        editClass: PropTypes.func.isRequired,
         updateClass: PropTypes.func.isRequired,
-        deleteClass: PropTypes.func.isRequired
+        deleteClass: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
     
     componentDidMount() {
-        this.loadOptions();
+        this.setState({
+            open: true
+        });
+
+        this.editClass();
     };
 
     componentDidUpdate() {
-        const { error } = this.props;
+        const { error, isAuthenticated } = this.props;
+
     };
 
     toggle = () => {
@@ -37,23 +44,37 @@ class ClassEditModal extends Component {
 
     handleChange = e => {
         this.setState({
-            [e.target.name]: [e.target.value]
+            [e.target.name]: e.target.value
         });
     };
 
     handleSubmit = e => {
         e.preventDefault();
 
-        this.props.updateClass();
+        const { } = this.state;
+
+        const revisedClass = {
+
+        };
+
+        this.props.updateClass(revisedClass);
+
+        this.toggle();
     };
 
     handleCancel = e => {
+        this.setState({
 
+        });
+
+        this.toggle();
     };
 
-    handleDelete = e => {
+    handleDelete = id => {
 
-        this.props.deleteClass();
+        this.props.deleteClass(id);
+
+        this.toggle();
     };
 
     render() {
@@ -68,7 +89,7 @@ class ClassEditModal extends Component {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Button type="button" onClick={this.handleDelete}>Delete</Button>
+                    <Button type="button" onClick={this.handleDelete.bind(this)}>Delete</Button>
                     <Button type="button" onClick={this.handleCancel}>Cancel</Button>
                     <Button type="submit">Save</Button>
                 </FormGroup>
@@ -82,5 +103,7 @@ const mapStateToProps = state => ({
     error: state.error,
 });
 
-export default connect(mapStateToProps, { updateClass, deleteClass })(ClassEditModal);
+const mapDispatchToProps = { editClass, updateClass, deleteClass, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ClassEditModal);
 

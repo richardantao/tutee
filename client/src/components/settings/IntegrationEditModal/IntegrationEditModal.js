@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { updateIntegration, deleteIntegration } from "../../../actions/data/settings.action";
+import { editIntegration, updateIntegration, deleteIntegration } from "../../../actions/data/settings.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import { Button, Form, FormGroup, Label, Input } from "react-bootstrap";
@@ -16,15 +17,17 @@ class IntegrationEditModal extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
+        editIntegration: PropTypes.func.isRequired,
         updateIntegration: PropTypes.func.isRequired,
-        deleteIntegration: PropTypes.func.isRequired
+        deleteIntegration: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
     
     componentDidMount() {
-        
+        this.props.editIntegration();
     };
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
 
     };
 
@@ -32,6 +35,8 @@ class IntegrationEditModal extends Component {
         this.setState({
             open: !this.state.open
         });
+
+        this.props.clearErrors();
     };
 
     handleChange = e => {
@@ -47,16 +52,18 @@ class IntegrationEditModal extends Component {
         const { } = this.state;
 
         // create instance of updated data
-        const updatedIntegration = {
+        const revisedIntegration = {
 
         };
 
         // send updated data to /actions function
-        this.props.updateIntegration(updatedIntegration);
+        this.props.updateIntegration(revisedIntegration);
     };
 
     handleCancel = () => {
+        this.setState({
 
+        });
 
         this.toggle();
     };
@@ -65,6 +72,8 @@ class IntegrationEditModal extends Component {
 
         // pass id of integration to delete to the called action function
         this.props.deleteIntegration(id);
+
+        this.toggle();
     }
     
     render() {
@@ -74,9 +83,19 @@ class IntegrationEditModal extends Component {
 
         return (
             <Form onSubmit={this.handleSubmit}>
-                <Button type="button" onClick={this.handleDelete.bind(this)}>Delete</Button>
-                <Button type="button" onClick={this.handleCancel}>Cancel</Button>
-                <Button type="submit">Save</Button>
+                <FormGroup>
+                    <Label for=""></Label>
+                    <Input
+                    type=""
+                    name=""
+                    onChange={this.handleChange}
+                    />
+                </FormGroup>
+                <FormGroup>
+                    <Button type="button" onClick={this.handleDelete.bind(this)}>Delete</Button>
+                    <Button type="button" onClick={this.handleCancel}>Cancel</Button>
+                    <Button type="submit">Save</Button>
+                </FormGroup>
             </Form>
         );
     };
@@ -87,4 +106,6 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { updateIntegration, deleteIntegration })(IntegrationEditModal);
+const mapDispatchToProps = { editIntegration, updateIntegration, deleteIntegration, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(IntegrationEditModal);

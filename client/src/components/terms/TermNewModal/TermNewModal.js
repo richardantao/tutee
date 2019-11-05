@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import { newTerm, createTerm } from "../../../actions/data/terms.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "react-bootstrap";
@@ -18,7 +19,8 @@ class TermNewModal extends Component {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
         newTerm: PropTypes.func.isRequired,
-        createTerm: PropTypes.func.isRequired
+        createTerm: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
     
     componentDidMount() {
@@ -50,6 +52,8 @@ class TermNewModal extends Component {
         this.setState({
             open: !this.state.open
         });
+
+        this.props.clearErrors();
     };
 
     handleChange = e => {
@@ -68,10 +72,18 @@ class TermNewModal extends Component {
         };
 
         this.props.createTerm(newTerm);
+
+        this.toggle();
     };
 
     handleCancel = () => {
+        // reset state
+        this.setState({
+            
+        }); 
 
+        // close modal
+        this.toggle();
     };
 
     render() {
@@ -98,4 +110,6 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { newTerm, createTerm })(TermNewModal);
+const mapDispatchToProps = { newTerm, createTerm, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(TermNewModal);

@@ -62,4 +62,6 @@ const mapStateToProps = state => ({
 
 });
 
-export default connect(mapStateToProps, { })(Nav);
+const mapDispatchToProps = { };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Nav);

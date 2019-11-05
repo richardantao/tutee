@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { updateTask, deleteTask } from "../../../actions/data/tasks.action";
+import { editTask, updateTask, deleteTask } from "../../../actions/data/tasks.action";
 import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
@@ -23,21 +23,27 @@ class TaskEditModal extends Component {
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
-        error: PropTypes.object.isRequired
+        error: PropTypes.object.isRequired,
+        editTask: PropTypes.func.isRequired,
+        updateTask: PropTypes.func.isRequired,
+        deleteTask: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
 
     componentDidMount() {
-        this.fetchCourses();
+        this.props.editTask();
     };
 
-    componentDidUpdate() {
-
+    componentDidUpdate(prevProps) {
+        const { error, isAuthenticated } = this.props;
     };
 
     toggle = () => {
         this.setState({
             open: !this.state.open
         });
+
+        this.props.clearErrors();
     };
 
     handleChange = e => {
@@ -51,17 +57,24 @@ class TaskEditModal extends Component {
 
         const { title, course, type, deadline, completion, note } = this.state;
 
-        const updatedTask = { title, course, type, deadline, completion, note };
+        const revisedTask = { title, course, type, deadline, completion, note };
 
-        this.props.updateTask(updatedTask);
+        this.props.updateTask(revisedTask);
 
         // close modal
         this.toggle();
     };
 
     handleCancel = () => {
-
         // reset state and clear errors
+        this.setState({
+            title: "",
+            course: "",
+            type: "",
+            deadline: "",
+            completion: 0,
+            note: ""
+        });
 
         // close modal
         this.toggle();
@@ -91,7 +104,13 @@ class TaskEditModal extends Component {
                 </FormGroup>
                 <FormGroup>
                     <Label for="title">Title</Label>
-                    <Input type="text" name="title" placeholder="" value=""/>
+                    <Input 
+                    type="text"
+                    name="title" 
+                    placeholder="" 
+                    value=""
+                    onChange={this.handleChange}
+                    />
 
                     <Label for="course">Course</Label>
                     <Select value="">
@@ -99,16 +118,37 @@ class TaskEditModal extends Component {
                     </Select>
 
                     <Label for="type"></Label>
-                    <Input type="text" name="type" placeholder="Enter task type"/>
+                    <Input 
+                    type="text" 
+                    name="type" 
+                    placeholder="Enter task type"
+                    onChange={this.handleChange}
+                    />
 
                     <Label for="deadline"></Label>
-                    <Input type="date" name="deadline" placeholder="Enter task deadline"/>
+                    <Input 
+                    type="date" 
+                    name="deadline" 
+                    placeholder="Enter task deadline" 
+                    onChange={this.handleChange}
+                    />
 
                     <Label for="completion">Completion</Label>
-                    <Input type="range" name="completion" value=""/>
+                    <Input 
+                    type="range" 
+                    name="completion" 
+                    value="" 
+                    onChange={this.handleChange}
+                    />
 
                     <Label for="note">Description</Label>
-                    <Input type="textarea" name="note" placeholder="Enter description" value=""/>
+                    <Input 
+                    type="textarea" 
+                    name="note" 
+                    placeholder="Enter description" 
+                    value=""
+                    onChange={this.handleChange}
+                    />
                 </FormGroup>
                 <FormGroup>
                     <Button type="button" onClick={this.handleDelete.bind(this)}>Delete</Button>
@@ -125,4 +165,6 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { updateTask, deleteTask })(TaskEditModal);
+const mapDispatchToProps = { editTask, updateTask, deleteTask, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskEditModal);

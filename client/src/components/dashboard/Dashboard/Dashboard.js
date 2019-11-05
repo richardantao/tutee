@@ -4,9 +4,6 @@ import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { fetchDashItems } from "../../../actions/data/dashboard.action";
-import { editClass } from "../../../actions/data/classes.action";
-import { editTask } from "../../../actions/data/tasks.action";
-import { editEvaluation } from "../../../actions/data/evaluations.action";
 
 import { Button, Col, Row } from "reactstrap";
 
@@ -28,10 +25,7 @@ class Dashboard extends Component {
 		classes: PropTypes.object.isRequired,
 		tasks: PropTypes.object.isRequired,
 		evaluations: PropTypes.object.isRequired,
-		fetchDashItems: PropTypes.func.isRequired,
-		editClass: PropTypes.func.isRequired,
-		editTask: PropTypes.func.isRequired,
-		editEvaluation: PropTypes.func.isRequired
+		fetchDashItems: PropTypes.func.isRequired
 	};
 
 	componentDidMount() {
@@ -148,4 +142,6 @@ const mapStateToProps = state => ({
 	evaluations: state.dashEvaluations
 });
 
-export default connect(mapStateToProps, { fetchDashItems, editClass, editTask, editEvaluation })(Dashboard);
+const mapDispatchToProps = { fetchDashItems };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

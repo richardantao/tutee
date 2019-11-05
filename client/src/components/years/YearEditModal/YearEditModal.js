@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { updateYear, deleteYear } from "../../../actions/data/years.action";
+import { editYear, updateYear, deleteYear } from "../../../actions/data/years.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "react-bootstrap";
@@ -11,18 +12,24 @@ import "./YearEditModal.scss";
 
 class YearEditModal extends Component {
     state = {
-        open: false
+        open: false,
+        title: "",
+        start: "",
+        end: ""
     };
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
+        editYear: PropTypes.func.isRequired,
         updateYear: PropTypes.func.isRequired,
-        deleteYear: PropTypes.func.isRequired
+        deleteYear: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
     
     componentDidMount() {
-
+        // get data for year instance
+        this.props.editYear();
     };
 
     componentDidUpdate() {
@@ -49,6 +56,8 @@ class YearEditModal extends Component {
         this.setState({
             open: !this.state.open
         });
+
+        this.props.clearErrors();
     };
 
     handleChange = e => {
@@ -62,15 +71,20 @@ class YearEditModal extends Component {
 
         const { } = this.state;
 
-        const updatedYear = {
+        const revisedYear = {
 
         };
 
-        this.props.updateYear(updatedYear);
+        this.props.updateYear(revisedYear);
     };
 
     handleCancel = () => {
+        // reset state
+        this.setState({
 
+        });
+
+        this.toggle();
     };
 
     handleDelete = id => {
@@ -89,7 +103,7 @@ class YearEditModal extends Component {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Button type="button" onClick={this.handleDelete}>Delete Year</Button>
+                    <Button type="button" onClick={this.handleDelete.bind(this)}>Delete Year</Button>
                     <Button type="button" onClick={this.handleCancel}>Cancel</Button>
                     <Button type="submit">Update Year</Button>
                 </FormGroup>
@@ -103,7 +117,9 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { updateYear, deleteYear })(YearEditModal);
+const mapDispatchToProps = { editYear, updateYear, deleteYear };
+
+export default connect(mapStateToProps, mapDispatchToProps)(YearEditModal);
 
 
 

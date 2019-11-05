@@ -7,16 +7,10 @@ export default class DateDisplay extends Component {
         super(props);
 
         this.state = {
-            isLoading: true
+    
         }
     }
-
-    componentDidMount() {
-        this.setState({
-            isLoading: false
-        });
-    }
-    
+        
     render() {
 	    return <h4><Moment format="dddd, MMMM Do">{this.props.dateToFormat}</Moment></h4>
     }

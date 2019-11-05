@@ -9,7 +9,7 @@ import "./Errors.scss";
 
 class Errors extends Component {
     state = {
-
+        status: null
     };
 
     static propTypes = {
@@ -37,11 +37,16 @@ class Errors extends Component {
     };
 
     render() {
+        const { status } = this.state;
+
         return (
             <Fragment>
                 <Helmet>
 					<title>My Tutee | Error</title>
 				</Helmet>
+                <div>
+
+                </div>
             </Fragment>
         );
     };
@@ -52,4 +57,6 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { returnErrors, clearErrors })(Errors);
+const mapDispatchToProps = { returnErrors, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Errors);

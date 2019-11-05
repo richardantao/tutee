@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
-import { fetchEvaluations, fetchPastEvaluations, editEvaluation, } from "../../../actions/data/evaluations.action";
+import { fetchEvaluations, fetchPastEvaluations } from "../../../actions/data/evaluations.action";
 import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "reactstrap";
@@ -29,8 +29,7 @@ class Evaluations extends Component{
 		error: PropTypes.object.isRequired,
 		evaluations: PropTypes.object.isRequired,
 		fetchEvaluations: PropTypes.func.isRequired, 
-		fetchPastEvaluations: PropTypes.func.isRequired, 
-		editEvaluation: PropTypes.func.isRequired
+		fetchPastEvaluations: PropTypes.func.isRequired
 	};
 
 	componentDidMount() {
@@ -147,4 +146,6 @@ const mapStateToProps = state => ({
 	evaluations: state.evaluations
 });
 
-export default connect(mapStateToProps, { fetchEvaluations, fetchPastEvaluations, editEvaluation })(Evaluations);
+const mapDispatchToProps = { fetchEvaluations, fetchPastEvaluations };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Evaluations);

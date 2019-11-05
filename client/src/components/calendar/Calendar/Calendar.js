@@ -2,7 +2,9 @@ import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
-import { fetchClasses, editClass } from "../../../actions/data/classes.action";
+import { fetchClasses } from "../../../actions/data/classes.action";
+import { fetchTasks } from "../../../actions/data/tasks.action";
+import { fetchEvaluations } from "../../../actions/data/evaluations.action";
 import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "react-bootstrap";
@@ -24,20 +26,21 @@ import "./Calendar.scss";
 class Calendar extends Component {
 	state = {
 		display: "week",
-		classes: [],
-		editModal: false,
-		newModal: false
+		classes: []
 	};
 
 	static propTypes = {
 		isAuthenticated: PropTypes.bool,
 		error: PropTypes.object.isRequired,
 		fetchClasses: PropTypes.func.isRequired,
-		editClass: PropTypes.func.isRequired
+		fetchTasks: PropTypes.func.isRequired,
+		fetchEvaluations: PropTypes.func.isRequired
 	};
 
 	componentDidMount() {
-
+		this.props.fetchClasses();
+		this.props.fetchTasks();
+		this.props.fetchEvaluations();
 	};
 
 	componentDidUpdate(prevProps) {
@@ -106,7 +109,6 @@ class Calendar extends Component {
 					{ newModal ? (
 						<ClassNewModal className="modal"/>
 					): null}
-
 				</div>
 			</Fragment>
 		);
@@ -118,4 +120,6 @@ const mapStateToProps = state => ({
 	error: state.error
 });
 
-export default connect(mapStateToProps, { fetchClasses, editClass })(Calendar);
+const mapDispatchToProps = { fetchClasses, fetchTasks, fetchEvaluations };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

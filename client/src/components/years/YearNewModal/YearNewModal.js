@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { createYear } from "../../../actions/data/years.action";
+import { newYear, createYear } from "../../../actions/data/years.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "react-bootstrap";
@@ -17,14 +18,20 @@ class YearNewModal extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
-        createYear: PropTypes.func.isRequired
+        newYear: PropTypes.func.isRequired,
+        createYear: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
     
     componentDidMount() {
-    
+        this.setState({
+            open: true
+        });
+
+        this.props.newYear();
     };
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
         const { error, isAuthenticated } = this.props;
 
         if(error) {
@@ -48,6 +55,8 @@ class YearNewModal extends Component {
         this.setState({
             open: !this.state.open
         });
+
+        this.props.clearErrors();
     };
 
     handleChange = e => {
@@ -69,7 +78,11 @@ class YearNewModal extends Component {
     };
 
     handleCancel = () => {
+        this.setState({
+            
+        });
 
+        this.toggle();
     };
 
     render() {
@@ -96,4 +109,6 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { createYear })(YearNewModal);
+const mapDispatchToProps = { newYear, createYear, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(YearNewModal);

@@ -90,5 +90,7 @@ const mapStateToProps = state => ({
 	error: state.error
 });
 
-export default connect(mapStateToProps, {  })(Search);
+const mapDispatchToProps = { };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
 

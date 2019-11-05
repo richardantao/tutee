@@ -156,4 +156,6 @@ const mapStateToProps = state => ({
     error: state.error   
 });
 
-export default connect(mapStateToProps, { register, clearErrors })(Register);
+const mapDispatchToProps = { register, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

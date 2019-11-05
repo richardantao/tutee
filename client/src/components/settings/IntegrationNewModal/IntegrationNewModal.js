@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { createIntegration } from "../../../actions/data/settings.action";
+import { newIntegration, createIntegration } from "../../../actions/data/settings.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import { Button, Form, FormGroup, Label, Input } from "react-bootstrap";
@@ -16,14 +17,19 @@ class IntegrationNewModal extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
-        createIntegration: PropTypes.func.isRequired
+        newIntegration: PropTypes.func.isRequired,
+        createIntegration: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
 
     componentDidMount() {
 
+        this.props.newIntegration();
     };
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
+        const { error, isAuthenticated } = this.props;
+
 
     };
 
@@ -31,6 +37,8 @@ class IntegrationNewModal extends Component {
         this.setState({
             open: !this.state.open
         });
+
+        this.props.clearErrors();
     };
 
     handleChange = e => {
@@ -50,10 +58,16 @@ class IntegrationNewModal extends Component {
 
         // 
         this.props.createIntegration(newIntegration);
+
+        this.toggle();
     };
 
     handleCancel = () => {
+        this.setState({
 
+        });
+
+        this.toggle();
     };
 
     render() {
@@ -76,4 +90,6 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { createIntegration })(IntegrationNewModal);
+const mapDispatchToProps = { newIntegration, createIntegration, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(IntegrationNewModal);

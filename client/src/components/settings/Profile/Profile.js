@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import { fetchProfile, updateProfile } from "../../../actions/data/settings.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import { Col, Row, Form, FormGroup, Label, Input } from "reactstrap";
@@ -12,6 +13,9 @@ import "./Profile.scss";
 
 class Profile extends Component {
 	state = {
+		first: "",
+		last: "",
+		email: "",
 
 	};
 
@@ -19,7 +23,8 @@ class Profile extends Component {
 		isAuthenticated: PropTypes.bool,
 		error: PropTypes.object.isRequired,
 		fetchProfile: PropTypes.func.isRequired,
-		updateProfile: PropTypes.func.isRequired
+		updateProfile: PropTypes.func.isRequired,
+		clearErrors: PropTypes.func.isRequired
 	};
 
 	componentDidMount() {
@@ -50,6 +55,10 @@ class Profile extends Component {
 		this.setState({
 			[e.target.name]: [e.target.value]
 		});
+	};
+
+	handleCancel = () => {
+		
 	};
 
 	handleSubmit = e => {
@@ -150,6 +159,7 @@ class Profile extends Component {
 				</Row>
 				<Row>
 					<Col>
+						<Button type="button" onClick={this.handleCancel}>Cancel Changes</Button>
 						<Button type="submit">Save Changes</Button>
 					</Col>
 				</Row>
@@ -163,5 +173,7 @@ const mapStateToProps = state => ({
 	error: state.error
 });
 
-export default connect(mapStateToProps, { fetchProfile, updateProfile })(Profile);
+const mapDispatchToProps = { fetchProfile, updatedProfile, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 

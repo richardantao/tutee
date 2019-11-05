@@ -79,4 +79,6 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { createTask })(DashboardHeader);
+const mapDispatchToProps = { createTask };
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardHeader);

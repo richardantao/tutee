@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 import { newModule, createModule } from "../../../actions/data/modules.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import { Button } from "react-bootstrap";
@@ -18,17 +19,20 @@ class ModuleNewModal extends Component {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
         newModule: PropTypes.func.isRequired, 
-        createModule: PropTypes.func.isRequired
+        createModule: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
     
     componentDidMount() {
-
+        this.setState({
+            open: true
+        });
         // load options for new Module
         this.props.newModule();
     };
 
     componentDidUpdate() {
-        const { error } = this.props;
+        const { error, isAuthenticated } = this.props;
 
         if(error) {
             this.setState({
@@ -49,7 +53,7 @@ class ModuleNewModal extends Component {
 
     handleChange = e => {
         this.setState({
-            [e.target.name]: [e.target.value]
+            [e.target.name]: e.target.value
         });
     };
 
@@ -64,10 +68,16 @@ class ModuleNewModal extends Component {
 
 
         this.props.createModule(newModule);
+
+        this.toggle();
     };
 
     handleCancel = () => {
+        this.setState({
 
+        });
+
+        this.toggle();
     };
 
     render() {
@@ -94,4 +104,6 @@ const mapStateToProps = state => ({
     error: state.error 
 });
 
-export default connect(mapStateToProps, { newModule, createModule })(ModuleNewModal);
+const mapDispatchToProps = { newModule, createModule, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModuleNewModal);

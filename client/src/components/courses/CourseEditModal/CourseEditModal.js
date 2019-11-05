@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { updateCourse, deleteCourse } from "../../../actions/data/courses.action";
+import { editCourse, updateCourse, deleteCourse } from "../../../actions/data/courses.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
@@ -16,17 +17,19 @@ class CourseEditModal extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
+        editCourse: PropTypes.func.isRequired,
         updateCourse: PropTypes.func.isRequired,
-        deleteCourse: PropTypes.func.isRequired
+        deleteCourse: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
     
     componentDidMount() {
 
-        this.props.getUserTerms(); // yet to define
+        this.props.editCourse();
     };
 
-    componentDidUpdate() {
-
+    componentDidUpdate(prevProps) {
+        const { error, isAuthenticated } = this.props;
     };
 
     toggle = () => {
@@ -37,7 +40,7 @@ class CourseEditModal extends Component {
 
     handleChange = e => {
         this.setState({
-            [e.target.name]: [e.target.value]
+            [e.target.name]: e.target.value
         });
     };
 
@@ -46,31 +49,42 @@ class CourseEditModal extends Component {
 
         const { } = this.state;
         
-        const updatedCourse = {
+        const revisedCourse = {
 
         };
 
-        this.props.updateCourse(updatedCourse);
+        this.props.updateCourse(revisedCourse);
+
+        this.toggle();
     };
 
     handleCancel = () => {
+        this.setState({
 
+        });
+
+        this.toggle();
     };
 
     handleDelete = id => {
-
-
         this.props.deleteCourse(id);
+
+        this.toggle();
     };
 
     render() {
         return (
             <Form onSubmit={this.handleSubmit} className="">
-                <FormGroup>
-
+                <FormGroup className="form-data">
+                    <Label for=""></Label>
+                    <Input
+                    type=""
+                    name=""
+                    onChange={this.handleChange}
+                    />
                 </FormGroup>
                 <FormGroup className="form-actions">
-                    <Button type="button" onClick={this.handleDelete}>Delete</Button>
+                    <Button type="button" onClick={this.handleDelete.bind(this)}>Delete</Button>
                     <Button type="button" onClick={this.handleCancel}>Cancel</Button>
                     <Button type="submit">Save</Button>
                 </FormGroup>
@@ -84,5 +98,7 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { updateCourse, deleteCourse })(CourseEditModal);
+const mapDispatchToProps = { editCourse, updateCourse, deleteCourse, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(CourseEditModal);
 

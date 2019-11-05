@@ -194,4 +194,6 @@ const mapStateToProps = state => ({
     error: state.auth
 });
 
-export default connect(mapStateToProps, { fetchYears })(Academics);
+const mapDispatchToProps = { fetchYears };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Academics);

@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { createTask } from "../../../actions/data/tasks.action";
+import { newTask, createTask } from "../../../actions/data/tasks.action";
 import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
-import { Button } from "react-bootstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+
 import "./TaskNewModal.scss";
 
 class TaskNewModal extends Component {
@@ -21,19 +22,24 @@ class TaskNewModal extends Component {
 
     static propTypes = {
         error: PropTypes.object.isRequired,
-        isAuthenticated: PropTypes.bool
+        isAuthenticated: PropTypes.bool,
+        newTask: PropTypes.func.isRequired,
+        createTask: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     }
 
     componentDidMount() {
 
         // Get courses for selection upon rendering of modal
-        this.props.fetchCourses();
+        this.props.newTask();
     };
 
     toggle = () => {
         this.setState({
             open: !this.state.open
         });
+
+        this.props.clearErrors();
     };
 
     handleChange = e => {
@@ -43,7 +49,7 @@ class TaskNewModal extends Component {
     };
 
     handleCancel = e => {
-        
+        this.props.toggle();
     };
 
     handleSubmit = e => {
@@ -61,30 +67,34 @@ class TaskNewModal extends Component {
     };
     
     render() {
-        return(
-            <form className="modal">
-                <div className="modal-header">
+        return (
+            <Form onSubmit={this.handleSubmit}>
+                <FormGroup className="modal-header">
                     <h3>New Task</h3>
-                </div>
-                <div className="modal-body">
-                    <div>
-                        <label for=""></label>
-                        <input type="" name=""/>
-                    </div>
-                </div>
-                <div className="modal-action">
-                    <Button onCancel={this.handleCancel}>Cancel</Button>
-                    <Button onSubmit={this.handleSubmit}>{this.props.action}</Button>
-                </div>
-            </form>
+                </FormGroup>
+                <FormGroup className="modal-body">
+                    <Label for=""></Label>
+                    <Input 
+                    type="" 
+                    name=""
+                    onChange={this.handleChange}
+                    />
+                </FormGroup>
+                <FormGroup className="modal-action">
+                    <Button type="button" onCancel={this.handleCancel}>Cancel</Button>
+                    <Button type="submit">Add New Task</Button>
+                </FormGroup>
+            </Form>
         );
     };
 };
 
 const mapStateToProps = state => ({
-    tasks: state.tasks,
     isAuthenticated: state.auth.isAuthenticated,
-    error: state.error
+    error: state.error,
+    tasks: state.tasks
 });
 
-export default connect(mapStateToProps, { createTask })(TaskNewModal);
+const mapDispatchToProps = { newTask, createTask, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskNewModal);

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { createCourse } from "../../../actions/data/courses.action";
+import { newCourse, createCourse } from "../../../actions/data/courses.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
-import { Button } from "reactstrap";
-import { Form, FormGroup, Label, Input } from "react-bootstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 import "./CourseNewModal.scss";
 
@@ -17,15 +17,21 @@ class CourseNewModal extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
-        createCourse: PropTypes.func.isRequired
+        newCourse: PropTypes.func.isRequired,
+        createCourse: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
 
     componentDidMount() {
-        this.props.getUserTerms();
+        this.setState({
+            open: true
+        });
+
+        this.props.newCourse();
     };
 
     componentDidUpdate() {
-        const { error } = this.props;
+        const { error, isAuthenticated } = this.props;
 
         if(error) {
             this.setState({
@@ -46,15 +52,20 @@ class CourseNewModal extends Component {
 
     handleChange = e => {
         this.setState({
-            [e.target.name]: [e.target.value]
+            [e.target.name]: e.target.value
         });
     };
 
     handleCancel = () => {
+        this.setState({
 
+        });
+
+        this.toggle();
     };
 
     handleSubmit = e => {
+        e.preventDefault();
 
         const { } = this.state;
 
@@ -64,13 +75,20 @@ class CourseNewModal extends Component {
 
         // attempt to create new course
         this.props.createCourse(newCourse);
+
+        this.toggle();
     };
     
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
                 <FormGroup>
-
+                    <Label></Label>
+                    <Input
+                    type=""
+                    name=""
+                    onChange={this.handleChange}
+                    />
                 </FormGroup>
                 <FormGroup>
                     <Button type="button" onClick={this.handleCancel}>Cancel</Button>
@@ -86,4 +104,6 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { createCourse })(CourseNewModal);
+const mapDispatchToProps = { newCourse, createCourse, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(CourseNewModal);

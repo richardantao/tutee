@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-import { createClass } from "../../../actions/data/classes.action";
 import { connect } from "react-redux";
+import { newClass, createClass } from "../../../actions/data/classes.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
-import { Button } from "react-bootstrap";
-import { Form, FormGroup, Label, Input } from "reactstrap";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 import "./ClassNewModal.scss";
 
@@ -17,13 +17,17 @@ class ClassNewModal extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
+        newClass: PropTypes.func.isRequired,
         createClass: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
     
     componentDidMount() {
-        
-        // load options for selecting parent
-        this.props.fetchParents();
+        this.setState({
+            open: true
+        }); 
+
+        this.props.newClass();
     };
 
     componentDidUpdate() {
@@ -44,11 +48,13 @@ class ClassNewModal extends Component {
         this.setState({
             open: !this.state.open
         }); 
+
+        this.props.clearErrors();
     };
 
     handleChange = e => {
         this.setState({
-            [e.target.name]: [e.target.value]
+            [e.target.name]: e.target.value
         });
     };
 
@@ -62,10 +68,16 @@ class ClassNewModal extends Component {
         };
 
         this.props.createClass(newClass);
+
+        this.toggle();
     };
 
-    handleCancel = e => {
+    handleCancel = () => {
+        this.setState({
 
+        });
+
+        this.toggle();
     };
 
     render() {
@@ -93,4 +105,6 @@ const mapStateToProps = state => ({
     error: state.error,
 });
 
-export default connect(mapStateToProps, { createClass })(ClassNewModal);
+const mapDispatchToProps = { newClass, createClass, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ClassNewModal);

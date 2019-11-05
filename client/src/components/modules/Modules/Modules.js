@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { fetchModules } from "../../../actions/data/modules.action"
+import { fetchModules, editModule } from "../../../actions/data/modules.action"
 import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "reactstrap";
@@ -74,4 +74,6 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { fetchModules })(Modules);
+const mapDispatchToProps = { fetchModules, editModule };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Modules);

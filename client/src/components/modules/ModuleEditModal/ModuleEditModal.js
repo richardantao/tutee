@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { updateModule, deleteModule } from "../../../actions/data/modules.action";
+import { editModule, updateModule, deleteModule } from "../../../actions/data/modules.action";
+import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 
 import { Button } from "react-bootstrap";
@@ -17,16 +18,23 @@ class ModuleEditModal extends Component {
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
+        editModule: PropTypes.func.isRequired,
         updateModule: PropTypes.func.isRequired, 
-        deleteModule: PropTypes.func.isRequired
+        deleteModule: PropTypes.func.isRequired,
+        clearErrors: PropTypes.func.isRequired
     };
     
     componentDidMount() {
-
+        // set modal to open
+        this.setState({
+            open: true
+        });
+        // get data for modal
+        this.props.editModule();
     };
 
     componentDidUpdate() {
-        const { error } = this.props;
+        const { error, isAuthenticated } = this.props;
 
         if(error) {
             this.setState({
@@ -43,6 +51,8 @@ class ModuleEditModal extends Component {
         this.setState({
             open: !this.state.open
         });
+
+        this.props.clearErrors();
     };
 
     handleChange = e => {
@@ -56,21 +66,25 @@ class ModuleEditModal extends Component {
 
         const { } = this.state;
 
-        const updatedModule = {
+        const revisedModule = {
 
         };
 
-
-        this.props.updateModule(updatedModule);
+        this.props.updateModule(revisedModule);
     };
 
     handleCancel = () => {
+        this.setState({
 
+        });
+
+        this.toggle();
     };
     
     handleDelete = id => {
-
         this.props.deleteModule(id);
+
+        this.toggle();
     };
 
     render() {
@@ -84,7 +98,7 @@ class ModuleEditModal extends Component {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Button type="button" onClick={this.handleDelete}>Delete Module</Button>
+                    <Button type="button" onClick={this.handleDelete.bind(this)}>Delete Module</Button>
                     <Button type="button" onClick={this.handleCancel}>Cancel</Button>
                     <Button type="submit">Save Module</Button>
                 </FormGroup>
@@ -98,5 +112,7 @@ const mapStateToProps = state => ({
     error: state.error 
 });
 
-export default connect(mapStateToProps, { updateModule, deleteModule })(ModuleEditModal);
+const mapDispatchToProps = { editModule, updateModule, deleteModule, clearErrors };
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModuleEditModal);
 

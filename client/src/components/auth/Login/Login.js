@@ -109,7 +109,7 @@ class Login extends Component {
                                 </Button>
                             </FormGroup>
                             <FormGroup>
-                                <a href="#" className="forgot">Forgot password?</a>
+                                <a href="forget.html" className="forgot">Forgot password?</a>
                             </FormGroup>
                         </Form>
                         <div className="create">
@@ -128,9 +128,6 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(
-    mapStateToProps, { 
-        login, clearErrors 
-    }
-)
-(Login);
+const mapDispatchToProps = { login, clearErrors }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

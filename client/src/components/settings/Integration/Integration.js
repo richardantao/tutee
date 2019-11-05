@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { fetchIntegrations, editIntegration } from "../../../actions/data/settings.action";
+import { fetchIntegrations } from "../../../actions/data/settings.action";
 import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "react-bootstrap";
@@ -20,8 +20,7 @@ class Integration extends Component {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
         integrations: PropTypes.object.isRequired,
-        fetchIntegrations: PropTypes.func.isRequired,
-        editIntegration: PropTypes.func.isRequired
+        fetchIntegrations: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -81,4 +80,6 @@ const mapStateToProps = state => ({
     integrations: state.integrations
 });
 
-export default connect(mapStateToProps, { fetchIntegrations, editIntegration })(Integration);
+const mapDispatchToProps = { fetchIntegrations };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Integration);

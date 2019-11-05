@@ -49,5 +49,7 @@ const mapStateToProps = state => ({
 	error: state.error
 });
 
-export default connect(mapStateToProps, { countData })(Counter);
+const mapDispatchToProps = { countData };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
 

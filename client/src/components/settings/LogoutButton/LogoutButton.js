@@ -29,5 +29,7 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-export default connect(mapStateToProps, { logout })(LogoutButton);
+mapDispatchToProps = { logout };
+
+export default connect(mapStateToProps, mapDispatchToProps)(LogoutButton);
 

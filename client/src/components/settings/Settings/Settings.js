@@ -20,18 +20,19 @@ import "./Settings.scss";
 
 class Settings extends Component {
 	state = {
-		form: "profile"
+		form: null
 	};
 
 	static propTypes = {
 		isAuthenticated: PropTypes.bool,
 		error: PropTypes.object.isRequired,
-        logout: PropTypes.func.isRequired,
-        clearErrors: PropTypes.func.isRequired
+        logout: PropTypes.func.isRequired
 	};
 
 	componentDidMount() {
-		
+		this.setState({
+			form: "profile"
+		});
 	};
 
 	componentDidUpdate(prevProps) {
@@ -58,32 +59,24 @@ class Settings extends Component {
 		this.setState({
 			form: "profile"
 		});
-
-		this.props.fetchProfile();
 	};
 
 	handlePassword = () => {
 		this.setState({
 			form: "password"
 		});
-
-		this.props.fetchPassword();
 	};
 
 	handlePreferences = () => {
 		this.setState({
 			form: "preferences"
 		});
-
-		this.props.fetchPreferences();
 	};
 
 	handleIntegrations = () => {
 		this.setState({
 			form: "integration"
 		});
-
-		this.props.fetchIntegrations();
 	};
 
 	handleLogout = () => {
@@ -162,4 +155,6 @@ const mapStateToProps = state => ({
 	error: state.error
 });
 
-export default connect(mapStateToProps, { logout })(Settings);
+const mapDispatchToProps = { logout };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);

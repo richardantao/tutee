@@ -15,7 +15,7 @@ import Evaluations from "./components/evaluations/Evaluations";
 import Search from "./components/search/Search";
 import Settings from "./components/settings/Settings";
 import Help from "./components/help/Help";
-import Errors from "./components/global/Errors";
+import Errors from "./components/errors/Errors";
 
 import "./App";
 import './App.scss';

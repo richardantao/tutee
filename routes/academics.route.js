@@ -1,11 +1,11 @@
 const router = require("express").Router();
-const controller = require("../controllers/courses.controller");
+const controller = require("../controllers/academics.controller");
 
 // middleware
 const auth = require("../middleware/auth.middleware");
 const validateYear = require("../middleware/validation/years.validation");
 const validateTerm = require("../middleware/validation/terms.validation");
-const validateCourse = require("../middleware/validation/courses.validation");
+const validateCourse = require("../middleware/validation/academics.validation");
 const validateModule = require("../middleware/validation/modules.validation");
 
 // @route /courses/
@@ -72,27 +72,27 @@ router.delete("/terms/delete/:termId", auth, validateTerm.delete, controller.ter
 // @route /courses/edit/:courseId
 // @desc edit course instace
 // @access PRIVATE
-router.get("/edit/:courseId", auth, controller.coursesEdit);
+router.get("/courses/edit/:courseId", auth, controller.coursesEdit);
 
 // @route /courses/years/edit/:courseId
 // @desc get form to add new course
 // @access PRIVATE
-router.get("/new", auth, controller.coursesNew);
+router.get("/courses/new", auth, controller.coursesNew);
 
 // @route /courses/create
 // @desc create new course
 // @access PRIVATE
-router.post("/create", auth, validateCourse.create, controller.coursesCreate);
+router.post("/courses/create", auth, validateCourse.create, controller.coursesCreate);
 
 // @route /courses/update/:courseId
 // @desc update course instance
 // @access PRIVATE
-router.put("/update/:courseId", auth, validateCourse.update, controller.coursesUpdate);
+router.put("/courses/update/:courseId", auth, validateCourse.update, controller.coursesUpdate);
 
 // @route /courses/delete/:courseId
 // @desc delete course instance
 // @access PRIVATE
-router.delete("/delete/:courseId", auth, validateCourse.delete, controller.coursesDelete);
+router.delete("/courses/delete/:courseId", auth, validateCourse.delete, controller.coursesDelete);
 
 // modules
 

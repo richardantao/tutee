@@ -1,4 +1,9 @@
-import { LOADING_CLASSES, FETCH_CLASSES, EDIT_CLASS, CREATE_CLASS, UPDATE_CLASS, DELETE_CLASS } from "../types";
+import { 
+    LOADING_CLASSES, 
+    FETCH_CLASSES, EDIT_CLASS, 
+    NEW_CLASS, CREATE_CLASS, 
+    UPDATE_CLASS, DELETE_CLASS 
+} from "../types";
 import { tokenConfig } from "../auth/auth.action";
 import { returnErrors } from "../auth/errors.action";
 import axios from "axios";
@@ -29,6 +34,19 @@ export const editClass = id => (dispatch, getState) => {
     .then(res => dispatch({ 
         type: EDIT_CLASS,
         payload: id // or object ?
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
+
+export const newClass = modules => (dispatch, getState) => {
+    dispatch(setLoading());
+
+    axios.get("/calendar/new", modules, tokenConfig(getState))
+    .then(res => dispatch({ 
+        type: NEW_CLASS,
+        payload: res.data
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)

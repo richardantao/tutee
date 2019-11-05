@@ -1,6 +1,7 @@
 import { 
-    LOADING_INTEGRATIONS , FETCH_INTEGRATIONS, 
-    EDIT_INTEGRATION, CREATE_INTEGRATION, 
+    LOADING_INTEGRATIONS, 
+    FETCH_INTEGRATIONS, EDIT_INTEGRATION, 
+    NEW_INTEGRATION, CREATE_INTEGRATION, 
     UPDATE_INTEGRATION, DELETE_INTEGRATION 
 } from "../types";
 import { tokenConfig } from "../auth/auth.action";
@@ -33,6 +34,19 @@ export const editIntegration = id => (dispatch, getState) => {
     .then(res => dispatch({
         type: EDIT_INTEGRATION,
         payload: id // verify
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
+
+export const newIntegration = () => (dispatch, getState) => {
+    dispatch(setLoading());
+
+    axios.post("/settings/integrations/new", tokenConfig(getState))
+    .then(res => dispatch({
+        type: NEW_INTEGRATION, 
+        payload: res.data
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)

@@ -1,7 +1,8 @@
 import { 
     LOADING_EVALUATIONS, 
     FETCH_EVALUATIONS, FETCH_PAST_EVALUATIONS,
-    EDIT_EVALUATION, CREATE_EVALUATION, 
+    EDIT_EVALUATION, 
+    NEW_EVALUATION, CREATE_EVALUATION, 
     UPDATE_EVALUATION, DELETE_EVALUATION 
 } from "../types";
 import { tokenConfig } from "../auth/auth.action";
@@ -47,6 +48,19 @@ export const editEvaluation = id => (dispatch, getState) => {
     .then(res => dispatch({
         type: EDIT_EVALUATION,
         payload: id // verify
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
+
+export const newEvaluation = courses => (dispatch, getState) => {
+    dispatch(setLoading());
+
+    axios.get("/evaluations/new", courses, tokenConfig(getState))
+    .then(res => dispatch({
+        type: NEW_EVALUATION,
+        payload: res.data
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)

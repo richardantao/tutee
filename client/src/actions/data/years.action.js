@@ -1,4 +1,8 @@
-import { LOADING_YEARS, FETCH_YEARS, EDIT_YEAR, CREATE_YEAR, UPDATE_YEAR, DELETE_YEAR } from "../types";
+import { LOADING_YEARS, 
+    FETCH_YEARS, EDIT_YEAR,
+    NEW_YEAR, CREATE_YEAR, 
+    UPDATE_YEAR, DELETE_YEAR 
+} from "../types";
 import { tokenConfig } from "../auth/auth.action";
 import { returnErrors } from "../auth/errors.action";
 import axios from "axios";
@@ -29,6 +33,19 @@ export const editYear = id => (dispatch, getState) => {
     .then(res => dispatch({
         type: EDIT_YEAR,
         payload: id // verify
+    }))
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
+
+export const newYear = () => (dispatch, getState) => {
+    dispatch(setLoading());
+
+    axios.post("/courses/years/new", tokenConfig(getState))
+    .then(res => dispatch({
+        type: NEW_YEAR, 
+        payload: res.data
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)

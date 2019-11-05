@@ -1,4 +1,4 @@
-import { LOADING_TASKS, FETCH_TASKS, FETCH_PAST_TASKS, EDIT_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK } from "../types";
+import { LOADING_TASKS, FETCH_TASKS, FETCH_PAST_TASKS, EDIT_TASK, CREATE_TASK, UPDATE_TASK, DELETE_TASK, NEW_TASK } from "../types";
 import { tokenConfig } from "../auth/auth.action";
 import { returnErrors } from "../auth/errors.action";
 import axios from "axios";
@@ -42,9 +42,22 @@ export const editTask = id => (dispatch, getState) => {
     .then(res => {
         dispatch({
             type: EDIT_TASK,
-            payload: id // verify
+            payload: id
         });
     })
+    .catch(err => dispatch(
+        returnErrors(err.data, err.status)
+    ));
+};
+
+export const newTask = courses => (dispatch, getState) => {
+    dispatch(setLoading());
+
+    axios.get("/tasks/new", courses, tokenConfig(getState))
+    .then(res => dispatch({
+        type: NEW_TASK,
+        payload: res.data
+    }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status)
     ));
@@ -63,13 +76,13 @@ export const createTask = newTask => (dispatch, getState) => {
     ));
 };
 
-export const updateTask = id => (dispatch, getState) => {
+export const updateTask = (id, data) => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.put(`/tasks/update/${id}`, tokenConfig(getState))
+    axios.put(`/tasks/update/${id}`, data, tokenConfig(getState))
     .then(res => dispatch({
         type: UPDATE_TASK,
-        payload: id // verify
+        payload: [id, data]
     }))
     .catch(err => dispatch(
         returnErrors(err.data, err.status))

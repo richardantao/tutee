@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 import { connect } from "react-redux";
 import { createTask } from "../../../actions/data/tasks.action";
@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "react-bootstrap";
 
-import NewModal from "../../tasks/TaskNewModal";
+import TaskNewModal from "../../tasks/TaskNewModal";
 import Counter from "../Counter";
 import DateDisplay from "../Date";
 
@@ -50,7 +50,7 @@ class DashboardHeader extends Component {
         const { open } = this.state;
 
         return (
-            <div>
+            <Fragment>
                 <Col className="dashboard-header">
                     <h3>Today</h3>
                     <DateDisplay/>
@@ -67,9 +67,9 @@ class DashboardHeader extends Component {
                 </Col>
 
                 { open ? (
-                    <NewModal className="modal"/>
+                    <TaskNewModal className="modal"/>
                 ): null }
-            </div>
+            </Fragment>
         );
     };
 };

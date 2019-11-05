@@ -29,9 +29,9 @@ class Dashboard extends Component {
 	};
 
 	componentDidMount() {
-		this.props.fetchClasses();
-		this.props.fetchTasks();
-		this.props.fetchEvaluations();
+		// this.props.fetchClasses();
+		// this.props.fetchTasks();
+		// this.props.fetchEvaluations();
 	};
 
 	componentDidUpdate() {
@@ -58,54 +58,54 @@ class Dashboard extends Component {
 	render() {
 		const { classes, tasks, evaluations } = this.props;
 
-		const classRecords = classes.map(({ _id, module, course, time, location }) => (
-			<Row key={_id} class="class-record">
-				<Col>
-					<h5>{module}</h5>				
-					<h6>{course}</h6>
-				</Col>
-				<Col>
-					<p>{time}</p>
-					<p>{location}</p>
-				</Col>
-				<Col>
-					<Button onClick={this.classModal}></Button>
-				</Col>
-			</Row>
-		));
+		// const classRecords = classes.map(({ _id, module, course, time, location }) => (
+		// 	<Row key={_id} class="class-record">
+		// 		<Col>
+		// 			<h5>{module}</h5>				
+		// 			<h6>{course}</h6>
+		// 		</Col>
+		// 		<Col>
+		// 			<p>{time}</p>
+		// 			<p>{location}</p>
+		// 		</Col>
+		// 		<Col>
+		// 			<Button onClick={this.classModal}></Button>
+		// 		</Col>
+		// 	</Row>
+		// ));
 
-		const taskRecords = tasks.map(({ _id, title, course, type, deadline }) => (
-			<Row key={_id} className="task-record">
-				<Col>
-					<h5>{title}</h5>
-					<h6>{course}</h6>
-				</Col>
-				<Col>
-					<p>{type}</p>
-					<p>{deadline}</p>
-				</Col>
-				<Col>
-					<Button onClick={this.editTaskModal}></Button>
-				</Col>
-			</Row>
-		));
+		// const taskRecords = tasks.map(({ _id, title, course, type, deadline }) => (
+		// 	<Row key={_id} className="task-record">
+		// 		<Col>
+		// 			<h5>{title}</h5>
+		// 			<h6>{course}</h6>
+		// 		</Col>
+		// 		<Col>
+		// 			<p>{type}</p>
+		// 			<p>{deadline}</p>
+		// 		</Col>
+		// 		<Col>
+		// 			<Button onClick={this.editTaskModal}></Button>
+		// 		</Col>
+		// 	</Row>
+		// ));
 
-		const evaluationRecords = evaluations.map(({ _id, title, course, date, time, location}) => (
-			<Row key={_id} className="eval-record">
-				<Col>
-					<h5>{title}</h5>
-					<h6>{course}</h6>			
-				</Col>
-				<Col>
-					<p>{date}</p>
-					<p>{time}</p>
-					<p>{location}</p>
-				</Col>
-				<Col>
-					<Button onClick={this.evaluationModal}></Button>
-				</Col>
-			</Row>
-		));
+		// const evaluationRecords = evaluations.map(({ _id, title, course, date, time, location}) => (
+		// 	<Row key={_id} className="eval-record">
+		// 		<Col>
+		// 			<h5>{title}</h5>
+		// 			<h6>{course}</h6>			
+		// 		</Col>
+		// 		<Col>
+		// 			<p>{date}</p>
+		// 			<p>{time}</p>
+		// 			<p>{location}</p>
+		// 		</Col>
+		// 		<Col>
+		// 			<Button onClick={this.evaluationModal}></Button>
+		// 		</Col>
+		// 	</Row>
+		// ));
 
 		return (
 			<Fragment>
@@ -119,13 +119,13 @@ class Dashboard extends Component {
 					</Row>
 					<Row id="dashboard-columns" className="body">
 						<Col id="classes-column">
-							{classRecords}
+							{/* {classRecords} */}
 						</Col>
 						<Col id="tasks-column">
-							{taskRecords}
+							{/* {taskRecords} */}
 						</Col>
 						<Col id="evals-column">
-							{evaluationRecords}
+							{/* {evaluationRecords} */}
 						</Col>
 					</Row>
 				</div>

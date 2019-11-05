@@ -12,10 +12,19 @@ import modules from "./data/modules.reducer";
 import classes from "./data/classes.reducer";
 import evaluations from "./data/evaluations.reducer";
 import tasks from "./data/tasks.reducer";
+import integrations from "./data/integrations.reducer";
 
-// organisms
-import nav from "./organisms/nav.reducer";
+// functions
+import counter from "./functions/counter.reducer";
+
+// views
+import nav from "./views/nav.reducer";
 
 //molecules
 
-export default combineReducers({ auth, errors, years, terms, courses, modules, classes, evaluations, tasks, nav });
+const authReducers = { auth, errors };
+const dataReducers = { years, terms, courses, modules, classes, evaluations, tasks, integrations };
+const functionReducers = { counter }
+const viewReducers = { nav }
+
+export default combineReducers(authReducers, dataReducers, functionReducers, viewReducers);

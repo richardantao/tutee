@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
-import { fetchYears } from "../../../actions/data/years.action"; 
 import PropTypes from "prop-types"; 
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -45,13 +44,11 @@ class Academics extends Component {
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
-		error: PropTypes.object.isRequired,
-		fetchYears: PropTypes.func.isRequired
+		error: PropTypes.object.isRequired
     };
 
     componentDidMount() {
 
-		this.props.fetchYears();
     };
 
     componentDidUpdate(prevProps) {
@@ -194,6 +191,6 @@ const mapStateToProps = state => ({
     error: state.auth
 });
 
-const mapDispatchToProps = { fetchYears };
+const mapDispatchToProps = { };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Academics);

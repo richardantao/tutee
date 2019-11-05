@@ -173,7 +173,7 @@ const mapStateToProps = state => ({
 	error: state.error
 });
 
-const mapDispatchToProps = { fetchProfile, updatedProfile, clearErrors };
+const mapDispatchToProps = { fetchProfile, updateProfile, clearErrors };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);
 

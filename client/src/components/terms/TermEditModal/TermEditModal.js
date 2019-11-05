@@ -123,7 +123,7 @@ const mapStateToProps = state => ({
     error: state.error
 });
 
-const mapDispatchToProps = { editTerm, updatedTerm, deleteTerm, clearErrors };
+const mapDispatchToProps = { editTerm, updateTerm, deleteTerm, clearErrors };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TermEditModal);
 

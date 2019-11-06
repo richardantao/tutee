@@ -10,8 +10,9 @@ import Login from "./components/auth/Login";
 import Dashboard from "./components/dashboard/Dashboard";
 import Calendar from "./components/calendar/Calendar";
 import Academics from "./components/academics/Academics";
+import Planner from "./components/planner/Planner";
 import Tasks from "./components/tasks/Tasks";
-import Evaluations from "./components/evaluations/Evaluations";
+import Assessments from "./components/assessments/Assessments";
 import Search from "./components/search/Search";
 import Settings from "./components/settings/Settings";
 import Help from "./components/help/Help";
@@ -34,8 +35,9 @@ export default class App extends Component {
 					<Route name="dashboard" path="/dashboard" component={Dashboard}/>
 					<Route name="calendar" path="/calendar" component={Calendar}/>
 					<Route name="academics" path="/academics" component={Academics}/>
+					<Route name="planner" path="/planner" component={Planner}/>
 					<Route name="tasks" path="/tasks" component={Tasks}/>
-					<Route name="evaluations" path="/evaluations" component={Evaluations}/>
+					<Route name="assessments" path="/assessments" component={Assessments}/>
 					<Route name="search" path="/search" component={Search}/>
 					<Route name="settings" path="/settings" component={Settings}/>
 					<Route name="help" path="/help" component={Help}/>

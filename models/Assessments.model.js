@@ -5,11 +5,7 @@ const moment = require("moment");
 
 const AssessmentSchema = new Schema({
 	id: Schema.Types.ObjectId,
-	uuid: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
-	course: {
-		id: {type: Schema.Types.ObjectId, required: true, ref: "Courses"},
-		title: {type: String, required: true}
-	},
+	parent: {type: Schema.Types.ObjectId, required: true, ref: "Course"},
 	title: {type: String, required: true},
   	type: {type: String, required: true},
   	location: String,

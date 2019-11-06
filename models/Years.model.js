@@ -4,8 +4,7 @@ const model = require("mongoose").model;
 const moment = require("moment");
 
 const YearSchema = new Schema({
-	id: Schema.Types.ObjectId,
-	uuid: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
+	_id: Schema.Types.ObjectId,
 	title: {type: String, required: true},
 	date: {
 		start: {type: Date, required: true},

@@ -4,9 +4,8 @@ const model = require("mongoose").model;
 const moment = require("moment");
 
 const TermSchema = new Schema({
-	id: Schema.Types.ObjectId,
-	uuid: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
-	yearId: {type: Schema.Types.ObjectId, required: true, ref: "Years"},
+	_id: Schema.Types.ObjectId,
+	parent: {type: Schema.Types.ObjectId, required: true, ref: "Year"},
 	title: {type: String, required: true},
   	date: {
 		start: {type: Date, required: true},

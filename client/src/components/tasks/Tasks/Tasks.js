@@ -81,45 +81,9 @@ class Tasks extends Component {
 		// ));
 		
 		return (
-			<Fragment>
-				<Helmet>
-					<title>My Tutee | Tasks</title>
-				</Helmet>
-				<Nav />
-				<div id="tasks">
-					<Row className="header">
-						<Col>
-							<Header header="Tasks"/>
-						</Col>
-						<Col>
-							<Button onClick={this.newTaskModal}><FontAwesomeIcon icon={faPlus}/> New Task</Button>
-						</Col>
-					</Row>
-					<Row className="body tasks-body">	
-						<Col>
-							<Select placeholder="Filter by Course..">
-								{/* {courseOptions} */}
-							</Select>
-						</Col>
-						<Col>
-							<Button onClick={this.fetchTasks} className="current">Current</Button>
-							<Button onClick={this.fetchPastTasks} className="past">Past</Button>
-						</Col>
-					</Row>
-					<Row>
-						<Col>
-							{taskRecords}
-						</Col>
-					</Row>
-
-					{ editModal ? (
-						<TaskEditModal className="modal"/>
-					): null }
-					{ newModal ? (
-						<TaskNewModal className="modal"/>
-					): null }
-				</div>
-			</Fragment>
+			<Col className="tasks-column"> 
+				{taskRecords}
+			</Col>
 		);
 	};
 };

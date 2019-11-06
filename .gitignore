@@ -16,7 +16,7 @@ package-lock.json
 .gcloudignore
 
 # migrations
-*seeds/
+seeds/
 
 # testing
 /coverage

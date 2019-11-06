@@ -2,7 +2,7 @@
   "name": "tutee-server",
   "version": "0.1.0",
   "description": "tutee's server npm",
-  "main": "app.js",
+  "main": "server.js",
   "directories": {
     "client": {},
     "config": {

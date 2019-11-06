@@ -1,9 +1,9 @@
 import { 
-    LOADING_EVALUATIONS, 
-    FETCH_EVALUATIONS, FETCH_PAST_EVALUATIONS,
-    EDIT_EVALUATION, 
-    NEW_EVALUATION, CREATE_EVALUATION, 
-    UPDATE_EVALUATION, DELETE_EVALUATION 
+    LOADING_ASSESSMENTS, 
+    FETCH_ASSESSMENTS, FETCH_PAST_ASSESSMENTS,
+    EDIT_ASSESSMENT, 
+    NEW_ASSESSMENT, CREATE_ASSESSMENT, 
+    UPDATE_ASSESSMENT, DELETE_ASSESSMENT 
 } from "../types";
 import { tokenConfig } from "../auth/auth.action";
 import { returnErrors } from "../auth/errors.action";
@@ -11,16 +11,16 @@ import axios from "axios";
 
 export const setLoading = () => {
     return {
-        type: LOADING_EVALUATIONS
+        type: LOADING_ASSESSMENTS
     };
 };
 
-export const fetchEvaluations = () => dispatch => {
+export const fetchAssessments = () => dispatch => {
     dispatch(setLoading());
     
-    axios.get("/evaluations")
+    axios.get("/assessments")
     .then(res => dispatch({
-        type: FETCH_EVALUATIONS,
+        type: FETCH_ASSESSMENTS,
         payload: res.data
     }))
     .catch(err => dispatch(
@@ -28,12 +28,12 @@ export const fetchEvaluations = () => dispatch => {
     ));
 };
 
-export const fetchPastEvaluations = () => dispatch => {
+export const fetchPastAssessments = () => dispatch => {
     dispatch(setLoading());
 
-    axios.get("/evaluations/past")
+    axios.get("/assessments/past")
     .then(res => dispatch({
-        type: FETCH_PAST_EVALUATIONS,
+        type: FETCH_PAST_ASSESSMENTS,
         payload: res.data
     }))
     .catch(err => dispatch(
@@ -41,12 +41,12 @@ export const fetchPastEvaluations = () => dispatch => {
     ));
 };
 
-export const editEvaluation = id => (dispatch, getState) => {
+export const editAssessment = id => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.get(`/evaluations/edit/:${id}`, tokenConfig(getState))
+    axios.get(`/assessments/edit/:${id}`, tokenConfig(getState))
     .then(res => dispatch({
-        type: EDIT_EVALUATION,
+        type: EDIT_ASSESSMENT,
         payload: id // verify
     }))
     .catch(err => dispatch(
@@ -54,12 +54,12 @@ export const editEvaluation = id => (dispatch, getState) => {
     ));
 };
 
-export const newEvaluation = courses => (dispatch, getState) => {
+export const newAssessment = courses => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.get("/evaluations/new", courses, tokenConfig(getState))
+    axios.get("/assessments/new", courses, tokenConfig(getState))
     .then(res => dispatch({
-        type: NEW_EVALUATION,
+        type: NEW_ASSESSMENT,
         payload: res.data
     }))
     .catch(err => dispatch(
@@ -67,12 +67,12 @@ export const newEvaluation = courses => (dispatch, getState) => {
     ));
 };
 
-export const createEvaluation = newEvaluation => (dispatch, getState) => {
+export const createAssessment = newAssessment => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.post("/evaluations/create", newEvaluation, tokenConfig(getState))
+    axios.post("/assessments/create", newAssessment, tokenConfig(getState))
     .then(res => dispatch({
-        type: CREATE_EVALUATION,
+        type: CREATE_ASSESSMENT,
         payload: res.data
     }))
     .catch(err => dispatch(
@@ -80,12 +80,12 @@ export const createEvaluation = newEvaluation => (dispatch, getState) => {
     ));
 };
 
-export const updateEvaluation = id => (dispatch, getState) => {
+export const updateAssessment = id => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.put(`/evaluations/update/:${id}`, tokenConfig(getState))
+    axios.put(`/assessments/update/:${id}`, tokenConfig(getState))
     .then(res => dispatch({
-        type: UPDATE_EVALUATION,
+        type: UPDATE_ASSESSMENT,
         payload: id // verify
     }))
     .catch(err => dispatch(
@@ -93,12 +93,12 @@ export const updateEvaluation = id => (dispatch, getState) => {
     ));
 };
 
-export const deleteEvaluation = id => (dispatch, getState) => {
+export const deleteAssessment = id => (dispatch, getState) => {
     dispatch(setLoading());
 
-    axios.delete(`/evaluations/delete/:${id}`, tokenConfig(getState))
+    axios.delete(`/assessments/delete/:${id}`, tokenConfig(getState))
     .then(res => dispatch({
-        type: DELETE_EVALUATION,
+        type: DELETE_ASSESSMENT,
         payload: id
     }))
     .catch(err => dispatch(

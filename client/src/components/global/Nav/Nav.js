@@ -40,12 +40,6 @@ class Nav extends Component {
 					<Button href="/planner">
 						<FontAwesomeIcon icon={faTasks}/>
 					</Button>
-					<Button href="/tasks">
-						<FontAwesomeIcon icon={faTasks}/>
-					</Button>
-					<Button href="/assessments" className="adjust">
-						<FontAwesomeIcon icon={faGraduationCap}/>
-					</Button>
 					<Button href="/search">
 						<FontAwesomeIcon icon={faSearch}/>
 					</Button>

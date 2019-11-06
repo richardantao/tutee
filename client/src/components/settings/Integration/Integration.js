@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { fetchIntegrations } from "../../../actions/data/settings.action";
 import PropTypes from "prop-types";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Button, Col, Row } from "react-bootstrap";
 
 import IntegrationEditModal from "../IntegrationEditModal";
@@ -46,7 +48,7 @@ class Integration extends Component {
 
         const integrationRecords = integrations.map(({ _id}) => (
             <div key={_id}>
-                <Button onClick={this.openEditModal}></Button>
+                <Button onClick={this.openEditModal}><FontAwesomeIcon icon={faEdit}/></Button>
             </div>
         ));
 

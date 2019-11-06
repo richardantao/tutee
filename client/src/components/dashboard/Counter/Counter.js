@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { countData } from "../../../actions/molecules/counter.action";
+import { countData } from "../../../actions/functions/counter.action";
 import PropTypes from "prop-types";
 
 import "./Counter.scss";
 
 class Counter extends Component {
 	state = {
-		count: 0 
+
 	};
 
 	static propTypes = {

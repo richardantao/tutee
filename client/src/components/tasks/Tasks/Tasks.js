@@ -7,19 +7,18 @@ import PropTypes from "prop-types";
 
 import { Button, Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 import Nav from "../../global/Nav";
 import Header from "../../global/Header";
-import EditModal from "../TaskEditModal";
-import NewModal from "../TaskNewModal";
-import Select from "../../global/Select";
+import TaskEditModal from "../TaskEditModal";
+import TaskNewModal from "../TaskNewModal";
+import Select from "react-select";
 
 import "./Tasks.scss";
 
 class Tasks extends Component {
 	state = {
-		tasks: [],
 		editModal: false,
 		newModal: false
 	};
@@ -27,44 +26,15 @@ class Tasks extends Component {
 	static propTypes = {
 		isAuthenticated: PropTypes.bool,
 		error: PropTypes.object.isRequired,
-		tasks: PropTypes.object.isRequired,
+		task: PropTypes.object.isRequired,
+		// parentOptions: PropTypes.object.isRequired,
 		fetchTasks: PropTypes.func.isRequired,
 		fetchPastTasks: PropTypes.func.isRequired
 	};
 	
 	componentDidMount() {
 
-		this.props.handleTasks();
-	};
-
-	componentDidUpdate(prevProps) {
-		const { error, isAuthenticated } = this.props;
-
-		if(error) {
-			if(!isAuthenticated) {
-				this.setState({
-
-				});
-			} else {
-				this.setState({
-
-				});
-			};
-		} else {
-			this.setState({
-
-			});
-		};
-	};
-
-	handleTasks() {
-
 		this.props.fetchTasks();
-	};
-
-	handlePastTasks() {
-
-		this.props.fetchPastTasks();
 	};
 
 	newTaskModal = () => {
@@ -81,7 +51,8 @@ class Tasks extends Component {
 
 	render() {
 		const { editModal, newModal } = this.state;
-		const { tasks, courses } = this.props; // have to define courses in state
+		const { tasks } = this.props.task;
+		// const { parentOptions } = this.props.course;
 
 		const taskRecords = tasks.map(({ _id, title, course, type, deadline }) => (
 			<Row key={_id} className="task-record">
@@ -96,18 +67,18 @@ class Tasks extends Component {
 							<p>{deadline}</p>
 						</Col>
 						<Col>
-							<Button onClick={this.editTaskModal}></Button>
+							<Button onClick={this.editTaskModal}><FontAwesomeIcon icon={faEdit}/></Button>
 						</Col>
 					</Row>
 				</Col>
 			</Row>
 		));
 
-		const courseOptions = courses.map(({ _id, course}) => (
-			<option key={_id} className="" value={course}>
-				{course}
-			</option>
-		));
+		// const courseOptions = parentOptions.map(({ _id, course}) => (
+		// 	<option key={_id} className="" value={course}>
+		// 		{course}
+		// 	</option>
+		// ));
 		
 		return (
 			<Fragment>
@@ -127,12 +98,12 @@ class Tasks extends Component {
 					<Row className="body tasks-body">	
 						<Col>
 							<Select placeholder="Filter by Course..">
-								{courseOptions}
+								{/* {courseOptions} */}
 							</Select>
 						</Col>
 						<Col>
-							<Button onClick={this.handleTasks} className="current">Current</Button>
-							<Button onClick={this.handlePastTasks} className="past">Past</Button>
+							<Button onClick={this.fetchTasks} className="current">Current</Button>
+							<Button onClick={this.fetchPastTasks} className="past">Past</Button>
 						</Col>
 					</Row>
 					<Row>
@@ -142,10 +113,10 @@ class Tasks extends Component {
 					</Row>
 
 					{ editModal ? (
-						<EditModal className="modal"/>
+						<TaskEditModal className="modal"/>
 					): null }
 					{ newModal ? (
-						<NewModal className="modal"/>
+						<TaskNewModal className="modal"/>
 					): null }
 				</div>
 			</Fragment>
@@ -156,7 +127,8 @@ class Tasks extends Component {
 const mapStateToProps = state => ({
 	isAuthenticated: state.auth.isAuthenticated,
 	error: state.error,
-	tasks: state.tasks
+	task: state.task//,
+	// parentOptions: state.course
 });
 
 const mapDispatchToProps = { fetchTasks, fetchPastTasks };

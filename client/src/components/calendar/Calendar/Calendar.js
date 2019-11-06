@@ -4,11 +4,10 @@ import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
 import { fetchClasses } from "../../../actions/data/classes.action";
 import { fetchTasks } from "../../../actions/data/tasks.action";
-import { fetchEvaluations } from "../../../actions/data/evaluations.action";
+import { fetchAssessments } from "../../../actions/data/assessments.action";
 import PropTypes from "prop-types";
 
-import { Button, Col, Row } from "react-bootstrap";
-// import {  } from "reactstrap";
+import { Button, Col, Row } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
@@ -25,46 +24,31 @@ import "./Calendar.scss";
 
 class Calendar extends Component {
 	state = {
-		display: "week",
-		classes: []
+		display: "week"
 	};
 
 	static propTypes = {
 		isAuthenticated: PropTypes.bool,
 		error: PropTypes.object.isRequired,
+		class: PropTypes.object.isRequired,
+		task: PropTypes.object.isRequired,
+		assessment: PropTypes.object.isRequired,
 		fetchClasses: PropTypes.func.isRequired,
 		fetchTasks: PropTypes.func.isRequired,
-		fetchEvaluations: PropTypes.func.isRequired
+		fetchAssessments: PropTypes.func.isRequired
 	};
 
 	componentDidMount() {
 		this.props.fetchClasses();
 		this.props.fetchTasks();
-		this.props.fetchEvaluations();
-	};
-
-	componentDidUpdate(prevProps) {
-		const { error, isAuthenticated } = this.props;
-
-		if(error) {
-			if(!isAuthenticated) {
-				this.setState({
-
-				});
-			} else {
-				this.setState({
-
-				});
-			};
-		} else {
-			this.setState({
-
-			});
-		};
+		this.props.fetchAssessments();
 	};
 
 	render() {
 		const { display, editModal, newModal } = this.state;
+		const { classes } = this.props.class;
+		const { tasks } = this.props.task;
+		const { assessments } = this.props.assessment;
 
 		return (
 			<Fragment>
@@ -117,9 +101,12 @@ class Calendar extends Component {
 
 const mapStateToProps = state => ({
 	isAuthenticated: state.auth.isAuthenticated,
-	error: state.error
+	error: state.error,
+	class: state.class,
+	task: state.task,
+	assessment: state.assessment
 });
 
-const mapDispatchToProps = { fetchClasses, fetchTasks, fetchEvaluations };
+const mapDispatchToProps = { fetchClasses, fetchTasks, fetchAssessments};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

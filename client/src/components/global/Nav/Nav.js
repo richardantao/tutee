@@ -37,10 +37,13 @@ class Nav extends Component {
 					<Button href="/academics">
 						<FontAwesomeIcon icon={faUniversity}/>
 					</Button>
+					<Button href="/planner">
+						<FontAwesomeIcon icon={faTasks}/>
+					</Button>
 					<Button href="/tasks">
 						<FontAwesomeIcon icon={faTasks}/>
 					</Button>
-					<Button href="/evaluations" className="adjust">
+					<Button href="/assessments" className="adjust">
 						<FontAwesomeIcon icon={faGraduationCap}/>
 					</Button>
 					<Button href="/search">
@@ -59,7 +62,8 @@ class Nav extends Component {
 };
 
 const mapStateToProps = state => ({
-
+	isAuthenticated: state.auth.isAuthenticated,
+	error: state.error
 });
 
 const mapDispatchToProps = { };

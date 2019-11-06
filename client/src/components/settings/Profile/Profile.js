@@ -16,7 +16,6 @@ class Profile extends Component {
 		first: "",
 		last: "",
 		email: "",
-
 	};
 
 	static propTypes = {
@@ -32,23 +31,7 @@ class Profile extends Component {
 	};
 
 	componentDidUpdate(prevProps) {
-		const { error, isAuthenticated } = this.props;
 
-		if(error) {
-			if(!isAuthenticated) {
-				this.setState({
-
-				});
-			} else {
-				this.setState({
-
-				});
-			};
-		} else {
-			this.setState({
-
-			});
-		};
 	};
 	
 	handleChange = e => {
@@ -58,7 +41,9 @@ class Profile extends Component {
 	};
 
 	handleCancel = () => {
-		
+		this.setState({
+
+		});
 	};
 
 	handleSubmit = e => {
@@ -66,11 +51,11 @@ class Profile extends Component {
 
 		const { } = this.state;
 
-		const updatedProfile = {
+		const revisedProfile = {
 
 		};
 
-		this.props.updateProfile(updatedProfile);
+		this.props.updateProfile(revisedProfile);
 	};
 
 	render() {

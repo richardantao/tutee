@@ -62,8 +62,8 @@ class DashboardHeader extends Component {
                     <Counter type="Tasks" count="3"/>
                 </Col>
                 <Col className="dashboard-header">
-                    <h3>Evaluations</h3>
-                    <Counter type="Evaluations" count="2"/>
+                    <h3>Assessments</h3>
+                    <Counter type="Assessments" count="2"/>
                 </Col>
 
                 { open ? (

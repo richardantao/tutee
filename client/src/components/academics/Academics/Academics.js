@@ -49,28 +49,8 @@ class Academics extends Component {
 
     componentDidMount() {
 
-    };
-
-    componentDidUpdate(prevProps) {
-        const { error, isAuthenticated } = this.props;
-
-        if(error) {
-            if(!isAuthenticated) {
-                this.setState({
-
-                });
-            } else {
-                this.setState({
-
-                });
-            };
-        } else {
-            this.setState({
-
-            });
-        };
-    };
-
+	};
+	
     render() {
 		const { 
 			renderTerms, renderCourses, renderModules,

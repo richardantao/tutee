@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { connect } from "react-redux";
-import { newIntegration, createIntegration } from "../../../actions/organisms/integrations.action";
+import { newIntegration, createIntegration } from "../../../actions/views/integrations.action";
 import { clearErrors } from "../../../actions/auth/errors.action";
 import PropTypes from "prop-types";
 

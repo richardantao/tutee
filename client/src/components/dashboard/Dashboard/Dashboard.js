@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { fetchDashItems } from "../../../actions/data/dashboard.action";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { Button, Col, Row } from "reactstrap";
 
 import Nav from "../../global/Nav";
@@ -22,20 +24,16 @@ class Dashboard extends Component {
 	static propTypes = {
 		isAuthenticated: PropTypes.bool,
 		error: PropTypes.object.isRequired,
-		classes: PropTypes.object.isRequired,
-		tasks: PropTypes.object.isRequired,
-		evaluations: PropTypes.object.isRequired,
+		class: PropTypes.object.isRequired,
+		task: PropTypes.object.isRequired,
+		assessment: PropTypes.object.isRequired,
 		fetchDashItems: PropTypes.func.isRequired
 	};
 
 	componentDidMount() {
 		// this.props.fetchClasses();
 		// this.props.fetchTasks();
-		// this.props.fetchEvaluations();
-	};
-
-	componentDidUpdate() {
-		const { error } = this.props;
+		// this.props.fetchAssessments();
 	};
 
 	classModal = () => {
@@ -51,12 +49,15 @@ class Dashboard extends Component {
 
 	};
 
-	evaluationModal = () => {
+	assessmentModal = () => {
 		
 	};
 
 	render() {
-		const { classes, tasks, evaluations } = this.props;
+		const { classes } = this.props.class;
+		const { tasks } = this.props.task;
+		const { assessments } = this.props.assessment;
+
 
 		// const classRecords = classes.map(({ _id, module, course, time, location }) => (
 		// 	<Row key={_id} class="class-record">
@@ -69,7 +70,7 @@ class Dashboard extends Component {
 		// 			<p>{location}</p>
 		// 		</Col>
 		// 		<Col>
-		// 			<Button onClick={this.classModal}></Button>
+		// 			<Button onClick={this.classModal}><FontAwesomeIcon icon={faEdit}/></Button>
 		// 		</Col>
 		// 	</Row>
 		// ));
@@ -85,13 +86,13 @@ class Dashboard extends Component {
 		// 			<p>{deadline}</p>
 		// 		</Col>
 		// 		<Col>
-		// 			<Button onClick={this.editTaskModal}></Button>
+		// 			<Button onClick={this.editTaskModal}><FontAwesomeIcon icon={faEdit}/></Button>
 		// 		</Col>
 		// 	</Row>
 		// ));
 
-		// const evaluationRecords = evaluations.map(({ _id, title, course, date, time, location}) => (
-		// 	<Row key={_id} className="eval-record">
+		// const assessmentRecords = assessments.map(({ _id, title, course, date, time, location}) => (
+		// 	<Row key={_id} className="ass-record">
 		// 		<Col>
 		// 			<h5>{title}</h5>
 		// 			<h6>{course}</h6>			
@@ -102,7 +103,7 @@ class Dashboard extends Component {
 		// 			<p>{location}</p>
 		// 		</Col>
 		// 		<Col>
-		// 			<Button onClick={this.evaluationModal}></Button>
+		// 			<Button onClick={this.assessmentModal}><FontAwesomeIcon icon={faEdit}/></Button>
 		// 		</Col>
 		// 	</Row>
 		// ));
@@ -124,8 +125,8 @@ class Dashboard extends Component {
 						<Col id="tasks-column">
 							{/* {taskRecords} */}
 						</Col>
-						<Col id="evals-column">
-							{/* {evaluationRecords} */}
+						<Col id="ass-column">
+							{/* {assessmentRecords} */}
 						</Col>
 					</Row>
 				</div>
@@ -137,9 +138,9 @@ class Dashboard extends Component {
 const mapStateToProps = state => ({
 	isAuthenticated: state.isAuthenticated,
 	error: state.error,
-	classes: state.dashClasses,
-	tasks: state.dashTasks,
-	evaluations: state.dashEvaluations
+	class: state.class,
+	task: state.task,
+	assessment: state.assessment
 });
 
 const mapDispatchToProps = { fetchDashItems };

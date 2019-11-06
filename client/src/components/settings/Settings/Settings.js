@@ -35,26 +35,6 @@ class Settings extends Component {
 		});
 	};
 
-	componentDidUpdate(prevProps) {
-		const { error, isAuthenticated } = this.props;
-
-		if(error) {
-			if(!isAuthenticated) {
-				this.setState({
-
-				});
-			} else {
-				this.setState({
-
-				});
-			};
-		} else {
-			this.setState({
-
-			});
-		};
-	};
-
 	handleProfile = () => {
 		this.setState({
 			form: "profile"

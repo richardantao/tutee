@@ -4,22 +4,24 @@ import { connect } from "react-redux";
 import { fetchTerms } from "../../../actions/data/terms.action";
 import PropTypes from "prop-types";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { Button, Col, Row } from "reactstrap";
+
 import EditModal from "../TermEditModal";
 import NewModal from "../TermNewModal";
-
-import { Button, Col, Row } from "reactstrap";
 
 import "./Terms.scss";
 
 class Terms extends Component {
     state = {
-        terms: []
+
     };
 
     static propTypes = {
         isAuthenticated: PropTypes.bool,
         error: PropTypes.object.isRequired,
-        terms: PropTypes.object.isRequired,
+        term: PropTypes.object.isRequired,
         fetchTerms: PropTypes.func.isRequired
     };
 
@@ -34,7 +36,7 @@ class Terms extends Component {
     };
 
     render() {
-        const { terms } = this.props; 
+        const { terms } = this.props.term; 
 
         const termRecords = terms.map(({ _id, title, start, end }) => (
             <Row key={_id}>
@@ -46,7 +48,7 @@ class Terms extends Component {
                     <h6>{end}</h6>
                 </Col>
                 <Col>
-                    <Button onClick={this.openEditModal}></Button>
+                    <Button onClick={this.openEditModal}><FontAwesomeIcon icon={faEdit}/></Button>
                 </Col>
             </Row>
         ));
@@ -61,7 +63,8 @@ class Terms extends Component {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    error: state.error
+    error: state.error,
+    term: state.term
 });
 
 const mapDispatchToProps = { fetchTerms };

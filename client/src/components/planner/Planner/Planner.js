@@ -11,6 +11,9 @@ import { faPlus, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 import Nav from "../../global/Nav";
 import Header from "../../global/Header";
+import Tasks from "../../tasks/Tasks";
+import Assessments from "../../assessments/Assessments";
+
 import Select from "react-select";
 
 import "./Planner.scss";
@@ -58,9 +61,8 @@ class Planner extends Component {
                         </Col>
                     </Row>
                     <Row>
-                        <Col>
-                        
-                        </Col>
+                        <Tasks/>
+                        <Assessments/>
                     </Row>
                 </div>
             </Fragment>

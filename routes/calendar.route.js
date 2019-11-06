@@ -28,11 +28,6 @@ router.get("/day", auth, controller.day);
 // @ access PRIVATE
 router.get("/agenda", auth, controller.agenda);
 
-// @route /calendar/classes/edit/classId
-// @desc edit class instance
-// @access PRIVATE
-router.get("/classes/edit/", auth, controller.classEdit);
-
 // @route /calendar/classes/new
 // @desc get form to add new class
 // @access PRIVATE
@@ -43,6 +38,11 @@ router.get("/classes/new", auth, controller.classNew);
 // @ access PRIVATE
 router.post("/classes/create", auth, validate.create, controller.classCreate);
 
+// @route /calendar/classes/edit/classId
+// @desc edit class instance
+// @access PRIVATE
+router.get("/classes/edit/:classId", auth, controller.classEdit);
+
 // @route /calendar/classes/update/classId
 // @desc display default calendar view
 // @ access PRIVATE
@@ -51,6 +51,6 @@ router.put("/classes/update/:classId", auth, validate.update, controller.classUp
 // @route /calendar/classes/delete/classId
 // @desc display default calendar view
 // @ access PRIVATE
-router.delete("/classes/delete/:classid", auth, validate.delete, controller.classDelete);
+router.delete("/classes/delete/:classId", auth, validate.delete, controller.classDelete);
 
 module.exports = router;

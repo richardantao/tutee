@@ -5,10 +5,10 @@ const controller = require("../controllers/dashboard.controller");
 const auth = require("../middleware/auth.middleware");
 const validateClass = require("../middleware/validation/classes.validation");
 const validateTask = require("../middleware/validation/tasks.validation");
-const validateEvaluation = require("../middleware/validation/evaluations.validation");
+const validateAssessment = require("../middleware/validation/assessments.validation");
 
 // @route /dashboard/
-// @desc render all today's classes, and the tasks and evaluations due within 7 days
+// @desc render all today's classes, and the tasks and assessments due within 7 days
 // @access PRIVATE
 router.get("/", auth, controller.index);
 
@@ -52,20 +52,20 @@ router.put("/tasks/update/:taskId", auth, validateTask.update, controller.taskUp
 // @access PRIVATE
 router.delete("/tasks/delete/:taskId", auth, validateTask.delete, controller.taskDelete);
 
-// @route /dashboard/evaluations/edit/:evaluationId
-// @desc edit evaluation instance
+// @route /dashboard/assessments/edit/:assessmentId
+// @desc edit assessment instance
 // @access PRIVATE
-router.get("/evaluations/edit/:evaluationId", auth, controller.evalEdit);
+router.get("/assessments/edit/:assessmentId", auth, controller.assessmentEdit);
 
-// @route /dashboard/tasks/update/:evaluationId
-// @desc update evaluation 
+// @route /dashboard/tasks/update/:assessmentId
+// @desc update assessment 
 // @access PRIVATE
-router.put("/evaluations/update/:evaluationId", auth, validateEvaluation.update, controller.evalUpdate);
+router.put("/assessments/update/:assessmentId", auth, validateAssessment.update, controller.assessmentUpdate);
 
-// @route /dashboard/evalations/delete/:evaluationId
-// @desc delete evaluation instance
+// @route /dashboard/assessments/delete/:assessmentId
+// @desc delete assessment instance
 // @access PRIVATE
-router.delete("/evaluations/delete/:evaluationId", auth, validateEvaluation.delete, controller.evalDelete);
+router.delete("/assessments/delete/:assessmentId", auth, validateAssessment.delete, controller.assessmentDelete);
 
 module.exports = router;
 

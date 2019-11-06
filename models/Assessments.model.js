@@ -3,7 +3,7 @@ const model = require("mongoose").model;
 
 const moment = require("moment");
 
-const EvaluationSchema = new Schema({
+const AssessmentSchema = new Schema({
 	id: Schema.Types.ObjectId,
 	uuid: {type: Schema.Types.ObjectId, required: true, ref: "Users"},
 	course: {
@@ -27,6 +27,6 @@ const EvaluationSchema = new Schema({
 });
 
 module.exports = {
-	Schema: EvaluationSchema,
-	Model: model("Evaluation", EvaluationSchema)
+	Schema: AssessmentSchema,
+	Model: model("Assessment", AssessmentSchema)
 }

@@ -8,7 +8,7 @@ const TermSchema = require("./Terms.model").Schema;
 const CourseSchema = require("./Courses.model").Schema;
 const ModuleSchema = require("./Modules.model").Schema;
 const ClassSchema = require("./Classes.model").Schema;
-const EvaluationSchema = require("./Evaluations.model").Schema;
+const AssessmentSchema = require("./Assessments.model").Schema;
 const TaskSchema = require("./Tasks.model").Schema;
 const IntegrationSchema = require("./Integrations.model").Schema;
 
@@ -27,7 +27,7 @@ const UserSchema = new Schema({
     course: [CourseSchema],
     module: [ModuleSchema],
     class: [ClassSchema],
-    evaluation: [EvaluationSchema],
+    assessment: [AssessmentSchema],
     task: [TaskSchema],
     location: {
     	country: String,

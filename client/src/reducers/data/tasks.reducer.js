@@ -1,9 +1,7 @@
 import {
-    LOADING_TASKS, 
-    FETCH_TASKS, FETCH_PAST_TASKS,
-    EDIT_TASK, 
+    LOADING_TASKS, FETCH_TASKS, FETCH_PAST_TASKS,
     NEW_TASK, CREATE_TASK, 
-    UPDATE_TASK, DELETE_TASK 
+    EDIT_TASK, UPDATE_TASK, DELETE_TASK 
 } from "../../actions/types";
 
 const initialState = {

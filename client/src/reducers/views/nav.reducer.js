@@ -1,6 +1,6 @@
 import { 
     LOADING_VIEW, RENDER_DASHBOARD, RENDER_CALENDAR, RENDER_TASKS, 
-    RENDER_EVALUATIONS, RENDER_COURSES, RENDER_SEARCH, RENDER_SETTINGS, RENDER_HELP
+    RENDER_ASSESSMENTS, RENDER_ACADEMICS, RENDER_SEARCH, RENDER_SETTINGS, RENDER_HELP
 } from "../../actions/types";
 
 const initialState = {
@@ -17,19 +17,15 @@ export default (state = initialState, action) => {
             return {
                 view: action.payload   
             };
+        case RENDER_ACADEMICS:
+            return {
+                view: action.payload   
+            };
         case RENDER_TASKS:
             return {
                 view: action.payload   
             };
-        case RENDER_EVALUATIONS:
-            return {
-                view: action.payload   
-            };
-        case RENDER_COURSES:
-            return {
-                view: action.payload   
-            };
-        case RENDER_EVALUATIONS:
+        case RENDER_ASSESSMENTS:
             return {
                 view: action.payload   
             };

@@ -3,81 +3,57 @@ const moment = require("moment");
 
 // import models
 const Users = require("../models/Users.model");
-const Evals = require("../models/Evaluations.model")
+const Assessment = require("../models/Assessments.model")
 
 const controller = [];
 
-controller.index = (req, res, next) => {
-	Evals.find({
+controller.index = (req, res) => {
+	Ass.find({
 		"_id": req.params._id,
 		"date": {
 			$gte: moment().startOf("date").format("MMMM DD YYYY")
 		}
 	})
-	.then(evals => {
-		return res.json(evals);
+	.then(ass => {
+		return res.json(ass);
 	})
 	.catch(err => {
 		return res.status(500).json({
-			message: err.message || "An error occured while retrieving your evaluations"
+			message: err.message || "An error occured while retrieving your assessments"
 		});
 	});
 }
 
-controller.past = (req, res, next) => {
-	Evals.find({
+controller.past = (req, res) => {
+	Assessment.find({
 		"_id": req.params._id,
 		"date": {
 			$lt: moment().startOf("date").format("MMMM DD YYYY")
 		}
 	})
-	.then(pastEvaluations => {
-		if(!pastEvaluations) {
+	.then(pastAssessments => {
+		if(!pastAssessments) {
 			return res.status(404).json({
-				message: "The server was unable to successfully find your past evaluations"
+				message: "The server was unable to successfully find your past assessments"
 			});
 		} else {
-			return res.json(pastEvaluations);
+			return res.json(pastAssessments);
 		}
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "The server was unable to successfully find your past evaluations"
+				message: "The server was unable to successfully find your past assessments"
 			});
 		} else {
 			return res.status(505).json({
-				message: err.message || "An error occured while retrieving your past evaluations"
+				message: err.message || "An error occured while retrieving your past assessments"
 			});
 		}
 	});
 }
 
-controller.edit = (req, res, next) => {
-	Evals.findById(req.params.id)
-	.then(selectedEval => {
-		if(!selectedEval) {
-			return res.status(404).json({
-				message: "The evaluation you selected was not successfully found"
-			});
-		} else {
-			return res.json(selectedEval);
-		}
-	})
-	.catch(err => {
-		if(err.kind === 'ObjectId') {
-			return res.status(404).json({
-				message: "The evaluation you selected was not successfully found"
-			});
-		} else {
-			return res.status(500).json({
-				message: err.message || "An error occured while retrieving this evaluation"
-			});
-		}
-	});
-};
-
-controller.new = (req, res, next) => {
+controller.new = (req, res) => {
 	Users.find({
 		"_id": req.params._id
 	},
@@ -86,13 +62,13 @@ controller.new = (req, res, next) => {
 		"": 1,
 		"": 1
 	})
-	.then(evalProps => {
-		if(!evalProps) {
+	.then(assProps => {
+		if(!assProps) {
 			return res.status(404).json({
 				message: "The server was unable to find the resources needed to complete your request"
 			});
 		} else {
-			return res.status(200).json(evalProps);	
+			return res.status(200).json(assProps);	
 		}
 	})
 	.catch(err => {
@@ -109,7 +85,7 @@ controller.new = (req, res, next) => {
 }
 
 controller.create = (req, res) => {
-	const eval = new Evals({
+	const ass = new Assessment({
 		userId: req.body.userId,
 		course: {
 			id: req.body.courseId,
@@ -126,19 +102,43 @@ controller.create = (req, res) => {
 		}
 	});
 
-	eval.save()
-	.then(newEval => {
-		res.json(newEval);
+	ass.save()
+	.then(newAss => {
+		res.json(newAss);
 	})
 	.catch(err => {
 		return res.status(500).json({
-			message: err.message || "An error occured while creating this evaluation"
+			message: err.message || "An error occured while creating this assessment"
 		})
 	});
 }
 
-controller.update = (req, res, next) => {
-	Evals.findByIdAndUpdate({
+controller.edit = (req, res) => {
+	Assessment.findById(req.params.id)
+	.then(selectedAss => {
+		if(!selectedAss) {
+			return res.status(404).json({
+				message: "The assessment you selected was not successfully found"
+			});
+		} else {
+			return res.json(selectedAss);
+		}
+	})
+	.catch(err => {
+		if(err.kind === 'ObjectId') {
+			return res.status(404).json({
+				message: "The assessment you selected was not successfully found"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occured while retrieving this assessment"
+			});
+		}
+	});
+};
+
+controller.update = (req, res) => {
+	Assessment.findByIdAndUpdate({
 		"_id": req.params.id
 	}, 
 	{
@@ -158,49 +158,49 @@ controller.update = (req, res, next) => {
 			}
 		}
 	})
-	.then(updatedEval => {
-		if(!updatedEval) {
+	.then(updatedAss => {
+		if(!updatedAss) {
 			return res.status(404).json({
-				message: "The evaluation you selected was not successfully found"
+				message: "The assessment you selected was not successfully found"
 			});
 		} else {
-			return res.json(updatedEval);
+			return res.json(updatedAss);
 		}
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "The evaluation you selected was not successfully found"
+				message: "The assessment you selected was not successfully found"
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while trying to update this evaluation"
+				message: err.message || "An error occured while trying to update this assessment"
 			});
 		}
 	});
 }	
 
-controller.delete = (req, res, next) => {
-	Evals.findByIdAndDelete({
+controller.delete = (req, res) => {
+	Assessment.findByIdAndDelete({
 		"_id": req.params._id
 	})
-	.then(deletedEval => {
-		if(!deletedEval) {
+	.then(deletedAss=> {
+		if(!deletedAss) {
 			return res.status(404).json({
-				message: "The evaluation you are attempting to delete was not successfully found"
+				message: "The assessment you are attempting to delete was not successfully found"
 			});
 		} else {
-			return res.json(deletedEval);
+			return res.json(deletedAss);
 		}
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId" || err.name === "NotFound") {
 			return res.status(404).json({
-				message: "The evaluation you are attempting to delete was not successfully found"
+				message: "The assessment you are attempting to delete was not successfully found"
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while deleting this evaluation"
+				message: err.message || "An error occured while deleting this assessment"
 			});
 		}
 	});

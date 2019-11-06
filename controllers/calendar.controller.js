@@ -3,10 +3,10 @@ const async = require("async");
 const moment = require("moment");
 
 // import models
-const Users = require("../models/Users.model").Model;
+const User = require("../models/User.model").Model;
 const Classes = require("../models/Classes.model");
 const Tasks = require("../models/Tasks.model");
-const Evals = require("../models/Evaluations.model");
+const Assessments = require("../models/Assessments.model");
 
 // instantiate constroller
 const controller = [];

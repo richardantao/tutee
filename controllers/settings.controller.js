@@ -2,7 +2,7 @@ const async = require("async");
 const moment = require("moment");
 
 // import model
-const User = require("../models/Users.model");
+const User = require("../models/User.model");
 
 // instantiate controller
 const controller = [];

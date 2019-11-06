@@ -37,7 +37,7 @@ oauth2Client.setCredentials({
 // const accessToken = oauth2Client.getAccessToken();
 
 // import model
-const User = require("../models/Users.model").Model;
+const User = require("../models/User.model").Model;
 
 // instantiate controller
 const controller = [];

@@ -2,16 +2,16 @@ const async = require("async");
 const moment = require("moment");
 
 // import model
-const User = require("../models/Users.model").Model;
+const User = require("../models/User.model").Model;
 const Classes = require("../models/Classes.model").Schema;
 const Tasks = require("../models/Tasks.model").Schema;
-const Evaluations = require("../models/Evaluations.model").Schema;
+const Assessments = require("../models/Assessments.model").Schema;
 
 // instantiate models
 const controller = [];
 
 // GET dashboard data
-controller.index = (req, res, next) => {
+controller.index = (req, res) => {
 	async.parallel({
 		classes: (callback) => {
 			User.find({ // find the user's: 
@@ -63,21 +63,21 @@ controller.index = (req, res, next) => {
 				});
 			});
 		},
-		evaluations: (callback) => {
+		assessments: (callback) => {
 			User.find({
 				"_id": req.params.id,
-				"evaluations.date": {
+				"assessments.date": {
 					$gte: moment().startOf("date").format("MMMM DD YYYY"),
 					$lte: moment().startOf("date").format("MMMM DD YYYY") + 1000*60*60*24*7 
 				}
 			})
-			.then(selectedEvals => {
-				return res.json(selectedEvals);
+			.then(selectedAss => {
+				return res.json(selectedAss);
 			})
 			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
-					message: err.message || "An error occured while retrieving your evaluations"
+					message: err.message || "An error occured while retrieving your assessments"
 				});
 			});
 		}		
@@ -91,7 +91,7 @@ controller.index = (req, res, next) => {
 }
 
 // GET display class editor for specific class
-controller.classEdit = (req, res, next) => {
+controller.classEdit = (req, res) => {
 	Classes.findById({
 		_id: req.params._id,
 	},{
@@ -125,7 +125,7 @@ controller.classEdit = (req, res, next) => {
 	});
 };
 
-controller.classUpdate = (req, res, next) => {
+controller.classUpdate = (req, res) => {
 	Classes.findByIdAndUpdate({
 		"_id": req.params._id
 	},
@@ -163,7 +163,7 @@ controller.classDelete = (req, res) => {
 }
 
 //
-controller.taskEdit = (req, res, next) => {
+controller.taskEdit = (req, res) => {
 	Tasks.findById({
 		"_id": req.params.id
 	})
@@ -190,7 +190,7 @@ controller.taskEdit = (req, res, next) => {
 }
 
 //
-controller.taskNew = (req, res, next) => {
+controller.taskNew = (req, res) => {
 	User.find({
 		"_id": req.params._id,
 	},
@@ -221,7 +221,7 @@ controller.taskNew = (req, res, next) => {
 }
 
 //
-controller.taskCreate = (req, res, next) => {
+controller.taskCreate = (req, res) => {
 	async.waterfall([
 		create,
 		associate
@@ -295,7 +295,7 @@ controller.taskCreate = (req, res, next) => {
 }
 
 //
-controller.taskUpdate = (req, res, next) => {
+controller.taskUpdate = (req, res) => {
 	Tasks.findByIdAndUpdate({
 		"_id": req.params.tasks._id
 	}, 
@@ -333,7 +333,7 @@ controller.taskUpdate = (req, res, next) => {
 	});
 }
 
-controller.taskDelete = (req, res, next) => {
+controller.taskDelete = (req, res) => {
 	Tasks.findByIdAndDelete({
 		"_id": req.params._id
 	})
@@ -359,83 +359,83 @@ controller.taskDelete = (req, res, next) => {
 	});
 }
 
-controller.evalEdit = (req, res, next) => {
-	Evals.findById({
+controller.assessmentEdit = (req, res) => {
+	Assessments.findById({
 		"_id": req.params._id
 	})
-	.then(selectedEval => {
-		if(!selectedEval) {
+	.then(selectedAss => {
+		if(!selectedAss) {
 			return res.status(404).json({
-				message: "The evaluation you selected was not successfully found"
+				message: "The assessment you selected was not successfully found"
 			});
 		} else {
-			return res.json(selectedEval);
+			return res.json(selectedAss);
 		}
 	})
 	.catch(err => {
 		if(err.kind === 'ObjectId') {
 			return res.status(404).json({
-				message: "The evaluation you selected was not successfully found"
+				message: "The assessment you selected was not successfully found"
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while retrieving the evaluation"
+				message: err.message || "An error occured while retrieving the assessment"
 			});
 		}
 	});
 }
 
-controller.evalUpdate = (req, res, next) => {
+controller.assessmentUpdate = (req, res) => {
 	// define updated attributes
-	Evals.findByIdAndUpdate({
+	Assessments.findByIdAndUpdate({
 		"_id": req.params._id
 	}, 
 	{
 
 	})
-	.then(updatedEval => {
-		if(!updatedEval) {
+	.then(updatedAss => {
+		if(!updatedAss) {
 			return res.status(404).json({
-				message: "The evaluation you are attempting to update was not successfully found"
+				message: "The assessment you are attempting to update was not successfully found"
 			});
 		} else {
-			return res.json(updatedEval);
+			return res.json(updatedAss);
 		}
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "The evaluation you are attempting to update was not successfully found"
+				message: "The assessment you are attempting to update was not successfully found"
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while updating this evaluation"
+				message: err.message || "An error occured while updating this assessment"
 			});
 		}
 	});
 }
 
-controller.evalDelete = (req, res, next) => {
-	Evals.findByIdAndDelete({
+controller.assessmentDelete = (req, res) => {
+	Ass.findByIdAndDelete({
 		"_id": req.params._id
 	})
-	.then(deletedEval => {
-		if(!deletedEval) {
+	.then(deletedAss => {
+		if(!deletedAss) {
 			return res.status(400).json({
-				message: "The evaluation you are trying to delete was not successfully found"
+				message: "The assessment you are trying to delete was not successfully found"
 			});
 		} else {
-			return res.json(deletedEval);
+			return res.json(deletedAss);
 		}
 	})
 	.catch(err => {
 		if(err.kind === 'ObjectId' || err.name === 'NotFound') {
 			return res.status(404).json({
-				message: "The evaluation you are trying to delete was not successfully found"
+				message: "The assessment you are trying to delete was not successfully found"
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occuring while deleting this evaluation"
+				message: err.message || "An error occuring while deleting this assessment"
 			});
 		}
 	});

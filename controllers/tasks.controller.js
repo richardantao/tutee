@@ -2,21 +2,21 @@ const async = require("async");
 const moment = require("moment");
 
 // import models
-const Users = require("../models/Users.model").Model;
+const User = require("../models/User.model").Model;
 const Tasks = require("../models/Tasks.model").Schema;
 
 // instantiate controller
 const controller = [];
 
 controller.index = (req, res) => {
-	Users.find({
+	User.find({
 		"_id": req.params._id, 
-		"tasks.deadline": {
+		"task.deadline": {
 			$gte: moment().startOf("date").format("MMMM DD YYYY")
 		}
 	}, 
 	{
-		"tasks": 1
+		"task": 1
 	})
     .then(tasks => {
 		if(!tasks) {
@@ -40,7 +40,7 @@ controller.index = (req, res) => {
 }
 
 controller.past = (req, res) => {
-	Users.find({
+	User.find({
 		"_id": req.params._id, 
 		"tasks.deadline": {
 			$lt: moment().startOf("date").format("MMMM DD YYYY")
@@ -98,7 +98,7 @@ controller.edit = (req, res) => {
 }
 
 controller.new = (req, res) => {	
-	Users.find({
+	User.find({
 		"_id": req.params._id
 	}, 
 	{

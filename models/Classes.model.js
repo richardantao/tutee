@@ -3,6 +3,7 @@ const model = require("mongoose").model;
 
 const moment = require("moment");
 
+// amalgamate model with Modules
 const ClassSchema = new Schema({
     _id: Schema.Types.ObjectId,
     parent: {type: Schema.Types.ObjectId, required: true, ref: "Module"},	

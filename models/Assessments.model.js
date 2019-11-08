@@ -9,9 +9,14 @@ const AssessmentSchema = new Schema({
 	title: {type: String, required: true},
   	type: {type: String, required: true},
   	location: String,
-  	date: {type: Date, required: true},
-  	time: {type: Date, required: true},
-	duration: {type: Number, required: true, min: [0, ""]},
+  	date: {
+		start: {type: Date, required: true},
+		end: {type: Date, required: true}
+	},
+  	time: {
+		start: {type: Date, required: true},
+		end: {type: Date, required: true}
+	},
 	grade: {
 		weighting: {type: Number, min: [0, ""], max: [100, ""]},
   		score: {type: Number, min: [0, ""], max: [100, ""]}

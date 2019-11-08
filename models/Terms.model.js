@@ -11,7 +11,6 @@ const TermSchema = new Schema({
 		start: {type: Date, required: true},
 		end: {type: Date, required: true}
 	},
-	rotation: {type: String, required: true}, // required ?
 	meta: {
 		createdAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")},
 		updatedAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")}

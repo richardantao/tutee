@@ -8,10 +8,7 @@ const CourseSchema = new Schema({
 	parent: {type: Schema.Types.ObjectId, required: true, ref: "Term"},
 	code: {type: String, required: true},
 	title: {type: String, required: true},
-	date: {
-		start: {type: Date, required: true},
-		end: {type: Date, required: true}
-	},
+	credit: {type: Number, required: true},
 	theme: {type: String, default: "#00BBFF"}, 
 	meta: {
 		createdAt: {type: Date, default: () => moment().startOf("minute").format("MMMM Do YYYY, HH:mm a")},

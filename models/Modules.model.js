@@ -7,10 +7,6 @@ const ModuleSchema = new Schema({
 	_id: Schema.Types.ObjectId,
 	parent: {type: Schema.Types.ObjectId, required: true, ref: "Course"},
 	title: {type: String, required: true},
-	date: {
-		start: {type: Date, required: true},
-		end: {type: Date, required: true}
-	},
 	instructor: String,
 	meta: {
 		createdAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")},

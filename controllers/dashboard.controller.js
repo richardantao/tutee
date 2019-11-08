@@ -3,81 +3,102 @@ const moment = require("moment");
 
 // import model
 const User = require("../models/User.model").Model;
-const Classes = require("../models/Classes.model").Schema;
-const Tasks = require("../models/Tasks.model").Schema;
-const Assessments = require("../models/Assessments.model").Schema;
 
 // instantiate models
 const controller = [];
 
 // GET dashboard data
 controller.index = (req, res) => {
+	const { _id } = req.params;
+
 	async.parallel({
 		classes: (callback) => {
-			User.find({ // find the user's: 
-				"_id": req.params._id,	
+			User.find({ 
+				_id,	
 				"class.start.date": { 
 					$eq: moment().startOf("date").format("MMMM DD YYYY, hh:mm a ")
 				}
-			},{ 
-				"class.course.title": 1,
-				"class.module.title": 1,
+			}, { // confirm model to confirm projections
+				"class._id": 1,
+				"class.parent": 1,
 				"class.location": 1,
-				"class.start.date": 1,
-				"clase.start.time": 1,
-				"class.end.date": 1,
-				"class.end.time": 1,
+				"class.start": 1,
+				"class.end": 1,
 				"class.description": 1
 			})
-			.then(selectedClasses => {
-				if(!selectedClasses) {
+			.sort({ "class.start.time": 1 })
+			.then(classes => {
+				if(!classes) {
 					return res.status(404).json({
-						message: "The classes attempting to be retrieved were not successfully found"
+						message: "The classes attempting to be retrieved were not found"
 					});
 				} else {
-					return res.json(selectedClasses);
-				}
+					res.status(200).json(classes);
+				};
 			})
 			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
-					message: err.message || "An error occured while retrieving your classes"
+					message: err.message || "An error occurred on the server while retrieving your classes"
 				});
 			});
 		},
 		tasks: (callback) => {
 			User.find({
-				"_id": req.params._id,
-				"tasks.deadline": {
+				_id,
+				"task.deadline": {
 					$gte: moment().startOf("date").format("MMMM DD YYYY"), // date is later than today
 					$lte: moment().startOf("date").format("MMMM DD YYYY") + 1000*60*60*24*7 // date is less than 7 days from now
 				}
+			}, {
+				"task._id": 1,
+				"task.parent": 1,
+				"task.title": 1,
+				"task.type": 1,
+				"task.deadline": 1,
+				"task.completion": 1
 			})
-			.then(selectedTasks => {
-				return res.json(selectedTasks);
+			.sort({ "task.deadline": 1 })
+			.then(tasks => {
+				if(!tasks) {
+					return res.status(404).json({
+						message: "The server was unable to find your tasks"
+					});
+				} else {
+					res.status(200).json(tasks);
+				};
 			})
 			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
-					message: err.message || "An error occured while retrieving your tasks"
+					message: err.message || "An error occurred on the server while retrieving your tasks"
 				});
 			});
 		},
 		assessments: (callback) => {
 			User.find({
-				"_id": req.params.id,
-				"assessments.date": {
+				_id,
+				"assessment.date": {
 					$gte: moment().startOf("date").format("MMMM DD YYYY"),
 					$lte: moment().startOf("date").format("MMMM DD YYYY") + 1000*60*60*24*7 
 				}
+			}, {
+				
 			})
-			.then(selectedAss => {
-				return res.json(selectedAss);
+			.sort({ "assessment.date": 1 })
+			.then(assessments => {
+				if(!assessments) {
+					return res.status(404).json({
+						message: "The server was unable to find your assessments"
+					});
+				} else {
+					res.status(200).json(assessments);
+				};
 			})
 			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
-					message: err.message || "An error occured while retrieving your assessments"
+					message: err.message || "An error occurred on the server while retrieving your assessments"
 				});
 			});
 		}		
@@ -85,322 +106,333 @@ controller.index = (req, res) => {
 		if(err) {
 			throw err;
 		} else {
-		console.log("All the columns have been populated: " + results);
-		}
+			console.log("All the columns have been populated: " + results);
+		};
 	});
-}
+};
 
 // GET display class editor for specific class
-controller.classEdit = (req, res) => {
-	Classes.findById({
-		_id: req.params._id,
-	},{
-		"course.title": 1,
-		"module.id": 1,
-		"location": 1,
-		"start.date": 1,
-		"start.time": 1,
-		"end.date": 1,
-		"end.time": 1
+controller.editClass = (req, res) => {
+	const { classId } = req.params;
+
+	User.find({ "class._id": classId }, {
+		"class._id": 1,
+		"class.parent": 1,
+		"class.title": 1,
+		"class.location": 1,
+		"class.start": 1,
+		"class.end": 1
 	})
-	.then(selectedClass => {
-		if(!selectedClass) {
+	.then(classes => {
+		if(!classes) {
 			return res.status(404).json({
-				message: "The class you selected was not successfully found"
+				message: "The class you selected was not found by the server"
 			});
 		} else {
-			return res.json(selectedClass);
-		}
+			return res.status(200).json(classes);
+		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "The class you selected was not successfully found"
+				message: "The class you selected was not found by the server"
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while retrieving the class"
-			})
-		}
+				message: err.message || "An error occurred on the server while retrieving the class"
+			});
+		};
 	});
 };
 
-controller.classUpdate = (req, res) => {
-	Classes.findByIdAndUpdate({
-		"_id": req.params._id
-	},
-	{
-		"": 1,
-		"": 1
+controller.updateClass = (req, res) => {
+	const { classId } = req.params; 
+	const { Id, Title, title, location } = req.body;
+
+	User.update({ "class._id": classId }, {	
+		$push: {
+			class: {
+				_id: classId,
+				parent: {
+					_id: Id,
+					title: Title
+				},
+				title,
+				location,
+				meta: {
+					updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
+				}				
+			}
+		}
 	})
-}
+	.then(revisedClass => {
+		if(!revisedClass) {
+			return res.staus(404).json({
+				message: "The class was not found by the server"
+			});
+		} else {
+			return res.status(200).json(revisedClass);
+		};
+	})
+	.catch(err => {
+		return res.status(500).json({
+			message: err.message || "The server experienced an error while updating your class"
+		});
+	});
+};
 
 // DELETE class
-controller.classDelete = (req, res) => {
-	Classes.findByIdAndDelete({
-		"_id": req.params._id
+controller.deleteClass = (req, res) => {
+	const { classId } = req.params;
+
+	User.update({ "class._id": classId }, {
+		$pull: {
+			class: {
+				_id: classId
+			}
+		}
 	})
 	.then(deletedClass => {
 		if(!deletedClass) {
 			return res.status(400).json({
-				message: "The class you are trying to delete was not successfully found"
+				message: "The class you are trying to delete was not found by the server"
 			});
 		} else {
-			return res.json(deletedClass);
-		}
+			return res.status(200).json(deletedClass);
+		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId" || err.name === "NotFound") {
 			return res.status(404).json({
-				message: "The class you are trying to delete was not successfully found"
+				message: "The class you are trying to delete was not found by the server"
 			})
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occuring while deleting this class"
+				message: err.message || "An error occurred on the server while deleting this class"
 			});
-		}
+		};
 	});
-}
+};
 
 //
-controller.taskEdit = (req, res) => {
-	Tasks.findById({
-		"_id": req.params.id
-	})
-	.then(selectedTask => {
-		if(!selectedTask) {
-			return res.status(404).json({
-				message: "The task you selected was not successfully found"
-			});
-		} else {
-			return res.json(selectedTask);
-		}
-	})
-	.catch(err => {
-		if(err.kind === "ObjectId") {
-			return res.status(404).json({
-				message: "The task you selected was not successfully found"
-			});
-		} else {
-			return res.status(500).json({
-				message: err.message || "An error occured while retrieving the task"
-			})
-		}
-	});
-}
-
-//
-controller.taskNew = (req, res) => {
-	User.find({
-		"_id": req.params._id,
-	},
-	{
-		"modules.id": 1,
-		"modules.title": 1
-	})
-	.then(taskProps => {
-		if(!taskProps) {
-			return res.status(404).json({
-				message: "The server was unable to successfully find the resources needed for your request" 
-			});
-		} else {
-			return res.status(200).json(taskProps);
-		}
-	})
-	.catch(err => {
-		if(err.kind === "ObjectId") {
-			return res.status(404).json({
-				message: "The server was unable to successfully find the resources needed for your request" 
-			});
-		} else {
-			return res.status(500).json({
-				message: err.message || "An error occurred while processing your request"
-			});
-		}
-	});
-}
-
-//
-controller.taskCreate = (req, res) => {
-	async.waterfall([
-		create,
-		associate
-	], (err, results) => {
-		if(err) {
-			throw err;
-		} else {
-			console.log("The sequence of requests has completed: " + results)
-		}
-	});
-
-	const create = (callback) => {
-		const task = new Tasks({
-			"userId": req.params._id,
-			"module.title": req.params.moduleTitle,
-			"title": req.body.title,
-			"type": req.body.type,
-			"deadline": req.body.deadline,
-			"completion": req.body.completion,
-			"note": req.body.note,
-			"meta": {
-				createdAt: moment().startOf("minute").format("MMMM DD YYYY, hh:mm"),
-				updatedAt: moment().startOf("minute").format("MMMM DD YYYY, hh:mm")
-			}
-		});
+controller.newTask = (req, res) => {
+	const { _id } = req.params;
 	
-		task.save()
-		.then(newTask => {
-			return res.json(newTask);
-		})
-		.exec(callback)
-		.catch(err => {
-			return res.status(500).json({
-				message: err.message || "An error occured while creating this task"
-			})
-		});
-	}
-
-	const associate = (pendingTask, callback) => {
-		User.findByIdAndUpdate({
-			"_id": req.params._id
-		},
-		{
-			$set: {
-				"module.id": req.params.moduleId,
-				"module.title": req.params.moduleTitle,
-			}
-		})
-		.then(associatedTask => {
-			if(!associatedTask) {
-				return res.status(404).json({
-					message: "The server was unable find the resources to process your request"
-				});
-			} else {
-				return res.status(200).json(associatedTask);
-			}
-		})
-		.exec(callback)
-		.catch(err => {
-			if(err.kind === "ObjectId") {
-				return res.status(404).json({
-					message: "The server was unable find the resources to process your request"
-				});
-			} else {
-				return res.status(500).json({
-					message: err.message || "An error occured while processing your request"
-				});
-			}
-		});
-	}
-}
-
-//
-controller.taskUpdate = (req, res) => {
-	Tasks.findByIdAndUpdate({
-		"_id": req.params.tasks._id
-	}, 
-	{
-		$set: {
-			"title": req.body.title,
-			"type": req.body.type,
-			"deadline": req.body.deadline,
-			"completion": req.body.completion,
-			"note": req.body.note,
-			"meta": {
-				updatedAt: Date.now()
-			}
-		}
+	User.find({ _id }, {
+		"module.id": 1,
+		"module.title": 1
 	})
-	.then(updatedTask => {
-		if(!updatedTask) {
+	.then(props => {
+		if(!props) {
 			return res.status(404).json({
-				message: "The task you are attempting to update was not successfully found"
+				message: "The server was unable to find the resources needed for your request" 
 			});
 		} else {
-			return res.json(updatedTask);
-		}
+			return res.status(200).json(props);
+		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "The task you are attempting to update was not successfully found"
+				message: "The server was unable to find the resources needed for your request" 
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while updating this task"
+				message: err.message || "An error occurred on the server while processing your request"
 			});
-		}
+		};
 	});
-}
+};
 
-controller.taskDelete = (req, res) => {
-	Tasks.findByIdAndDelete({
-		"_id": req.params._id
+//
+controller.createTask = (req, res) => {
+	const { Id, Title, title, type, deadline, completion, description } = req.body;
+	
+	const Task = new Task({
+		_id: ObjectId(),
+		parent: {
+			_id: Id,
+			title: Title
+		},
+		title,
+		type,
+		deadline,
+		completion,
+		description
+	});
+
+	Task.save()
+	.then(newTask => {
+		return res.status(201).json(newTask);
+	})
+	.catch(err => {
+		return res.status(500).json({
+			message: err.message || "An error occurred on the server while creating this task"
+		});
+	});
+};
+
+controller.editTask = (req, res) => {
+	const { taskId } = req.params;
+
+	User.find({ "task._id": taskId }, {
+		"task._id": 1,
+		"task.parent": 1,
+		"task.title": 1,
+		"task.type": 1,
+		"task.deadline": 1,
+		"task.completion": 1,
+		"task.description": 1
+	})
+	.then(task => {
+		if(!task) {
+			return res.status(404).json({
+				message: "The task you selected was not found by the server"
+			});
+		} else {
+			return res.status(200).json(task);
+		};
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The task you selected was not found by the server"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occurred on the server while retrieving the task"
+			});
+		};
+	});
+};
+
+//
+controller.updateTask = (req, res) => {
+	const { taskId } = req.params;
+	const { Id, Title, title, type, deadline, completion, description } = req.body;
+
+	User.update({ "task._id": taskId }, {
+		$push: {
+			task: {
+				_id: taskId,
+				parent: {
+					_id: Id,
+					title: Title	
+				},
+				title,
+				type,
+				deadline,
+				completion,
+				description,
+				meta: {
+					updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
+				}
+			}
+		}
+	})
+	.then(revisedTask => {
+		if(!revisedTask) {
+			return res.status(404).json({
+				message: "The task you are attempting to update was not found by the server"
+			});
+		} else {
+			return res.status(200).json(revisedTask);
+		};
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The task you are attempting to update was not found by the server"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occurred on the server while updating this task"
+			});
+		};
+	});
+};
+
+controller.deleteTask = (req, res) => {
+	const { taskId } = req.params; 
+
+	User.update({ "task._id": taskId }, {
+		$pull: {
+			task: {
+				"task._id": taskId
+			}
+		}
 	})
 	.then(deletedTask => {
 		if(!deletedTask) {
 			return res.status(400).json({
-				message: "The task you are trying to delete was not successfully found"
+				message: "The task you are trying to delete was not found by the server"
 			});
 		} else {
-			return res.json(deletedTask);
-		}
+			return res.status(200).json(deletedTask);
+		};
 	})
 	.catch(err => {
-		if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+		if(err.kind === "ObjectId" || err.name === "NotFound") {
 			return res.status(404).json({
-				message: "The task you are trying to delete was not successfully found"
+				message: "The task you are trying to delete was not found by the server"
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occuring while deleting this task"
+				message: err.message || "An error occurred on the server while deleting this task"
 			});
-		}
+		};
 	});
-}
+};
 
-controller.assessmentEdit = (req, res) => {
-	Assessments.findById({
-		"_id": req.params._id
+controller.editAssessment = (req, res) => {
+	const { assessmentId } = req.params;
+
+	User.find({ "assessment._id": assessmentId }, {
+		"assessment._id": 1,
+		"assessment.title": 1,
+		"assessment.date": 1
 	})
-	.then(selectedAss => {
-		if(!selectedAss) {
+	.then(assessment => {
+		if(!assessment) {
 			return res.status(404).json({
-				message: "The assessment you selected was not successfully found"
+				message: "The assessment you selected was not found by the server"
 			});
 		} else {
-			return res.json(selectedAss);
-		}
+			return res.status(200).json(assessment);
+		};
 	})
 	.catch(err => {
-		if(err.kind === 'ObjectId') {
+		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "The assessment you selected was not successfully found"
+				message: "The assessment you selected was not found by the server"
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while retrieving the assessment"
+				message: err.message || "An error occurred on the server while retrieving the assessment"
 			});
-		}
+		};
 	});
-}
+};
 
-controller.assessmentUpdate = (req, res) => {
-	// define updated attributes
-	Assessments.findByIdAndUpdate({
-		"_id": req.params._id
-	}, 
-	{
+controller.updateAssessment = (req, res) => {
+	const { assessmentId } = req.params;
+	const { } = req.body;
 
+	User.update({ "assessment._id": assessmentId }, {
+		$push: {
+			assessment: {
+
+			}
+		}
 	})
-	.then(updatedAss => {
-		if(!updatedAss) {
+	.then(revisedAssessment => {
+		if(!revisedAssessment) {
 			return res.status(404).json({
-				message: "The assessment you are attempting to update was not successfully found"
+				message: "The assessment you are attempting to update was not found by the server"
 			});
 		} else {
-			return res.json(updatedAss);
-		}
+			return res.status(200).json(revisedAssessment);
+		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId") {
@@ -409,24 +441,30 @@ controller.assessmentUpdate = (req, res) => {
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while updating this assessment"
+				message: err.message || "An error occurred on the server while updating this assessment"
 			});
-		}
+		};
 	});
-}
+};
 
-controller.assessmentDelete = (req, res) => {
-	Ass.findByIdAndDelete({
-		"_id": req.params._id
-	})
-	.then(deletedAss => {
-		if(!deletedAss) {
+controller.deleteAssessment = (req, res) => {
+	const { assessmentId } = req.params;
+
+	User.update({ "assessment._id": assessmentId }, {
+		$pull: {
+			assessment: {
+				_id: assessmentId
+			}
+		}
+	})	
+	.then(deletedAssessment => {
+		if(!deletedAssessment) {
 			return res.status(400).json({
-				message: "The assessment you are trying to delete was not successfully found"
+				message: "The assessment you are trying to delete was not found by the server"
 			});
 		} else {
-			return res.json(deletedAss);
-		}
+			return res.status(200).json(deletedAssessment);
+		};
 	})
 	.catch(err => {
 		if(err.kind === 'ObjectId' || err.name === 'NotFound') {
@@ -437,8 +475,8 @@ controller.assessmentDelete = (req, res) => {
 			return res.status(500).json({
 				message: err.message || "An error occuring while deleting this assessment"
 			});
-		}
+		};
 	});
-}
+};
 
 module.exports = controller;

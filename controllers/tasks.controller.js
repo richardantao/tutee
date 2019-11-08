@@ -3,7 +3,6 @@ const moment = require("moment");
 
 // import models
 const User = require("../models/User.model").Model;
-const Tasks = require("../models/Tasks.model").Schema;
 
 // instantiate controller
 const controller = [];

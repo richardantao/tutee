@@ -2,8 +2,7 @@ const async = require("async");
 const moment = require("moment");
 
 // import models
-const Users = require("../models/Users.model");
-const Assessment = require("../models/Assessments.model")
+const User = require("../models/User.model");
 
 const controller = [];
 

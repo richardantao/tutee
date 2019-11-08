@@ -1,57 +1,102 @@
 const async = require("async");
 const moment = require("moment");
 
-// import models
-const Years = require("../models/Years.model");
-const Terms = require("../models/Terms.model");
-const Courses = require("../models/Courses.model");
-const Modules = require("../models/Modules.model");
+// import model
+const User = require("../models/User.model");
 
 // instantiate controller
 const controller = [];
 
-controller.index = (req, res, next) => {
+controller.index = (req, res) => {
+	const { _id } = req.params;
+
 	async.parallel({
 		years: (callback) => {
-			Years.find()
+			User.find({ _id }, {
+				"year._id": 1,
+				"year.title": 1,
+				"year.date": 1
+			})
+			.sort({ "year.date.start": -1 })
 			.then(years => {
-				return res.json(years);	
+				if(!years) {
+					return res.status(404).json({
+						message: "The server was unable to find your academic years"
+					});
+				} else {
+					res.status(200).json(years);	
+				};
 			})
 			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
-					message: "An error occured while retrieving the academic years"
+					message: err.message || "An error occurred on the server while retrieving your academic years"
 				});
 			});
 		},
 		terms: (callback) => {
-			Terms.find()
+			User.find({ _id }, {
+				"term._id": 1,
+				"term.parent": 1,
+				"term.title": 1,
+				"term.date": 1
+			})
+			.sort({ "term.date.start": -1 })
 			.then(terms => {
-				return res.json(terms);
+				if(!terms) {
+					return res.status(404).json({
+						message: "The server was unable to find your terms"
+					});
+				} else {
+					res.status(200).json(terms);
+				};
 			})
 			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
-					message: "An error occured while retrieving your terms"
+					message: err.message || "An error occurred on the server while retrieving your terms"
 				});
 			});
 		},
 		courses: (callback) => {
-			Courses.find()
+			User.find({ _id }, {
+				"course._id": 1,
+                "course.code": 1,
+                "course.title": 1,
+				"course.credit": 1,
+				"course.theme": 1
+			})
+			.sort({ "course.meta.updatedAt": -1 })
 			.then(courses => {
-				return res.json(courses);
+				if(!courses) {
+					return res.status(404).json({
+						message: "The server was unable to find your courses"
+					});
+				} else {
+					res.status(200).json(courses);
+				};
 			})
 			.exec(callback)
 			.catch(err => {
 				return res.status(500).json({
-					message: "An error occured while retrieving your courses"
+					message: err.message || "An error occurred on the server while retrieving your courses"
 				});
 			});
-		},
+		}, // amalgamate model with classes before declaring projections
 		modules: (callback) => {
-			Modules.find()
+			User.find({ _id },{	
+				"module._id": 1,
+				"module.title": 1
+			})
+			.sort({ "module..": -1 })
 			.then(modules => {
-				return res.json(modules);
+				if(!modules) {
+					return res.status(404).json({
+						message: err.message || "The server was unable to find your modules"
+					});
+				} else {
+					res.status(200).json(modules);
+				};
 			})
 			.exec(callback)
 			.catch(err => {
@@ -61,225 +106,277 @@ controller.index = (req, res, next) => {
 			});
 		}
 	});
-}
-
-// GET request when user tries to edit a specific year
-controller.yearsEdit = (req, res, next) => {
-	Years.findById(req.params.id)
-	.then(selectedYear => {
-		if(!selectedYear) {
-			return res.status(404).json({
-				message: "The server was unable to successfully retrieve the selected academic year"
-			});
-		} else {
-			return res.json(selectedYear);
-		}
-	})
-	.catch(err => {
-		if(err.kind === "ObjectId") {
-			return res.status(404).json({
-				message: "The server was unable to successfully retrieve the selected academic year"
-			});
-		} else {
-			return res.status(500).json({
-				message: err.message || "An error occured while retrieving the selected academic year"
-			});
-		}
-	});
 };
 	
-// check to see if can combine with route above
-controller.yearsNew = (req, res, next) => {
+controller.newYear = (req, res) => {
+	const { _id } = req.params;
 	
-}
+	User.find({ _id }, {
 
-// POST request after user SUBMITS the "New Academic Year" form
-controller.yearsCreate = function(req, res, next) {
-	const year = new Years({
-		parents: {
-			user: req.body.user
-		},
-		title: req.body.title,
+	})
+	.then(() => {
+		
+	})
+	.catch(err => {
+		return res.status(500).json({
+			message: err.message || "An error occurred on the server while processing your request" 
+		});
+	});
+};
+
+controller.createYear = (req, res) => {
+	const { title, start, end } = req.body;
+
+	const year = new Year({
+		_id: ObjectId(),
+		title,
 		date: {
-			start: req.body.startDate,
-			end: req.body.endDate
-		},
-		meta: {
-			createdAt: Date.now(),
-			updatedAt: Date.now()
+			start,
+			end
 		}
 	});
 
 	year.save()
 	.then(newYear => {
-		return res.json(newYear);
+		return res.status(201).json(newYear);
 	})
 	.catch(err => {
 		return res.status(500).json({
-			message: err.message || "An error occured while creating a new academic year"
+			message: err.message || "An error occurred on the server while processing your request"
 		});
 	});
-}
+};
 
-// PUT request after user SAVES the Year editer form
-controller.yearsUpdate = (req, res, next) => {
-	Years.findByIdAndUpdate(req.params.id, {
-		$set: {
-			title: req.body.title,
-			date: {
-				start: req.body.startDate,
-				end: req.body.endDate
-			},
-			meta: {
-				updatedAt: Date.now()
-			}
-		}
+// GET request when user tries to edit a specific year
+controller.editYear = (req, res) => {
+	const { yearId } = req.params;
+
+	User.find({ "year._id": yearId }, {
+		"year._id": 1,
+		"year.title": 1,
+		"year.date": 1
 	})
-	.then(updatedYear => {
-		if(!updatedYear) {
+	.then(year => {
+		if(!year) {
 			return res.status(404).json({
-				message: "The server was unable to successfully find the academic year"
+				message: "The server was unable to find the selected academic year"
 			});
 		} else {
-			return res.json(updatedYear);
-		}
+			return res.status(200).json(year);
+		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "The server was unable to successfully find the academic year"
+				message: "The server was unable to find the selected academic year"
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while updating the academic year"
+				message: err.message || "An error occurred on the server while retrieving the selected academic year"
 			});
+		};
+	});
+};
+
+// PUT request after user SAVES the Year editer form
+controller.updateYear = (req, res) => {
+	const { yearId } = req.params;
+	const { title, start, end } = req.body;
+	
+	User.update({ "year._id": yearId }, {
+		$push: {
+			year: {
+				_id: yearId,
+				title,
+				date: {
+					start,
+					end
+				}
+			}
 		}
 	})
-}
+	.then(revisedYear => {
+		if(!revisedYear) {
+			return res.status(404).json({
+				message: "The server was unable to find the academic year"
+			});
+		} else {
+			return res.status(200).json(revisedYear);
+		};
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The server was unable to find the academic year"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occurred on the server while updating the academic year"
+			});
+		};
+	});
+};
 
-controller.yearsDelete = (req, res, next) => {
-	Years.findByIdAndDelete(req.params.id)
+controller.deleteYear = (req, res) => {
+	const { yearId } = req.params;
+
+	User.update({ "year._id": yearId },{
+		$pull: {
+			year: {
+				_id: yearId
+			}
+		}
+	})
 	.then(deletedYear => {
 		if(!deletedYear) {
 			return res.status(404).json({
-				message: "The server was unable to successfully find the selected academic year"
+				message: "The server was unable to find the selected academic year"
 			});
 		} else {
-			return res.json(deletedYear);
-		}
+			return res.status(500).json(deletedYear);
+		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId" || err.name === "NotFound") {
 			return res.status(404).json({
-				message: "The server was unable to successfully find the selected academic year"
+				message: "The server was unable to find the selected academic year"
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while deleting this academic year"
+				message: err.message || "An error occurred on the server while deleting this academic year"
 			});
-		}
+		};
 	});
-}
+};
 
-controller.termsEdit = (req, res, next) => {
-	Terms.findById(req.params.id)
-	.then(selectedTerm => {
-		if(!selectedTerm) {
+controller.newTerm = (req, res) => {
+	const { _id } = req.params;
+	
+	User.find({ _id }, {
+		"year._id": 1,
+		"year.title": 1,		
+	})
+	.sort({ "year.date.start": -1 })
+	.then(props => {
+		if(!props) {
 			return res.status(404).json({
-				message: "The server was unable to find the selected Term" 
+				message: "The server was unable to find the resources needed to process this request"
 			});
 		} else {
-			return res.json(selectedTerm);
-		}
+			return res.status(200).json(props);
+		};
 	})
 	.catch(err => {
-		if(err.kind === "ObjectId") {
-			return res.status(404).json({
-				message: "The server was unable to find the selected Term" 
-			});
-		} else {
-			return res.status(500).json({
-				message: err.message || "An error occured while retrieving the selected Term" 
-			});
-		}
+		return res.status(500).json({
+			message: err.message || "An error occured on the server while processing your request"
+		});
 	});
-}
-
-controller.termsNew = (req, res) => {
-
-}	
+};	
 	
-controller.termsCreate = (req, res) => {
-	const term = new Terms({
-		parent: {
-			user: req.body.id,
-			year: req.body.year
-		},
-		title: req.body.title,
+controller.createTerm = (req, res) => {
+	const { title, start, end, rotation } = req.body;
+	
+	const term = new Term({
+		_id: ObjectId(),
+		title,
 		date: {
-		  start: req.body.startDate,
-		  end: req.body.endDate
-		},
-		rotation: req.body.rotation,
-		meta: {
-		  createdAt: Date.now(),
-		  updatedAt: Date.now()
+		  start,
+		  end
 		}
 	});
 
 	term.save()
 	.then(newTerm => {
-		return res.json(newTerm);
+		return res.status(201).json(newTerm);
 	})
 	.catch(err => {
 		return res.status(500).json({
 			message: err.message || "An error occured while creating your new Term"
 		});
-	})
-}
+	});
+};
 
-controller.termsUpdate = (req, res, next) => {
-	Terms.findByIdAndUpdate({
-		"_id": req.params._id
-	}, 
-	{
-		$set: {
-			title: req.body.title,
-			date: {
-			start: req.body.startDate,
-			end: req.body.endDate
-			},
-			rotation: req.body.rotation,
-			meta: {
-			updatedAt: Date.now()
-			}
-		}
+controller.editTerm = (req, res) => {
+	const { termId } = req.params;
+
+	User.find({ "term._id": termId }, {
+		"term._id": 1, 
+		"term.parent": 1,
+		"term.title": 1,
+		"term.date": 1,
 	})
-	.then(updatedTerm => {
-		if(!updatedTerm) {
+	.then(term => {
+		if(!term) {
 			return res.status(404).json({
-				message: "The server was unable to successfully find the selected Term"
+				message: "The server was unable to find the selected Term" 
 			});
 		} else {
-			return res.json(updatedTerm);
-		}
+			return res.status(200).json(term);
+		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "The server was unable to successfully find the selected Term"
+				message: "The server was unable to find the selected Term" 
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while updating this Term"
+				message: err.message || "An error occurred on the server while retrieving the selected Term" 
 			});
-		}
+		};
 	});
-}
+};
 
-controller.termsDelete = (req, res, next) => {
-	Terms.findByIdAndDelete({
-		"_id": req.params._id
+controller.updateTerm = (req, res) => {
+	const { termId } = req.params;
+	const { title, start, end } = req.body;
+	
+	User.update({ "term._id": termId }, {
+		$push: {
+			term: {
+				_id: termId,
+				title,
+				date: {
+					start,
+					end
+				},
+				meta: {
+					updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
+				}
+			}
+		}
+	})
+	.then(revisedTerm => {
+		if(!revisedTerm) {
+			return res.status(404).json({
+				message: "The server was unable to find the selected Term"
+			});
+		} else {
+			return res.status(200).json(revisedTerm);
+		};
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The server was unable to find the selected Term"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occurred on the server while updating this Term"
+			});
+		};
+	});
+};
+
+controller.deleteTerm = (req, res) => {
+	const { termId } = req.params;
+	
+	User.update({ "term._id": termId }, {
+		$pull: {
+			term: {
+				_id: termId
+			}
+		}
 	})
 	.then(deletedTerm => {
 		if(!deletedTerm) {
@@ -287,8 +384,8 @@ controller.termsDelete = (req, res, next) => {
 				message: "The server was unable to find the selected Term"
 			});
 		} else {
-			return res.json(deletedTerm);
-		}
+			return res.status(500).json(deletedTerm);
+		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId" || err.name === "NotFound") {
@@ -297,111 +394,149 @@ controller.termsDelete = (req, res, next) => {
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while deleting this Term"
+				message: err.message || "An error occurred on the server while deleting this Term"
 			});
-		}
+		};
 	});
-}
+};
 
-controller.coursesEdit = (req, res, next) => {
-	Courses.findById({
-		"_id": req.params.id
+// Course controllers
+
+controller.newCourse = (req, res) => {
+	const { _id } = req.params;
+	
+	User.find({ _id }, {
+		"term._id": 1,
+		"term.title": 1
 	})
-	.then(selectedCourse => {
-		if(!selectedCourse) {
+	.sort({ "term.date.start": -1 })
+	.then(props => {
+		if(!props) {
 			return res.status(404).json({
-				message: "The server was unable to find the selected Course" 
+				message: "The server was unable to find the resources required to fulfill your request"
 			});
 		} else {
-			return res.json(selectedCourse);
-		}
+			return res.status(200).json(props);
+		};
 	})
 	.catch(err => {
-		if(err.kind === "ObjectId") {
-			return res.status(404).json({
-				message: "The server was unable to find the selected Course" 
-			});
-		} else {
-			return res.status(500).json({
-				message: err.message || "An error occured while retrieving the selected Course" 
-			});
-		}
+		return res.status(500).json({
+			message: err.message || "An error occurred on the server while processing your request"
+		});
 	});
-}
-
-controller.coursesNew = (req, res, next) => {
-
-}
+};
 	
-controller.coursesCreate = (req, res) => {
-	const course = new Courses({
-		parents: {
-			user: req.body.user,
-			year: req.body.year
+controller.createCourse = (req, res) => {
+	const { Id, Title, code, title, credit, theme } = req.body;
+	
+	const course = new Course({
+		_id: ObjectId(),
+		parent: {
+			_id: Id,
+			title: Title 
 		},
-		code: req.body.code,
-		title: req.body.title,
-		// theme: req.body.theme,
-		date: {
-			start: req.body.startDate,
-			end: req.body.endDate
-		},
-		meta: {
-			createdAt: Date.now(),
-			updatedAt: Date.now()
-		}
+		code,
+		title,
+		credit,
+		theme
 	});
 
 	course.save()
 	.then(newCourse => {
-		return res.json(newCourse);
+		return res.status(201).json(newCourse);
 	})
 	.catch(err => {
 		return res.status(500).json({
-			message: err.message || "An error occured while creating your new Course"
-		})
+			message: err.message || "An error occurred on the server while creating your new Course"
+		});
 	});
-}
+};
 
-controller.coursesUpdate = (req, res, next) => {
-	Courses.findByIdAndUpdate({
-		"_id": req.params.id
-	}, 
-	{
-		$set: {
-			code: req.body.code,
-			title: req.body.title,
-			theme: req.body.theme, 
-			meta: {
-				updatedAt: Date.now()
-			}
-		}
+controller.editCourse = (req, res) => {
+	const { courseId } = req.params;
+	User.find({ "course._id": courseId }, {
+		"course._id": 1,
+		"course.parent": 1,
+		"course.code": 1,
+		"course.title": 1,
+		"course.credit": 1,
+		"course.theme": 1
 	})
-	.then(updatedCourse => {
-		if(!updatedCourse) {
+	.then(course => {
+		if(!course) {
 			return res.status(404).json({
-				message: "The server was unable to successfully find the selected Course"
+				message: "The server was unable to find the selected course" 
 			});
 		} else {
-			return res.json(updatedCourse);
-		}
+			return res.status(200).json(course);
+		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "The server was unable to successfully find the selected Course"
+				message: "The server was unable to find the selected Course" 
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while updating this Course"
+				message: err.message || "An error occured on the server while retrieving the selected Course" 
 			});
-		}
+		};
 	});
-}
+};
 
-controller.coursesDelete = (req, res, next) => {
-	Courses.findByIdAndDelete({
-		"_id": req.params.id
+controller.updateCourse = (req, res) => {
+	const { courseId } = req.params;
+	const { Id, Title, code, title, credit, theme } = req.body;
+	
+	User.update({ "course._id": courseId }, {
+		$push: {
+			course: {
+				_id: courseId,
+				parent: {
+					_id: Id,
+					title: Title
+				},
+				code,
+				title,
+				credit,
+				theme, 
+				meta: {
+					updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
+				}
+			}
+		}
+	})
+	.then(revisedCourse => {
+		if(!revisedCourse) {
+			return res.status(404).json({
+				message: "The server was unable to find the selected Course"
+			});
+		} else {
+			return res.status(200).json(revisedCourse);
+		};
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The server was unable to find the selected Course"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occurred on the server while updating this Course"
+			});
+		};
+	});
+};
+
+controller.deleteCourse = (req, res) => {
+	const { courseId } = req.params;
+	
+	User.update({ "course._id": courseId }, {
+		$pull: {
+			course: {
+				_id: courseId
+			}
+		}
 	})
 	.then(deletedCourse => {
 		if(!deletedCourse) {
@@ -409,8 +544,8 @@ controller.coursesDelete = (req, res, next) => {
 				message: "The server was unable to find the selected Course"
 			});
 		} else {
-			return res.json(deletedCourse);
-		}
+			return res.status(200).json(deletedCourse);
+		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId" || err.name === "NotFound") {
@@ -419,110 +554,143 @@ controller.coursesDelete = (req, res, next) => {
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while deleting this Course"
+				message: err.message || "An error occurred on the server while deleting this Course"
 			});
-		}
+		};
 	});
-}
+};
 
-controller.modulesEdit = (req, res, next) => {
-	Modules.findById({
-		"_id": req.params.id
+// Module controllers
+
+controller.newModule = (req, res) => {
+	const { _id } = req.params;
+	
+	User.find({ _id }, {
+		"course._id": 1,
+		"course.title": 1
 	})
-	.then(selectedModule => {
-		if(!selectedModule) {
+	.sort({ "course.meta.updatedAt": -1 }) 
+	.then(modules => {
+		if(!modules) {
 			return res.status(404).json({
-				message: "The server was unable to find the selected Module" 
+				message: "The server was unable to find the resources needed to process this request"
 			});
 		} else {
-			return res.json(selectedModule);
-		}
+			return res.status(200).json(modules);
+		};
 	})
 	.catch(err => {
-		if(err.kind === "ObjectId") {
-			return res.status(404).json({
-				message: "The server was unable to find the selected Module" 
-			});
-		} else {
-			return res.status(500).json({
-				message: err.message || "An error occured while retrieving the selected Module" 
-			});
-		}
+		return res.status(500).json({
+			message: err.message || "The server experienced an error while processing your request"
+		});
 	});
-}
-
-controller.modulesNew = (req, res, next) => {
-
-}	
+};	
 	
-controller.modulesCreate = (req, res, next) => {
+// finish when model is finalized
+controller.createModule = (req, res) => {
+	const { Id, Title, title } = req.body;
+	
 	const modules = new Modules({
-		parents: {
-			user: req.body.user,
-			course: req.body.course
+		_id: ObjectId(),
+		parent: {
+			_id: Id,
+			title: Title
 		},
-		type: req.body.type,
+		title,
 		date: {
-			start: req.body.startDate,
-			end: req.body.endDate
-		},
-		instructor: req.body.instructor,
-		meta: {
-			createdAt: Date.now(),
-			updatedAt: Date.now()
+			start,
+			end
 		}
 	});
 
 	modules.save()
 	.then(newModule => {
-		return res.json(newModule);
+		return res.status(201).json(newModule);
 	})
 	.catch(err => {
 		return res.status(500).json({
 			message: err.message || "An error occured while creating your new Module"
 		})
 	});
-}
+};
 
-controller.modulesUpdate = (req, res, next) => {
-	Modules.findByIdAndUpdate(req.params.id, {
-		$set: {
-			type: req.body.type,
-			date: {
-				start: req.body.startDate,
-				end: req.body.endDate
-			},
-			instructor: req.body.instructor,
-			meta: {
-				updatedAt: Date.now()
-			}
-		}
-	})
-	.then(updatedModule => {
-		if(!updatedModule) {
+controller.editModule = (req, res) => {
+	const { moduleId } = req.params;
+
+	User.find({ "module._id": moduleId })
+	.then(modules => {
+		if(!modules) {
 			return res.status(404).json({
-				message: "The server was unable to successfully find the selected Module"
+				message: "The server was unable to find the selected Module" 
 			});
 		} else {
-			return res.json(updatedModule);
-		}
+			return res.status(200).json(modules);
+		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "The server was unable to successfully find the selected Module"
+				message: "The server was unable to find the selected Module" 
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while updating this Module"
+				message: err.message || "An error occurred while retrieving the selected Module" 
 			});
-		}
+		};
 	});
-}
+};
 
-controller.modulesDelete = (req, res, next) => {
-	Modules.findByIdAndDelete({
-		"_id": req.params._id
+controller.updateModule = (req, res) => {
+	const { moduleId } = req.params;
+	const { type, start, end  } = req.body;
+// finish
+	User.update({ "module._id": moduleId }, {
+		$push: {
+			module: {
+				_id: moduleId,
+				type,
+				date: {
+					start,
+					end
+				},
+				meta: {
+					updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
+				}
+			}
+		}
+	})
+	.then(revisedModule => {
+		if(!revisedModule) {
+			return res.status(404).json({
+				message: "The server was unable to find the selected Module"
+			});
+		} else {
+			return res.status(200).json(revisedModule);
+		};
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The server was unable to find the selected Module"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occurred on the server while updating this Module"
+			});
+		};
+	});
+};
+
+controller.deleteModule = (req, res) => {
+	const { moduleId } = req.params;
+	
+	// pull the object from the module array, where the _id belongs to the respective owner
+	User.update({ "module._id": moduleId }, {
+		$pull: {
+			module: {
+				_id: moduleId
+			}
+		}
 	})
 	.then(deletedModule => {
 		if(!deletedModule) {
@@ -530,8 +698,8 @@ controller.modulesDelete = (req, res, next) => {
 				message: "The server was unable to find the selected Module"
 			});
 		} else {
-			return res.json(deletedModule);
-		}
+			return res.status(200).json(deletedModule);
+		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId" || err.name === "NotFound") {
@@ -540,10 +708,10 @@ controller.modulesDelete = (req, res, next) => {
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while deleting this Module"
+				message: err.message || "An error occurred on the server while deleting this Module"
 			});
-		}
+		};
 	});
-}
+};
 
 module.exports = controller;

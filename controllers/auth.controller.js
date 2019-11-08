@@ -46,11 +46,11 @@ controller.user = (req, res) => {
     User.findById(req.user.id)
     .select("-password")
     .then(user => {
-        res.json(user);
+        res.status(200).json(user);
     })
     .catch(err => {
         return res.status(500).json({
-            message: err.message || "An error occured on the server while processing your request"
+            message: err.message || "An error occured on the server while loading your user credentials"
         });
     });
 };

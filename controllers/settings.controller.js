@@ -8,307 +8,230 @@ const User = require("../models/User.model");
 const controller = [];
 
 controller.index = (req, res) => {
-	async.parallel({
-		profile: (callback) => {
-			User.findById({
-				"id": req.params.id
-			}, {
-				"profile.name": 1,
-				"profile.email.address": 1,
-				"location": 1
-			})
-			.then(selectedProfile => {
-				if(!selectedProfile) {
-					return res.status(404).json({
-						message: "The server was unable to successfully find your profile"
-					});
-				} else {
-					return res.json(selectedProfile);
-				}
-			})
-			.exec(callback)
-			.catch(err => {
-				if(err.kind === "ObjectId") {
-					return res.status(404).json({
-						message: "The server was unable to successfully find your profile"
-					});
-				} else {
-					return res.status(500).json({
-						message: err.message || "An error occured while retrieving your profile"
-					});
-				}
-			});
-		},
-		password: (callback) => {
-			User.findById({
-				"id": req.params.id
-			},{
-				"profile.password": 1 
-			})
-			.then(selectedPassword => {
-				if(!selectedPassword) {
-					return res.status(404).json({
-						message: "The server was unable to successfully find your current password"
-					});
-				} else {
-					return res.json(selectedPassword);
-				}
-			})
-			.exec(callback)
-			.catch(err => {
-				if(err.kind === "ObjectId") {
-					return res.status(404).json({
-						message: "The server was unable to successfully find your current password"
-					});
-				} else {
-					return res.status(500).json({
-						message: err.message || "An error occured while fetching your current password"
-					});
-				}
-			});
-		},
-		preferences: (callback) => {
-			User.findById({
-				"id": req.params.id
-			}, {
-				"preferences": 1
-			})
-			.then(selectedPreferences => {
-				if(!selectedPreferences) {
-					return res.status(404).json({
-						message: "The server was unable to successfully retrieve your preferences"
-					});
-				} else {
-					return res.json(selectedPreferences);
-				}
-			})
-			.exec(callback)
-			.catch(err => {
-				if(err.kind === "ObjectId") {
-					return res.status(404).json({
-						message: "The server was unable to successfully retrieve your preferences"
-					});
-				} else {
-					return res.status(500).json({
-						message: err.message || "An error occured while retrieving your preferences"
-					});
-				}
-			});
-		},  
-		integrations: (callback) => {
-			User.find({
-				"_id": req.params._id
-			}, {
-				"integrations": 1
-			})
-			.then(selectedIntegrations => {
-				if(!selectedIntegrations) {
-					return res.status(404).json({
-						message: "The server was unable to successfully find your integrations"	
-					});
-				} else {
-					return res.json(selectedIntegrations);
-				}
-			})
-			.exec(callback)
-			.catch(err => {
-				if(err.kind === "ObjectId") {
-					return res.status(404).json({
-						message: "The server was unable to successfully find your integrations"	
-					});
-				} else {
-					return res.status(500).json({
-						message: err.message || "An error occured while retrieving your integrations"
-					});
-				}
-			})
-		},  
-	});
-}
+	
+};
 
-controller.profileUpdate = (req, res) => {
-	User.findByIdAndUpdate({
-		"_id": req.params._id
-	}, 
-	{
+controller.editProfile = (req, res) => {
+	const { _id } = req.params;
+
+	User.find({ _id }, {
+		"name.first": 1,
+		"name.last": 1,
+		"email.address": 1,
+		"location.country": 1,
+		"location.region": 1,
+		"location.institution": 1,
+		"location.school": 1
+	})
+	.then(profile => {
+		if(!profile) {
+			return res.status(404).json({
+				message: "Your profile credentials were not found by the server"
+			});
+		} else {
+			return res.status(200).json(profile);
+		};
+	})
+	.catch(err => {
+		return res.status(500).json({
+			message: err.message || "An error occurred on the server while processing your request"
+		});
+	});
+};
+
+controller.updateProfile = (req, res) => {
+	const { _id } = req.params;
+	const { first, last, email, country, region, institution, school } = req.body; 
+
+	User.update({ _id }, {
 		$set: {
-			profile: {
-				name: {
-					first: req.body.firstName,
-					last: req.body.lastName
-				},
-				email: {
-					address: req.body.email,
-					verified: true
-				}
+			name: {
+				first,
+				last
+			},
+			email: {
+				address: email,
 			},
 			location: {
-				country: req.body.country,
-				region: req.body.region,
-				institution: req.body.institution,
-				school: req.body.school
+				country,
+				region,
+				institution,
+				school
+			},
+			meta: {
+				updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
 			}
 		}
 	})
-	.then(updatedUser => {
-		if(!updatedUser) {
+	.then(revisedUser => {
+		if(!revisedUser) {
 			return res.status(404).json({
-				message: "The information regarding your profile was not successfully found"
+				message: "The credentials you attempted to update were not received by the server"
 			});
 		} else {
-			return res.json(updatedUser);
+			return res.status(200).json(revisedUser);
 		}
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "The information regarding your profile was not successfully found"
+				message: "The account you are trying you update was not found by the server"
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while updating your profile"
+				message: err.message || "An error occurred on the server while updating your profile"
 			});
 		}
 	});
 };
 
-controller.profileDelete = (req, res) => {
-	User.findByIdAndDelete({
-		"_id": req.params._id
-	})
+controller.deleteProfile = (req, res) => {
+	const { _id } = req.params;
+
+	User.findByIdAndDelete({ _id })
 	.then(deletedUser => {
 		if(!deletedUser) {
 			return res.status(404).json({
-				message: "The server could not successfully find the account you are trying to delete. Please try again."
+				message: "The server could not find the account you are trying to delete. Please try again."
 			});
 		} else {
-			return res.json(deletedUser);
+			return res.status(200).json(deletedUser);
 		}
 	})
 	.catch(err => {
-		if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+		if(err.kind === "ObjectId" || err.name === "NotFound") {
 			return res.status(404).json({
-				message: "The server could not successfully find the account you are trying to delete. Please try again."
+				message: "The server could not find the account you are trying to delete. Please try again."
 			});	
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occured while deleting your card"
+				message: err.message || "An error occurred on the server while deleting your profile"
 			});
 		}
 	});
 };
 
 // GET request to retrieve user's password in settings page
-controller.passwordEdit = (req, res) => {
-	User.find({
-		_id: req.params.id
-	},{
+controller.editPassword = (req, res) => {
+	const { _id } = req.params;
+
+	User.find({ _id }, {
 		password: 1
 	})
 	.then(password => {
-		return res.status(200).json(password);
+		if(!password) {
+			return res.status(404).json({
+				message: "Your current password was not found by the server"
+			});
+		} else {
+			return res.status(200).json(password);
+		};
 	})
 	.catch(err => {
 		return res.status(500).json({
-			message:  err.message || "A error on the server occured while processing your request"
+			message: err.message || "An error on the server occurred while processing your request"
 		});
 	});
 };
 
 // PUT request to update database with user's new password
-controller.passwordUpdate = (req, res) => {
-	User.findById({
-		_id: req.params.id
-	}, 
-	{
+controller.updatePassword = (req, res) => {
+	const { _id } = req.params;
+	const { password } = req.body;
+
+	User.update({ _id }, {
 		$set: {
-			profile: {
-				password: req.body.password
-			}
+			password			
 		}
 	})
 	.then(updatedPassword => {
 		if(!updatedPassword) {
 			return res.status(404).json({
-				message: "The server was unable to successfully find your stored password. Please reload the page"
+				message: "The server was unable to find your new password. Please reload the page"
 			});
 		} else {
-			return res.json(updatedPassword);
-		}
-	})
-	.catch(err => {
-		if(err.kind === "ObjectId") {
-			return res.status(404).json({
-				message: "The server was unable to successfully find your stored password. Please reload the page"
-			});
-		} else {
-			return res.status(500).json({
-				message: err.message || "An error occured while updating your password"
-			});	
-		}
-	});	
-};
-
-// GET request to retrieve user's preferences 
-controller.preferencesEdit = (req, res) => {
-	User.findById({
-		"_id": req.params._id
-	})
-	.then(selectedPreferences => {
-		if(!selectedPreferences) {
-			return res.status(404).json({
-				message: "The server was unable to sucessfully find your preferences"
-			});
-		} else {
-			return res.json(selectedPreferences);
-		}
-	})
-	.catch(err => {
-		if(err.kind === "ObjectId") {
-			return res.status(404).json({
-				message: "The server was unable to sucessfully find your preferences"
-			});
-		} else {
-			return res.status(500).json({
-				message: err.message || "An error occured while retrieving your preferences"
-			});
-		}
-	});
-};
-
-// POST request to update user's personal app preferences
-controller.preferencesUpdate = (req, res) => {
-	User.findByIdAndUpdate({
-		"_id": req.params._id
-	}, 
-	{
-		$set: {
-			preferences: {
-				startDay: req.body.day,
-				startTime: req.body.time,
-				defaultDuration: req.body.duration,
-				defaultCalendar: req.body.calendar,
-				onEmailList: req.body.email
-			}
-		}
-	})
-	.then(updatedPreferences => {
-		if(!updatedPreferences) {
-			return res.status(404).json({
-				message: "The server was unable to successfully find the preferences you are trying to update"
-			});
-		} else {
-			return res.json(updatedPreferences);
+			return res.status(200).json(updatedPassword);
 		};
 	})
 	.catch(err => {
 		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "The server was unable to successfully find the preferences you are trying to update"
+				message: "The server was unable to find your stored password. Please reload the page"
 			});
 		} else {
 			return res.status(500).json({
-				message: "An error occured while updating your preferences"
+				message: err.message || "An error occured while updating your password"
+			});	
+		};
+	});	
+};
+
+// GET request to retrieve user's preferences 
+controller.editPreferences = (req, res) => {
+	const { _id } = req.params;
+
+	User.find({ _id }, {
+		"preferences.startDay": 1,
+        "preferences.startTime": 1,
+        "preferences.defaultDuration": 1,
+        "preferences.defaultCalendar": 1,
+        "preferences.onEmailList": 1
+	})
+	.then(preferences => {
+		if(!preferences) {
+			return res.status(404).json({
+				message: "The server was unable to find your preferences"
+			});
+		} else {
+			return res.status(200).json(preferences);
+		};
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The server was unable to find your preferences"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "An error occurred while retrieving your preferences"
+			});
+		};
+	});
+};
+
+// POST request to update user's personal app preferences
+controller.updatePreferences = (req, res) => {
+	const { _id } = req.params;
+	const { startDay, startTime, defaultDuration, defaultCalendar, onEmailList } = req.body;
+
+	User.update({ _id }, {
+		$set: {
+			preferences: {
+				startDay,
+				startTime,
+				defaultDuration,
+				defaultCalendar,
+				onEmailList
+			}
+		}
+	})
+	.then(revisedPreferences => {
+		if(!revisedPreferences) {
+			return res.status(404).json({
+				message: "The server was unable to find the preferences you are trying to update"
+			});
+		} else {
+			return res.status(200).json(revisedPreferences);
+		};
+	})
+	.catch(err => {
+		if(err.kind === "ObjectId") {
+			return res.status(404).json({
+				message: "The server was unable to find the preferences you are trying to update"
+			});
+		} else {
+			return res.status(500).json({
+				message: "An error occurred on the server while updating your preferences"
 			});
 		};
 	});
@@ -317,27 +240,112 @@ controller.preferencesUpdate = (req, res) => {
 /* Future routes */
 
 // GET request to retrieve user's third party integrations
-controller.integrationsEdit = (req, res) => {
-	
-};
 
-controller.integrationsNew = (req, res) => {
-	
+
+controller.newIntegration = (req, res) => {
+	const { _id } = req.params;
+
+	User.find({ _id }, {
+		"": 1	
+	})
+	.then(props => {
+		if(!props) {
+			return res.status(404).json({
+				message: "The server was unable to find the resources needed for your request"
+			});	
+		} else {
+			return res.status(200).json(props);
+		};
+	})
+	.catch(err => {
+		return res.status(500).json({
+			message: err.message || "An error occured while processing your request"
+		});
+	});
 };
 
 // POST request to create third party integration connections
-controller.integrationsCreate = (req, res) => {
-	
+controller.createIntegration = (req, res) => {
+	const { } = req.body;
+
+	const Integration = new Integration({
+		_id: ObjectId()
+	});
+
+	Integration.save()
+	.then(newIntegration => {
+		return res.status(201).json(newIntegration);
+	})
+	.catch(err => {
+		return res.status(500).json({
+			message: err.message || "An error occurred on the server while processing your request"
+		});	
+	});
+};
+
+controller.editIntegration = (req, res) => {
+	const { _id } = req.params;
+
+	User.find({ _id }, {
+		"": 1
+	})
+	.then(integration => {
+		if(!integration) {
+			return res.status(404).json({
+				message: "The server was unable to find this integration"
+			}); 
+		} else {
+			return res.status(200).json(integration);
+		};
+	})
+	.catch(err => {
+		return res.status(500).json({
+			message: err.message || "An error occured on the server while processing your request"
+		});
+	});
 };
 
 // PUT request to update user's third party integrations
-controller.integrationsUpdate = (req, res) => {
-	
+controller.updateIntegration = (req, res) => {
+	const { _id } = req.params;
+	const { } = req.body;
+
+	User.update({ _id },{	
+		$push: {
+			integration: {
+
+			}
+		}
+	})
+	.then(revisedIntegration => {
+		return res.status(200).json(revisedIntegration);
+	})
+	.catch(err => {
+		return res.status(500).json({
+			message: err.message || "An error occurred on the server while processing your request"
+		});
+	});
 };
 
 // DELETE request to delete user's third party integrations
-controller.integrationsDelete = (req, res) => {
-	
+controller.deleteIntegration = (req, res) => {
+	const { integrationId } = req.params;
+
+	User.update({ "integration._id": integrationId },{	
+		$pull: {
+			integration: {
+				_id: integrationId
+			}
+		}
+	})
+	.then(deletedIntegration => {
+		return res.status(200).json(deletedIntegration);
+	})
+	.catch(err => {
+		return res.status(500).json({
+			message: err.message || "An error occurred on the server while processing your request"
+		});
+	});
 };
 
 module.exports = controller;

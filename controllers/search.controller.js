@@ -5,7 +5,7 @@ const User = require("../models/User.model").Model;
 
 const controller = [];
 
-controller.index = (req, res, next) => {
+controller.index = (req, res) => {
 
 }
 

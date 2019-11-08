@@ -31,26 +31,26 @@ router.get("/agenda", auth, controller.agenda);
 // @route /calendar/classes/new
 // @desc get form to add new class
 // @access PRIVATE
-router.get("/classes/new", auth, controller.classNew);
+router.get("/classes/new", auth, controller.newClass);
 
 // @route /calendar/classes/create
 // @desc create new class in calendar page
 // @ access PRIVATE
-router.post("/classes/create", auth, validate.create, controller.classCreate);
+router.post("/classes/create", auth, validate.create, controller.createClass);
 
 // @route /calendar/classes/edit/classId
 // @desc edit class instance
 // @access PRIVATE
-router.get("/classes/edit/:classId", auth, controller.classEdit);
+router.get("/classes/edit/:classId", auth, controller.editClass);
 
 // @route /calendar/classes/update/classId
 // @desc display default calendar view
 // @ access PRIVATE
-router.put("/classes/update/:classId", auth, validate.update, controller.classUpdate);
+router.put("/classes/update/:classId", auth, validate.update, controller.updateClass);
 
 // @route /calendar/classes/delete/classId
 // @desc display default calendar view
 // @ access PRIVATE
-router.delete("/classes/delete/:classId", auth, validate.delete, controller.classDelete);
+router.delete("/classes/delete/:classId", auth, validate.delete, controller.deleteClass);
 
 module.exports = router;

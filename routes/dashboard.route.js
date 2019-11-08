@@ -12,60 +12,64 @@ const validateAssessment = require("../middleware/validation/assessments.validat
 // @access PRIVATE
 router.get("/", auth, controller.index);
 
+/* Class routes */
+
 // @route /dashboard/classes/edit/:classId
 // @desc edit class instance
 // @access PRIVATE
-router.get("classes/edit/:classeId", auth, controller.classEdit);
+router.get("classes/edit/:classId", auth, controller.editClass);
 
 // @route /dashboard/classes/update/:classId
 // @desc update class instance
 // @access PRIVATE
-router.put("classes/update/:classId", auth, validateClass.update, controller.classUpdate);
+router.put("classes/update/:classId", auth, validateClass.update, controller.updateClass);
 
 // @route /dashboard/classes/delete/:classId
 // @desc delete class instance
 // @access PRIVATE
-router.delete("/classes/delete/:classId", auth, validateClass.delete, controller.classDelete); 
+router.put("/classes/delete/:classId", auth, validateClass.delete, controller.deleteClass); 
 
-// @route /dashboard/tasks/edit/:taskId
-// @desc edit task instance
-// @access PRIVATE
-router.get("/tasks/edit/:taskId", auth, controller.taskEdit);
+/* Task routes */
 
 // @route /dashboard/tasks/new
 // @desc get form to add new task through the dashboard
 // @access PRIVATE
-router.get("/tasks/new", auth, controller.taskNew);
+router.get("/tasks/new", auth, controller.newTask);
 
 // @route /dashboard/tasks/create
 // @desc create new task
 // @access PRIVATE
-router.post("/tasks/create", auth, validateTask.create, controller.taskCreate);
+router.put("/tasks/create", auth, validateTask.create, controller.createTask);
+
+// @route /dashboard/tasks/edit/:taskId
+// @desc edit task instance
+// @access PRIVATE
+router.get("/tasks/edit/:taskId", auth, controller.editTask);
 
 // @route /dashboard/tasks/create
 // @desc update task instances
 // @access PRIVATE
-router.put("/tasks/update/:taskId", auth, validateTask.update, controller.taskUpdate);
+router.put("/tasks/update/:taskId", auth, validateTask.update, controller.updateTask);
 
 // @route /dashboard/tasks/delete/:taskId
 // @desc delete task instance
 // @access PRIVATE
-router.delete("/tasks/delete/:taskId", auth, validateTask.delete, controller.taskDelete);
+router.put("/tasks/delete/:taskId", auth, validateTask.delete, controller.deleteTask);
 
 // @route /dashboard/assessments/edit/:assessmentId
 // @desc edit assessment instance
 // @access PRIVATE
-router.get("/assessments/edit/:assessmentId", auth, controller.assessmentEdit);
+router.get("/assessments/edit/:assessmentId", auth, controller.editAssessment);
 
 // @route /dashboard/tasks/update/:assessmentId
 // @desc update assessment 
 // @access PRIVATE
-router.put("/assessments/update/:assessmentId", auth, validateAssessment.update, controller.assessmentUpdate);
+router.put("/assessments/update/:assessmentId", auth, validateAssessment.update, controller.updateAssessment);
 
 // @route /dashboard/assessments/delete/:assessmentId
 // @desc delete assessment instance
 // @access PRIVATE
-router.delete("/assessments/delete/:assessmentId", auth, validateAssessment.delete, controller.assessmentDelete);
+router.put("/assessments/delete/:assessmentId", auth, validateAssessment.delete, controller.deleteAssessment);
 
 module.exports = router;
 

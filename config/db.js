@@ -1,7 +1,8 @@
+const dotenv = require("dotenv").config();
 const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 
-const mongoDB = "mongodb://localhost/tutee-dev";
+const mongoDB = process.env.DB_URL;
 
 mongoose.connect(mongoDB, {
   useCreateIndex: true,
@@ -9,7 +10,7 @@ mongoose.connect(mongoDB, {
   useUnifiedTopology: true
 })
 .then(() =>  {
-  console.log("Sucessfully connected to mongo!");
+  console.log("Sucessfully connected to Mongo Atlas!");
 })
 .catch(err => {
   console.error(err);

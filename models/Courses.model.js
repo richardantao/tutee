@@ -9,7 +9,8 @@ const CourseSchema = new Schema({
 	code: {type: String, required: true},
 	title: {type: String, required: true},
 	credit: {type: Number, required: true},
-	theme: {type: String, default: "#00BBFF"}, 
+	instructor: String,
+	theme: {type: String, default: "#00A6FF"}, 
 	meta: {
 		createdAt: {type: Date, default: () => moment().startOf("minute").format("MMMM Do YYYY, HH:mm a")},
 		updatedAt: {type: Date, default: () => moment().startOf("minute").format("MMMM Do YYYY, HH:mm a")}

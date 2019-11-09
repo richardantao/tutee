@@ -25,7 +25,7 @@ const UserSchema = new Schema({
     year: [YearSchema],
     term: [TermSchema],
     course: [CourseSchema],
-    module: [ModuleSchema],
+    // module: [ModuleSchema],
     class: [ClassSchema],
     assessment: [AssessmentSchema],
     task: [TaskSchema],

@@ -8,17 +8,17 @@ const AssessmentSchema = new Schema({
 	parent: {type: Schema.Types.ObjectId, required: true, ref: "Course"},
 	title: {type: String, required: true},
   	type: {type: String, required: true},
-  	location: String,
-  	date: {
+	  date: {
 		start: {type: Date, required: true},
 		end: {type: Date, required: true}
 	},
   	time: {
 		start: {type: Date, required: true},
 		end: {type: Date, required: true}
-	},
+	},  
+	location: String,
 	grade: {
-		weighting: {type: Number, min: [0, ""], max: [100, ""]},
+		weight: {type: Number, min: [0, ""], max: [100, ""]},
   		score: {type: Number, min: [0, ""], max: [100, ""]}
 	},
 	meta: {

@@ -29,8 +29,8 @@ const auth = (req, res, next) => {
                 success: false, 
                 message: "Token is not valid" 
             });
-        }
-    }    
-}
+        };
+    };    
+};
 
 module.exports = auth;

@@ -43,92 +43,105 @@ validate.application = (req, res, next) => {
 
 validate.contact = (req, res, next) => {
     const errors = validationResult(req);
+    const { name, email, message } = req.body;
 
-    check("name").isAlpha();
-    check("email").isEmail();
-    check("message").isAlphaNumeric();
+    check(name, "Name had an invalid input")
+    .exists().withMessage("Name is a required field")
+    .isAlphaNumeric().withMessage("Name can only contain letters and words");
+    
+    check(email, "Email had an invalid input")
+    .exists().withMessage("Email is a required field")
+    .isEmail().withMessage("Email must be a valid email address");;
+    
+    check(message, "Message received an invalid input")
+    .exists().withMessage("Message is a required field");
 
-    sanitize("name").escape();
-    sanitize("email").escape().normalizeEmail();
-    sanitize("message").escape();
+    sanitize(name).escape();
+    sanitize(email).escape().normalizeEmail();
+    sanitize(message).escape();
 
     if(!errors.isEmpty()) {
-        return res.status(400).json({
-            message: "Validation failed. Please try again",
-            errors
+        return res.status(422).json({
+            message: errors.message
         });
     } else {
-        res.status(200).json({
-            message: "Validation successful",
-            errors: null
-        })
         next();
     };
 };
 
 validate.invite = (req, res, next) => {
     const errors = validationResult(req);
+    const { name, email } = req.body;
+
+    check(name, "Name had an invalid input")
+    .exists().withMessage("Name is a required field")
+    .isAlphaNumeric().withMessage("Name can only contain letters and words");
+    
+    check(email, "Email had an invalid input")
+    .exists().withMessage("Email is a required field")
+    .isEmail().withMessage("Email must be a valid email address");;
+
+    sanitize(name).escape();
+    sanitize(email).escape().normalizeEmail();
 
     if(!errors.isEmpty()) {
-        return res.status(400).json({
-            message: "Validation failed. Please try again",
-            errors
+        return res.status(422).json({
+            message: errors.message
         });
     } else {
-        res.status(200).json({
-            message: "Validation successful",
-            errors: null
-        })
         next();
     };
 };
 
 validate.register = (req, res, next) => {
     const errors = validationResult(req);
+    const { first, last, email, password } = req.body;
 
-    check("fname").isAlpha("Your first name can only contain letters").isLength({min: 1}).withMessage("Please enter your first name");
-    check("lname").isAlpha("Your last name can only contain letters").isLength({min: 1}).withMessage("Please enter your last name");;    
-    check("email").isEmail("You must input a valid email").isLength({min: 1}).withMessage("Please enter your email");;
-    check("password").isLength({min: 6}).withMessage("You password must be at least 6 characters");
+    check(first, "First name has an invalid input")
+        .exists().withMessage("First name is a required field")
+        .isAlphanumeric().withMessage("First name can only contain letters and numbers");
+    check(last, "Last name has an invalud input")
+        .exists("Last name is a required field")
+        .isAlphanumeric().withMessage("Last name can only contain letters and numbers");
+    check(email, "Email has an invalud input")
+        .exists().withMessage("Email is a required field")
+        .isEmail().withMessage("Email must be a valid email address");
+    check(password, "Password has an invalud input")
+        .isLength({min: 6}).withMessage("Your password must be at least 6 characters");
 
-    sanitize("fname").escape();
-    sanitize("lname").escape();
-    sanitize("email").escape().normalizeEmail();
-    sanitize("password").escape();
+    sanitize(first).escape();
+    sanitize(last).escape();
+    sanitize(email).escape().normalizeEmail();
+    sanitize(password).escape();
+
 
     if(!errors.isEmpty()) {
-        return res.status(400).json({
-            message: "Validation failed. Please try again",
-            errors
+        return res.status(422).json({
+            message: errors.message
         });
     } else {
-        // res.status(200).json({
-        //     message: "Validation successful",
-        //     errors: null
-        // });
         next();
     };
 };
 
 validate.signin = (req, res, next) => {
     const errors = validationResult(req);
+    const { email, password } = req.body;
 
-    check("email").isEmail();
-    check("password");
+    check(email, "Email has an invalud input")
+        .exists().withMessage("Email is a required field")
+        .isEmail().withMessage("Email must be a valid email address");
+    check(password, "Password has an invalud input")
+        .isLength({min: 6}).withMessage("Your password must be at least 6 characters");
 
-    sanitize("email").normalizeEmail().escape();
-    sanitize("password").escape();
+    sanitize(email).escape().normalizeEmail();
+    sanitize(password).escape();
 
     if(!errors.isEmpty()) {
-        return res.status(400).json({
-            message: "Validation failed. Please try again",
-            errors
+        return res.status(422).json({
+            message: errors.message
         });
     } else {
-        res.status(200).json({
-            message: "Validation successful",
-            errors: null
-        })
         next();
     };
 };

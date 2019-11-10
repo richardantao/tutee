@@ -1,60 +1,32 @@
-const { check, filter, validationResult } = require("express-validator");
+const { check, sanitize, validationResult } = require("express-validator");
 
-// instantiate validation
-const validate = [];
-
-validate.create = (req, res, next) => {
+const validate = (req, res, next) => {
     const errors = validationResult(req);
+    const { title, start, end } = req.body;
+
+    check(title, "Title received an invalid input").isAlphanumeric().withMessage("The title can only include letters and numbers")
+        .isLength({min: 3, max: undefined}).withMessage("The title must be at least 3 characters");
+    check(start, "Start Date received an invalid input").isLength({min: 1}).withMessage("The start date is a required field");
+    check(end, "End Date received an invalid input").isLength({min: 1}).withMessage("The end date is a required field");;
+
+    sanitize(title).escape();
+    sanitize(start).toDate().escape();
+    sanitize(end).toDate().escape();
+
+    if(start >= end) {
+        return res.status(422).json({
+            message: "The end date must occur before the start date"
+        });
+    };
+
 
     if(!errors.isEmpty()) {
-        return res.status().json({
-            message: "Validation failed. Please try again",
-            errors: errors
+        return res.status(422).json({
+            message: errors.message
         });
     } else {
-        res.status(200).json({
-            message: "Validation successful",
-            errors: null
-        });
-
         next();
-    }
-}
-
-validate.update = (req, res, next) => {
-    const errors = validationResult(req);
-
-    if(!errors.isEmpty()) {
-        return res.status().json({
-            message: "Validation failed. Please try again",
-            errors: errors
-        });
-    } else {
-        res.status(200).json({
-            message: "Validation successful",
-            errors: null
-        });
-
-        next();
-    }
-}
-
-validate.delete = (req, res, next) => {
-    const errors = validationResult(req);
-
-    if(!errors.isEmpty()) {
-        return res.status().json({
-            message: "Validation failed. Please try again",
-            errors: errors
-        });
-    } else {
-        res.status(200).json({
-            message: "Validation successful",
-            errors: null
-        });
-
-        next();
-    }
-}
+    };
+};
 
 module.exports = validate;

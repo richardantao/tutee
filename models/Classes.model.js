@@ -3,29 +3,17 @@ const model = require("mongoose").model;
 
 const moment = require("moment");
 
-// amalgamate model with Modules
 const ClassSchema = new Schema({
     _id: Schema.Types.ObjectId,
-    parent: {type: Schema.Types.ObjectId, required: true, ref: "Module"},	
+    parent: {type: Schema.Types.ObjectId, required: true, ref: "Course"},	
+    date: {
+        start: {type: Date, required: true},
+        end: {type: Date, required: true}
+    },
+    frequency: {type: String, default: "None", enum:["None", "Daily", "Weekly", "Monthly"]},
+    by: Number,
+    interval: Number,
     location: String,
-    start: {
-        date: {type: Date, required: true},
-        time: {type: String, required: true}
-    },
-    end: {
-        date: {type: Date, required: true},
-        time: {type: String, required: true}
-    },
-    repeat: {
-        Monday: {type: Boolean, default: false},
-        Tuesday: {type: Boolean, default: false},
-        Wednesday: {type: Boolean, default: false},
-        Thursday: {type: Boolean, default: false},
-        Friday: {type: Boolean, default: false},
-        Saturday: {type: Boolean, default: false},
-        Sunday: {type: Boolean, default: false},
-    },
-    occurence: {type: String, enum: ["Does not repeat", "Daily", "Weekdays", "Weekly", "Biweekly"]},
     description: String,
     meta: {
 	    createdAt: {type: Date, default: () => moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")},
@@ -36,4 +24,4 @@ const ClassSchema = new Schema({
 module.exports = {
     Schema: ClassSchema,
     Model: model("Class", ClassSchema)
-}
+};

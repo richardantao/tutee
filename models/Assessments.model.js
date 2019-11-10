@@ -8,14 +8,10 @@ const AssessmentSchema = new Schema({
 	parent: {type: Schema.Types.ObjectId, required: true, ref: "Course"},
 	title: {type: String, required: true},
   	type: {type: String, required: true},
-	  date: {
+	date: {
 		start: {type: Date, required: true},
 		end: {type: Date, required: true}
-	},
-  	time: {
-		start: {type: Date, required: true},
-		end: {type: Date, required: true}
-	},  
+	}, 
 	location: String,
 	grade: {
 		weight: {type: Number, min: [0, ""], max: [100, ""]},
@@ -30,4 +26,4 @@ const AssessmentSchema = new Schema({
 module.exports = {
 	Schema: AssessmentSchema,
 	Model: model("Assessment", AssessmentSchema)
-}
+};

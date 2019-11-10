@@ -1,78 +1,64 @@
-const { check, filter, validationResult } = require("express-validator");
+const { check, sanitize, validationResult } = require("express-validator");
 
-// instantiate middleware
-const validate = [];
+const User = require("../../models/User.model");
 
-validate.create = (req, res, next) => {
+
+/* Yet to finish */
+const validate = (req, res, next) => {
     const errors = validationResult(req);
+    const { Id, Title, title, start, end, frequency, by, interval, location, description } = req.body;
 
-    check("");
-    check("");
+    check(Id, "");
 
-    filter("").escape();
-    filter("").escape();
+    check(Title, "Course Title had an invalid input")
+        .exists().withMessage("")
+        .isAlphanumeric().withMessage("");
+
+    check(title, "Class Title had an invalid input")
+        .exists().withMessage();
+
+    check(start, "Class Start Date had an invalid input")
+        .exists().withMessage();
+
+    check(end, "Class End Date had an invalid input")
+        .exists().withMessage();
+
+    check(frequency, "Class Frequency had an invalid input")
+        .exists().withMessage();
+
+    check(by, "Class __ had an invalid input")
+        .optional()
+        .isNumeric().withMessage("Class __ must be a numerical value");
+
+    check(interval, "Class Interval had an invalid input")
+        .optional()
+        .isNumeric().withMessage(""); 
+
+    check(location, "Class Location had an invalid input")
+        .optional()
+        .isAlpha().withMessage(""); 
+
+    check(description, "Class Description had an invalid input")
+        .optional()
+        .isAlphanumeric().withMessage("Class Description can only contain letters and numbers"); 
+
+    sanitize(Title).escape();
+    sanitize(title).escape();
+    sanitize(start).escape().toDate();
+    sanitize(end).escape().toDate();
+    sanitize(frequency).escape();
+    sanitize(by).escape();
+    sanitize(interval).escape();
+    sanitize(location).escape();
+    sanitize(description).escape();
 
     if(!errors.isEmpty()) {
-        return res.status(400).json({
-            message: "Validation failed, please try again",
-            errors
+        return res.status(422).json({
+            message: errors.message
         });
     } else {
-        res.status(200).json({
-            message: "Validation successful",
-            errors: null
-        });
-
         next();
-    }
-}
-
-validate.update = (req, res, next) => {
-    const errors = validationResult(req);
-    
-    check("");
-    check("");
-
-    filter("").escape();
-    filter("").escape();
-
-    if(!errors.isEmpty()) {
-        return res.status(400).json({
-            message: "Validation failed, please try again",
-            errors
-        });
-    } else {
-        res.status(200).json({
-            message: "Validation successful",
-            errors: null
-        });
-
-        next();
-    }
-}
-
-validate.delete = (req, res, next) => {
-    const errors = validationResult(req);
-
-    check("");
-    check("");
-
-    filter("").escape();
-    filter("").escape();
-
-    if(!errors.isEmpty()) {
-        return res.status(400).json({
-            message: "Validation failed. Please try again",
-            errors
-        });
-    } else {
-        res.status(200).json({
-            message: "Validation successful",
-            errors: null
-        });
-
-        next();
-    }
-}
+    };
+};
 
 module.exports = validate;

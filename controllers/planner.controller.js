@@ -57,9 +57,9 @@ controller.index = (req, res) => {
                 "assessment.parent": 1,
                 "assessment.title": 1,
                 "assessment.type": 1,
-                "assessment.location": 1,
                 "assessment.date": 1,
-                "assessment.time": 1 
+                "assessment.time": 1,
+                "assessment.location": 1  
             })
             .sort({ "assessment.date.start": 1 })
             .then(assessments => {
@@ -73,9 +73,15 @@ controller.index = (req, res) => {
             })
             .exec(callback)
             .catch(err => {
-                return res.status(500).json({
-                    message: err.message || "An error occurred on the server while retrieving your assessments"
-                });
+                if(err.kind === "ObjectId") {
+                    return res.status(404).json({
+                        message: "The server was unable to find your assessments"
+                    });
+                } else {
+                    return res.status(500).json({
+                        message: err.message || "An error occurred on the server while retrieving your assessments"
+                    });
+                };
             });
         }
     }, (err, results) => {
@@ -141,9 +147,9 @@ controller.past = (req, res) => {
                 "assessment.parent": 1,
                 "assessment.title": 1,
                 "assessment.type": 1,
-                "assessment.location": 1,
                 "assessment.date": 1,
-                "assessment.time": 1 
+                "assessment.time": 1,
+                "assessment.location": 1 
             })
             .sort({ "assessment.date.start": 1 })
             .then(assessments => {
@@ -157,9 +163,15 @@ controller.past = (req, res) => {
             })
             .exec(callback)
             .catch(err => {
-                return res.status(500).json({
-                    message: err.message || "An error occurred on the server while retrieving your assessments"
-                });
+                if(err.kind === "ObjectId") {
+                    return res.status(404).json({
+                        message: "The server was unable to successfully find your assessments"
+                    });
+                } else {
+                    return res.status(500).json({
+                        message: err.message || "An error occured while retrieving your assessments"
+                    });
+                };
             });
         }
     }, (err, results) => {
@@ -177,17 +189,17 @@ controller.newTask = (req, res) => {
     const { _id } = req.params;
 
     User.find({ _id }, {
-        "module._id": 1, 
-		"module.title": 1
+        "course._id": 1, 
+		"course.title": 1
     })
-    .sort({ "module.meta.updatedAt": -1 })
-	.then(modules => {
-		if(!modules) {
+    .sort({ "course.meta.updatedAt": -1 })
+	.then(courses => {
+		if(!courses) {
 			return res.status(404).json({
 				message: "The server was unable to find your courses"
 			});
 		} else {
-			return res.status(200).json(modules);
+			return res.status(200).json(courses);
 		};
 	})
 	.catch(err => {
@@ -244,7 +256,7 @@ controller.editTask = (req, res) => {
 	.then(task => {
 		if(!task) {
 			return res.status(404).json({
-				message: "This task could not be found by the server"
+				message: "The server was unable to find this task"
 			});
 		} else {
 			return res.status(200).json(task);
@@ -253,7 +265,7 @@ controller.editTask = (req, res) => {
 	.catch(err => {
 		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "This task could not be found by the server"
+				message: "the server was unable to find this task"
 			});
 		} else {
 			return res.status(500).json({
@@ -268,31 +280,40 @@ controller.updateTask = (req, res) => {
     const { Id, Title, title, type, deadline, completion, description } = req.body;
 
     User.update({ "task._id": taskId }, {
-        $push: {
-            task: {
-                _id: taskId,
-                parent: {
-                    _id: Id,
-                    title: Title
-                },
-                title, 
-                type, 
-                deadline, 
-                completion, 
-                description,
-                meta: {
-                    updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
-                }   
-            }
+        $set: {
+            parent: {
+                _id: Id,
+                title: Title
+            },
+            title, 
+            type, 
+            deadline, 
+            completion, 
+            description,
+            meta: {
+                updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
+            }   
         }
     })
     .then(revisedTask => {
-        return res.status(201).json(revisedTask);
+        if(!revisedTask) {
+            return res.status(404).json({
+                message: "The server was unable to find your recently updated task"
+            }); 
+        } else {
+            return res.status(201).json(revisedTask);
+        };
     })
     .catch(err => {
-        return res.status(500).json({
-            message: err.message || "An error occurred on the server while processing your request"
-        });
+        if(err.kind === "ObjectId") {
+            return res.status(404).json({
+                message: "The server was unable to find this task"
+            }); 
+        } else {
+            return res.status(500).json({
+                message: err.message || "An error occurred on the server while processing your request"
+            });
+        };
     });
 };
 
@@ -307,12 +328,24 @@ controller.deleteTask = (req, res) => {
         }
     })
     .then(deletedTask => {
-        return res.status(200).json(deletedTask);
+        if(!deletedTask) {
+            return res.status(404).json({
+                message: "The server was unable to find this task"
+            });
+        } else {
+            return res.status(200).json(deletedTask);
+        };
     })
     .catch(err => {
-        return res.status(500).json({
-            message: err.message || "An error occurred on the server while processing your request"
-        });
+        if(err.kind === "ObjectId" || err.name === "NotFound") {
+            return res.status(404).json({
+                message: "The server was unable to find this task"
+            });
+        } else {
+            return res.status(500).json({
+                message: err.message || "An error occurred on the server while processing your request"
+            });
+        };
     });
 };
 
@@ -341,7 +374,7 @@ controller.newAssessment = (req, res) => {
 };
 
 controller.createAssessment = (req, res) => {
-    const { Id, Title, title, type, location, dateStart, dateEnd, timeStart, timeEnd, weighting, score } = req.body;
+    const { Id, Title, title, type, location, dateStart, dateEnd, timeStart, timeEnd, weight, score } = req.body;
 
     const Assessment = new Assessment({
         _id: ObjectId(),
@@ -350,8 +383,7 @@ controller.createAssessment = (req, res) => {
             title: Title
         }, 
         title, 
-        type, 
-        location, 
+        type,  
         date: {
             start: dateStart,
             end: dateEnd
@@ -359,9 +391,10 @@ controller.createAssessment = (req, res) => {
         time: {
             start: timeStart, 
             end: timeEnd
-        }, 
+        },
+        location,
         grade: {
-            weighting, 
+            weight, 
             score
         }
     });
@@ -372,7 +405,7 @@ controller.createAssessment = (req, res) => {
     })
     .catch(err => {
         return res.status(500).json({
-            message: err.message || "An error occurred on the server while processing your request"
+            message: err.message || "An error occurred on the server while creating your new Assessment"
         });
     });
 };
@@ -385,15 +418,15 @@ controller.editAssessment = (req, res) => {
         "assessment.parent": 1,
         "assessment.title": 1,
         "assessment.type": 1,
-        "assessment.location": 1,
         "assessment.date": 1,
         "assessment.time": 1,
+        "assessment.location": 1,
         "assessment.grade": 1
     })
     .then(assessment => {
         if(!assessment) {
             return res.status(404).json({
-                message: "The assessment was not found on the server"
+                message: "The server was unable to find this assessment"
             });
         } else {
             return res.status(200).json(assessment);
@@ -411,41 +444,50 @@ controller.updateAssessment = (req, res) => {
     const { Id, Title, title, type, location, dateStart, dateEnd, timeStart, timeEnd, duration, weighting, score } = req.body;
 
     User.update({ "assessment._id": assessmentId }, {
-        $push: {
-            assessment: {
-                _id: assessmentId,
-                parent: {
-                    _id: Id,
-                    title: Title
-                },
-                title,
-                type,
-                location,
-                date: {
-                    start: dateStart,
-                    end: dateEnd
-                },
-                time: {
-                    start: timeStart,
-                    end: timeEnd
-                },
-                grade: {
-                    weighting,
-                    score
-                },
-                meta: {
-                    updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
-                }
+        $set: {
+            parent: {
+                _id: Id,
+                title: Title
+            },
+            title,
+            type,
+            date: {
+                start: dateStart,
+                end: dateEnd
+            },
+            time: {
+                start: timeStart,
+                end: timeEnd
+            },
+            location,
+            grade: {
+                weighting,
+                score
+            },
+            meta: {
+                updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
             }
         }
     })
     .then(revisedAssessment => {
-        return res.status(200).json(revisedAssessment);
+        if(!revisedAssessment) {
+            return res.status(404).json({
+                message: "The server was unable to find your recently updated assessment"
+            });
+        } else {
+            return res.status(200).json(revisedAssessment);
+        };
     })
     .catch(err => {
-        return res.status(500).json({
-            message: err.message || "An error occurred on the server while processing your request"
-        });
+        if(err.kind === "ObjectId") {
+            return res.status(404).json({
+                message: "The server was unable to find this assessment"
+            });
+        } else {
+            return res.status(500).json({
+                message: err.message || "An error occurred on the server while processing your request"
+            });
+        };
     });
 };
 
@@ -460,12 +502,24 @@ controller.deleteAssessment = (req, res) => {
         }
     })
     .then(deletedAssessment => {
-        return res.status(200).json(deletedAssessment);
+        if(!deletedAssessment) {
+            return res.status(404).json({
+                message: "The server was unable to find this assessment"
+            });
+        } else {
+            return res.status(200).json(deletedAssessment);
+        };       
     })
     .catch(err => {
-        return res.status(500).json({
-            message: err.message || "An error occurred while processing your request"
-        });
+        if(err.kind === "ObjectId" || err.name === "NotFound") {
+            return res.status(404).json({
+                message: "The server was unable to find this assessment"
+            });
+        } else {
+            return res.status(500).json({
+                message: err.message || "An error occurred on the server while processing your request"
+            });
+        };
     });
 };
 

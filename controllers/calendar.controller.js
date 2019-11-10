@@ -17,9 +17,15 @@ controller.month = (req, res) => {
     async.parallel({
         classes: (callback) => {
             User.find({ _id }, {
-
+                "class._id": 1,
+                "class.parent": 1,
+                "class.date": 1,
+                "class.frequency": 1,
+                "class.by": 1,
+                "class.interval": 1,
+                "class.location": 1
             })
-            .sort({  })
+            .sort({ "class.date.start": 1 })
             .then(classes => {
                 if(!classes) {
                     return res.status(404).json({
@@ -27,7 +33,7 @@ controller.month = (req, res) => {
                     });
                 } else {
                     res.status(200).json(classes);
-                }
+                };
             })
             .exec(callback)
             .catch(err => {
@@ -40,10 +46,11 @@ controller.month = (req, res) => {
             User.find({ _id },{
                 "task._id": 1,
                 "task.parent": 1,
-                "task._type": 1,
+                "task.title": 1,
+                "task.type": 1,
                 "task.deadline": 1
             })
-            .sort({  })
+            .sort({ "task.deadline": 1 })
             .then(tasks => {
                 if(!tasks) {
                     return res.status(404).json({
@@ -64,9 +71,12 @@ controller.month = (req, res) => {
             User.find({ _id }, {
                 "assessment._id": 1,
                 "assessment.parent": 1,
-                "assessment.title": 1
+                "assessment.title": 1,
+                "assessment.type": 1,
+                "assessment.date": 1,
+                "assessment.location": 1
             })
-            .sort({  })
+            .sort({ "assessment.date.start": 1 })
             .then(assessments => {
                 if(!assessments) {
                     return res.status(404).json({
@@ -79,12 +89,20 @@ controller.month = (req, res) => {
             .exec(callback)
             .catch(err => {
                 return res.status(500).json({
-                    message: err.message || "An error occurred on the server while retrieving your evaluations"
+                    message: err.message || "An error occurred on the server while retrieving your assessments"
                 });
             });
         }
+    }, (err, results) => {
+        if(err) {
+            return res.status(500).json({
+                message: err.message || "An error occured while processing your request"
+            });
+        } else {
+            console.log(results);
+        };
     });
-}
+};
 
 controller.week = (req, res) => {
     const { _id } = req.params;
@@ -92,9 +110,15 @@ controller.week = (req, res) => {
     async.parallel({
         classes: (callback) => {
             User.find({ _id }, {
-
+                "class._id": 1,
+                "class.parent": 1,
+                "class.date": 1,
+                "class.frequency": 1,
+                "class.by": 1,
+                "class.interval": 1,
+                "class.location": 1
             })
-            .sort({  })
+            .sort({ "class.date.start": 1 })
             .then(classes => {
                 if(!classes) {
                     return res.status(404).json({
@@ -102,7 +126,7 @@ controller.week = (req, res) => {
                     });
                 } else {
                     res.status(200).json(classes);
-                }
+                };
             })
             .exec(callback)
             .catch(err => {
@@ -115,10 +139,11 @@ controller.week = (req, res) => {
             User.find({ _id },{
                 "task._id": 1,
                 "task.parent": 1,
-                "task._type": 1,
+                "task.title": 1,
+                "task.type": 1,
                 "task.deadline": 1
             })
-            .sort({  })
+            .sort({ "task.deadline": 1 })
             .then(tasks => {
                 if(!tasks) {
                     return res.status(404).json({
@@ -139,9 +164,12 @@ controller.week = (req, res) => {
             User.find({ _id }, {
                 "assessment._id": 1,
                 "assessment.parent": 1,
-                "assessment.title": 1
+                "assessment.title": 1,
+                "assessment.type": 1,
+                "assessment.date": 1,
+                "assessment.location": 1
             })
-            .sort({  })
+            .sort({ "assessment.date.start": 1 })
             .then(assessments => {
                 if(!assessments) {
                     return res.status(404).json({
@@ -154,12 +182,20 @@ controller.week = (req, res) => {
             .exec(callback)
             .catch(err => {
                 return res.status(500).json({
-                    message: err.message || "An error occurred on the server while retrieving your evaluations"
+                    message: err.message || "An error occurred on the server while retrieving your assessments"
                 });
             });
         }
+    }, (err, results) => {
+        if(err) {
+            return res.status(500).json({
+                message: err.message || "An error occured while processing your request"
+            });
+        } else {
+            console.log(results);
+        };
     });
-}
+};
 
 controller.day = (req, res) => {
     const { _id } = req.params;
@@ -167,9 +203,15 @@ controller.day = (req, res) => {
     async.parallel({
         classes: (callback) => {
             User.find({ _id }, {
-
+                "class._id": 1,
+                "class.parent": 1,
+                "class.date": 1,
+                "class.frequency": 1,
+                "class.by": 1,
+                "class.interval": 1,
+                "class.location": 1
             })
-            .sort({  })
+            .sort({ "class.date.start": 1 })
             .then(classes => {
                 if(!classes) {
                     return res.status(404).json({
@@ -177,7 +219,7 @@ controller.day = (req, res) => {
                     });
                 } else {
                     res.status(200).json(classes);
-                }
+                };
             })
             .exec(callback)
             .catch(err => {
@@ -190,10 +232,11 @@ controller.day = (req, res) => {
             User.find({ _id },{
                 "task._id": 1,
                 "task.parent": 1,
-                "task._type": 1,
+                "task.title": 1,
+                "task.type": 1,
                 "task.deadline": 1
             })
-            .sort({  })
+            .sort({ "task.deadline": 1 })
             .then(tasks => {
                 if(!tasks) {
                     return res.status(404).json({
@@ -214,9 +257,12 @@ controller.day = (req, res) => {
             User.find({ _id }, {
                 "assessment._id": 1,
                 "assessment.parent": 1,
-                "assessment.title": 1
+                "assessment.title": 1,
+                "assessment.type": 1,
+                "assessment.date": 1,
+                "assessment.location": 1
             })
-            .sort({  })
+            .sort({ "assessment.date.start": 1 })
             .then(assessments => {
                 if(!assessments) {
                     return res.status(404).json({
@@ -229,22 +275,36 @@ controller.day = (req, res) => {
             .exec(callback)
             .catch(err => {
                 return res.status(500).json({
-                    message: err.message || "An error occurred on the server while retrieving your evaluations"
+                    message: err.message || "An error occurred on the server while retrieving your assessments"
                 });
             });
         }
+    }, (err, results) => {
+        if(err) {
+            return res.status(500).json({
+                message: err.message || "An error occured while processing your request"
+            });
+        } else {
+            console.log(results);
+        };
     });
-}
-	
+};
+
 controller.agenda = (req, res) => {
     const { _id } = req.params;
 
     async.parallel({
         classes: (callback) => {
             User.find({ _id }, {
-
+                "class._id": 1,
+                "class.parent": 1,
+                "class.date": 1,
+                "class.frequency": 1,
+                "class.by": 1,
+                "class.interval": 1,
+                "class.location": 1
             })
-            .sort({  })
+            .sort({ "class.date.start": 1 })
             .then(classes => {
                 if(!classes) {
                     return res.status(404).json({
@@ -252,7 +312,7 @@ controller.agenda = (req, res) => {
                     });
                 } else {
                     res.status(200).json(classes);
-                }
+                };
             })
             .exec(callback)
             .catch(err => {
@@ -265,10 +325,11 @@ controller.agenda = (req, res) => {
             User.find({ _id },{
                 "task._id": 1,
                 "task.parent": 1,
-                "task._type": 1,
+                "task.title": 1,
+                "task.type": 1,
                 "task.deadline": 1
             })
-            .sort({  })
+            .sort({ "task.deadline": 1 })
             .then(tasks => {
                 if(!tasks) {
                     return res.status(404).json({
@@ -289,9 +350,12 @@ controller.agenda = (req, res) => {
             User.find({ _id }, {
                 "assessment._id": 1,
                 "assessment.parent": 1,
-                "assessment.title": 1
+                "assessment.title": 1,
+                "assessment.type": 1,
+                "assessment.date": 1,
+                "assessment.location": 1
             })
-            .sort({  })
+            .sort({ "assessment.date.start": 1 })
             .then(assessments => {
                 if(!assessments) {
                     return res.status(404).json({
@@ -304,23 +368,37 @@ controller.agenda = (req, res) => {
             .exec(callback)
             .catch(err => {
                 return res.status(500).json({
-                    message: err.message || "An error occurred on the server while retrieving your evaluations"
+                    message: err.message || "An error occurred on the server while retrieving your assessments"
                 });
             });
         }
+    }, (err, results) => {
+        if(err) {
+            return res.status(500).json({
+                message: err.message || "An error occured while processing your request"
+            });
+        } else {
+            console.log(results);
+        };
     });
-}
+};
 
 controller.newClass = (req, res) => {
     const { _id } = req.params;
 
     User.find({ _id }, {
-        "module._id": 1,
-        "module.title": 1
+        "course._id": 1,
+        "course.title": 1
     })
-    .sort({  }) // finish
+    .sort({ "course.meta.updateAt": -1 })
     .then(props => {
-        return res.status(200).json(props);
+        if(!props) {
+            return res.status(404).json({
+                message: "The server was unable to find the resources needed to process your request"
+            });
+        } else {
+            return res.status(200).json(props);
+        };
     }) 
     .catch(err => {
         return res.status(500).json({
@@ -330,7 +408,7 @@ controller.newClass = (req, res) => {
 }
 
 controller.createClass = (req, res) => {
-    const { Id, Title, title } = req.body;
+    const { Id, Title, title, start, end, frequency, by, interval, location, description } = req.body;
     
     const Class = new Class({
         _id: ObjectId(),
@@ -338,7 +416,16 @@ controller.createClass = (req, res) => {
             _id: Id,
             title: Title
         },
-        title
+        title,
+        date: {
+            start,
+            end
+        },
+        frequency,
+        by,
+        interval,
+        location,
+        description
     });
 
 	Class.save()
@@ -347,7 +434,7 @@ controller.createClass = (req, res) => {
 	})
 	.catch(err => {
 		return res.status(500).json({
-			message: err.message || "An error occurred on the server while creating this task"
+			message: err.message || "An error occurred on the server while creating this class"
 		})
 	});
 };
@@ -358,56 +445,80 @@ controller.editClass = (req, res) => {
     User.find({ "class._id": classId }, {
         "class._id": 1,
         "class.parent": 1,
-        "class.title": 1
+        "class.title": 1,
+        "class.date": 1,
+        "class.frequency": 1,
+        "class.by": 1,
+        "class.interval": 1,
+        "class.location": 1,
+        "class.description": 1
     })
     .then(classes => {
         if(!classes) {
             return res.status(404).json({
-                message: "The server was unable to find your classes"
+                message: "The server was unable to find this class"
             });
         } else {
             return res.status(200).json(classes);
         };
     })
     .catch(err => {
-        return res.status(500).json({
-            message: err.message || "An error occurred on the server while processing your request"
-        });
+        if(err.kind === "ObjectId") {
+            return res.status(404).json({
+                message: "The server was unable to find this class"
+            });
+        } else {
+            return res.status(500).json({
+                message: err.message || "An error occurred on the server while processing your request"
+            });
+        };
     });
 };
 
 controller.updateClass = (req, res) => {
     const { classId } = req.params;
-    const { Id, Title, title,  } = req.body;
+    const { Id, Title, title, start, end, frequency, by, interval, location, description } = req.body;
     
     User.update({ "class._id": classId }, {
-        $push: {
-            class: {
-                _id: classId,
-                parent: {
-                    _id: Id,
-                    title: Title
-                },
-                title,
-                meta: {
-                    updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
-                }
+        $set: {
+            parent: {
+                _id: Id,
+                title: Title
+            },
+            title,
+            date: {
+                start,
+                end
+            },
+            frequency,
+            by,
+            interval,
+            location,
+            description,
+            meta: {
+                updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
             }
         }
     })
     .then(revisedClass => {
         if(!revisedClass) {
             return res.status(404).json({
-                message: "The server was unable to find your updated Class"
+                message: "The server was unable to find the class you recently updated"
             }); 
         } else {
             return res.status(200).json(revisedClass);
         };
     })
     .catch(err => {
-        return res.status(500).json({
-            message: err.message || "An error occurred on the server while processing your request"
-        });
+        if(err.kind === "ObjectId") {
+            return res.status(404).json({
+                message: "The server was unable to find the selected class"
+            }); 
+        } else {
+            return res.status(500).json({
+                message: err.message || "An error occurred on the server while processing your request"
+            });
+        };
     });
 };
 

@@ -18,15 +18,14 @@ controller.index = (req, res) => {
 				"class.start.date": { 
 					$eq: moment().startOf("date").format("MMMM DD YYYY, hh:mm a ")
 				}
-			}, { // confirm model to confirm projections
+			}, { 
 				"class._id": 1,
 				"class.parent": 1,
+				"class.title": 1,
+				"class.date": 1,
 				"class.location": 1,
-				"class.start": 1,
-				"class.end": 1,
-				"class.description": 1
 			})
-			.sort({ "class.start.time": 1 })
+			.sort({ "class.date.start": 1 })
 			.then(classes => {
 				if(!classes) {
 					return res.status(404).json({
@@ -48,7 +47,7 @@ controller.index = (req, res) => {
 				_id,
 				"task.deadline": {
 					$gte: moment().startOf("date").format("MMMM DD YYYY"), // date is later than today
-					$lte: moment().startOf("date").format("MMMM DD YYYY") + 1000*60*60*24*7 // date is less than 7 days from now
+					$lte: moment().startOf("date").format("MMMM DD YYYY") + (1000*60*60*24*7) // date is less than 7 days from now
 				}
 			}, {
 				"task._id": 1,
@@ -80,10 +79,15 @@ controller.index = (req, res) => {
 				_id,
 				"assessment.date": {
 					$gte: moment().startOf("date").format("MMMM DD YYYY"),
-					$lte: moment().startOf("date").format("MMMM DD YYYY") + 1000*60*60*24*7 
+					$lte: moment().startOf("date").format("MMMM DD YYYY") + (1000*60*60*24*7) 
 				}
 			}, {
-				
+				"assessment._id": 1,
+				"assessment.parent": 1,
+				"assessment.title": 1,
+				"assessment.type": 1,
+				"assessment.date": 1,
+				"assessment.location": 1
 			})
 			.sort({ "assessment.date": 1 })
 			.then(assessments => {
@@ -119,9 +123,12 @@ controller.editClass = (req, res) => {
 		"class._id": 1,
 		"class.parent": 1,
 		"class.title": 1,
+		"class.date": 1,
+		"class.frequency": 1,
+		"class.by": 1,
+		"class.interval": 1,
 		"class.location": 1,
-		"class.start": 1,
-		"class.end": 1
+		"class.description": 1
 	})
 	.then(classes => {
 		if(!classes) {
@@ -147,37 +154,48 @@ controller.editClass = (req, res) => {
 
 controller.updateClass = (req, res) => {
 	const { classId } = req.params; 
-	const { Id, Title, title, location } = req.body;
+    const { Id, Title, title, start, end, frequency, by, interval, location, description } = req.body;
 
 	User.update({ "class._id": classId }, {	
-		$push: {
-			class: {
-				_id: classId,
-				parent: {
-					_id: Id,
-					title: Title
-				},
-				title,
-				location,
-				meta: {
-					updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
-				}				
-			}
+		$set: {
+			parent: {
+				_id: Id,
+				title: Title
+			},
+			title,
+			date: {
+				start,
+				end
+			},
+			frequency,
+			by,
+			interval,
+			location,
+			description,
+			meta: {
+				updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
+			}				
 		}
 	})
 	.then(revisedClass => {
 		if(!revisedClass) {
 			return res.staus(404).json({
-				message: "The class was not found by the server"
+				message: "The class you recently updated was not found by the server"
 			});
 		} else {
 			return res.status(200).json(revisedClass);
 		};
 	})
 	.catch(err => {
-		return res.status(500).json({
-			message: err.message || "The server experienced an error while updating your class"
-		});
+		if(err.kind === "ObjectId") {
+			return res.staus(404).json({
+				message: "The class you selected was not found by the server"
+			});
+		} else {
+			return res.status(500).json({
+				message: err.message || "The server experienced an error while updating your class"
+			});
+		};
 	});
 };
 
@@ -214,13 +232,13 @@ controller.deleteClass = (req, res) => {
 	});
 };
 
-//
+
 controller.newTask = (req, res) => {
 	const { _id } = req.params;
 	
 	User.find({ _id }, {
-		"module.id": 1,
-		"module.title": 1
+		"course.id": 1,
+		"course.title": 1
 	})
 	.then(props => {
 		if(!props) {
@@ -312,28 +330,25 @@ controller.updateTask = (req, res) => {
 	const { Id, Title, title, type, deadline, completion, description } = req.body;
 
 	User.update({ "task._id": taskId }, {
-		$push: {
-			task: {
-				_id: taskId,
-				parent: {
-					_id: Id,
-					title: Title	
-				},
-				title,
-				type,
-				deadline,
-				completion,
-				description,
-				meta: {
-					updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
-				}
+		$set: {
+			parent: {
+				_id: Id,
+				title: Title	
+			},
+			title,
+			type,
+			deadline,
+			completion,
+			description,
+			meta: {
+				updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
 			}
 		}
 	})
 	.then(revisedTask => {
 		if(!revisedTask) {
 			return res.status(404).json({
-				message: "The task you are attempting to update was not found by the server"
+				message: "The task you recently updated was not found by the server"
 			});
 		} else {
 			return res.status(200).json(revisedTask);
@@ -364,11 +379,17 @@ controller.deleteTask = (req, res) => {
 	})
 	.then(deletedTask => {
 		if(!deletedTask) {
-			return res.status(400).json({
+			return res.status(404).json({
 				message: "The task you are trying to delete was not found by the server"
 			});
 		} else {
-			return res.status(200).json(deletedTask);
+			if(err.kind === "" || err.name === "NotFound") {
+				return res.status(404).json({
+					message: "The task you are trying to delete was not found by the server"
+				});
+			} else {
+				return res.status(200).json(deletedTask);
+			};
 		};
 	})
 	.catch(err => {
@@ -389,8 +410,11 @@ controller.editAssessment = (req, res) => {
 
 	User.find({ "assessment._id": assessmentId }, {
 		"assessment._id": 1,
+		"assessment.parent": 1,
 		"assessment.title": 1,
-		"assessment.date": 1
+		"assessment.type": 1,
+		"assessment.date": 1,
+		"assessment.location": 1
 	})
 	.then(assessment => {
 		if(!assessment) {
@@ -416,19 +440,32 @@ controller.editAssessment = (req, res) => {
 
 controller.updateAssessment = (req, res) => {
 	const { assessmentId } = req.params;
-	const { } = req.body;
+	const { Id, Title, title, type, start, end, location } = req.body;
 
 	User.update({ "assessment._id": assessmentId }, {
-		$push: {
+		$set: {
 			assessment: {
-
+				parent: {
+					_id: Id,
+					title: Title
+				},
+				title,
+				type,
+				date: {
+					start,
+					end
+				},
+				location,
+				meta: {
+					updatedAt: moment().utc(moment.utc().format()).local().format("YYYY MM DD, hh:mm")
+				}
 			}
 		}
 	})
 	.then(revisedAssessment => {
 		if(!revisedAssessment) {
 			return res.status(404).json({
-				message: "The assessment you are attempting to update was not found by the server"
+				message: "The server could not find the assessment you recently updated"
 			});
 		} else {
 			return res.status(200).json(revisedAssessment);
@@ -437,7 +474,7 @@ controller.updateAssessment = (req, res) => {
 	.catch(err => {
 		if(err.kind === "ObjectId") {
 			return res.status(404).json({
-				message: "The assessment you are attempting to update was not successfully found"
+				message: "The assessment you are attempting to update was not found"
 			});
 		} else {
 			return res.status(500).json({
@@ -467,13 +504,13 @@ controller.deleteAssessment = (req, res) => {
 		};
 	})
 	.catch(err => {
-		if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+		if(err.kind === "ObjectId" || err.name === "NotFound") {
 			return res.status(404).json({
-				message: "The assessment you are trying to delete was not successfully found"
+				message: "The assessment you are trying to delete was not found by the server"
 			});
 		} else {
 			return res.status(500).json({
-				message: err.message || "An error occuring while deleting this assessment"
+				message: err.message || "An error occurred on the server while deleting this assessment"
 			});
 		};
 	});

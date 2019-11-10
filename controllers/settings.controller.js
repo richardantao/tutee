@@ -1,4 +1,5 @@
 const async = require("async");
+const bcrypt = require("bcryptjs");
 const moment = require("moment");
 
 // import model
@@ -15,13 +16,9 @@ controller.editProfile = (req, res) => {
 	const { _id } = req.params;
 
 	User.find({ _id }, {
-		"name.first": 1,
-		"name.last": 1,
+		"name": 1,
 		"email.address": 1,
-		"location.country": 1,
-		"location.region": 1,
-		"location.institution": 1,
-		"location.school": 1
+		"location": 1
 	})
 	.then(profile => {
 		if(!profile) {
@@ -107,7 +104,7 @@ controller.deleteProfile = (req, res) => {
 			return res.status(500).json({
 				message: err.message || "An error occurred on the server while deleting your profile"
 			});
-		}
+		};
 	});
 };
 
@@ -171,11 +168,7 @@ controller.editPreferences = (req, res) => {
 	const { _id } = req.params;
 
 	User.find({ _id }, {
-		"preferences.startDay": 1,
-        "preferences.startTime": 1,
-        "preferences.defaultDuration": 1,
-        "preferences.defaultCalendar": 1,
-        "preferences.onEmailList": 1
+		preferences: 1
 	})
 	.then(preferences => {
 		if(!preferences) {
@@ -327,11 +320,11 @@ controller.updateIntegration = (req, res) => {
 	});
 };
 
-// DELETE request to delete user's third party integrations
+// PUT request to delete user's third party integrations
 controller.deleteIntegration = (req, res) => {
 	const { integrationId } = req.params;
 
-	User.update({ "integration._id": integrationId },{	
+	User.update({ "integration._id": integrationId }, {	
 		$pull: {
 			integration: {
 				_id: integrationId

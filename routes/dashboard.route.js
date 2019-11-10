@@ -22,12 +22,12 @@ router.get("classes/edit/:classId", auth, controller.editClass);
 // @route /dashboard/classes/update/:classId
 // @desc update class instance
 // @access PRIVATE
-router.put("classes/update/:classId", auth, validateClass.update, controller.updateClass);
+router.put("classes/update/:classId", auth, validateClass, controller.updateClass);
 
 // @route /dashboard/classes/delete/:classId
 // @desc delete class instance
 // @access PRIVATE
-router.put("/classes/delete/:classId", auth, validateClass.delete, controller.deleteClass); 
+router.put("/classes/delete/:classId", auth, controller.deleteClass); 
 
 /* Task routes */
 
@@ -39,7 +39,7 @@ router.get("/tasks/new", auth, controller.newTask);
 // @route /dashboard/tasks/create
 // @desc create new task
 // @access PRIVATE
-router.put("/tasks/create", auth, validateTask.create, controller.createTask);
+router.put("/tasks/create", auth, validateTask, controller.createTask);
 
 // @route /dashboard/tasks/edit/:taskId
 // @desc edit task instance
@@ -49,12 +49,12 @@ router.get("/tasks/edit/:taskId", auth, controller.editTask);
 // @route /dashboard/tasks/create
 // @desc update task instances
 // @access PRIVATE
-router.put("/tasks/update/:taskId", auth, validateTask.update, controller.updateTask);
+router.put("/tasks/update/:taskId", auth, validateTask, controller.updateTask);
 
 // @route /dashboard/tasks/delete/:taskId
 // @desc delete task instance
 // @access PRIVATE
-router.put("/tasks/delete/:taskId", auth, validateTask.delete, controller.deleteTask);
+router.put("/tasks/delete/:taskId", auth, controller.deleteTask);
 
 // @route /dashboard/assessments/edit/:assessmentId
 // @desc edit assessment instance
@@ -64,12 +64,12 @@ router.get("/assessments/edit/:assessmentId", auth, controller.editAssessment);
 // @route /dashboard/tasks/update/:assessmentId
 // @desc update assessment 
 // @access PRIVATE
-router.put("/assessments/update/:assessmentId", auth, validateAssessment.update, controller.updateAssessment);
+router.put("/assessments/update/:assessmentId", auth, validateAssessment, controller.updateAssessment);
 
 // @route /dashboard/assessments/delete/:assessmentId
 // @desc delete assessment instance
 // @access PRIVATE
-router.put("/assessments/delete/:assessmentId", auth, validateAssessment.delete, controller.deleteAssessment);
+router.put("/assessments/delete/:assessmentId", auth, controller.deleteAssessment);
 
 module.exports = router;
 

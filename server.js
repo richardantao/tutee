@@ -17,14 +17,11 @@ app.use(cors());
 
 // Routes
 app.use("/", require("./routes/auth.route"));
-app.use("/beta", require("./routes/beta.route"));
 app.use("/users", require("./routes/users.route"));
-app.use("/calendar", require("./routes/calendar.route"));
 app.use("/dashboard", require("./routes/dashboard.route"));
+app.use("/calendar", require("./routes/calendar.route"));
 app.use("/academics", require("./routes/academics.route"));
 app.use("/planner", require("./routes/planner.route"));
-app.use("/tasks", require("./routes/tasks.route"));
-app.use("/courses", require("./routes/academics.route"));
 app.use("/search", require("./routes/search.route"));
 app.use("/settings", require("./routes/settings.route"));
 
@@ -37,7 +34,7 @@ if(env === "production") {
 } else {
 	app.use(express.static("public"));
 	app.use(logger("dev"));
-}
+};
 
 // Bootup
 app.listen(port, () => {

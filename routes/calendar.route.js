@@ -36,7 +36,7 @@ router.get("/classes/new", auth, controller.newClass);
 // @route /calendar/classes/create
 // @desc create new class in calendar page
 // @ access PRIVATE
-router.post("/classes/create", auth, validate.create, controller.createClass);
+router.put("/classes/create", auth, validate.create, controller.createClass);
 
 // @route /calendar/classes/edit/classId
 // @desc edit class instance
@@ -51,6 +51,6 @@ router.put("/classes/update/:classId", auth, validate.update, controller.updateC
 // @route /calendar/classes/delete/classId
 // @desc display default calendar view
 // @ access PRIVATE
-router.delete("/classes/delete/:classId", auth, validate.delete, controller.deleteClass);
+router.put("/classes/delete/:classId", auth, validate.delete, controller.deleteClass);
 
 module.exports = router;

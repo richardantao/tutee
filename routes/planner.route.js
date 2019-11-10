@@ -48,7 +48,7 @@ router.get("/assessments/new", auth, controller.newAssessment);
 // @route /planner/assessments/create
 // @desc create new assessment
 // @access PRIVATE
-router.put("/assessments/create", auth, validateAssessment.create, controller.createAssessment);
+router.put("/assessments/create", auth, validateAssessment, controller.createAssessment);
 
 // @route /planner/assessments/edit/:assessmentId
 // @desc render assessment instance in modal to edit
@@ -58,11 +58,11 @@ router.get("/assessments/edit/:assessmentId", auth, controller.editAssessment);
 // @route /planner/assessments/update/:assessmentId
 // @desc update task record
 // @access PRIVATE
-router.put("/assessments/update/:assessmentId", auth, validateAssessment.update, controller.updateAssessment);
+router.put("/assessments/update/:assessmentId", auth, validateAssessment, controller.updateAssessment);
 
 // @route /planner/assessments/delete/:assessmentId
 // @desc delete assessment record
 // @access PRIVATE
-router.put("/assessments/delete/:assessmentId", auth, validateAssessment.delete, controller.deleteAssessment);
+router.put("/assessments/delete/:assessmentId", auth, controller.deleteAssessment);
 
 module.exports = router;

@@ -10,7 +10,7 @@ const AssessmentSchema = new Schema({
   	type: {type: String, required: true},
 	date: {
 		start: {type: Date, required: true},
-		end: {type: Date, required: true}
+		end: Date
 	}, 
 	location: String,
 	grade: {

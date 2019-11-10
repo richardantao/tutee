@@ -6,6 +6,7 @@ const moment = require("moment");
 const ClassSchema = new Schema({
     _id: Schema.Types.ObjectId,
     parent: {type: Schema.Types.ObjectId, required: true, ref: "Course"},	
+    title: {type: String, required: true},
     date: {
         start: {type: Date, required: true},
         end: {type: Date, required: true}

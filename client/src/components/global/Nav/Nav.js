@@ -40,9 +40,9 @@ class Nav extends Component {
 					<Button href="/planner">
 						<FontAwesomeIcon icon={faTasks}/>
 					</Button>
-					<Button href="/search">
+					{/* <Button href="/search">
 						<FontAwesomeIcon icon={faSearch}/>
-					</Button>
+					</Button> */}
 					<Button href="/settings" className="secondary-nav-button">
 						<FontAwesomeIcon icon={faCog}/>
 					</Button>

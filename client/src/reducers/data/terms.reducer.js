@@ -1,10 +1,13 @@
 import { 
-    LOADING_TERMS, FETCH_TERMS, EDIT_TERM, CREATE_TERM, UPDATE_TERM, DELETE_TERM 
+    LOADING_TERMS, FETCH_TERMS,
+    NEW_TERM, CREATE_TERM, 
+    EDIT_TERM, UPDATE_TERM, DELETE_TERM 
 } from "../../actions/types";
 
 const initialState = {
-    terms: [],
-    loading: false
+    loading: false,
+    parents: [],
+    terms: []
 };
 
 export default (state = initialState, action) => {
@@ -17,32 +20,64 @@ export default (state = initialState, action) => {
         case FETCH_TERMS:
             return {
                 ...state,
-                terms: action.payload,
+                loading: false,
+                terms: action.payload
+            };
+        case NEW_TERM:
+            return {
+                ...state,
+                loading: false,
+                terms: action.payload
+            };
+        case CREATE_TERM:
+            return {
+                ...state,
+                terms: [...state.terms, action.payload],
                 loading: false
             };
         case EDIT_TERM:
             return {
                 ...state,
-                terms: action.payload,
-                loading: false
-            };
-        case CREATE_TERM:
-            return {
-                ...state,
-                terms: [action.payload, ...state.terms],
-                loading: false
+                loading: false,
+                terms: state.terms.map(term => {
+                    if(term._id !== action._id) {
+                        return {
+                            ...state.terms
+                        }
+                    } else return {
+                        term: action.payload
+                    };
+                })
             };
         case UPDATE_TERM:
             return {
                 ...state,
-                terms: action.payload,
-                loading: false
+                loading: false,
+                terms: state.terms.map(term => {
+                    const { Id, Title, title, start, end } = action.payload;
+                    if(term._id !== action._id) {
+                        return term;
+                    } else return {
+                        ...state.terms,
+                        term: {
+                            parent: {
+                                _id: Id,
+                                title: Title
+                            },
+                            title,
+                            date: {
+                                start,
+                                end
+                            }
+                        }
+                    };
+                })
             };
         case DELETE_TERM:
             return {
                 ...state,
-                terms: state.terms.filter(term => term._id !== action.payload),
-                loading: false
+                loading: false,
+                terms: state.terms.filter(term => term._id !== action.payload)
             }; 
         default: 
             return state;

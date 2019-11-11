@@ -5,8 +5,9 @@ import {
 } from "../../actions/types";
 
 const initialState = {
-    assessments: [],
-    loading: false
+    loading: false,
+    parents: [],
+    assessments: []
 }
 
 export default (state = initialState, action) => {
@@ -19,43 +20,77 @@ export default (state = initialState, action) => {
         case FETCH_ASSESSMENTS:
             return {
                 ...state,
-                assessments: action.payload,
-                loading: false
+                loading: false,
+                assessments: action.payload
             };
         case FETCH_PAST_ASSESSMENTS:
             return {
                 ...state,
-                assessments: action.payload,
-                loading: false
+                loading: false,
+                assessments: action.payload
             };
         case NEW_ASSESSMENT:
             return {
                 ...state,
+                parents: action.payload,
                 loading: false
             };
         case CREATE_ASSESSMENT:
             return {
                 ...state,
-                assessments: [action.payload, ...state.assessments],
-                loading: false
+                loading: false,
+                assessments: [...state.assessments, action.payload]
             };
         case EDIT_ASSESSMENT:
             return {
                 ...state,
-                assessments: action.payload,
-                loading: false
+                loading: false,
+                parents: action.payload.parent,
+                assessments: state.assessments.map(assessment => {
+                    if(assessment._id !== action._id) {
+                        return assessment;
+                    } else return {
+                        assessment: action.payload
+                    };
+                })
             };
         case UPDATE_ASSESSMENT:
             return {
                 ...state,
-                assessments: action.payload,
-                loading: false
+                loading: false,
+                assessments: state.assessments.map(assessment => {
+                    const { Id, Title, title, type, start, end, location, weight, score } = action.payload;
+                    if(assessment._id !== action._id) {
+                        return assessment;
+                    } else {
+                        return {
+                            ...state.assessments,
+                            assessment: {
+                                parent: {
+                                    _id: Id,
+                                    title: Title
+                                },
+                                title,
+                                type,
+                                date: {
+                                    start,
+                                    end
+                                },
+                                location,
+                                grade: {
+                                    weight,
+                                    score
+                                }
+                            }
+                        };
+                    };  
+                })
             };
         case DELETE_ASSESSMENT:
             return {
                 ...state,
-                assessments: state.assessments.filter(assessment => assessment._id !== action.payload),
-                loading: false
+                loading: false,
+                assessments: state.assessments.filter(assessment => assessment._id !== action.payload)
             };
         default: 
             return state;

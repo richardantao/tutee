@@ -8,7 +8,6 @@ import errorReducer from "./auth/errors.reducer";
 import yearReducer from "./data/years.reducer";
 import termReducer from "./data/terms.reducer";
 import courseReducer from "./data/courses.reducer";
-import moduleReducer from "./data/modules.reducer";
 import classReducer from "./data/classes.reducer";
 import assessmentReducer from "./data/assessments.reducer";
 import taskReducer from "./data/tasks.reducer";
@@ -28,7 +27,6 @@ export default combineReducers({
     year: yearReducer,
     term: termReducer,
     course: courseReducer,
-    module: moduleReducer,
     class: classReducer,
     assessment: assessmentReducer,
     task: taskReducer,

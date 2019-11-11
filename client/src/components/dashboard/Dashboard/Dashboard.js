@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { fetchDashItems } from "../../../actions/data/dashboard.action";
+import { fetchDashItems } from "../../../actions/views/dashboard.action";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -16,9 +16,7 @@ import "./Dashboard.scss";
 
 class Dashboard extends Component {
 	state = {
-		classes: [],
-		tasks: [],
-		evaluations: []
+
 	};
 
 	static propTypes = {
@@ -26,8 +24,8 @@ class Dashboard extends Component {
 		error: PropTypes.object.isRequired,
 		class: PropTypes.object.isRequired,
 		task: PropTypes.object.isRequired,
-		assessment: PropTypes.object.isRequired,
-		fetchDashItems: PropTypes.func.isRequired
+		assessment: PropTypes.object.isRequired//,
+		// fetchDashItems: PropTypes.func.isRequired
 	};
 
 	componentDidMount() {
@@ -57,7 +55,6 @@ class Dashboard extends Component {
 		const { classes } = this.props.class;
 		const { tasks } = this.props.task;
 		const { assessments } = this.props.assessment;
-
 
 		// const classRecords = classes.map(({ _id, module, course, time, location }) => (
 		// 	<Row key={_id} class="class-record">
@@ -111,7 +108,7 @@ class Dashboard extends Component {
 		return (
 			<Fragment>
 				<Helmet>
-					<title>My Tutee | Dashboard</title>
+					<title>My Learnify | Dashboard</title>
 				</Helmet>
 				<Nav/>
 				<div id="dashboard">
@@ -136,7 +133,7 @@ class Dashboard extends Component {
 };
 
 const mapStateToProps = state => ({
-	isAuthenticated: state.isAuthenticated,
+	isAuthenticated: state.auth.isAuthenticated,
 	error: state.error,
 	class: state.class,
 	task: state.task,

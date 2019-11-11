@@ -14,15 +14,13 @@ import Empty from "../../global/Empty";
 import Years from "../../years/Years";
 import Terms from "../../terms/Terms";
 import Courses from "../../courses/Courses";
-import Modules from "../../modules/Modules";
 import YearEditModal from "../../years/YearEditModal";
 import YearNewModal from "../../years/YearNewModal";
 import TermEditModal from "../../terms/TermEditModal";
 import TermNewModal from "../../terms/TermNewModal";
 import CourseEditModal from "../../courses/CourseEditModal";
 import CourseNewModal from "../../courses/CourseNewModal";
-import ModuleEditModal from "../../modules/ModuleEditModal";
-import ModuleNewModal from "../../modules/ModuleNewModal";
+
 
 import "./Academics.scss";
 
@@ -127,13 +125,6 @@ class Academics extends Component {
 								<Empty/>
 							</Col>
 						)}
-						{ renderModules ? (
-							<Modules className="modules-list"/>
-						) : (
-							<Col className="modules-list">
-								<Empty/>
-							</Col>
-						)}
 					</Row>
 
 					{ openEditYear ? (
@@ -153,12 +144,6 @@ class Academics extends Component {
 					): null }
 					{ openNewCourse ? (
 						<CourseNewModal className="modal"/>
-					): null }
-					{ openEditModule ? (
-						<ModuleEditModal className="modal"/>
-					): null }
-					{ openNewModule ? (
-						<ModuleNewModal className="modal"/>
 					): null }
 				</div>
 			</Fragment>

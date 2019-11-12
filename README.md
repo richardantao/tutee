@@ -4,20 +4,21 @@ This branch holds all of Tutee's development files. This branch is for developme
 ## Application Structure
 
 ### Frontend 
-The frontend is built with React, which is hosted inside the `app/` folder. The `components/` are organized using atomic design, which are broken down into atoms, molecules, organisms, and pages.
+The frontend is built with React, which is hosted inside the `client/` folder. The `components/` are organized by their model, and supporting components are grouped together in these subcomponent folders. Components that serve purposes for more than one data model or view, are placed in the `/components/global` folder.
 
-Redux is implemented into the frontend as a state manager in `store.js`, and cycled through the `actions/` and `reducers/` folders.
+Redux is implemented into the frontend as a state manager, and is factored in `store.js`, and the `/actions` and 
+`/reducers`
 
 The `public/` folder holds all the static files that are accessible to the public prior to user authentication and the application. These pages are on the root domain, `tutee.ca`.
 
 ### Backend
-The backend is built with Node, which is hosted inside the `server/` folder. The MVC architecture is generally used to organize the backend, with the `models/`, `controllers/`, and `routes/` containing the major files.
+The backend is built with Node. The MVC architecture is generally used to organize the backend, with the `models/`, `controllers/`, and `routes/` containing the main files.
 
 ***Note***: `public/` is a substitute to the standard `views/` folder that is typically used in backend MVC systems to generate the views. In production, the frontend and backend are connected, and the views are controlled by the React frontend.
 
 ## Scripts
 
-From `tutee/`
+From `/`
 
 `npm run dev` - runs the react app and node server concurrently, using a proxy between ports 3000 and 3001, respectively.
 
@@ -25,7 +26,7 @@ From `tutee/`
 This section details the breakdown of the subdomains, and how the entire website is organized.
 
 ### tutee.ca
-The root domain is held in `app/public/`, and contains all the static pages that are accessible to all users.
+The root domain is held in `client/public/`, and contains all the static pages that are accessible to all users.
 
 ### app.tutee.ca
 This subdomain hosts the application, and is only accessible to registered/authenticated users.
@@ -43,5 +44,5 @@ The careers portal for interested applicants to apply for open positions. This s
 This subdomain hosts all supporting documents for Tutee, including but not limited to Terms of Service, What is Tutee, and the Changelog.
 
 ### team.tutee.ca
-This subdomain is a future application specifically for the Tutee team. Certain modules within the service will have limited access, exclusive to execs and team leads. This subdomain will host the interface for team planning, KPIs, and general communication.
+This subdomain is a future application specifically for the Tutee team. Certain modules within the service will have limited access, exclusive to execs and team leads. This subdomain will host the interface for team planning, KPIs, logs, and general communication.
 

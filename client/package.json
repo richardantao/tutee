@@ -56,6 +56,9 @@
   },
   "devDependencies": {
     "@testing-library/react": "^9.3.2",
+    "chai": "^4.2.0",
+    "jsdom": "^15.2.1",
+    "mocha": "^6.2.2",
     "redux-devtools": "^3.5.0"
   }
 }

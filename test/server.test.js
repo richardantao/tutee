@@ -1,13 +1,14 @@
-const should = require("chai").should();
-const expect = require("chai").expect;
-const assert = require("chai").assert;
-const request = require("request");
+const chai = require("chai");
+const chaiHttp = require("chai-http");
+const server = require("../server");
+const should = chai.should();
+
+chai.use(chaiHttp);
 
 describe("App", () => {
-    var app = require("../app");
 
     it("App is correctly defined", done => {
-        should.exist(app);
+        should.exist(server);
         done();
     });
 });
@@ -19,21 +20,12 @@ describe("Middleware", () => {
     });
 });
 
-describe("Routes", () => {
-    var users = require("../routes/users");
-    var dashboard = require("../routes/dashboard");
-    var calendar = require("../routes/calendar");
-    var tasks = require("../routes/tasks");
-    var evaluations = require("../routes/evaluations");
-    var courses = require("../routes/courses");
-    var search = require("../routes/search");
-    var settings = require("../routes/settings");
-    var email = require("../routes/email");    
-
-    it("Users route successfully imported", done => {
-        should.exist(users);
-        done();
-    });
+describe("Application routes", () => {
+    const dashboard = require("../routes/dashboard.route");
+    const calendar = require("../routes/calendar.route");
+    const academics = require("../routes/academics.route");
+    const planner = require("../routes/planner.route");
+    const settings = require("../routes/settings.route"); 
 
     it("Dashboard route successfully imported", done => {
         should.exist(dashboard);
@@ -45,23 +37,13 @@ describe("Routes", () => {
         done();
     });
 
-    it("Tasks route successfully imported", done => {
-        should.exist(tasks);
+    it("Academics route successfully imported", done => {
+        should.exist(academics);
         done();
     });
 
-    it("Evaluations route successfully imported", done => {
-        should.exist(evaluations);
-        done();
-    });
-
-    it("Courses route successfully imported", done => {
-        should.exist(courses);
-        done();
-    });
-
-    it("Search routes successfully imported", done => {
-        should.exist(search);
+    it("Planner route successfully imported", done => {
+        should.exist(planner);
         done();
     });
 
@@ -69,22 +51,14 @@ describe("Routes", () => {
         should.exist(settings);
         done();
     });
-
-    it("Email route successfully imported", done => {
-        should.exist(email);
-        done();
-    });
 });
 
-
-
-
-describe("", () => {
+describe("Public pages", () => {
     describe("", () => {
-        it("Home page rendered OK", (done) => {
-            request("http://localhost:3001/home.html",(err, res, body) => {
-                expect(res.statusCode).to.equal(200);
-                done(); 
+        it("Home page rendered OK", done => {
+            chai.request("http://localhost:3000/home.html", (err, res, body) => {
+
+                done();
             });
         });
     });

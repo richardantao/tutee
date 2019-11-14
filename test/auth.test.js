@@ -39,7 +39,7 @@ describe("Authentication", () => {
             chai.request(server)
             .post("/contact")
             .end((err, res) => {
-                res.should.has.status(201)
+                res.should.has.status(201);
                 
                 done();
             });
@@ -103,6 +103,8 @@ describe("Authentication", () => {
             chai.request(server)
             .post("/signin")
             .end((err, res) => {
+                res.should.have.status(200);
+
                 done();
             });
         });
@@ -112,7 +114,7 @@ describe("Authentication", () => {
             chai.request(server)
             .post("/signin")
             .end((err, res) => {
-                res.should.have.status();
+                res.should.have.status(404);
 
                 done();
             });
@@ -135,14 +137,15 @@ describe("Authentication", () => {
             chai.request(server)
             .get("/user")
             .end((err, res) => {
-                res.should.have.status();
+                res.should.have.status(200);
+                res.body.should.be.a("object");
                 
                 done();
             });
         });
 
         // crash case - token.id not found 
-        it("", done => {
+        it("it should trigger a 404 status if the token details are not found", done => {
             chai.request(server)
             .get("/user")
             .end((err, res) => {
@@ -166,7 +169,7 @@ describe("Authentication", () => {
         });
 
         // crash case - 
-        it("it should ", done => {
+        it("it should trigger a ???", done => {
             chai.request(server)
             .delete("/signout")
             .end((err, res) => {
